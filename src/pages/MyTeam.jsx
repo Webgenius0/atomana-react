@@ -1,6 +1,6 @@
 import ChartCard from "@/components/ChartCard";
-import DataCard from "@/components/DataCard";
 import Dropdown from "@/components/Dropdown";
+import EssentialCard from "@/components/EssentialCard";
 import ProgressBar from "@/components/ProgressBar";
 import TabStepper from "@/components/TabStepper";
 import { useGetSystemsData } from "@/hooks/useGetSystemsData";
@@ -160,7 +160,7 @@ const MyTeam = () => {
             <h1 className="text-white text-xl">MyEssentials</h1>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-5">
       {data?.map((item) => (
-        <DataCard key={item?.id} data={item} />
+        <EssentialCard key={item?.id} data={item} />
       ))}
     </div>
 

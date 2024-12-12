@@ -16,7 +16,7 @@ import MySystemsSvgActive from "@/components/svgs/MySystemsSvgActive";
 
 const Header = () => {
   return (
-    <header className="sticky top-0 left-0 bg-dark">
+    <header className="sticky top-0 left-0 bg-dark z-10">
       <nav>
         <div className="border-b border-secondPrimary">
           <div className="my-container">
