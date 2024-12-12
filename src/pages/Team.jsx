@@ -1,7 +1,19 @@
-import React from "react";
+import DataCard from "@/components/DataCard";
+import { useGetSystemsData } from "@/hooks/useGetSystemsData";
 
 const Team = () => {
-  return <div>Team</div>;
+  const { data, isLoading, isError, error } = useGetSystemsData("team");
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error: {error.message}</div>;
+
+  return (
+    <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-5">
+      {data?.map((item) => (
+        <DataCard key={item?.id} data={item} />
+      ))}
+    </div>
+  );
 };
 
 export default Team;

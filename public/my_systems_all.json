@@ -1,0 +1,212 @@
+[
+  {
+    "id": "A123",
+    "type": "Open Houses",
+    "status": "In Review",
+    "lastActivity": "09/12",
+    "title": "Open House Request Form"
+  },
+  {
+    "id": "A124",
+    "type": "Open Houses",
+    "status": "Completed",
+    "lastActivity": "09/14",
+    "title": "Weekend Open House Event"
+  },
+  {
+    "id": "B321",
+    "type": "Finances",
+    "status": "Approved",
+    "lastActivity": "09/10",
+    "title": "Rental Payment Form"
+  },
+  {
+    "id": "B322",
+    "type": "Finances",
+    "status": "Pending",
+    "lastActivity": "09/13",
+    "title": "Invoice for Property Management"
+  },
+  {
+    "id": "C455",
+    "type": "New Listing",
+    "status": "Published",
+    "lastActivity": "09/11",
+    "title": "New Property Listing: Downtown Loft"
+  },
+  {
+    "id": "C456",
+    "type": "New Listing",
+    "status": "In Review",
+    "lastActivity": "09/15",
+    "title": "Modern Apartment in City Center"
+  },
+  {
+    "id": "D789",
+    "type": "New Contract",
+    "status": "Signed",
+    "lastActivity": "09/09",
+    "title": "Lease Agreement for 123 Main St"
+  },
+  {
+    "id": "D790",
+    "type": "New Contract",
+    "status": "Pending",
+    "lastActivity": "09/14",
+    "title": "Contract for New Rental Agreement"
+  },
+  {
+    "id": "E987",
+    "type": "Team",
+    "status": "Active",
+    "lastActivity": "09/07",
+    "title": "New Team Member: John Doe"
+  },
+  {
+    "id": "E988",
+    "type": "Team",
+    "status": "Inactive",
+    "lastActivity": "09/10",
+    "title": "Team Member: Jane Smith"
+  },
+  {
+    "id": "A125",
+    "type": "Open Houses",
+    "status": "In Progress",
+    "lastActivity": "09/13",
+    "title": "Luxury Home Open House"
+  },
+  {
+    "id": "B323",
+    "type": "Finances",
+    "status": "Approved",
+    "lastActivity": "09/09",
+    "title": "Property Rent Payment"
+  },
+  {
+    "id": "C457",
+    "type": "New Listing",
+    "status": "Published",
+    "lastActivity": "09/06",
+    "title": "New Listing: Cozy Cottage"
+  },
+  {
+    "id": "D791",
+    "type": "New Contract",
+    "status": "Completed",
+    "lastActivity": "09/11",
+    "title": "Signed Contract for Residential Property"
+  },
+  {
+    "id": "E989",
+    "type": "Team",
+    "status": "Active",
+    "lastActivity": "09/08",
+    "title": "Team Member: Alex Martin"
+  },
+  {
+    "id": "A126",
+    "type": "Open Houses",
+    "status": "Scheduled",
+    "lastActivity": "09/14",
+    "title": "Weekend Property Open House"
+  },
+  {
+    "id": "B324",
+    "type": "Finances",
+    "status": "Pending",
+    "lastActivity": "09/15",
+    "title": "Monthly Property Maintenance Fee"
+  },
+  {
+    "id": "C458",
+    "type": "New Listing",
+    "status": "In Review",
+    "lastActivity": "09/12",
+    "title": "Urban Penthouse Listing"
+  },
+  {
+    "id": "D792",
+    "type": "New Contract",
+    "status": "In Progress",
+    "lastActivity": "09/13",
+    "title": "New Contract for Lease"
+  },
+  {
+    "id": "E990",
+    "type": "Team",
+    "status": "Inactive",
+    "lastActivity": "09/09",
+    "title": "Team Member: Samantha Lee"
+  },
+  {
+    "id": "A127",
+    "type": "Open Houses",
+    "status": "Completed",
+    "lastActivity": "09/11",
+    "title": "Luxury Home Viewing"
+  },
+  {
+    "id": "B325",
+    "type": "Finances",
+    "status": "Approved",
+    "lastActivity": "09/08",
+    "title": "Utility Payment for Property"
+  },
+  {
+    "id": "C459",
+    "type": "New Listing",
+    "status": "Published",
+    "lastActivity": "09/10",
+    "title": "New Beachfront Property Listing"
+  },
+  {
+    "id": "D793",
+    "type": "New Contract",
+    "status": "Pending",
+    "lastActivity": "09/12",
+    "title": "Pending Rental Contract"
+  },
+  {
+    "id": "E991",
+    "type": "Team",
+    "status": "Active",
+    "lastActivity": "09/14",
+    "title": "New Team Addition: Mark Roberts"
+  },
+  {
+    "id": "A128",
+    "type": "Open Houses",
+    "status": "In Review",
+    "lastActivity": "09/15",
+    "title": "Open House at Historic Property"
+  },
+  {
+    "id": "B326",
+    "type": "Finances",
+    "status": "Pending",
+    "lastActivity": "09/13",
+    "title": "Outstanding Rent Payment"
+  },
+  {
+    "id": "C460",
+    "type": "New Listing",
+    "status": "In Review",
+    "lastActivity": "09/14",
+    "title": "Cozy Condo Listing"
+  },
+  {
+    "id": "D794",
+    "type": "New Contract",
+    "status": "Completed",
+    "lastActivity": "09/08",
+    "title": "Signed Lease Agreement"
+  },
+  {
+    "id": "E992",
+    "type": "Team",
+    "status": "Active",
+    "lastActivity": "09/15",
+    "title": "Team Member: Sarah Green"
+  }
+]

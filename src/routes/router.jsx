@@ -40,7 +40,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: ":activities",
+            path: "activities",
             element: (
               <PageTitle title="Activities">
                 <Activities />
@@ -48,7 +48,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: ":open-house",
+            path: "open-house",
             element: (
               <PageTitle title="Open House">
                 <OpenHouses />
@@ -56,7 +56,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: ":finances",
+            path: "finances",
             element: (
               <PageTitle title="Finances">
                 <Finances />
@@ -64,7 +64,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: ":new-listing",
+            path: "new-listing",
             element: (
               <PageTitle title="New Listing">
                 <NewListing />
@@ -72,7 +72,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: ":new-contract",
+            path: "new-contract",
             element: (
               <PageTitle title="New Contract">
                 <NewContract />
@@ -80,7 +80,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: ":team",
+            path: "team",
             element: (
               <PageTitle title="Team">
                 <Team />

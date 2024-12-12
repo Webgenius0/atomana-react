@@ -1,7 +1,7 @@
 import React from "react";
 
 const Activities = () => {
-  return <div>My System Activities</div>;
+  return <div>Activities</div>;
 };
 
 export default Activities;

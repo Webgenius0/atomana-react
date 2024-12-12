@@ -1,23 +1,7 @@
 import DataCard from "@/components/DataCard";
-import { useAxios } from "@/hooks/useAxios";
-import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
-
+import { useGetSystemsData } from "@/hooks/useGetSystemsData";
 const MySystems = () => {
-  const axios = useAxios();
-
-  const location = useLocation();
-
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["data"],
-    queryFn: async () => {
-      const response = await axios.get("/mysystems.json");
-      return response.data;
-    },
-  });
-
-  console.log(data);
+  const { data, isLoading, isError, error } = useGetSystemsData();
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error: {error.message}</div>;
