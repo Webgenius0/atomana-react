@@ -1,8 +1,7 @@
-import ApexChart from "./ApexChart";
 import BarCharts from "./BarChart";
 import Dropdown from "./Dropdown";
 
-const ChartCard = () => {
+const ChartCard = ({ data, xKey, yKey, yDomain }) => {
   const options = [
     { value: "This Month", label: " This Month" },
     { value: "This Year", label: "This Year" },
@@ -16,29 +15,32 @@ const ChartCard = () => {
     <>
       <div>
         <div className="max-w-sm w-full  rounded-lg shadow bg-[#242424] p-4 md:p-6">
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center mb-3">
             {/* Large Number */}
             <div className="text-white text-2xl font-semibold">
               $17,182,291.21
             </div>
 
             {/* Dropdown */}
-            <div className="w-40">
+            <div>
               <Dropdown
                 options={options}
-                placeholder="Choose an option"
+                
                 onSelect={handleSelect}
               />
             </div>
           </div>
-          <span className="text-green-600">+11% of target</span>
+          <span className="text-green-600 ">+11% of target</span>
 
-
-          <div>
-          <div >
-            {/* <ApexChart/> */}
-            <BarCharts/>
-          </div>
+          <div className="mt-7">
+            <div>
+              <BarCharts
+                data={data}
+                xKey={xKey}
+                yKey={yKey}
+                yDomain={yDomain}
+              />
+            </div>
           </div>
         </div>
       </div>

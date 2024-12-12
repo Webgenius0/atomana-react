@@ -1,6 +1,8 @@
 import ChartCard from "@/components/ChartCard";
+import Dropdown from "@/components/Dropdown";
+import ProgressBar from "@/components/ProgressBar";
 import TabStepper from "@/components/TabStepper";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const MyTeam = () => {
   const tabs = [
@@ -13,13 +15,61 @@ const MyTeam = () => {
     console.log("Selected Value:", value);
     setSelectedValue(value);
   };
+  const [chartData, setChartData] = useState([]);
+  const progressValues = [10, 30, 24, 45, 60, 75, 50, 80];
+  useEffect(() => {
+    // Simulate API call
+    const fetchData = async () => {
+      const response = [
+        {
+          id: 1,
+          data: [{ name: "January", value: 200 }],
+          xKey: "name",
+          yKey: "value",
+          yDomain: [0, 400], // The yDomain will adjust dynamically
+        },
+        {
+          id: 2,
+          data: [{ name: "Q1", amount: 100000 }],
+          xKey: "name",
+          yKey: "amount",
+          yDomain: [0, 1000000], // Adjust dynamically based on max value
+        },
+        {
+          id: 3,
+          data: [{ name: "Item A", sales: 30000 }],
+          xKey: "name",
+          yKey: "sales",
+          yDomain: [0, 200000], // Adjust dynamically based on max value
+        },
+        {
+          id: 4,
+          data: [{ name: "John", salary: 300 }],
+          xKey: "name",
+          yKey: "salary",
+          yDomain: [0, 400], // Adjust dynamically based on max value
+        },
+      ];
+      setChartData(response);
+    };
 
+    fetchData();
+  }, []);
+
+  const options = [
+    { value: "This Month", label: " This Month" },
+    { value: "This Year", label: "This Year" },
+    { value: "option3", label: "Option 3" },
+  ];
+  const handleSelect = (option) => {
+    console.log("Selected option:", option);
+  };
   return (
     <>
-      <div>
+      <div className="container mx-auto">
         <TabStepper tabs={tabs} />
         <div>
-          <div>
+          <div className="mt-5 mb-5">
             <h1 className="text-white">MyData</h1>
             <div className="flex gap-5 pt-5">
               <div className="flex items-center ml-5">
@@ -68,15 +118,39 @@ const MyTeam = () => {
             </div>
           </div>
           <div>
-            <div className="grid grid-cols-4 gap-5">
-
-              <ChartCard/>
-              <ChartCard/>
-              <ChartCard/>
-              <ChartCard/>
-
-
+            <div className=" grid grid-cols-4 gap-5">
+              {chartData.map((chart) => (
+                <ChartCard
+                  key={chart.id}
+                  data={chart.data}
+                  xKey={chart.xKey}
+                  yKey={chart.yKey}
+                  yDomain={chart.yDomain}
+                />
+              ))}
             </div>
+          </div>
+          <div>
+            <div className="bg-[#242424] mt-5 p-5">
+              <div className="flex justify-between">
+                <h1 className="text-white text-xl">Agent Leaderboard</h1>
+                <div>
+                  <Dropdown options={options} onSelect={handleSelect}/>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 w-full  rounded  ">
+                {progressValues.map((progress, index) => (
+                  <div key={index} className="w-full">
+                    <ProgressBar progress={progress} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+
+          <div>
+            <h1>MyEssentials</h1>
           </div>
         </div>
       </div>
