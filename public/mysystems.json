@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "type": "Open Houses",
+    "status": "In Review",
+    "lastActivity": "09/12",
+    "title": "Open House Request Form"
+  },
+  {
+    "id": 2,
+    "type": "New Application",
+    "status": "Approved",
+    "lastActivity": "09/10",
+    "title": "Rental Application Form"
+  },
+  {
+    "id": 3,
+    "type": "Maintenance",
+    "status": "Pending",
+    "lastActivity": "09/08",
+    "title": "Maintenance Request Form"
+  },
+  {
+    "id": 4,
+    "type": "Lease Renewal",
+    "status": "Completed",
+    "lastActivity": "09/05",
+    "title": "Lease Renewal Form"
+  },
+  {
+    "id": 5,
+    "type": "Complaint",
+    "status": "In Progress",
+    "lastActivity": "09/11",
+    "title": "Noise Complaint Report"
+  }
+]
