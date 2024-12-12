@@ -1,7 +1,9 @@
 import ChartCard from "@/components/ChartCard";
+import DataCard from "@/components/DataCard";
 import Dropdown from "@/components/Dropdown";
 import ProgressBar from "@/components/ProgressBar";
 import TabStepper from "@/components/TabStepper";
+import { useGetSystemsData } from "@/hooks/useGetSystemsData";
 import { useEffect, useState } from "react";
 
 const MyTeam = () => {
@@ -64,6 +66,11 @@ const MyTeam = () => {
   const handleSelect = (option) => {
     console.log("Selected option:", option);
   };
+
+  const { data, isLoading, isError, error } = useGetSystemsData("team");
+  
+    if (isLoading) return <div>Loading...</div>;
+    if (isError) return <div>Error: {error.message}</div>;
   return (
     <>
       <div className="container mx-auto">
@@ -131,7 +138,7 @@ const MyTeam = () => {
             </div>
           </div>
           <div>
-            <div className="bg-[#242424] mt-5 p-5">
+            <div className="bg-[#242424] mt-5 p-5 rounded">
               <div className="flex justify-between">
                 <h1 className="text-white text-xl">Agent Leaderboard</h1>
                 <div>
@@ -150,7 +157,16 @@ const MyTeam = () => {
 
 
           <div>
-            <h1>MyEssentials</h1>
+            <h1 className="text-white text-xl">MyEssentials</h1>
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-5">
+      {data?.map((item) => (
+        <DataCard key={item?.id} data={item} />
+      ))}
+    </div>
+
+            <div>
+
+            </div>
           </div>
         </div>
       </div>
