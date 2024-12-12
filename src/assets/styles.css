@@ -56,4 +56,11 @@ body {
   .nav-item.active {
     @apply bg-light text-dark;
   }
+
+  .pagination-index {
+    @apply flex items-center justify-center w-[26px] h-[26px] rounded-full bg-inherit border-none text-xs font-medium leading-[21px] tracking-[-0.12px] text-secondary duration-300 active:scale-95;
+  }
+  .pagination-index.active {
+    @apply bg-light text-dark;
+  }
 }
