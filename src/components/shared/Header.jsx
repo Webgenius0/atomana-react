@@ -84,13 +84,16 @@ const Header = () => {
                   <Notification />
                 </div>
 
-                <div className="w-[45px] h-[45px] rounded-full overflow-hidden">
+                <Link
+                  to="/profile"
+                  className="w-[45px] h-[45px] rounded-full overflow-hidden"
+                >
                   <img
                     src={profileAvatar}
                     alt="profile"
                     className="w-full h-full object-cover"
                   />
-                </div>
+                </Link>
               </div>
             </div>
           </div>

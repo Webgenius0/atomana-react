@@ -13,6 +13,7 @@ export default {
       fontFamily: {
         Inter: ["Inter", "sans-serif"],
         Inria: ["Inria Serif", "sans-serif"],
+        Roboto: ["Roboto", "sans-serif"],
       },
     },
   },

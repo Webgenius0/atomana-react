@@ -13,6 +13,10 @@ import Finances from "@/pages/Finances";
 import NewListing from "@/pages/NewListing";
 import NewContract from "@/pages/NewContract";
 import Team from "@/pages/Team";
+import Profile from "@/pages/Profile";
+import AccountInformation from "@/pages/AccountInformation";
+import BusinessInformation from "@/pages/BusinessInformation";
+import ManageTeam from "@/pages/ManageTeam";
 
 const router = createBrowserRouter([
   {
@@ -110,6 +114,38 @@ const router = createBrowserRouter([
         element: (
           <PageTitle title="My PR">
             <MyPR />
+          </PageTitle>
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <PageTitle title="Profile">
+            <Profile />
+          </PageTitle>
+        ),
+      },
+      {
+        path: "/account-information",
+        element: (
+          <PageTitle title="Account Information">
+            <AccountInformation />
+          </PageTitle>
+        ),
+      },
+      {
+        path: "/business-information",
+        element: (
+          <PageTitle title="Business Information">
+            <BusinessInformation />
+          </PageTitle>
+        ),
+      },
+      {
+        path: "/manage-team",
+        element: (
+          <PageTitle title="Manage Team And Permission">
+            <ManageTeam  />
           </PageTitle>
         ),
       },

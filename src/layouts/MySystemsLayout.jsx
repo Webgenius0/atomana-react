@@ -39,7 +39,7 @@ const MySystemsLayout = () => {
   return (
     <section className="pt-6">
       <div className="my-container">
-        <h2 className="text-light font-Inria text-xl italic font-bold leading-6 tracking-[-0.2px] capitalize">
+        <h2 className="section-title">
           Systems
         </h2>
         <SubTabs tabLinks={systemTabs} />
