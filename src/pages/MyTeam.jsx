@@ -1,6 +1,7 @@
 import ChartCard from "@/components/ChartCard";
 import Dropdown from "@/components/Dropdown";
 import EssentialCard from "@/components/EssentialCard";
+import Pagination from "@/components/Pagination";
 import ProgressBar from "@/components/ProgressBar";
 import TabStepper from "@/components/TabStepper";
 import { useGetSystemsData } from "@/hooks/useGetSystemsData";
@@ -80,7 +81,7 @@ const MyTeam = () => {
   const handleSelect = (option) => {
     console.log("Selected option:", option);
   };
-
+  const [currentPage, setCurrentPage] = useState(1);
   const { data, isLoading, isError, error } = useGetSystemsData("team");
   
     if (isLoading) return <div>Loading...</div>;
@@ -166,6 +167,15 @@ const MyTeam = () => {
       <ProgressBar name={item.name} sales={item.sales} progress={item.progress} />
     </div>
   ))}
+
+
+
+  <div>
+    <Pagination  currentPage={currentPage}
+        totalItems={45}
+        itemsPerPage={12}
+        onPageChange={(page) => setCurrentPage(page)} />
+  </div>
               </div>
             </div>
           </div>
