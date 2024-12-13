@@ -1,23 +1,34 @@
 import { FaCalendarAlt } from "react-icons/fa";
 import { IoTime } from "react-icons/io5";
+import img from "../../public/img1.png";
+import { RiCopyrightFill } from "react-icons/ri";
 
 const CourseCard = ({ data }) => {
-  const { type, title, status, lastActivity, lessons = 0, duration = "0 hrs" } = data;
+  const { type, title, lessons = 0, duration = "0 hrs" } = data;
 
   return (
-    <div className="rounded-2xl bg-[#242424] py-4 px-6 hover:shadow-[2px_2px_4px] hover:shadow-[#009696] duration-300 ease-in-out">
-      <img
-        className="rounded-t-lg"
-        src="/docs/images/blog/image-1.jpg"
-        alt={title || "Course Thumbnail"}
-      />
-      <div className="flex items-center justify-between mb-4">
+    <div className="relative rounded-2xl bg-[#242424] hover:shadow-[2px_2px_4px] hover:shadow-[#009696] duration-300 ease-in-out">
+      {/* Top Section with Badge and Icon */}
+      <div className="absolute top-2 left-2 right-2 flex items-center justify-between px-4 z-10">
+        {/* Badge */}
         <div className="flex py-1 px-2 justify-center items-center gap-1 rounded-lg border border-[#009696] bg-secondPrimary text-[#ccc] text-xs leading-[21px] tracking-[-0.12px]">
           <span className="w-[9px] h-[9px] rounded-full bg-[#009696]"></span>
           {type}
         </div>
+
+        {/* Icon */}
+        <RiCopyrightFill className="text-[#ccc] text-lg" />
       </div>
-      <div>
+
+      {/* Image */}
+      <img
+        className="rounded-t-lg h-[150px] w-full"
+        src={img}
+        alt={title || "Course Thumbnail"}
+      />
+
+      {/* Content */}
+      <div className="p-4">
         <h3 className="text-light text-xl font-semibold leading-[21px] tracking-[-0.2px] mb-6">
           {title}
         </h3>
