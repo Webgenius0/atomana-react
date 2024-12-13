@@ -2,7 +2,7 @@ import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
 import FileSvg from "@/components/svgs/FileSvg";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const EditTeamMember = () => {
   const [fileName, setFileName] = useState("Jamal_Ahmed_Employee_Contract.pdf");
@@ -13,7 +13,12 @@ const EditTeamMember = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const navigate = useNavigate();
+
+  const onSubmit = (data) => {
+    console.log(data);
+    navigate("/member-profile");
+  };
 
   console.log(watch("example"));
 

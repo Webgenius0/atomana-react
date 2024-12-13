@@ -2,7 +2,7 @@ import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
 import FileSvg from "@/components/svgs/FileSvg";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const AddTeamMember = () => {
   const [fileName, setFileName] = useState("Select File");
@@ -13,7 +13,11 @@ const AddTeamMember = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const navigate = useNavigate();
+
+  const onSubmit = (data) => {
+    navigate("/manage-team");
+  };
 
   console.log(watch("example"));
 

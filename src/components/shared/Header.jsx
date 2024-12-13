@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "@/assets/images/logo.png";
-import profileAvatar from "@/assets/images/profile-avatar.png";
+import profileAvatar from "@/assets/images/profile.png";
 import Notification from "@/components/Notification";
 import MyTeamSvg from "@/components/svgs/MyTeamSvg";
 import MyTeamSvgActive from "@/components/svgs/MyTeamSvgActive";

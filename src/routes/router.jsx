@@ -19,6 +19,7 @@ import BusinessInformation from "@/pages/BusinessInformation";
 import ManageTeam from "@/pages/ManageTeam";
 import AddTeamMember from "@/pages/AddTeamMember";
 import EditTeamMember from "@/pages/EditTeamMember";
+import MemberProfile from "@/pages/MemberProfile";
 
 const router = createBrowserRouter([
   {
@@ -164,6 +165,14 @@ const router = createBrowserRouter([
         element: (
           <PageTitle title="Edit Team Member">
             <EditTeamMember />
+          </PageTitle>
+        ),
+      },
+      {
+        path: "/member-profile",
+        element: (
+          <PageTitle title="Member Profile">
+            <MemberProfile />
           </PageTitle>
         ),
       },
