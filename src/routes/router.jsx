@@ -18,6 +18,7 @@ import AccountInformation from "@/pages/AccountInformation";
 import BusinessInformation from "@/pages/BusinessInformation";
 import ManageTeam from "@/pages/ManageTeam";
 import AddTeamMember from "@/pages/AddTeamMember";
+import EditTeamMember from "@/pages/EditTeamMember";
 
 const router = createBrowserRouter([
   {
@@ -155,6 +156,14 @@ const router = createBrowserRouter([
         element: (
           <PageTitle title="Add A Team Member">
             <AddTeamMember />
+          </PageTitle>
+        ),
+      },
+      {
+        path: "/edit-team-member",
+        element: (
+          <PageTitle title="Edit Team Member">
+            <EditTeamMember />
           </PageTitle>
         ),
       },

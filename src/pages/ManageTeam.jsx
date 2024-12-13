@@ -59,7 +59,10 @@ const ManageTeam = () => {
             <PhoneSvg />
             <MessageSvg />
             <MailSvg />
-            <Link className="text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase">
+            <Link
+              to="/edit-team-member"
+              className="text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
+            >
               EDIT
             </Link>
           </div>
@@ -83,7 +86,10 @@ const ManageTeam = () => {
             <PhoneSvg />
             <MessageSvg />
             <MailSvg />
-            <Link className="text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase">
+            <Link
+              to="/edit-team-member"
+              className="text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
+            >
               EDIT
             </Link>
           </div>
@@ -107,7 +113,10 @@ const ManageTeam = () => {
             <PhoneSvg />
             <MessageSvg />
             <MailSvg />
-            <Link className="text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase">
+            <Link
+              to="/edit-team-member"
+              className="text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
+            >
               EDIT
             </Link>
           </div>
@@ -131,7 +140,37 @@ const ManageTeam = () => {
             <PhoneSvg />
             <MessageSvg />
             <MailSvg />
-            <Link className="text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase">
+            <Link
+              to="/edit-team-member"
+              className="text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
+            >
+              EDIT
+            </Link>
+          </div>
+        </div>
+        <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
+          <div className="flex items-center gap-1">
+            <img
+              src={memberImg}
+              alt="member image"
+              className="w-10 h-10 rounded-full"
+            />
+            <div className="space-y-[2px]">
+              <p className="text-light text-base font-medium leading-[18px] tracking-[-0.16px]">
+                Lindsey Sargo
+              </p>
+              <p className="text-sm font-medium leading-5 text-light">Agent</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-5">
+            <PhoneSvg />
+            <MessageSvg />
+            <MailSvg />
+            <Link
+              to="/edit-team-member"
+              className="text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
+            >
               EDIT
             </Link>
           </div>
