@@ -1,8 +1,9 @@
 import React from "react";
+import ProfileAvatar from "@/assets/images/profile.png";
 
 const Notification = () => {
   return (
-    <div className="absolute top-10 right-0 bg-[#4a4a4a] w-[500px] rounded-xl opacity-0 invisible -translate-y-2.5 z-50 overflow-hidden transition-opacity duration-300 ease-in-out transform shadow-lg">
+    <div className="absolute top-10 right-0 bg-[#4a4a4a] w-[500px] rounded-xl z-50 overflow-hidden duration-300 ease-in-out transform shadow-lg">
       <div className="flex justify-between items-center p-6 border-b border-secondPrimary">
         <h3 className="text-[#fff] text-2xl font-semibold tracking-tight m-0">
           Notification
@@ -61,7 +62,7 @@ const Notification = () => {
         <div className="p-6 border-t border-secondPrimary">
           <div className="flex gap-1">
             <img
-              src="./assets/images/user.png"
+              src={ProfileAvatar}
               className="w-10 h-10 rounded-full "
               alt="User Avatar"
             />
@@ -127,7 +128,7 @@ const Notification = () => {
         <div className="p-6 border-t border-secondPrimary">
           <div className="flex gap-1">
             <img
-              src="./assets/images/user.png"
+              src={ProfileAvatar}
               className="w-10 h-10 rounded-full "
               alt="User Avatar"
             />
@@ -193,7 +194,7 @@ const Notification = () => {
         <div className="p-6 border-t border-secondPrimary">
           <div className="flex gap-1">
             <img
-              src="./assets/images/user.png"
+              src={ProfileAvatar}
               className="w-10 h-10 rounded-full "
               alt="User Avatar"
             />
@@ -259,7 +260,7 @@ const Notification = () => {
         <div className="p-6 border-t border-secondPrimary">
           <div className="flex gap-1">
             <img
-              src="./assets/images/user.png"
+              src={ProfileAvatar}
               className="w-10 h-10 rounded-full "
               alt="User Avatar"
             />
@@ -325,7 +326,7 @@ const Notification = () => {
         <div className="p-6 border-t border-secondPrimary">
           <div className="flex gap-1">
             <img
-              src="./assets/images/user.png"
+              src={ProfileAvatar}
               className="w-10 h-10 rounded-full "
               alt="User Avatar"
             />
