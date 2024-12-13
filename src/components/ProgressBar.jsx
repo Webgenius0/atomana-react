@@ -15,7 +15,7 @@ const ProgressBar = ({ progress }) => {
         <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
           <div
             className="bg-[#009696] h-2.5 rounded-full"
-            style={{ width: `${progress}%` }} // Dynamically set width using the `progress` prop
+            style={{ width: `${progress}%` }} 
           ></div>
         </div>
       </div>
@@ -23,8 +23,6 @@ const ProgressBar = ({ progress }) => {
   );
 };
 
-ProgressBar.propTypes = {
-  progress: PropTypes.number.isRequired, // Ensure that `progress` is a number
-};
+
 
 export default ProgressBar;

@@ -1,0 +1,27 @@
+[
+    {
+        
+            "id": "A123",
+            "type": "Open Houses",
+            "status": "In Review",
+            "lastActivity": "09/12",
+            "title": "Open House Request Form",
+            "progress": 45, 
+            "lessons": 10, 
+            "duration": "2 hrs"
+          
+    },
+    
+    {
+        
+        "id": "A123",
+        "type": "Open Houses",
+        "status": "In Review",
+        "lastActivity": "09/12",
+        "title": "Open House Request Form",
+        "progress": 50, 
+        "lessons": 10, 
+        "duration": "2 hrs"
+      
+}
+]

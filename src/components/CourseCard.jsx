@@ -9,7 +9,7 @@ const CourseCard = ({ data }) => {
   return (
     <div className="relative rounded-2xl bg-[#242424] hover:shadow-[2px_2px_4px] hover:shadow-[#009696] duration-300 ease-in-out">
       {/* Top Section with Badge and Icon */}
-      <div className="absolute top-2 left-2 right-2 flex items-center justify-between px-4 z-10">
+      <div className="absolute top-2 left-2 right-2 flex items-center justify-between px-4 ">
         {/* Badge */}
         <div className="flex py-1 px-2 justify-center items-center gap-1 rounded-lg border border-[#009696] bg-secondPrimary text-[#ccc] text-xs leading-[21px] tracking-[-0.12px]">
           <span className="w-[9px] h-[9px] rounded-full bg-[#009696]"></span>
@@ -33,20 +33,24 @@ const CourseCard = ({ data }) => {
           {title}
         </h3>
         <div className="flex items-center justify-between">
-          <div className="flex justify-between items-center gap-2 w-full text-light bg-[#505050] rounded-full px-3 py-1 text-xs font-medium leading-[21px] tracking-[-0.12px]">
-            <div className="flex justify-center items-center gap-2 border-r-2 pr-2">
-              <span>
-                <FaCalendarAlt />
-              </span>
-              <span>{lessons}</span> Lessons
-            </div>
-            <div className="flex justify-center items-center gap-2">
-              <span>
-                <IoTime />
-              </span>
-              <span>{duration}</span>
-            </div>
-          </div>
+        <div className="flex justify-between items-center gap-2 w-full text-light bg-[#505050] rounded-full px-3 py-1 text-xs font-medium leading-[21px] tracking-[-0.12px]">
+  {/* Left Section */}
+  <div className="flex justify-center items-center gap-2 border-r border-[#ccc] pr-2">
+    <span>
+      <FaCalendarAlt />
+    </span>
+    <span>{lessons}</span> Lessons
+  </div>
+
+  {/* Right Section */}
+  <div className="flex justify-center items-center gap-2 pl-2">
+    <span>
+      <IoTime />
+    </span>
+    <span>{duration}</span>
+  </div>
+</div>
+
         </div>
       </div>
     </div>

@@ -20,6 +20,7 @@ import ManageTeam from "@/pages/ManageTeam";
 import AddTeamMember from "@/pages/AddTeamMember";
 import EditTeamMember from "@/pages/EditTeamMember";
 import MemberProfile from "@/pages/MemberProfile";
+import CourseDetails from "@/pages/CourseDetails";
 
 const router = createBrowserRouter([
   {
@@ -109,6 +110,14 @@ const router = createBrowserRouter([
         element: (
           <PageTitle title="My Classroom">
             <MyClassroom />
+          </PageTitle>
+        ),
+      },
+      {
+        path: "/course-details",
+        element: (
+          <PageTitle title="Course Details">
+            <CourseDetails />
           </PageTitle>
         ),
       },
