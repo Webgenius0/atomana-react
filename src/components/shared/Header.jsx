@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "@/assets/images/logo.png";
 import profileAvatar from "@/assets/images/profile.png";
@@ -15,8 +15,14 @@ import MyPrSvgActive from "@/components/svgs/MyPrSvgActive";
 import MySystemsSvgActive from "@/components/svgs/MySystemsSvgActive";
 
 const Header = () => {
+  const [showNotification, setShowNotification] = useState(false);
+
+  const handleNotificationClick = () => {
+    setShowNotification((prev) => !prev); // Toggle notification visibility
+  };
+
   return (
-    <header className="sticky top-0 left-0 bg-dark z-10">
+    <header className="sticky top-0 left-0 bg-dark z-50">
       <nav>
         <div className="border-b border-secondPrimary">
           <div className="my-container">
@@ -64,7 +70,10 @@ const Header = () => {
                 />
               </label>
               <div className="flex items-center gap-5">
-                <div className="relative cursor-pointer">
+                <div
+                  className="cursor-pointer relative"
+                  onClick={handleNotificationClick}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -80,8 +89,7 @@ const Header = () => {
                   <span className="absolute top-[-5px] right-[-5px] flex items-center justify-center w-[18px] h-[18px] rounded-full border-2 border-gray-900 bg-teal-500 text-white text-[8px] font-medium flex-shrink-0">
                     13
                   </span>
-
-                  <Notification />
+                  {showNotification && <Notification />}
                 </div>
 
                 <Link

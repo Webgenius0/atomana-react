@@ -25,6 +25,12 @@ body {
   margin: 0 auto;
 }
 
+@media screen and (max-width: 1550px) {
+  .my-container {
+    padding: 0 20px;
+  }
+}
+
 @layer components {
   .section-title {
     @apply text-light font-Inria text-xl italic font-bold leading-6 tracking-[-0.2px] capitalize;
