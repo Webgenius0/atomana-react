@@ -36,23 +36,23 @@ const MyTeam = () => {
       const response = [
         {
           id: 1,
-          data: [{ name: "Dec", value: 200 }],
+          data: [{ name: "Dec", CurrentSalesVolume: 200 }],
           xKey: "name",
-          yKey: "Current Sales Volume",
+          yKey: "CurrentSalesVolume",
           yDomain: [0, 400], 
           total:'$ 17,182,291.21'
         },
         {
           id: 2,
-          data: [{ name: "Dec", amount: 100000 }],
+          data: [{ name: "Dec", UnitsSold: 100000 }],
           xKey: "name",
-          yKey: "Units Sold",
+          yKey: "UnitsSold",
           yDomain: [0, 1000000], 
           total:'345'
         },
         {
           id: 3,
-          data: [{ name: "Dec", sales: 30000 }],
+          data: [{ name: "Dec", Expenses: 30000 }],
           xKey: "name",
           yKey: "Expenses",
           yDomain: [0, 200000],
@@ -60,12 +60,13 @@ const MyTeam = () => {
         },
         {
           id: 4,
-          data: [{ name: "Dec", salary: 300 }],
+          data: [{ name: "Dec", GrossProfit: 300 }],
           xKey: "name",
-          yKey: "Gross Profit",
+          yKey: "GrossProfit",
           yDomain: [0, 400], 
           total:'$ 192,812.94'
         },
+      
       ];
       setChartData(response);
     };
