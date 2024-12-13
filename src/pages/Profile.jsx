@@ -48,7 +48,10 @@ const Profile = () => {
             </span>
             <ArrowGreaterSvg />
           </Link>
-          <Link className="flex items-center justify-between gap-4 border-b border-secondPrimary py-4 duration-300 hover:opacity-60">
+          <Link
+            to="/manage-team"
+            className="flex items-center justify-between gap-4 border-b border-secondPrimary py-4 duration-300 hover:opacity-60"
+          >
             <span className="text-sm font-medium leading-5 text-light">
               Manage Team and Permissions
             </span>
