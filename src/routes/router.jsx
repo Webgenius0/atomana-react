@@ -13,6 +13,8 @@ import Finances from "@/pages/Finances";
 import NewListing from "@/pages/NewListing";
 import NewContract from "@/pages/NewContract";
 import Team from "@/pages/Team";
+import Profile from "@/pages/Profile";
+import AccountInformation from "@/pages/AccountInformation";
 
 const router = createBrowserRouter([
   {
@@ -110,6 +112,22 @@ const router = createBrowserRouter([
         element: (
           <PageTitle title="My PR">
             <MyPR />
+          </PageTitle>
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <PageTitle title="Profile">
+            <Profile />
+          </PageTitle>
+        ),
+      },
+      {
+        path: "/account-information",
+        element: (
+          <PageTitle title="Account Information">
+            <AccountInformation />
           </PageTitle>
         ),
       },

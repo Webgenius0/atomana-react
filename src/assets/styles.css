@@ -26,6 +26,10 @@ body {
 }
 
 @layer components {
+  .section-title {
+    @apply text-light font-Inria text-xl italic font-bold leading-6 tracking-[-0.2px] capitalize;
+  }
+
   .tab {
     @apply py-[2.5px] px-2.5 text-center font-medium leading-[21px] tracking-[-0.12px] bg-inherit border-none cursor-pointer duration-300 ease-linear text-xs rounded-full active:scale-95 text-secondary hover:bg-light hover:text-dark;
   }
