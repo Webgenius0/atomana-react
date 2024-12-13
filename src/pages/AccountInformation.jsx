@@ -44,7 +44,7 @@ const AccountInformation = () => {
           <p className="text-sm font-medium leading-5 text-light">Active </p>
         </div>
 
-        <div className="border-b border-secondPrimary py-4 flex items-center justify-between">
+        <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
           <div className="space-y-[2px]">
             <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
               Home address
@@ -59,7 +59,7 @@ const AccountInformation = () => {
             EDIT
           </button>
         </div>
-        <div className="border-b border-secondPrimary py-4 flex items-center justify-between">
+        <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
           <div className="space-y-[2px]">
             <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
               Personal email address
@@ -73,7 +73,7 @@ const AccountInformation = () => {
             MANAGE
           </button>
         </div>
-        <div className="border-b border-secondPrimary py-4 flex items-center justify-between">
+        <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
           <div className="space-y-[2px]">
             <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
               Phone number
@@ -87,7 +87,7 @@ const AccountInformation = () => {
             MANAGE
           </button>
         </div>
-        <div className="border-b border-secondPrimary py-4 flex items-center justify-between">
+        <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
           <div className="space-y-[2px]">
             <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
               Birthday
@@ -101,7 +101,7 @@ const AccountInformation = () => {
             MANAGE
           </button>
         </div>
-        <div className="border-b border-secondPrimary py-4 flex items-center justify-between">
+        <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
           <div className="space-y-[2px]">
             <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
               Spears Group anniversary Home address
@@ -115,7 +115,7 @@ const AccountInformation = () => {
             EDIT
           </button>
         </div>
-        <div className="border-b border-secondPrimary py-4 flex items-center justify-between">
+        <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
           <div className="space-y-[2px]">
             <p className="font-bold leading-5 text-sm text-[#ffffffcc] mb-1">
               Social media
@@ -131,7 +131,7 @@ const AccountInformation = () => {
             EDIT
           </button>
         </div>
-        <div className="border-b border-secondPrimary py-4 flex items-center justify-between">
+        <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
           <div className="space-y-[2px]">
             <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
               About Me

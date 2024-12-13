@@ -15,6 +15,7 @@ import NewContract from "@/pages/NewContract";
 import Team from "@/pages/Team";
 import Profile from "@/pages/Profile";
 import AccountInformation from "@/pages/AccountInformation";
+import BusinessInformation from "@/pages/BusinessInformation";
 
 const router = createBrowserRouter([
   {
@@ -128,6 +129,14 @@ const router = createBrowserRouter([
         element: (
           <PageTitle title="Account Information">
             <AccountInformation />
+          </PageTitle>
+        ),
+      },
+      {
+        path: "/business-information",
+        element: (
+          <PageTitle title="Business Information">
+            <BusinessInformation />
           </PageTitle>
         ),
       },

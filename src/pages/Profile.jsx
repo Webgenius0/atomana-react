@@ -18,7 +18,7 @@ const Profile = () => {
         </p>
       </div>
 
-      <div className="flex flex-col gap-[25px]"> 
+      <div className="flex flex-col gap-[25px]">
         <div>
           <h2 className="section-title mb-5">Personal</h2>
           <Link
@@ -39,7 +39,10 @@ const Profile = () => {
         </div>
         <div>
           <h2 className="section-title mb-5">Business</h2>
-          <Link className="flex items-center justify-between gap-4 border-b border-secondPrimary py-4 duration-300 hover:opacity-60">
+          <Link
+            to="/business-information"
+            className="flex items-center justify-between gap-4 border-b border-secondPrimary py-4 duration-300 hover:opacity-60"
+          >
             <span className="text-sm font-medium leading-5 text-light">
               Business Information
             </span>
