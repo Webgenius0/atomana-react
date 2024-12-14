@@ -9,7 +9,6 @@ const MySystemsLayout = () => {
       label: "All",
       link: "/my-systems",
     },
-
     {
       label: "Activities",
       link: "/my-systems/activities",
@@ -43,7 +42,10 @@ const MySystemsLayout = () => {
       <div className="my-container">
         <div
           className={
-            location === "/my-systems/team/our-mission" ? "hidden" : "block"
+            location === "/my-systems/team/our-mission" ||
+            location === "/my-systems/open-house/open-house-form"
+              ? "hidden"
+              : "block"
           }
         >
           <h2 className="section-title">Systems</h2>

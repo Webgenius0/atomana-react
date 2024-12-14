@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import ThreeDotsSvg from "./svgs/ThreeDotsSvg";
 
 const DataCard = ({ data, children }) => {
-  const navigate = useNavigate();
   const { type, title } = data;
+  const navigate = useNavigate();
 
   const handleCardClick = (title) => {
     if (title === "Our Mission") {
