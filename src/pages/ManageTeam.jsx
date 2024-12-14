@@ -21,7 +21,7 @@ const ManageTeam = () => {
         </Link>
 
         <Link
-          to="/add-team-member"
+          to="/profile/add-team-member"
           className="flex items-center gap-2.5 text-sm leading-6 tracking-[-0.14px] text-light hover:opacity-60 duration-300"
         >
           Add team member
@@ -60,7 +60,34 @@ const ManageTeam = () => {
             <MessageSvg />
             <MailSvg />
             <Link
-              to="/edit-team-member"
+              to="/profile/edit-team-member"
+              className="text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
+            >
+              EDIT
+            </Link>
+          </div>
+        </div>
+        <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
+          <div className="flex items-center gap-1">
+            <img
+              src={memberImg}
+              alt="member image"
+              className="w-10 h-10 rounded-full"
+            />
+            <div className="space-y-[2px]">
+              <p className="text-light text-base font-medium leading-[18px] tracking-[-0.16px]">
+                Lindsey Sargo
+              </p>
+              <p className="text-sm font-medium leading-5 text-light">Agent</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-5">
+            <PhoneSvg />
+            <MessageSvg />
+            <MailSvg />
+            <Link
+              to="/profile/edit-team-member"
               className="text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
             >
               EDIT
@@ -114,7 +141,7 @@ const ManageTeam = () => {
             <MessageSvg />
             <MailSvg />
             <Link
-              to="/edit-team-member"
+              to="/profile/edit-team-member"
               className="text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
             >
               EDIT
@@ -141,34 +168,7 @@ const ManageTeam = () => {
             <MessageSvg />
             <MailSvg />
             <Link
-              to="/edit-team-member"
-              className="text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
-            >
-              EDIT
-            </Link>
-          </div>
-        </div>
-        <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
-          <div className="flex items-center gap-1">
-            <img
-              src={memberImg}
-              alt="member image"
-              className="w-10 h-10 rounded-full"
-            />
-            <div className="space-y-[2px]">
-              <p className="text-light text-base font-medium leading-[18px] tracking-[-0.16px]">
-                Lindsey Sargo
-              </p>
-              <p className="text-sm font-medium leading-5 text-light">Agent</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-5">
-            <PhoneSvg />
-            <MessageSvg />
-            <MailSvg />
-            <Link
-              to="/edit-team-member"
+              to="/profile/edit-team-member"
               className="text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
             >
               EDIT

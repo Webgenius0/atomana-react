@@ -28,7 +28,7 @@ const Header = () => {
           <div className="my-container">
             <div className="flex items-center justify-between py-[17px]">
               {/* logo */}
-              <Link to="/my-team" className="max-w-[80px] overflow-hidden">
+              <Link to="/" className="max-w-[80px] overflow-hidden">
                 <img
                   src={logo}
                   alt="logo"

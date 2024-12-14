@@ -17,7 +17,7 @@ const EditTeamMember = () => {
 
   const onSubmit = (data) => {
     console.log(data);
-    navigate("/member-profile");
+    navigate("/profile/member-profile");
   };
 
   console.log(watch("example"));
@@ -37,7 +37,7 @@ const EditTeamMember = () => {
   return (
     <div className="my-container py-12">
       <Link
-        to="/manage-team"
+        to="/profile/manage-team"
         className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit"
       >
         <ArrowLeftSvg />
