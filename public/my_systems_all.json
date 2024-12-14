@@ -60,14 +60,14 @@
     "type": "Team",
     "status": "In Review",
     "lastActivity": "09/07",
-    "title": "New Team Member: John Doe"
+    "title": "Our Mission"
   },
   {
     "id": "E988",
     "type": "Team",
     "status": "In Review",
     "lastActivity": "09/10",
-    "title": "Team Member: Jane Smith"
+    "title": "Vendor List"
   },
   {
     "id": "A125",
@@ -102,7 +102,7 @@
     "type": "Team",
     "status": "In Review",
     "lastActivity": "09/08",
-    "title": "Team Member: Alex Martin"
+    "title": "About Me"
   },
   {
     "id": "A126",
@@ -137,7 +137,7 @@
     "type": "Team",
     "status": "In Review",
     "lastActivity": "09/09",
-    "title": "Team Member: Samantha Lee"
+    "title": "HOA Community Docs"
   },
   {
     "id": "A127",
@@ -172,7 +172,7 @@
     "type": "Team",
     "status": "In Review",
     "lastActivity": "09/14",
-    "title": "New Team Addition: Mark Roberts"
+    "title": "Team Updates"
   },
   {
     "id": "A128",
@@ -214,6 +214,6 @@
     "type": "Team",
     "status": "In Review",
     "lastActivity": "09/15",
-    "title": "Team Member: Sarah Green"
+    "title": "Access Instruction"
   }
 ]

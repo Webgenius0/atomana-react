@@ -1,7 +1,7 @@
 import SubTabs from "@/components/SubTabs";
 import TabBtn from "@/components/TabBtn";
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 const MySystemsLayout = () => {
   const systemTabs = [
@@ -36,13 +36,19 @@ const MySystemsLayout = () => {
     },
   ];
 
+  const location = useLocation().pathname;
+
   return (
     <section className="pt-6">
       <div className="my-container">
-        <h2 className="section-title">
-          Systems
-        </h2>
-        <SubTabs tabLinks={systemTabs} />
+        <div
+          className={
+            location === "/my-systems/team/our-mission" ? "hidden" : "block"
+          }
+        >
+          <h2 className="section-title">Systems</h2>
+          <SubTabs tabLinks={systemTabs} />
+        </div>
         <Outlet />
       </div>
     </section>
