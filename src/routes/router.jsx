@@ -131,59 +131,64 @@ const router = createBrowserRouter([
       },
       {
         path: "/profile",
-        element: (
-          <PageTitle title="Profile">
-            <Profile />
-          </PageTitle>
-        ),
-      },
-      {
-        path: "/account-information",
-        element: (
-          <PageTitle title="Account Information">
-            <AccountInformation />
-          </PageTitle>
-        ),
-      },
-      {
-        path: "/business-information",
-        element: (
-          <PageTitle title="Business Information">
-            <BusinessInformation />
-          </PageTitle>
-        ),
-      },
-      {
-        path: "/manage-team",
-        element: (
-          <PageTitle title="Manage Team And Permission">
-            <ManageTeam />
-          </PageTitle>
-        ),
-      },
-      {
-        path: "/add-team-member",
-        element: (
-          <PageTitle title="Add A Team Member">
-            <AddTeamMember />
-          </PageTitle>
-        ),
-      },
-      {
-        path: "/edit-team-member",
-        element: (
-          <PageTitle title="Edit Team Member">
-            <EditTeamMember />
-          </PageTitle>
-        ),
-      },
-      {
-        path: "/member-profile",
-        element: (
-          <PageTitle title="Member Profile">
-            <MemberProfile />
-          </PageTitle>
-        ),
+        children: [
+          {
+            index: true,
+            element: (
+              <PageTitle title="Profile">
+                <Profile />
+              </PageTitle>
+            ),
+          },
+          {
+            path: "account-information",
+            element: (
+              <PageTitle title="Account Information">
+                <AccountInformation />
+              </PageTitle>
+            ),
+          },
+          {
+            path: "business-information",
+            element: (
+              <PageTitle title="Business Information">
+                <BusinessInformation />
+              </PageTitle>
+            ),
+          },
+          {
+            path: "manage-team",
+            element: (
+              <PageTitle title="Manage Team And Permission">
+                <ManageTeam />
+              </PageTitle>
+            ),
+          },
+          {
+            path: "add-team-member",
+            element: (
+              <PageTitle title="Add A Team Member">
+                <AddTeamMember />
+              </PageTitle>
+            ),
+          },
+          {
+            path: "edit-team-member",
+            element: (
+              <PageTitle title="Edit Team Member">
+                <EditTeamMember />
+              </PageTitle>
+            ),
+          },
+          {
+            path: "member-profile",
+            element: (
+              <PageTitle title="Member Profile">
+                <MemberProfile />
+              </PageTitle>
+            ),
+          },
+        ],
       },
     ],
   },

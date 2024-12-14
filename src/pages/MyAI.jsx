@@ -4,7 +4,7 @@ import PlusSvg from "@/components/svgs/PlusSvg";
 
 const MyAI = () => {
   return (
-    <section className="my-container h-screen overflow-hidden">
+    <section className="h-[calc(100vh-150px)] overflow-hidden">
       <div class="flex w-full h-full items-start">
         <aside
           class="w-[300px] h-full bg-[#1c1c1c] py-[25px] px-[50px] duration-300 ease-in-out relative border-r border-secondPrimary"
@@ -95,7 +95,7 @@ const MyAI = () => {
               <input
                 type="text"
                 placeholder="Message Maria"
-                class="w-full py-4 border-none text-[#b1b1b1] text-sm leading-5 tracking-[-0.6px] bg-inherit placeholder:text-[#555]"
+                class="w-full py-4 border-none focus:outline-none text-[#b1b1b1] text-sm leading-5 tracking-[-0.6px] bg-inherit placeholder:text-[#555]"
                 id="chatInput"
               />
               <button class="w-8 h-8 rounded-full flex items-center justify-center border border-[#024040] bg-gradient-to-r from-black via-black to-[#024040] shadow-[0_0_0_1px_black]">

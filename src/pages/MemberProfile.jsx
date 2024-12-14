@@ -27,7 +27,7 @@ const MemberProfile = () => {
           <MessageSvg />
           <MailSvg />
           <Link
-            to="/edit-team-member"
+            to="/profile/edit-team-member"
             className="text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
           >
             EDIT

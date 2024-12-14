@@ -22,7 +22,7 @@ const Profile = () => {
         <div>
           <h2 className="section-title mb-5">Personal</h2>
           <Link
-            to="/account-information"
+            to="/profile/account-information"
             className="flex items-center justify-between gap-4 border-b border-secondPrimary py-4 duration-300 hover:opacity-60"
           >
             <span className="text-sm font-medium leading-5 text-light">
@@ -40,7 +40,7 @@ const Profile = () => {
         <div>
           <h2 className="section-title mb-5">Business</h2>
           <Link
-            to="/business-information"
+            to="/profile/business-information"
             className="flex items-center justify-between gap-4 border-b border-secondPrimary py-4 duration-300 hover:opacity-60"
           >
             <span className="text-sm font-medium leading-5 text-light">
@@ -49,7 +49,7 @@ const Profile = () => {
             <ArrowGreaterSvg />
           </Link>
           <Link
-            to="/manage-team"
+            to="/profile/manage-team"
             className="flex items-center justify-between gap-4 border-b border-secondPrimary py-4 duration-300 hover:opacity-60"
           >
             <span className="text-sm font-medium leading-5 text-light">
