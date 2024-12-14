@@ -1,6 +1,10 @@
+import CustomDatePicker from "@/components/CustomDatePicker";
 import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
+import CalenderSvg from "@/components/svgs/CalenderSvg";
+import ClockSvg from "@/components/svgs/ClockSvg";
 import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
 import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
+import CustomTimeRangePicker from "@/components/TimeRangePicker";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
@@ -82,21 +86,20 @@ const OpenHouseForm = () => {
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
               What day do you want to do it on?
             </label>
-            <input
-              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-              placeholder="i.e., Sales Lead"
-              {...register("title")}
-            />
+
+            <label className="flex items-center px-4 rounded-[10px] border border-[#d8dfeb] bg-dark w-full gap-2.5">
+              <CustomDatePicker />
+              <CalenderSvg />
+            </label>
           </div>
           <div className="flex flex-col gap-2 w-full">
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
               What time frame do you want to hold it?
             </label>
-            <input
-              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-              placeholder="example@email.com"
-              {...register("workEmail")}
-            />
+            <label className="flex items-center px-4 rounded-[10px] border border-[#d8dfeb] bg-dark w-full gap-2.5">
+              {/* <CustomTimeRangePicker /> */}
+              <ClockSvg />
+            </label>
           </div>
           <div className="flex flex-col gap-2 w-full">
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
