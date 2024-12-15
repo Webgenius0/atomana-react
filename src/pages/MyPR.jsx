@@ -15,7 +15,7 @@ const MyPR = () => {
   useEffect(() => {
     const fetchQueries = async () => {
       try {
-        const response = await axios.get("myPrQueries.json");
+        const response = await axios.get("queries.json");
         const initialChat = {
           id: 1,
           title: "Welcome Chat",
