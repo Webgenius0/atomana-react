@@ -1,4 +1,5 @@
 import { FaCalendarAlt } from "react-icons/fa";
+import personimg from "../../src/assets/images/user.png"
 const EssentialCard = ({ data }) => {
   const { type, title, status, lastActivity } = data;
 
@@ -47,7 +48,7 @@ const EssentialCard = ({ data }) => {
           <div className="flex items-center gap-4">
             <img
               className="w-8 h-8 rounded-full"
-              src="/docs/images/people/profile-picture-5.jpg"
+              src={personimg}
               alt=""
             />
             <div className="font-medium dark:text-white">
