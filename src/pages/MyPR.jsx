@@ -26,7 +26,7 @@ const MyPR = () => {
             },
           ],
         };
-        setQueriesData(response.data); 
+        setQueriesData(response.data);
         setChatHistories([initialChat]);
         setActiveChatId(1);
       } catch (error) {
@@ -159,12 +159,7 @@ const MyPR = () => {
           {/* Chat messages */}
           <div className="px-5 py-[25px] overflow-y-auto flex-1">
             {activeChat?.messages.map((chat, index) => (
-              <div
-                key={index}
-                className={`mb-3 ${
-                  chat.sender === "user" ? "text-right" : "text-left"
-                }`}
-              >
+              <div key={index} className="mb-3">
                 {chat.sender === "bot" ? (
                   <div className="flex items-start gap-3">
                     <img
@@ -181,14 +176,14 @@ const MyPR = () => {
                         <span className="w-[2px] h-[2px] bg-gray-400 rounded-full animate-pulse delay-300"></span>
                       </div>
                     ) : (
-                      <p className="text-sm text-light rounded-lg">
+                      <p className="text-sm text-light rounded-lg  max-w-[580px]">
                         <TextEffect text={chat.message} />
                       </p>
                     )}
                   </div>
                 ) : (
                   <div className="flex items-end justify-end gap-3">
-                    <p className="text-sm px-6 py-3 bg-[#242424] text-light rounded-[10px]">
+                    <p className="text-sm px-6 py-3 bg-[#242424] text-light rounded-[10px] max-w-[600px]">
                       {chat.message}
                     </p>
                   </div>
@@ -209,7 +204,7 @@ const MyPR = () => {
                 onChange={(e) => setMessage(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
               />
-               <button
+              <button
                 className="w-8 h-8 rounded-full flex items-center justify-center border border-[#024040] bg-gradient-to-r from-black via-black to-[#024040] shadow-[0_0_0_1px_black]"
                 onClick={handleSendMessage}
               >
