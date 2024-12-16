@@ -1,0 +1,14 @@
+{
+      id: 1,
+      title: "New Chat 3",
+      messages: [
+        {
+          sender: "bot",
+          message: "Hi, I'm MyOps MyPR. What can I help you with?",
+        },
+        {
+          sender: "user",
+          message: "Hi",
+        },
+      ],
+    },

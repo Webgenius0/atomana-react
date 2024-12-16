@@ -21,6 +21,8 @@ import AddTeamMember from "@/pages/AddTeamMember";
 import EditTeamMember from "@/pages/EditTeamMember";
 import MemberProfile from "@/pages/MemberProfile";
 import CourseDetails from "@/pages/CourseDetails";
+import OurMission from "@/pages/OurMission";
+import OpenHouseForm from "@/pages/OpenHouseForm";
 
 const router = createBrowserRouter([
   {
@@ -57,11 +59,24 @@ const router = createBrowserRouter([
           },
           {
             path: "open-house",
-            element: (
-              <PageTitle title="Open House">
-                <OpenHouses />
-              </PageTitle>
-            ),
+            children: [
+              {
+                index: true,
+                element: (
+                  <PageTitle title="Open House">
+                    <OpenHouses />
+                  </PageTitle>
+                ),
+              },
+              {
+                path: "open-house-form",
+                element: (
+                  <PageTitle title="Open House Form">
+                    <OpenHouseForm />
+                  </PageTitle>
+                ),
+              },
+            ],
           },
           {
             path: "finances",
@@ -89,11 +104,24 @@ const router = createBrowserRouter([
           },
           {
             path: "team",
-            element: (
-              <PageTitle title="Team">
-                <Team />
-              </PageTitle>
-            ),
+            children: [
+              {
+                index: true,
+                element: (
+                  <PageTitle title="Team">
+                    <Team />
+                  </PageTitle>
+                ),
+              },
+              {
+                path: "our-mission",
+                element: (
+                  <PageTitle title="Our Mission">
+                    <OurMission />
+                  </PageTitle>
+                ),
+              },
+            ],
           },
         ],
       },
