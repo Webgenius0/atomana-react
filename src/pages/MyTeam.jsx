@@ -5,12 +5,15 @@ import ProgressBar from "@/components/ProgressBar";
 import ArrowRightSvg from "@/components/svgs/ArrowRightSvg";
 import TabStepper from "@/components/TabStepper";
 import { useGetSystemsData } from "@/hooks/useGetSystemsData";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const MyTeam = () => {
   const [selectedValue, setSelectedValue] = useState("");
-  const { data, isLoading, isError, error } = useGetSystemsData("team");
+  const { data, isLoading, isError, error } = useGetSystemsData();
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error: {error.message}</div>;
+
   const tabs = [
     { label: "Dashboard", path: "/dashboard" },
     { label: "Updates", path: "/updates" },
@@ -137,9 +140,6 @@ const MyTeam = () => {
     setSelectedValue(value);
   };
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error: {error.message}</div>;
-
   return (
     <>
       <div className="my-container mx-auto">
@@ -232,7 +232,7 @@ const MyTeam = () => {
           <div className="mt-6">
             <h1 className="section-title mb-4">MyEssentials</h1>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-5">
-              {data?.map((item) => (
+              {data?.slice(0, 5)?.map((item) => (
                 <EssentialCard key={item?.id} data={item} />
               ))}
             </div>
@@ -248,7 +248,6 @@ const MyTeam = () => {
               </Link>
             </div>
           </div>
-
           <div className="mt-10">
             <h2 className="section-title">Our Mission</h2>
 

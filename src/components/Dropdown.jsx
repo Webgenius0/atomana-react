@@ -43,7 +43,7 @@ const Dropdown = ({ options, placeholder, onSelect }) => {
             <li
               key={option.value}
               onClick={() => handleOptionClick(option)}
-              className="px-4 py-2 cursor-pointer text-xs text-white truncate hover:bg-blue-500 hover:text-white"
+              className="px-4 py-2 cursor-pointer text-xs text-white truncate hover:bg-[#009696] hover:text-white"
             >
               {option.label}
             </li>
