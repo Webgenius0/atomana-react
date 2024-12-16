@@ -1,13 +1,15 @@
 const ProgressBar = ({ currentValue, goalValue }) => {
   const progress = Math.min((currentValue / goalValue) * 100, 100);
-
-const ProgressBar = ({ progress,name,sales }) => {
   return (
     <div>
       <div className="p-5">
         <div className="flex justify-between">
-          <div className="mb-1 text-base font-medium dark:text-white">{name}</div>
-          <div className="mb-1 text-base font-medium dark:text-white">{sales}</div>
+          <div className="mb-1 text-base font-medium dark:text-white">
+            {name}
+          </div>
+          <div className="mb-1 text-base font-medium dark:text-white">
+            {sales}
+          </div>
         </div>
         <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
           <div

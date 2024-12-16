@@ -140,71 +140,9 @@ const MyTeam = () => {
     console.log("Selected Value:", value);
     setSelectedValue(value);
   };
-  const [chartData, setChartData] = useState([]);
-  const progressValues = [
-    { name: "James L.", sales: "$264,054 (12 sales)", progress: 10 },
-    { name: "Emily R.", sales: "$175,000 (8 sales)", progress: 30 },
-    { name: "Michael S.", sales: "$90,500 (5 sales)", progress: 24 },
-    { name: "Sarah T.", sales: "$320,700 (15 sales)", progress: 45 },
-    { name: "David K.", sales: "$210,000 (10 sales)", progress: 60 },
-    { name: "Anna W.", sales: "$150,000 (7 sales)", progress: 75 },
-    { name: "Chris M.", sales: "$190,000 (9 sales)", progress: 50 },
-    { name: "Sophia P.", sales: "$400,000 (20 sales)", progress: 80 },
-  ];
 
-  useEffect(() => {
-    // Simulate API call
-    const fetchData = async () => {
-      const response = [
-        {
-          id: 1,
-          data: [{ name: "Dec", CurrentSalesVolume: 200 }],
-          xKey: "name",
-          yKey: "CurrentSalesVolume",
-          yDomain: [0, 400],
-          total: "$ 17,182,291.21",
-        },
-        {
-          id: 2,
-          data: [{ name: "Dec", UnitsSold: 100000 }],
-          xKey: "name",
-          yKey: "UnitsSold",
-          yDomain: [0, 1000000],
-          total: "345",
-        },
-        {
-          id: 3,
-          data: [{ name: "Dec", Expenses: 30000 }],
-          xKey: "name",
-          yKey: "Expenses",
-          yDomain: [0, 200000],
-          total: "$ 32,923.87",
-        },
-        {
-          id: 4,
-          data: [{ name: "Dec", GrossProfit: 300 }],
-          xKey: "name",
-          yKey: "GrossProfit",
-          yDomain: [0, 400],
-          total: "$ 192,812.94",
-        },
-      ];
-      setChartData(response);
-    };
-
-    fetchData();
-  }, []);
-
-  const options = [
-    { value: "This Month", label: " This Month" },
-    { value: "This Year", label: "This Year" },
-    { value: "option3", label: "Option 3" },
-  ];
-  const handleSelect = (option) => {
-    console.log("Selected option:", option);
-  };
   const [currentPage, setCurrentPage] = useState(1);;
-  
+
   return (
     <>
       <div className="my-container mx-auto">
