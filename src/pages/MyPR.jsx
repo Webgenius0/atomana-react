@@ -111,7 +111,7 @@ const MyPR = () => {
 
   return (
     <section>
-      <div className="p-3 sm:p-4 md:hidden border-b border-secondPrimary">
+      <div className="p-3 sm:p-4 md:hidden border-b border-secondPrimary sticky top-0 left-0">
         <div className="flex items-center gap-1 justify-between">
           <Link to="/" className="flex items-center gap-3">
             <img
