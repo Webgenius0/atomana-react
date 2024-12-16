@@ -14,23 +14,23 @@ const ChartCard = ({ data, xKey, yKey, yDomain }) => {
   return (
     <>
       <div>
-        <div className="max-w-sm w-full  rounded-lg shadow bg-[#242424] p-4 md:p-6">
-          <div className="flex justify-between items-center mb-3">
+        <div className="w-full rounded-lg shadow bg-[#242424] p-4 md:p-6">
+          <div className="flex justify-between items-start gap-x-1 gap-y-3 flex-wrap mb-1">
             {/* Large Number */}
-            <div className="text-white text-2xl font-semibold">
-              $17,182,291.21
+            <div className="flex flex-col gap-1">
+              <h2 className="text-light text-lg md:text-xl lg:text-2xl">
+                $17,182,291.21
+              </h2>
+              <span className="text-[#9AE4A7] text-sm leading-5 tracking-[0.25px]">
+                +11% of target
+              </span>
             </div>
 
             {/* Dropdown */}
             <div>
-              <Dropdown
-                options={options}
-                
-                onSelect={handleSelect}
-              />
+              <Dropdown options={options} onSelect={handleSelect} />
             </div>
           </div>
-          <span className="text-green-600 ">+11% of target</span>
 
           <div className="mt-7">
             <div>

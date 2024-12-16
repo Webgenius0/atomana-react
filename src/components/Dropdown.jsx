@@ -16,11 +16,11 @@ const Dropdown = ({ options, placeholder, onSelect }) => {
   const handleOptionClick = (option) => {
     setSelectedOption(option);
     setIsOpen(false);
-    onSelect(option); 
+    onSelect(option);
   };
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full bg-[#242424]">
       {/* Dropdown button with selected option */}
       <button
         onClick={() => setIsOpen(!isOpen)}
@@ -28,7 +28,9 @@ const Dropdown = ({ options, placeholder, onSelect }) => {
       >
         {/* Display selected option or placeholder */}
         <span>
-          {selectedOption ? selectedOption.label : placeholder || "Select an option"}
+          {selectedOption
+            ? selectedOption.label
+            : placeholder || "Select an option"}
         </span>
         {/* Down Arrow */}
         <FaCaretDown className="ml-2 text-white" />
@@ -36,7 +38,7 @@ const Dropdown = ({ options, placeholder, onSelect }) => {
 
       {/* Options dropdown list */}
       {isOpen && (
-        <ul className="absolute z-10 w-full mt-2 bg-transparent border rounded-md shadow-lg">
+        <ul className="absolute z-10 w-full mt-2 bg-[#242424] border rounded-md shadow-lg">
           {options.map((option) => (
             <li
               key={option.value}
