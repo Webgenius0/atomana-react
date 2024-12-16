@@ -29,7 +29,7 @@ const OurMission = () => {
   ];
 
   return (
-    <div className="my-container py-12">
+    <div className="pt-6 md:pt-8 lg:pt-12 pb-3">
       <div className="flex items-center gap-4 justify-between">
         <Link
           to="/my-systems/team"
@@ -50,11 +50,11 @@ const OurMission = () => {
       </div>
 
       <div>
-        <h2 className="section-title my-[50px]">
+        <h2 className="section-title my-5 md:my-8 lg:my-[50px]">
           To Create Lifelong Relationships and Raving Fans
         </h2>
 
-        <div className="flex flex-col gap-[50px]">
+        <div className="flex flex-col gap-5 md:gap-8 lg:gap-[50px]">
           {mission?.map((mission, id) => (
             <div key={id} className="space-y-2">
               <h2 className="section-title">{mission?.title}</h2>

@@ -9,7 +9,7 @@ const ArrowRightSvg = () => {
       viewBox="0 0 24 24"
       fill="none"
     >
-      <g clip-path="url(#clip0_302_11174)">
+      <g clipPath="url(#clip0_302_11174)">
         <path
           d="M6.53171 12.1886V10.8687L15.5827 10.8687L11.5286 6.8146L12.4714 5.8718L18.1283 11.5286L12.4714 17.1855L11.5286 16.2427L15.5827 12.1886H6.53171Z"
           fill="white"

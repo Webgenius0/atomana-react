@@ -1,26 +1,27 @@
-
-import { useNavigate, useLocation } from "react-router-dom";
+import { useState } from "react";
 
 const TabStepper = ({ tabs }) => {
-    //that's show the selected tab in  the url 
-  const navigate = useNavigate();
-  const location = useLocation();
+
+  const [activeTab, setActiveTab] = useState(tabs[0].path); 
 
   return (
-    <div className="flex space-x-4">
-      {tabs.map((tab) => (
-        <button
-          key={tab.path}
-          onClick={() => navigate(tab.path)}
-          className={`py-2 px-4 text-gray-600 ${
-            location.pathname === tab.path
-              ? "border-b-2 border-blue-500 font-semibold"
-              : "hover:text-gray-800 hover:border-b-2"
-          } `}
-        >
-          {tab.label}
-        </button>
-      ))}
+    <div>
+     
+      <div className="flex space-x-4">
+        {tabs.map((tab) => (
+          <button
+            key={tab.path}
+            onClick={() => setActiveTab(tab.path)}
+            className={`py-2 px-4 ${
+              activeTab === tab.path
+                ? "text-white border-b-2 border-white font-semibold"
+                : "text-gray-400 hover:text-gray-400 hover:border-b-2 border-transparent"
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

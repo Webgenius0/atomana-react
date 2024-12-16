@@ -7,6 +7,7 @@ const MailSvg = () => {
       height="15"
       viewBox="0 0 20 15"
       fill="none"
+      className="w-[18px] h-[13px] sm:w-5 sm:h-[15px]"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path

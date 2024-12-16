@@ -34,131 +34,133 @@ const AddTeamMember = () => {
   };
 
   return (
-    <div className="my-container py-12">
-      <Link
-        to="/profile/manage-team"
-        className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit"
-      >
-        <ArrowLeftSvg />
-        <h2 className="section-title">Add a Team Member</h2>
-      </Link>
-
-      <div className="mt-12">
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="max-w-[670px] mx-auto flex flex-col gap-[15px]"
+    <div className="my-container">
+      <div className="pt-6 md:pt-8 lg:pt-12 pb-3">
+        <Link
+          to="/profile/manage-team"
+          className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit"
         >
-          <div className="flex items-center gap-2.5">
+          <ArrowLeftSvg />
+          <h2 className="section-title">Add a Team Member</h2>
+        </Link>
+
+        <div className="mt-6 md:mt-8 lg:mt-12">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="max-w-[670px] mx-auto flex flex-col gap-[15px]"
+          >
+            <div className="flex items-center gap-2.5">
+              <div className="flex flex-col gap-2 w-full">
+                <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+                  First name
+                </label>
+                <input
+                  className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+                  placeholder="First"
+                  {...register("firstName")}
+                />
+              </div>
+              <div className="flex flex-col gap-2 w-full">
+                <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+                  Last name
+                </label>
+                <input
+                  className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+                  placeholder="Last"
+                  {...register("lastName")}
+                />
+              </div>
+            </div>
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-                First name
+                Title
               </label>
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                placeholder="First"
-                {...register("firstName")}
+                placeholder="i.e., Sales Lead"
+                {...register("title")}
               />
             </div>
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-                Last name
+                Work Email
               </label>
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                placeholder="Last"
-                {...register("lastName")}
+                placeholder="example@email.com"
+                {...register("workEmail")}
               />
             </div>
-          </div>
-          <div className="flex flex-col gap-2 w-full">
-            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-              Title
-            </label>
-            <input
-              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-              placeholder="i.e., Sales Lead"
-              {...register("title")}
-            />
-          </div>
-          <div className="flex flex-col gap-2 w-full">
-            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-              Work Email
-            </label>
-            <input
-              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-              placeholder="example@email.com"
-              {...register("workEmail")}
-            />
-          </div>
-          <div className="flex flex-col gap-2 w-full">
-            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-              Work Phone Number
-            </label>
-            <input
-              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-              placeholder="000-000-0000"
-              {...register("phone")}
-            />
-          </div>
-
-          <div className="flex flex-col gap-2 w-full">
-            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-              Employment Agreement
-            </label>
-
-            <label
-              htmlFor="file-upload"
-              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full flex items-center justify-between cursor-pointer"
-            >
-              <span className="text-secondary text-sm leading-[21px] tracking-[-0.14px]">
-                {fileName}
-              </span>
-              <FileSvg />
+            <div className="flex flex-col gap-2 w-full">
+              <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+                Work Phone Number
+              </label>
               <input
-                id="file-upload"
-                type="file"
-                className="hidden"
-                onChange={handleFileChange}
+                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+                placeholder="000-000-0000"
+                {...register("phone")}
               />
-            </label>
-          </div>
-          <div className="flex flex-col gap-2 w-full">
-            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-              Additional Files
-            </label>
+            </div>
 
-            <label
-              htmlFor="file-upload"
-              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full flex items-center justify-between cursor-pointer"
-            >
-              <span className="text-secondary text-sm leading-[21px] tracking-[-0.14px]">
-                {fileName}
-              </span>
-              <FileSvg />
+            <div className="flex flex-col gap-2 w-full">
+              <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+                Employment Agreement
+              </label>
+
+              <label
+                htmlFor="file-upload"
+                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full flex items-center justify-between cursor-pointer"
+              >
+                <span className="text-secondary text-sm leading-[21px] tracking-[-0.14px]">
+                  {fileName}
+                </span>
+                <FileSvg />
+                <input
+                  id="file-upload"
+                  type="file"
+                  className="hidden"
+                  onChange={handleFileChange}
+                />
+              </label>
+            </div>
+            <div className="flex flex-col gap-2 w-full">
+              <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+                Additional Files
+              </label>
+
+              <label
+                htmlFor="file-upload"
+                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full flex items-center justify-between cursor-pointer"
+              >
+                <span className="text-secondary text-sm leading-[21px] tracking-[-0.14px]">
+                  {fileName}
+                </span>
+                <FileSvg />
+                <input
+                  id="file-upload"
+                  type="file"
+                  className="hidden"
+                  onChange={handleFileChange}
+                />
+              </label>
+            </div>
+
+            <div className="flex items-center gap-4 justify-between mt-0 sm:mt-3 md:mt-6">
               <input
-                id="file-upload"
-                type="file"
-                className="hidden"
-                onChange={handleFileChange}
+                className="request-btn approve cursor-pointer"
+                type="submit"
+                value="Add"
               />
-            </label>
-          </div>
 
-          <div className="flex items-center gap-4 justify-between mt-6">
-            <input
-              className="request-btn approve cursor-pointer"
-              type="submit"
-              value="Add"
-            />
-
-            <button
-              onClick={handleResetForm}
-              className="request-btn text-light"
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
+              <button
+                onClick={handleResetForm}
+                className="request-btn text-light"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

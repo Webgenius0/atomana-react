@@ -2,16 +2,13 @@ import DataCard from "@/components/DataCard";
 import { useGetSystemsData } from "@/hooks/useGetSystemsData";
 
 const MySystems = () => {
-  const { data, isLoading, isError, error } = useGetSystemsData();
-
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error: {error.message}</div>;
+  const { data } = useGetSystemsData();
 
   return (
     <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-5">
       {data?.map((item) => (
         <DataCard key={item?.id} data={item}>
-          <div className="flex items-center justify-between mt-6">
+          <div className="flex items-center gap-x-1 gap-y-[2px] flex-wrap justify-between mt-6">
             <p className="text-secondary text-xs font-medium leading-[21px] tracking-[-0.12px]">
               Status: <span className="text-light">{item.status}</span>
             </p>

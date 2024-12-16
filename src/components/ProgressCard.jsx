@@ -1,9 +1,8 @@
 import React from "react";
+import ProgressBar from "./ProgressBar";
 
 const ProgressCard = ({ data }) => {
   const { title, currentValue, goalValue, goalType } = data;
-  const progress = Math.min((currentValue / goalValue) * 100, 100);
-
   const isGoalAchieved = currentValue >= goalValue;
 
   return (
@@ -35,12 +34,7 @@ const ProgressCard = ({ data }) => {
         )}
       </p>
 
-      <div className="w-full h-1 bg-gray-600 rounded-full mt-3.5">
-        <div
-          className={`h-full bg-gradient-to-r from-[#024040] to-[#009696] rounded-full`}
-          style={{ width: `${progress}%` }}
-        ></div>
-      </div>
+      <ProgressBar currentValue={currentValue} goalValue={goalValue} />
     </div>
   );
 };

@@ -26,7 +26,7 @@ const OpenHouseForm = () => {
     reset();
   };
   return (
-    <div className="my-container py-12">
+    <div className="pt-6 md:pt-8 lg:pt-12 pb-3">
       <div className="flex items-center gap-4 justify-between">
         <Link
           to="/my-systems/team"
@@ -46,7 +46,7 @@ const OpenHouseForm = () => {
         </div>
       </div>
 
-      <div className="mt-12">
+      <div className="mt-6 md:mt-8 lg:mt-12">
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="max-w-[670px] mx-auto flex flex-col gap-[15px]"
@@ -122,7 +122,7 @@ const OpenHouseForm = () => {
             />
           </div>
 
-          <div className="flex items-center gap-4 justify-between mt-6">
+          <div className="flex items-center gap-4 justify-between mt-0 sm:mt-3 md:mt-6">
             <input
               className="request-btn approve cursor-pointer"
               type="submit"
