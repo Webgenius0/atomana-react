@@ -243,8 +243,6 @@ export const useGetSystemsData = (type) => {
       )
     : systemsData;
 
-  console.log(filteredData);
-
   // return { data: filteredData, isLoading, isError, error };
   return { data: filteredData };
 };
