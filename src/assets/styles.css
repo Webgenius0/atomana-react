@@ -199,14 +199,16 @@ body {
   }
 
   .nav-item {
-    @apply flex items-center justify-center gap-[7px] text-secondary hover:text-dark hover:bg-light text-sm font-medium leading-[21px] tracking-[-0.14px] py-2 px-4 rounded-full duration-300;
+    @apply flex flex-col md:flex-row items-center justify-center gap-[7px] text-secondary hover:text-light md:hover:text-dark hover:bg-inherit md:hover:bg-light text-[12px] sm:text-[13px] md:text-sm font-medium leading-[21px] tracking-[-0.14px] py-2 px-3 sm:px-4 rounded-full duration-300;
   }
+
+
   .nav-item:hover svg path {
-    @apply fill-dark;
+    @apply fill-light md:fill-dark;
   }
 
   .nav-item.active {
-    @apply bg-light text-dark;
+    @apply bg-inherit md:bg-light text-light md:text-dark;
   }
 
   .pagination-index {
