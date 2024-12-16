@@ -18,5 +18,7 @@ export const useGetSystemsData = (type) => {
     ? data?.filter((item) => item?.type.toLowerCase() === type.toLowerCase())
     : data;
 
+  console.log(data);
+
   return { data: filteredData, isLoading, isError, error };
 };

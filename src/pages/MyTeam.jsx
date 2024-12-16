@@ -252,8 +252,8 @@ const MyTeam = () => {
             <h2 className="section-title">Our Mission</h2>
 
             <div className="my-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 sm:gap-6 md:gap-8 lg:gap-10 p-4 bg-[#242424] rounded">
-              {ourMission?.map((mission) => (
-                <div className="flex flex-col items-center gap-2">
+              {ourMission?.map((mission, idx) => (
+                <div key={idx} className="flex flex-col items-center gap-2">
                   <h2 className="section-title text-center">
                     {mission?.title}
                   </h2>
