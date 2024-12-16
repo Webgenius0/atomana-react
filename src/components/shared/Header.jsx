@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import logo from "@/assets/images/logo.png";
 import profileAvatar from "@/assets/images/profile.png";
 import Notification from "@/components/Notification";
@@ -20,6 +20,7 @@ import LogoSquareSvg from "../svgs/LogoSquareSvg";
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
+  const location = useLocation();
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
@@ -29,9 +30,15 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 left-0 bg-dark z-50">
+    <header className={`sticky top-0 left-0 bg-dark z-50`}>
       <nav>
-        <div className="border-b border-secondPrimary">
+        <div
+          className={`border-b border-secondPrimary ${
+            location.pathname === "/my-ai" || location.pathname === "/my-pr"
+              ? "hidden md:block"
+              : ""
+          }`}
+        >
           <div className="my-container">
             <div className="flex items-center justify-between py-[17px] gap-3">
               {/* logo */}
