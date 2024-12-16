@@ -1,7 +1,7 @@
 import BarCharts from "./BarChart";
 import Dropdown from "./Dropdown";
 
-const ChartCard = ({ data, xKey, yKey, yDomain }) => {
+const ChartCard = ({ data, xKey, yKey, yDomain,total }) => {
   const options = [
     { value: "This Month", label: " This Month" },
     { value: "This Year", label: "This Year" },
@@ -14,16 +14,11 @@ const ChartCard = ({ data, xKey, yKey, yDomain }) => {
   return (
     <>
       <div>
-        <div className="w-full rounded-lg shadow bg-[#242424] p-4 md:p-6">
-          <div className="flex justify-between items-start gap-x-1 gap-y-3 flex-wrap mb-1">
+        <div className="max-w-sm w-full  rounded-lg shadow bg-[#242424] p-4 md:p-6">
+          <div className="flex justify-between items-center mb-2">
             {/* Large Number */}
-            <div className="flex flex-col gap-1">
-              <h2 className="text-light text-lg md:text-xl lg:text-2xl">
-                $17,182,291.21
-              </h2>
-              <span className="text-[#9AE4A7] text-sm leading-5 tracking-[0.25px]">
-                +11% of target
-              </span>
+            <div className="text-white text-2xl font-semibold">
+              {total}
             </div>
 
             {/* Dropdown */}
@@ -31,6 +26,7 @@ const ChartCard = ({ data, xKey, yKey, yDomain }) => {
               <Dropdown options={options} onSelect={handleSelect} />
             </div>
           </div>
+          <span className="text-green-600 text-sm ">+11% of target</span>
 
           <div className="mt-7">
             <div>
