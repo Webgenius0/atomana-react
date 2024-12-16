@@ -8,6 +8,7 @@ import logo from "@/assets/images/my-ai-logo.png";
 import CrossSvg from "@/components/svgs/CrossSvg";
 
 const MyAI = () => {
+  const [hideSidebar, setHideSidebar] = useState(false);
   const [queriesData, setQueriesData] = useState([]);
   const [chatHistories, setChatHistories] = useState([]);
   const [activeChatId, setActiveChatId] = useState(null);
@@ -100,6 +101,13 @@ const MyAI = () => {
   };
 
   const activeChat = chatHistories.find((chat) => chat.id === activeChatId);
+  useEffect(() => {
+    if (!hideSidebar) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [hideSidebar]);
 
   return (
     <section>
@@ -116,7 +124,10 @@ const MyAI = () => {
             </span>
           </Link>
 
-          <button className="w-8 h-8 lg:w-10 lg:h-10 rounded-full flex items-center justify-center border border-secondPrimary bg-gradient-to-r from-secondPrimary to-[#1a1a1a] duration-300 active:scale-95">
+          <button
+            onClick={() => setHideSidebar(!hideSidebar)}
+            className="w-8 h-8 lg:w-10 lg:h-10 rounded-full flex items-center justify-center border border-secondPrimary bg-gradient-to-r from-secondPrimary to-[#1a1a1a] duration-300 active:scale-95"
+          >
             <CrossSvg />
           </button>
         </div>
@@ -126,8 +137,9 @@ const MyAI = () => {
         <div className="flex w-full h-full items-start">
           {/* Sidebar */}
           <aside
-            className="fixed top-0 -left-full md:w-[250px] lg:w-[300px] h-full bg-[#1c1c1c] py-4 lg:py-[25px] px-6 lg:px-[50px] duration-300 ease-in-out md:relative md:top-auto md:left-auto border-r border-secondPrimary"
-            id="sidebar"
+            className={`fixed top-0 ${
+              hideSidebar ? "-left-full" : "left-0"
+            } duration-500 w-[300px] md:w-[250px] lg:w-[300px] h-full bg-[#1c1c1c] py-4 lg:py-[25px] px-6 lg:px-[50px] ease-in-out md:relative md:top-auto md:left-auto border-r border-secondPrimary z-[1000]`}
           >
             <div className="sidebar-content">
               {/* Header */}
@@ -176,6 +188,14 @@ const MyAI = () => {
               </div>
             </div>
           </aside>
+
+          {/* Overlay */}
+          {!hideSidebar && (
+            <div
+              className="fixed inset-0 bg-black bg-opacity-50 z-[999] md:hidden"
+              onClick={() => setHideSidebar(true)}
+            ></div>
+          )}
 
           {/* Main Chat */}
           <main className="flex-1 flex flex-col justify-between h-full">
