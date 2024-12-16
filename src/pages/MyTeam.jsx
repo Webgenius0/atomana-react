@@ -10,72 +10,11 @@ import { Link } from "react-router-dom";
 
 const MyTeam = () => {
   const [selectedValue, setSelectedValue] = useState("");
+  const { data, isLoading, isError, error } = useGetSystemsData("team");
   const tabs = [
     { label: "Dashboard", path: "/dashboard" },
     { label: "Updates", path: "/updates" },
   ];
-
-  const handleChange = (value) => {
-    console.log("Selected Value:", value);
-    setSelectedValue(value);
-  };
-  const [chartData, setChartData] = useState([]);
-  const progressValues = [10, 30, 24, 45, 60, 75, 50, 80];
-
-  useEffect(() => {
-    // Simulate API call
-    const fetchData = async () => {
-      const response = [
-        {
-          id: 1,
-          data: [{ name: "January", value: 200 }],
-          xKey: "name",
-          yKey: "value",
-          yDomain: [0, 400],
-        },
-        {
-          id: 2,
-          data: [{ name: "Q1", amount: 100000 }],
-          xKey: "name",
-          yKey: "amount",
-          yDomain: [0, 1000000],
-        },
-        {
-          id: 3,
-          data: [{ name: "Item A", sales: 30000 }],
-          xKey: "name",
-          yKey: "sales",
-          yDomain: [0, 200000],
-        },
-        {
-          id: 4,
-          data: [{ name: "John", salary: 300 }],
-          xKey: "name",
-          yKey: "salary",
-          yDomain: [0, 400],
-        },
-      ];
-      setChartData(response);
-    };
-
-    fetchData();
-  }, []);
-
-  const options = [
-    { value: "month", label: "This Month" },
-    { value: "quater", label: "Quater" },
-    { value: "year", label: "Yearly" },
-  ];
-
-  const handleSelect = (option) => {
-    console.log("Selected option:", option);
-  };
-
-  const { data, isLoading, isError, error } = useGetSystemsData("team");
-
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error: {error.message}</div>;
-
   const ourMission = [
     {
       title: "To Create Lifelong Relationships and Raving Fans",
@@ -102,13 +41,112 @@ const MyTeam = () => {
       subTitle: "We own our problems and work towards solutions",
     },
   ];
+  const options = [
+    { value: "month", label: "This Month" },
+    { value: "quater", label: "Quater" },
+    { value: "year", label: "Yearly" },
+  ];
+  const chartData = [
+    {
+      id: 1,
+      data: [{ name: "January", value: 200 }],
+      xKey: "name",
+      yKey: "value",
+      yDomain: [0, 400],
+    },
+    {
+      id: 2,
+      data: [{ name: "Q1", amount: 100000 }],
+      xKey: "name",
+      yKey: "amount",
+      yDomain: [0, 1000000],
+    },
+    {
+      id: 3,
+      data: [{ name: "Item A", sales: 30000 }],
+      xKey: "name",
+      yKey: "sales",
+      yDomain: [0, 200000],
+    },
+    {
+      id: 4,
+      data: [{ name: "John", salary: 300 }],
+      xKey: "name",
+      yKey: "salary",
+      yDomain: [0, 400],
+    },
+  ];
+
+  const agenLeaderBoardData = [
+    {
+      name: "James L.",
+      amount: "264,054",
+      sales: 12,
+      salesGoal: 25,
+    },
+    {
+      name: "Sasha B.",
+      amount: "251,839",
+      sales: 10,
+      salesGoal: 25,
+    },
+    {
+      name: "Russel M.",
+      amount: "204,576",
+      sales: 10,
+      salesGoal: 30,
+    },
+    {
+      name: "Kim H.",
+      amount: "202,843",
+      sales: 9,
+      salesGoal: 40,
+    },
+    {
+      name: "Ralph D.",
+      amount: "200,003",
+      sales: 9,
+      salesGoal: 42,
+    },
+    {
+      name: "Irwin K.",
+      amount: "199,398",
+      sales: 8,
+      salesGoal: 40,
+    },
+    {
+      name: "Sasha M.",
+      amount: "199,192",
+      sales: 8,
+      salesGoal: 40,
+    },
+    {
+      name: "Sasha N.",
+      amount: "198,278",
+      sales: 1,
+      salesGoal: 5,
+    },
+  ];
+
+  const handleSelect = (option) => {
+    console.log("Selected option:", option);
+  };
+
+  const handleChange = (value) => {
+    console.log("Selected Value:", value);
+    setSelectedValue(value);
+  };
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error: {error.message}</div>;
+
   return (
     <>
       <div className="my-container mx-auto">
         <TabStepper tabs={tabs} />
         <div>
           <div className="mt-5 mb-5">
-            <h1 className="text-white">MyData</h1>
+            <h1 className="section-title">MyData</h1>
             <div className="flex gap-5 pt-5">
               <div className="flex items-center ml-5">
                 <input
@@ -118,9 +156,9 @@ const MyTeam = () => {
                   name="inline-radio-group"
                   checked={selectedValue === "current"}
                   onChange={() => handleChange("current")}
-                  className={`w-4 h-4 bg-gray-100 border-gray-300 ${
+                  className={`w-4 h-4 bg-[#009696] border-[#009696] ${
                     selectedValue === "current"
-                      ? "focus:ring-green-500"
+                      ? "focus:ring-[#009696]"
                       : "focus:ring-blue-500"
                   }`}
                 />
@@ -166,23 +204,33 @@ const MyTeam = () => {
               />
             ))}
           </div>
-          <div className="bg-[#242424] mt-5 p-5 rounded">
-            <div className="flex justify-between">
-              <h1 className="text-white text-xl">Agent Leaderboard</h1>
-              <div>
-                <Dropdown options={options} onSelect={handleSelect} />
-              </div>
+          <div className="bg-[#242424] mt-5 px-5 py-6 rounded">
+            <div className="flex justify-between gap-1 gap-y-3 flex-wrap">
+              <h1 className="section-title">Agent Leaderboard</h1>
+              <Dropdown options={options} onSelect={handleSelect} />
             </div>
-            <div className="grid grid-cols-2 gap-4 w-full  rounded  ">
-              {progressValues.map((progress, index) => (
+            <div className="grid md:grid-cols-2 gap-y-4 md:gap-y-6 gap-12 w-full mt-5">
+              {agenLeaderBoardData?.map((agent, index) => (
                 <div key={index} className="w-full">
-                  <ProgressBar progress={progress} />
+                  <div className="flex items-center justify-between mb-2.5 gap-x-2 flex-wrap">
+                    <p className="text-sm leading-5 tracking-[0.25px] text-[#ffffff99]">
+                      {agent?.name}
+                    </p>
+                    <p className="text-sm leading-5 tracking-[0.25px] text-[#ffffff99]">
+                      ${agent?.amount} ({agent?.sales} sales)
+                    </p>
+                  </div>
+
+                  <ProgressBar
+                    currentValue={agent?.sales}
+                    goalValue={agent?.salesGoal}
+                  />
                 </div>
               ))}
             </div>
           </div>
           <div className="mt-6">
-            <h1 className="text-white text-xl mb-4">MyEssentials</h1>
+            <h1 className="section-title mb-4">MyEssentials</h1>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-5">
               {data?.map((item) => (
                 <EssentialCard key={item?.id} data={item} />

@@ -20,7 +20,7 @@ const Dropdown = ({ options, placeholder, onSelect }) => {
   };
 
   return (
-    <div className="relative w-full bg-[#242424]">
+    <div className="relative w-fit bg-[#242424]">
       {/* Dropdown button with selected option */}
       <button
         onClick={() => setIsOpen(!isOpen)}
