@@ -7,6 +7,7 @@ const MessageSvg = () => {
       height="18"
       viewBox="0 0 19 18"
       fill="none"
+      className="w-4 h-4 sm:w-[19px] sm:h-[18px]"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
