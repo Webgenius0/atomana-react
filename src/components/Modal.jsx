@@ -16,7 +16,7 @@ const Modal = ({ isOpen, onClose, children }) => {
 
   return (
     <div
-      className="sm:hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+      className="sm:hidden fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50"
       onClick={onClose}
     >
       <div className="w-[80%]" onClick={(e) => e.stopPropagation()}>

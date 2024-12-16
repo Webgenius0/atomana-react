@@ -45,7 +45,7 @@ const Header = () => {
 
               {/* search */}
               <label className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-secondPrimary to-[#1a1a1a] border border-primary rounded-full px-4 max-w-[625px] w-full focus-within:border-[#009696] focus-within:shadow-[0_0_3px] focus-within:shadow-[#009696]">
-                <LogoSquareSvg/>
+                <LogoSquareSvg />
                 <input
                   type="text"
                   className="w-full py-2.5 bg-inherit border-none outline-none text-secondary placeholder:text-secondary text-sm font-medium leading-[21px] tracking-[-0.14px]"
@@ -55,10 +55,9 @@ const Header = () => {
 
               <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
                 <label className="flex items-center gap-2 bg-gradient-to-r from-secondPrimary to-[#1a1a1a] border border-primary rounded-full px-4 max-w-[625px] w-full focus-within:border-[#009696] focus-within:shadow-[0_0_3px] focus-within:shadow-[#009696]">
-                  <LogoSquareSvg />
                   <input
                     type="text"
-                    className="w-full py-2.5 bg-inherit border-none outline-none text-secondary placeholder:text-secondary text-sm font-medium leading-[21px] tracking-[-0.14px]"
+                    className="w-full py-2.5 bg-inherit border-none outline-none text-secondary placeholder:text-secondary text-xs sm:text-sm font-medium leading-[21px] tracking-[-0.14px]"
                     placeholder="Ask Maria about clients, properties, appointments, or anything else you need help with"
                   />
                 </label>
@@ -110,9 +109,9 @@ const Header = () => {
           </div>
         </div>
 
-        <div className="border-t md:border-t-0 md:border-b border-secondPrimary fixed md:static bottom-0 left-0 w-full">
+        <div className="bg-dark border-t md:border-t-0 md:border-b border-secondPrimary fixed md:static bottom-0 left-0 w-full">
           <div className="my-container">
-            <div className="flex items-center justify-between md:gap-4 py-2.5 sm:py-4">
+            <div className="flex items-center justify-between md:gap-4 py-2.5 md:py-4">
               <NavLink
                 to="/"
                 className={({ isActive }) =>

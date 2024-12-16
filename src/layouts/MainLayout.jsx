@@ -6,7 +6,10 @@ const MainLayout = () => {
   return (
     <div>
       <Header />
-      {/* <Outlet /> */}
+
+      <div className="pb-[84px] md:pb-0">
+        <Outlet />
+      </div>
     </div>
   );
 };

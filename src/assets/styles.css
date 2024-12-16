@@ -167,6 +167,15 @@ body {
 
 /* calender */
 
+.scrollbar-none {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, and Opera */
+}
+
 @media screen and (max-width: 1550px) {
   .my-container {
     padding: 0 20px;
@@ -179,7 +188,7 @@ body {
   }
 
   .tab {
-    @apply py-[2.5px] px-2.5 text-center font-medium leading-[21px] tracking-[-0.12px] bg-inherit border-none cursor-pointer duration-300 ease-linear text-xs rounded-full active:scale-95 text-secondary hover:bg-light hover:text-dark;
+    @apply py-[2.5px] px-2.5 text-center font-medium leading-[21px] tracking-[-0.12px] bg-inherit border-none cursor-pointer duration-300 ease-linear text-xs rounded-full active:scale-95 text-secondary hover:bg-light hover:text-dark whitespace-nowrap;
   }
 
   .tab.active {
@@ -201,7 +210,6 @@ body {
   .nav-item {
     @apply flex flex-col md:flex-row items-center justify-center gap-[7px] text-secondary hover:text-light md:hover:text-dark hover:bg-inherit md:hover:bg-light text-[12px] sm:text-[13px] md:text-sm font-medium leading-[21px] tracking-[-0.14px] py-2 px-3 sm:px-4 rounded-full duration-300;
   }
-
 
   .nav-item:hover svg path {
     @apply fill-light md:fill-dark;
