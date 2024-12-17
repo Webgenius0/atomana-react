@@ -53,6 +53,14 @@ const router = createBrowserRouter([
             ),
           },
           {
+            path: "all",
+            element: (
+              <PageTitle title="My Systems">
+                <MySystems />
+              </PageTitle>
+            ),
+          },
+          {
             path: "activities",
             element: (
               <PageTitle title="Activities">

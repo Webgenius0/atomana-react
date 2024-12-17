@@ -7,7 +7,7 @@ const MySystemsLayout = () => {
   const systemTabs = [
     {
       label: "All",
-      link: "/my-systems",
+      link: "/my-systems/all",
     },
     {
       label: "Activities",

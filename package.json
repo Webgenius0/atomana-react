@@ -24,7 +24,8 @@
     "react-markdown": "^9.0.1",
     "react-router-dom": "^7.0.2",
     "recharts": "^2.15.0",
-    "sort-by": "^1.2.0"
+    "sort-by": "^1.2.0",
+    "tailwind-merge": "^2.5.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",
