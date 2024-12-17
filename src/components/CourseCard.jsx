@@ -1,6 +1,6 @@
 import { FaCalendarAlt } from "react-icons/fa";
 import { IoTime } from "react-icons/io5";
-import img from "../../public/img1.png";
+import img from "@/assets/images/img1.png";
 import { RiCopyrightFill } from "react-icons/ri";
 
 const CourseCard = ({ data }) => {
