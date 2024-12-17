@@ -86,7 +86,7 @@ const TimeRangePicker = () => {
 
             {/* Confirm Button */}
             <button
-              className="w-full text-sm px-4 py-2 mt-1 text-light bg-gradient-to-r from-[#242424] rounded to-[#009696]"
+              className="w-full text-sm px-4 py-2 mt-1 text-light bg-gradient-to-r from-[#242424]  rounded to-[#009696]"
               onClick={handleConfirm}
               disabled={startTime >= endTime || !startTime || !endTime}
             >

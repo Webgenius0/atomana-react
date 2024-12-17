@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FaCaretDown } from "react-icons/fa"; // Import the down arrow icon from react-icons
+import { FaCaretDown } from "react-icons/fa"; 
 
 const Dropdown = ({ options, placeholder, onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
