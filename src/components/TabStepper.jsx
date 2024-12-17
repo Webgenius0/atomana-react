@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const TabStepper = ({ tabs }) => {
 
@@ -9,8 +10,9 @@ const TabStepper = ({ tabs }) => {
      
       <div className="flex space-x-4">
         {tabs.map((tab) => (
-          <button
-            key={tab.path}
+          <Link
+          key={tab.path}
+            to={tab.path}
             onClick={() => setActiveTab(tab.path)}
             className={`py-2 px-4 ${
               activeTab === tab.path
@@ -19,7 +21,7 @@ const TabStepper = ({ tabs }) => {
             }`}
           >
             {tab.label}
-          </button>
+          </Link>
         ))}
       </div>
     </div>
