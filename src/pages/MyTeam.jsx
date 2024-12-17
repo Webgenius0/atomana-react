@@ -10,6 +10,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const MyTeam = () => {
+  const [currentPage, setCurrentPage] = useState(1);
   const [selectedValue, setSelectedValue] = useState("");
   const { data } = useGetSystemsData();
 
@@ -17,9 +18,6 @@ const MyTeam = () => {
     { label: "Dashboard", path: "/dashboard" },
     { label: "Updates", path: "/updates" },
   ];
-
- 
-  
 
   const ourMission = [
     {
@@ -150,21 +148,23 @@ const MyTeam = () => {
 
   return (
     <>
-      <div className="my-container mx-auto">
-        <TabStepper tabs={tabs} />
+      <div className="my-container">
+        <div className="my-4 sm:my-5 md:my-6">
+          <TabStepper tabs={tabs} />
+        </div>
         <div>
           <div className="mt-5 mb-5">
             <h1 className="section-title">MyData</h1>
             <div className="flex gap-5 pt-5">
-
               <div className="flex items-center ml-5">
                 <button
                   onClick={() => handleChange("current")}
                   className="flex items-center gap-2"
                 >
                   <div
-                    className={`h-3 w-3 rounded-full bg-[#009696] transition-opacity ${selectedValue === "current" ? "opacity-100" : "opacity-50"
-                      }`}
+                    className={`h-3 w-3 rounded-full bg-[#009696] transition-opacity ${
+                      selectedValue === "current" ? "opacity-100" : "opacity-50"
+                    }`}
                   ></div>
                   <span className=" text-sm font-medium text-gray-900 dark:text-gray-300">
                     Current Value
@@ -172,15 +172,15 @@ const MyTeam = () => {
                 </button>
               </div>
 
-
               <div className="flex items-center ml-5">
                 <button
                   onClick={() => handleChange("goal")}
                   className="flex items-center gap-2"
                 >
                   <div
-                    className={`h-3 w-3 rounded-full bg-[#009696] transition-opacity ${selectedValue === "goal" ? "opacity-100" : "opacity-50"
-                      }`}
+                    className={`h-3 w-3 rounded-full bg-[#009696] transition-opacity ${
+                      selectedValue === "goal" ? "opacity-100" : "opacity-50"
+                    }`}
                   ></div>
                   <span className=" text-sm font-medium text-gray-900 dark:text-gray-300">
                     Goal Value
@@ -188,8 +188,6 @@ const MyTeam = () => {
                 </button>
               </div>
             </div>
-
-
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {chartData.map((chart) => (
@@ -206,8 +204,8 @@ const MyTeam = () => {
             <div className="flex justify-between gap-1 gap-y-3 flex-wrap">
               <h1 className="section-title">Agent Leaderboard</h1>
               <div className="flex gap-2">
-              <Dropdown options={heightoptions} onSelect={handleSelect} />
-              <Dropdown options={options} onSelect={handleSelect} />
+                <Dropdown options={heightoptions} onSelect={handleSelect} />
+                <Dropdown options={options} onSelect={handleSelect} />
               </div>
             </div>
             <div className="grid md:grid-cols-2 gap-y-4 md:gap-y-6 gap-12 w-full mt-5">
@@ -229,6 +227,15 @@ const MyTeam = () => {
                 </div>
               ))}
             </div>
+
+            <div className="my-4 sm:my-5 md:my-6">
+              <Pagination
+                currentPage={currentPage}
+                totalItems={45}
+                itemsPerPage={12}
+                onPageChange={(page) => setCurrentPage(page)}
+              />
+            </div>
           </div>
           <div className="mt-6">
             <h1 className="section-title mb-4">MyEssentials</h1>
@@ -239,7 +246,7 @@ const MyTeam = () => {
             </div>
 
             <div className="flex items-center justify-end">
-              <Link to="" className="flex items-center gap-3">
+              <Link to="/my-essentials" className="flex items-center gap-3">
                 <p className="text-sm leading-6 capitalize text-light tracking-[-0.14px] hover:text-secondary duration-300">
                   View All Leads
                 </p>

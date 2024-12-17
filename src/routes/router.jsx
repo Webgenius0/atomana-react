@@ -23,6 +23,7 @@ import MemberProfile from "@/pages/MemberProfile";
 import CourseDetails from "@/pages/CourseDetails";
 import OurMission from "@/pages/OurMission";
 import OpenHouseForm from "@/pages/OpenHouseForm";
+import MyEssentials from "@/pages/MyEssentials";
 
 const router = createBrowserRouter([
   {
@@ -217,6 +218,10 @@ const router = createBrowserRouter([
             ),
           },
         ],
+      },
+      {
+        path: "/my-essentials",
+        element: <MyEssentials />,
       },
     ],
   },

@@ -2,22 +2,20 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const TabStepper = ({ tabs }) => {
-
-  const [activeTab, setActiveTab] = useState(tabs[0].path); 
+  const [activeTab, setActiveTab] = useState(tabs[0].path);
 
   return (
     <div>
-     
-      <div className="flex space-x-4">
-        {tabs.map((tab) => (
+      <div className="flex items-start gap-5">
+        {tabs?.map((tab) => (
           <Link
-          key={tab.path}
+            key={tab.path}
             to={tab.path}
             onClick={() => setActiveTab(tab.path)}
-            className={`py-2 px-4 ${
+            className={`py-1 sm:py-2 font-Inria text-lg md:text-xl ${
               activeTab === tab.path
-                ? "text-white border-b-2 border-white font-semibold"
-                : "text-gray-400 hover:text-gray-400 hover:border-b-2 border-transparent"
+                ? "text-light border-b-2 border-light font-semibold"
+                : "text-[#ffffffb3] hover:text-light hover:border-b-2 hover:border-light border-transparent duration-100"
             }`}
           >
             {tab.label}
