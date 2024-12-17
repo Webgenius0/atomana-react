@@ -37,13 +37,7 @@ const Activities = () => {
 
   const {
     data: allData,
-    isLoading,
-    isError,
-    error,
   } = useGetSystemsData("open houses");
-
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error: {error.message}</div>;
 
   const completedData = allData?.filter(
     (item) => item?.status.toLowerCase() == "completed"
