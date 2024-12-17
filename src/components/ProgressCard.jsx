@@ -6,10 +6,10 @@ const ProgressCard = ({ data }) => {
   const isGoalAchieved = currentValue >= goalValue;
 
   return (
-    <div className="px-[25px] flex flex-col items-start font-Roboto">
+    <div className="px-[25px] md:px-4 lg:px-[25px] flex flex-col items-start font-Roboto">
       <div className="py-2.5 w-full">
-        <h3 className="text-lg leading-6 text-[#ffffffde]">{title}</h3>
-        <p className="text-[#ffffffde] leading-9 text-[28px]">{currentValue}</p>
+        <h3 className="text-base md:text-lg leading-6 text-[#ffffffde]">{title}</h3>
+        <p className="text-[#ffffffde] leading-9 text-lg sm:text-xl md:text-2xl text-[28px]">{currentValue}</p>
       </div>
       <p
         className={`mt-2.5 flex items-center justify-end text-sm leading-5 tracking-[0.25px] w-full ${
