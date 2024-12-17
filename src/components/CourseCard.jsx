@@ -2,6 +2,7 @@ import { FaCalendarAlt } from "react-icons/fa";
 import { IoTime } from "react-icons/io5";
 import img from "@/assets/images/img1.png";
 import { RiCopyrightFill } from "react-icons/ri";
+import CopySvg from "./svgs/CopySvg";
 
 const CourseCard = ({ data }) => {
   const { type, title, lessons = 0, duration = "0 hrs" } = data;
@@ -18,7 +19,7 @@ const CourseCard = ({ data }) => {
 
         {/* Icon */}
         <button className="w-8 h-8 rounded-full flex items-center justify-center  bg-[#242424] bg-opacity-45 " >
-          <RiCopyrightFill className="text-[#ccc] text-lg" />
+          <CopySvg/>
         </button>
 
       </div>

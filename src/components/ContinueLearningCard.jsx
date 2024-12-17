@@ -4,6 +4,7 @@ import img from "@/assets/images/img1.png";
 import { RiCopyrightFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import ProgressBar from "./ProgressBar";
+import CopySvg from "./svgs/CopySvg";
 
 const ContinueLearningCard = ({ data }) => {
   const { type, title, lessons = 0, duration = "0 hrs", progress } = data;
@@ -21,7 +22,8 @@ const ContinueLearningCard = ({ data }) => {
 
           {/* Icon */}
           <button className="w-8 h-8 rounded-full flex items-center justify-center  bg-[#242424] bg-opacity-45 " >
-            <RiCopyrightFill className="text-[#ccc] text-lg" />
+            {/* <RiCopyrightFill className="text-[#ccc] text-lg" /> */}
+            <CopySvg />
           </button>
         </div>
 
@@ -55,24 +57,24 @@ const ContinueLearningCard = ({ data }) => {
 
           {/* Details Section */}
           <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 w-full text-light bg-[#505050] rounded-full px-3 py-1 text-xs font-medium leading-[21px] tracking-[-0.12px]">
-            {/* Left Section */}
-            <div className="flex justify-center items-center gap-2 border-r border-[#ccc] pr-2 w-1/2 justify-end">
-              <span>
-                <FaCalendarAlt />
-              </span>
-              <span>{lessons}</span> Lessons
-            </div>
+            <div className="flex items-center gap-2 w-full text-light bg-[#505050] rounded-full px-3 py-1 text-xs font-medium leading-[21px] tracking-[-0.12px]">
+              {/* Left Section */}
+              <div className="flex justify-center items-center gap-2 border-r border-[#ccc] pr-2 w-1/2 justify-end">
+                <span>
+                  <FaCalendarAlt />
+                </span>
+                <span>{lessons}</span> Lessons
+              </div>
 
-            {/* Right Section */}
-            <div className="flex justify-center items-center gap-2 pl-2 w-1/2 justify-start">
-              <span>
-                <IoTime />
-              </span>
-              <span>{duration}</span>
+              {/* Right Section */}
+              <div className="flex justify-center items-center gap-2 pl-2 w-1/2 justify-start">
+                <span>
+                  <IoTime />
+                </span>
+                <span>{duration}</span>
+              </div>
             </div>
           </div>
-        </div>
         </div>
       </div>
 

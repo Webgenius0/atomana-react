@@ -61,7 +61,7 @@ const MyClassroom = () => {
   ]
   return (
     <>
-      <div className="container mx-auto">
+      <div className="my-container ">
         <div className="flex items-center justify-end mt-5">
           <Link to="" className="flex items-center gap-3">
             <p className="text-sm leading-6 capitalize text-light tracking-[-0.14px] hover:text-secondary duration-300">
@@ -98,7 +98,7 @@ const MyClassroom = () => {
           </div>
 
 
-          <div className="flex items-center justify-end mt-3">
+          <div className="flex items-center justify-end mt-3 mb-5">
             <Link to="" className="flex items-center gap-3">
               <p className="text-sm leading-6 capitalize text-light tracking-[-0.14px] hover:text-secondary duration-300">
                 View all started courses

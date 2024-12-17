@@ -2,47 +2,39 @@ import { FaCalendarAlt } from "react-icons/fa";
 import { IoTime } from "react-icons/io5";
 import img from "@/assets/images/img1.png";
 import { RiCopyrightFill } from "react-icons/ri";
-import { FaCaretDown } from "react-icons/fa"; 
+import { FaCaretDown } from "react-icons/fa";
+import CopySvg from "@/components/svgs/CopySvg";
 const CourseDetails = () => {
   return (
     <>
-      <div className="container mx-auto">
+      <div className="my-container ">
         <h1 className="text-light text-lg font-medium mt-5 section-title">
           Introduction to Real Estate Marketing Strategies
         </h1>
         <div className=" relative rounded-2xl bg-transparent mt-5">
-          <div className="absolute top-2 left-2 right-2 flex items-center justify-between px-4 ">
-            <div className="flex py-1 px-2 justify-center items-center gap-1 rounded-lg border border-[#009696] bg-secondPrimary text-[#ccc] text-xs leading-[21px] tracking-[-0.12px]">
-              <span className="w-[9px] h-[9px] rounded-full bg-[#009696]"></span>
-              type
-            </div>
 
-            <button className="w-8 h-8 rounded-full flex items-center justify-center  bg-[#242424] bg-opacity-45 " >
-            <RiCopyrightFill className="text-[#ccc] text-lg" />
-          </button>
-          </div>
 
           <img
-            className="rounded-t-lg h-[450px] w-full"
+            className="rounded-t-lg w-full aspect-[16/9] lg:max-h-[550px]"
             src={img}
             alt={"Course Thumbnail"}
           />
 
-          <div className="p-4">
+          <div className="mt-5">
             {/* <h3 className="text-light text-xl font-semibold leading-[21px] tracking-[-0.2px] mb-6">
               title
             </h3> */}
 
-            <div className="flex items-center justify-between">
-              <div className="flex justify-between items-center gap-2 w-full text-light bg-[#505050] rounded-full px-3 py-1 text-xs font-medium leading-[21px] tracking-[-0.12px]">
-                <div className="flex justify-center items-center gap-2 border-r border-[#ccc] pr-2">
+            <div className="flex items-center justify-between p-4 md:p-5 lg:p-6 rounded-[16px] bg-gradient-to-b from-[#242424] to-[#024040] ">
+              <div className="flex items-center gap-2 w-full text-light bg-[#505050] rounded-full px-3 py-1 text-xs font-medium leading-[21px] tracking-[-0.12px]">
+                <div className="flex justify-center items-center gap-2 border-r border-[#ccc] pr-2 w-1/2 ">
                   <span>
                     <FaCalendarAlt />
                   </span>
-                  <span>lessons</span> Lessons
+                  <span>Lessons</span>
                 </div>
 
-                <div className="flex justify-center items-center gap-2 pl-2">
+                <div className="flex justify-center items-center gap-2 pl-2 w-1/2 ">
                   <span>
                     <IoTime />
                   </span>
@@ -78,7 +70,7 @@ const CourseDetails = () => {
                       <p className="text-light">23.30</p>
                     </div>
                     <div>
-                      <p className="flex justify-center items-center section-title text-[#009696]">SHOW ALL LESSONS<FaCaretDown/> </p>
+                      <p className="flex justify-center items-center section-title text-[#009696]">SHOW ALL LESSONS<FaCaretDown /> </p>
                     </div>
                     <div className="text-light">
                       <h1 className="section-title mt-5 mb-5">About This Course</h1>
@@ -95,7 +87,7 @@ const CourseDetails = () => {
                     </div>
 
                     <div>
-                      <p className="flex justify-center items-center section-title text-[#009696]">SHOW MORE<FaCaretDown/> </p>
+                      <p className="flex justify-center items-center section-title text-[#009696]">SHOW MORE<FaCaretDown /> </p>
                     </div>
                   </div>
                 </div>
