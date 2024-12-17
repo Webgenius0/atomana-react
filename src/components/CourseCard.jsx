@@ -17,7 +17,10 @@ const CourseCard = ({ data }) => {
         </div>
 
         {/* Icon */}
-        <RiCopyrightFill className="text-[#ccc] text-lg" />
+        <button className="w-8 h-8 rounded-full flex items-center justify-center  bg-[#242424] bg-opacity-45 " >
+          <RiCopyrightFill className="text-[#ccc] text-lg" />
+        </button>
+
       </div>
 
       {/* Image */}
@@ -33,25 +36,25 @@ const CourseCard = ({ data }) => {
           {title}
         </h3>
         <div className="flex items-center justify-between">
-        <div className="flex justify-between items-center gap-2 w-full text-light bg-[#505050] rounded-full px-3 py-1 text-xs font-medium leading-[21px] tracking-[-0.12px]">
-  {/* Left Section */}
-  <div className="flex justify-center items-center gap-2 border-r border-[#ccc] pr-2">
-    <span>
-      <FaCalendarAlt />
-    </span>
-    <span>{lessons}</span> Lessons
-  </div>
+          <div className="flex items-center gap-2 w-full text-light bg-[#505050] rounded-full px-3 py-1 text-xs font-medium leading-[21px] tracking-[-0.12px]">
+            {/* Left Section */}
+            <div className="flex justify-center items-center gap-2 border-r border-[#ccc] pr-2 w-1/2 justify-end">
+              <span>
+                <FaCalendarAlt />
+              </span>
+              <span>{lessons}</span> Lessons
+            </div>
 
-  {/* Right Section */}
-  <div className="flex justify-center items-center gap-2 pl-2">
-    <span>
-      <IoTime />
-    </span>
-    <span>{duration}</span>
-  </div>
-</div>
-
+            {/* Right Section */}
+            <div className="flex justify-center items-center gap-2 pl-2 w-1/2 justify-start">
+              <span>
+                <IoTime />
+              </span>
+              <span>{duration}</span>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
   );
