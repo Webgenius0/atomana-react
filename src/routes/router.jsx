@@ -24,11 +24,13 @@ import CourseDetails from "@/pages/CourseDetails";
 import OurMission from "@/pages/OurMission";
 import OpenHouseForm from "@/pages/OpenHouseForm";
 import MyEssentials from "@/pages/MyEssentials";
+import ErrorPage from "@/pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -221,7 +223,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/my-essentials",
-        element: <MyEssentials />,
+        element: (
+          <PageTitle title="My Essentials">
+            <MyEssentials />
+          </PageTitle>
+        ),
       },
     ],
   },
