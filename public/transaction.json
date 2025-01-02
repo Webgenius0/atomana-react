@@ -1,0 +1,17 @@
+[
+  {
+    "date": "12/01/2024",
+    "type": "Income",
+    "category": "Commission Income",
+    "subcategory": "-",
+    "description": "Commission earned from property sale",
+    "amount": "$10,000.00",
+    "paymentMethod": "Bank Transfer",
+    "vendorPayee": "Client Payment",
+    "receipt": "ABCMarketing_Receipt.png",
+    "owner": "Dave M.",
+    "reimbursable": "No",
+    "listing": "123 Main St"
+  }
+]
+

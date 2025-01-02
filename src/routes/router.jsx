@@ -25,6 +25,7 @@ import OurMission from "@/pages/OurMission";
 import OpenHouseForm from "@/pages/OpenHouseForm";
 import MyEssentials from "@/pages/MyEssentials";
 import ErrorPage from "@/pages/ErrorPage";
+import MyListingExpense from "@/pages/MyListingExpense";
 
 const router = createBrowserRouter([
   {
@@ -91,11 +92,24 @@ const router = createBrowserRouter([
           },
           {
             path: "finances",
-            element: (
-              <PageTitle title="Finances">
-                <Finances />
-              </PageTitle>
-            ),
+            children: [
+              {
+                index: true,
+                element: (
+                  <PageTitle title="Finances">
+                    <Finances />
+                  </PageTitle>
+                ),
+              },
+              {
+                path: "my-listing",
+                element: (
+                  <PageTitle title="My Listing Expenses">
+                    <MyListingExpense />
+                  </PageTitle>
+                ),
+              },
+            ],
           },
           {
             path: "new-listing",

@@ -33,17 +33,17 @@ export const useGetSystemsData = (type) => {
     },
     {
       id: "B321",
-      type: "Finances",
+      type: "Expenses",
       status: "In Review",
       lastActivity: "09/10",
-      title: "Rental Payment Form",
+      title: "MyListing Expenses",
     },
     {
       id: "B322",
-      type: "Finances",
+      type: "Expenses",
       status: "In Review",
       lastActivity: "09/13",
-      title: "Invoice for Property Management",
+      title: "MyBusiness Expenses",
     },
     {
       id: "C455",
@@ -96,10 +96,10 @@ export const useGetSystemsData = (type) => {
     },
     {
       id: "B323",
-      type: "Finances",
+      type: "Expenses",
       status: "In Review",
       lastActivity: "09/09",
-      title: "Property Rent Payment",
+      title: "PMyAgent Expenses",
     },
     {
       id: "C457",
@@ -131,10 +131,10 @@ export const useGetSystemsData = (type) => {
     },
     {
       id: "B324",
-      type: "Finances",
+      type: "Expenses",
       status: "In Review",
       lastActivity: "09/15",
-      title: "Monthly Property Maintenance Fee",
+      title: "MyP&L",
     },
     {
       id: "C458",
@@ -163,13 +163,6 @@ export const useGetSystemsData = (type) => {
       status: "In Review",
       lastActivity: "09/11",
       title: "Luxury Home Viewing",
-    },
-    {
-      id: "B325",
-      type: "Finances",
-      status: "In Review",
-      lastActivity: "09/08",
-      title: "Utility Payment for Property",
     },
     {
       id: "C459",
