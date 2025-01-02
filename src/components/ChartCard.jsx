@@ -18,10 +18,10 @@ const ChartCard = ({ data, xKey, yKey, yDomain,total }) => {
           <div className="flex justify-between items-start gap-x-1 gap-y-3 flex-wrap mb-1">
             {/* Large Number */}
             <div className="flex flex-col gap-1">
-              <h2 className="text-light text-lg md:text-xl lg:text-2xl">
-                $17,182,291.21
+              <h2 className="text-light text-lg md:text-xl lg:text-2xl"> 
+                $17,182,291.21 
               </h2>
-              <span className="text-[#9AE4A7] text-sm leading-5 tracking-[0.25px]">
+              <span className="text-[#9AE4A7] text-sm leading-5 tracking-[0.25px]"> 
                 +11% of target
               </span>
             </div>
@@ -36,10 +36,11 @@ const ChartCard = ({ data, xKey, yKey, yDomain,total }) => {
             <div>
               <BarCharts
                 data={data}
-                xKey={xKey}
+                xKey={xKey} 
                 yKey={yKey}
                 yDomain={yDomain}
               />
+            
             </div>
           </div>
         </div>

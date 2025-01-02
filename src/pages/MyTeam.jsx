@@ -10,14 +10,14 @@ import { useGetSystemsData } from "@/hooks/useGetSystemsData";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaCalendarAlt } from "react-icons/fa";
-
+import "../App.css"
 const MyTeam = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedValue, setSelectedValue] = useState("");
   const { data } = useGetSystemsData();
 
   const tabs = [
-    { label: "Dashboard", path: "/dashboard" },
+    { label: "Dashboard", path: "/dashboard" }, 
     { label: "Updates", path: "/updates" },
   ];
 
@@ -169,7 +169,7 @@ const MyTeam = () => {
                     }`}
                   ></div>
                   <span className=" text-sm font-medium text-gray-900 dark:text-gray-300">
-                    Current Value
+                    Current Value 
                   </span>
                 </button>
               </div>
