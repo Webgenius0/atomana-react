@@ -8,6 +8,7 @@
   display: none !important;
 }
 .recharts-legend-item-text{
+  margin-top:20px;
 color:#e5e7eb !important; 
 }
 .logo {

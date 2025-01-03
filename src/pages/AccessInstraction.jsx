@@ -7,7 +7,7 @@ const AccessInstraction = () => {
                 <div className="pt-6 md:pt-8 lg:pt-12 pb-3">
                     <div className="mt-[25px]">
                         <h2 className="section-title">Property Details</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mt-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-12 md:mt-4">
                             {/* Address */}
                             <div className="space-y-[2px] border-b border-secondPrimary py-4">
                                 <p className="font-bold leading-5 text-sm text-[#ffffffcc]">Address</p>
@@ -38,7 +38,7 @@ const AccessInstraction = () => {
 
                     <div className="mt-[25px]">
                         <h2 className="section-title">Access Instructions</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-12 mt-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 md:gap-12 md:mt-4">
                             {/* Address */}
                             <div className="space-y-[2px] border-b border-secondPrimary py-4">
                                 <p className="font-bold leading-5 text-sm text-[#ffffffcc]">Key Access Code</p>
@@ -65,7 +65,7 @@ const AccessInstraction = () => {
 
                     <div className="mt-[25px]">
                         <h2 className="section-title">Gated Community Instructions</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-12 mt-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 md:gap-12 md:mt-4">
                             {/* Address */}
                             <div className="space-y-[2px] border-b border-secondPrimary py-4">
                                 <p className="font-bold leading-5 text-sm text-[#ffffffcc]">Gate Codee</p>
@@ -87,7 +87,7 @@ const AccessInstraction = () => {
                     </div>
                     <div className="mt-[25px]">
                         <h2 className="section-title">Parking</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-12 mt-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 md:gap-12 md:mt-4">
                             {/* Address */}
                             <div className="space-y-[2px] border-b border-secondPrimary py-4">
                                 <p className="font-bold leading-5 text-sm text-[#ffffffcc]">Visitor Parking</p>
@@ -105,13 +105,13 @@ const AccessInstraction = () => {
                     </div>
                     <div className="mt-[25px]">
                         <h2 className="section-title">Additional Notes</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mt-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 md:gap-4 md:mt-4">
                             {/* Address */}
                             <div className="space-y-[2px]  py-4">
                                 <p className="font-bold leading-5 text-sm text-[#ffffffcc]">Notes</p>
                             
-                                <ul className="list-disc list-inside text-sm font-normal leading-5 text-[#ffffffcc] ">
-                                    <li> Designated visitor parking spots are available to the right of the main entrance.</li>
+                                <ul className="list-disc list-inside text-sm font-normal leading-5 text-[#ffffffcc]  ">
+                                    <li className='indent-3'> Designated visitor parking spots are available to the right of the main entrance.</li>
                                     
                                 </ul> 
                             </div>

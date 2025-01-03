@@ -8,9 +8,9 @@ const HoaDocument = () => {
                 <div className="pt-6 md:pt-8 lg:pt-12 pb-3">
                     <div className="mt-[25px]">
                         <h2 className="section-title">Access Instructions</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-12 mt-4"> 
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 mt-4"> 
                             {/* Address */}
-                            <div className="space-y-[2px] border-b border-secondPrimary py-4">
+                            <div className="space-y-[2px] border-b border-secondPrimary py-2 md:py-4"> 
                                 <p className="font-bold leading-5 text-sm text-[#ffffffcc]">HOA Name</p>
                                 <p className="text-sm font-normal leading-5 text-[#ffffffcc]">
                                     Maple Grove Community Association
@@ -18,7 +18,7 @@ const HoaDocument = () => {
                             </div>
 
                             {/* Property Type */}
-                            <div className="space-y-[2px] border-b border-secondPrimary py-4">
+                            <div className="space-y-[2px] border-b border-secondPrimary py-2 md:py-4">
                                 <p className="font-bold leading-5 text-sm text-[#ffffffcc]">HOA Office Address</p>
                                 <p className="text-sm font-normal leading-5 text-[#ffffffcc]">789 Maple Grove Lane, Suite 100, San Francisco, CA 94117</p>
                             </div>
@@ -30,9 +30,9 @@ const HoaDocument = () => {
                     </div>
                     <div className="mt-[10px]">
                        
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mt-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-2 md:gap-12 md:mt-4"> 
                             {/* Address */}
-                            <div className="space-y-[2px] border-b border-secondPrimary py-4">
+                            <div className="space-y-[2px] border-b border-secondPrimary py-2 md:py-4">
                                 <p className="font-bold leading-5 text-sm text-[#ffffffcc]">HOA Contact</p>
                                 <p className="text-sm font-normal leading-5 text-[#086565]">
                                     Jane Thompson, Manager
@@ -40,13 +40,13 @@ const HoaDocument = () => {
                             </div>
 
                             {/* Contact Email */}
-                            <div className="space-y-[2px] border-b border-secondPrimary py-4">
+                            <div className="space-y-[2px] border-b border-secondPrimary py-2 md:py-4">
                                 <p className="font-bold leading-5 text-sm text-[#ffffffcc]">Contact Email</p>
                                 <p className="text-sm font-normal leading-5 text-[#086565]">hoa@maplegrovecommunity.org</p>
                             </div>
 
                             {/* Contact Email */}
-                            <div className="space-y-[2px] border-b border-secondPrimary py-4">
+                            <div className="space-y-[2px] border-b border-secondPrimary py-2 md:py-4">
                                 <p className="font-bold leading-5 text-sm text-[#ffffffcc]">Contact Number</p>
                                 <p className="text-sm font-normal leading-5 text-[#086565]">(415) 555-9876</p>
                             </div>
@@ -56,9 +56,9 @@ const HoaDocument = () => {
 
                     <div className="mt-[25px]">
                         <h2 className="section-title">Key HOA Documents</h2>
-                        <div className=" max-w-lg grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-12 mt-4">
+                        <div className=" max-w-lg grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1  gap-2 md:gap-12 md:mt-4"> 
 
-                            <div className="space-y-[2px] border-b border-secondPrimary py-4">
+                            <div className="space-y-[2px] border-b border-secondPrimary py-2 md:py-4"> 
                                 <div className="flex items-center justify-between">
                                     <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
                                         Covenants, Conditions & Restrictions
@@ -69,7 +69,7 @@ const HoaDocument = () => {
                                         className="text-[#086565] hover:text-[#086565] transition"
                                     >
                                         <svg
-                                            xmlns="http://www.w3.org/2000/svg"
+                                            xmlns="http://www.w3.org/2000/svg" 
                                             className="h-4 w-4"
                                             fill="none"
                                             viewBox="0 0 24 24"
@@ -91,7 +91,7 @@ const HoaDocument = () => {
 
 
 
-                            <div className="space-y-[2px] border-b border-secondPrimary py-4">
+                            <div className="space-y-[2px] border-b border-secondPrimary py-2 md:py-4"> 
                                 <div className="flex items-center justify-between">
                                     <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
                                         Community Rules and Regulations
@@ -121,7 +121,7 @@ const HoaDocument = () => {
                                     stlrr-192193032-2024.pdf
                                 </p>
                             </div>
-                            <div className="space-y-[2px] border-b border-secondPrimary py-4">
+                            <div className="space-y-[2px] border-b border-secondPrimary py-2 md:py-4"> 
                                 <div className="flex items-center justify-between">
                                     <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
                                         HOA Budget and Financial Statements
@@ -151,7 +151,7 @@ const HoaDocument = () => {
                                     stlrr-284328484-2024.pdf
                                 </p>
                             </div>
-                            <div className="space-y-[2px] border-b border-secondPrimary py-4">
+                            <div className="space-y-[2px] border-b border-secondPrimary py-2 md:py-4"> 
                                 <div className="flex items-center justify-between">
                                     <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
                                         Architectural Guidelines
@@ -190,9 +190,9 @@ const HoaDocument = () => {
 
                     <div className="mt-[25px]">
                         <h2 className="section-title">Community Amenities</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-12 mt-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2  gap-2 md:gap-12 md:mt-4">
                             {/* Available Amenities */}
-                            <div className="space-y-4 py-4">
+                            <div className="space-y-4 py-2 md:py-4">
                                 <p className="font-bold leading-5 text-sm text-[#ffffffcc]">Available Amenities</p>
                                 <ul className="list-disc list-inside text-sm font-normal leading-5 text-[#ffffffcc] space-y-2"> 
                                     <li>Community Pool (Access Code: #5678)</li> 
@@ -202,7 +202,7 @@ const HoaDocument = () => {
                             </div>
 
                             {/* Hours */} 
-                            <div className="space-y-4 py-4">
+                            <div className="space-y-4 py-2 md:py-4">
                                 <p className="font-bold leading-5 text-sm text-[#ffffffcc]">Hours</p>
                                 <ul className="list-disc list-inside text-sm font-normal leading-5 text-[#ffffffcc] space-y-2">
                                     <li>8 AM - 8 PM</li>

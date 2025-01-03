@@ -4,7 +4,7 @@ import ProgressBar from '@/components/ProgressBar';
 import React, { useState } from 'react';
 
 const Mypl = () => {
-  const [selectedValue, setSelectedValue] = useState("");
+  const [selectedValue, setSelectedValue] = useState("current");
   const chartData = [
     {
       id: 1,
@@ -52,25 +52,25 @@ const Mypl = () => {
   const progressBarData = [
     {
       name: "Commission 1",
-      amount: "264,054",
+      amount: "$264,054",
       sales: 12,
       salesGoal: 25,
     },
     {
       name: "Commission 2",
-      amount: "251,839",
+      amount: "$251,839",
       sales: 10,
       salesGoal: 25,
     },
     {
       name: "Commission 3",
-      amount: "204,576",
+      amount: "$204,576",
       sales: 10,
       salesGoal: 30,
     },
     {
       name: "Commission 4",
-      amount: "202,843",
+      amount: "$202,843",
       sales: 9,
       salesGoal: 40,
     },
@@ -79,25 +79,25 @@ const Mypl = () => {
   const progressBarData2 = [
     {
       name: "Expense 1",
-      amount: "264,054",
+      amount: "-$26,054",
       sales: 12,
       salesGoal: 25,
     },
     {
       name: "Expense 2",
-      amount: "251,839",
+      amount: "-$25,839", 
       sales: 10,
       salesGoal: 25,
     },
     {
       name: "Expense 3",
-      amount: "204,576",
+      amount: "-$24,576",
       sales: 10,
       salesGoal: 30,
     },
     {
       name: "Expense 4",
-      amount: "202,843",
+      amount: "-$20,843",
       sales: 9,
       salesGoal: 40,
     },
@@ -142,7 +142,7 @@ const Mypl = () => {
           <div className="flex gap-5 pt-5">
             <div className="flex items-center ml-5">
               <button
-                onClick={() => handleChange("current")}
+                onClick={() => handleChange("current")} 
                 className="flex items-center gap-2"
               >
                 <div
@@ -155,7 +155,7 @@ const Mypl = () => {
               </button>
             </div>
 
-            <div className="flex items-center ml-5">
+            <div className="flex items-center ml-5"> 
               <button
                 onClick={() => handleChange("goal")}
                 className="flex items-center gap-2"
@@ -185,7 +185,7 @@ const Mypl = () => {
             />
           ))}
 
-          {/* Render Progress Bars */}
+          {/* Render Progress Bars */} 
           {groupedProgressBarData.map((group, groupIndex) => (
             <div
               key={groupIndex}
@@ -201,21 +201,23 @@ const Mypl = () => {
                 </div>
               </div>
               {group.agents.map((agent, agentIndex) => (
-                <div key={agentIndex} className="w-full mb-4 last:mb-0">
-                  <div className="flex items-center justify-between mb-2.5 gap-x-2 flex-wrap">
-                    <p className="text-sm leading-5 tracking-[0.25px] text-[#009696] underline">
-                      {agent.name}
-                    </p>
-                    <p className="text-sm leading-5 tracking-[0.25px] text-[#9AE4A7] underline">  
-                      ${agent.amount} ({agent.sales} sales)
-                    </p>
-                  </div> 
-                  <ProgressBar
-                    currentValue={agent.sales}
-                    goalValue={agent.salesGoal}
-                  />
-                </div>
-              ))}
+  <div key={agentIndex} className="w-full mb-4 last:mb-0">
+    <div className="flex items-center justify-between mb-2.5 gap-x-2 flex-wrap">
+      <p className="text-sm leading-5 tracking-[0.25px] text-[#009696] underline">
+        {agent.name}
+      </p>
+      <p
+        className={`text-sm leading-5 tracking-[0.25px] underline ${
+          group.cardTitle === "Earnings" ? "text-[#9AE4A7]" : "text-[#E49A9A]"
+        }`}
+      >
+        {agent.amount}
+      </p>
+    </div>
+    <ProgressBar currentValue={agent.sales} goalValue={agent.salesGoal} />
+  </div>
+))}
+
             </div>
           ))}
         </div>

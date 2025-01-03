@@ -37,7 +37,7 @@ const DataCard = ({ data, children }) => {
 
       {/* card-title */}
       <h3 className="text-light text-lg sm:text-xl font-semibold leading-[21px] tracking-[-0.2px]">
-        {title}
+        {title} 
       </h3>
       {children}
     </div>

@@ -29,7 +29,7 @@ const formatYAxisTicks = (value, yDomain) => {
 // Chart Component
 const BarCharts = ({ data, xKey, yKey, yDomain }) => {
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer width="100%" height={300}  >
       <BarChart
         data={data}
         margin={{
@@ -39,7 +39,7 @@ const BarCharts = ({ data, xKey, yKey, yDomain }) => {
         }}
         barSize={20} //  bar width
       >
-        {/* <CartesianGrid strokeDasharray="3 3" /> */}
+        {/* <CartesianGrid strokeDasharray="3 3" /> */} 
         <CartesianGrid
           horizontal={true}
           vertical={false}
@@ -51,13 +51,13 @@ const BarCharts = ({ data, xKey, yKey, yDomain }) => {
           domain={yDomain}
           orientation="right"
           axisLine={false}
-          tickFormatter={(value) => formatYAxisTicks(value, yDomain)}
+          tickFormatter={(value) => formatYAxisTicks(value, yDomain)} 
         />
         <Tooltip />
         <Legend />
         <Bar dataKey={yKey} fill="#009696" background={{ fill: "#0e5959" }} />
       </BarChart>
-    </ResponsiveContainer>
+    </ResponsiveContainer> 
   );
 };
 
