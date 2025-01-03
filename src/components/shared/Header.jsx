@@ -26,7 +26,11 @@ const Header = () => {
   const handleCloseModal = () => setIsModalOpen(false);
 
   const handleNotificationClick = () => {
-    setShowNotification((prev) => !prev); // Toggle notification visibility
+    setShowNotification((prev) => !prev);
+  };
+
+  const closeNotification = () => {
+    setShowNotification(false);
   };
 
   return (
@@ -98,7 +102,9 @@ const Header = () => {
                   <span className="absolute top-[-5px] right-[-5px] flex items-center justify-center w-[18px] h-[18px] rounded-full border-2 border-gray-900 bg-teal-500 text-white text-[8px] font-medium flex-shrink-0">
                     13
                   </span>
-                  {showNotification && <Notification />}
+                  {showNotification && (
+                    <Notification onClose={closeNotification} />
+                  )}
                 </div>
 
                 <Link

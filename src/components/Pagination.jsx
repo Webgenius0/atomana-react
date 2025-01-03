@@ -28,7 +28,7 @@ const Pagination = ({
   };
 
   return (
-    <div className="flex items-center gap-3.5 py-[15px]">
+    <div className="flex items-center flex-wrap gap-y-4 gap-3.5 py-[15px]">
       {/* Pagination Info */}
       <p className="text-secondary text-xs font-medium leading-[21px] tracking-[-0.12px]">
         Showing <span>{(currentPage - 1) * itemsPerPage + 1}</span>–

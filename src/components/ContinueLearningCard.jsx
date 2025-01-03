@@ -10,8 +10,8 @@ const ContinueLearningCard = ({ data }) => {
   const { type, title, lessons = 0, duration = "0 hrs", progress } = data;
 
   return (
-    <Link to={'/course-details'}>
-      <div className="relative rounded-2xl bg-[#242424] hover:shadow-[2px_2px_4px] hover:shadow-[#009696] duration-300 ease-in-out ">
+    <Link to={"/course-details"}>
+      <div className="relative rounded-2xl bg-[#242424] hover:shadow-[2px_2px_4px] hover:shadow-[#009696] duration-300 ease-in-out overflow-hidden">
         {/* Top Section with Badge and Icon */}
         <div className="absolute top-2 left-2 right-2 flex items-center justify-between px-4 z-10">
           {/* Badge */}
@@ -21,7 +21,7 @@ const ContinueLearningCard = ({ data }) => {
           </div>
 
           {/* Icon */}
-          <button className="w-8 h-8 rounded-full flex items-center justify-center  bg-[#242424] bg-opacity-45 " >
+          <button className="w-8 h-8 rounded-full flex items-center justify-center  bg-[#242424] bg-opacity-45 ">
             {/* <RiCopyrightFill className="text-[#ccc] text-lg" /> */}
             <CopySvg />
           </button>
@@ -35,7 +35,7 @@ const ContinueLearningCard = ({ data }) => {
         />
 
         {/* Content */}
-        <div className="p-4">
+        <div className="p-4 bg-gradient-to-r from-[#242424] to-primary">
           <h3 className="text-light text-xl font-semibold leading-[21px] tracking-[-0.2px] mb-6">
             {title}
           </h3>
@@ -52,8 +52,6 @@ const ContinueLearningCard = ({ data }) => {
               {progress}% complete
             </span>
           </div>
-
-
 
           {/* Details Section */}
           <div className="flex items-center justify-between">
@@ -77,7 +75,6 @@ const ContinueLearningCard = ({ data }) => {
           </div>
         </div>
       </div>
-
     </Link>
   );
 };

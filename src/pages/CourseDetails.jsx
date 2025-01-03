@@ -15,7 +15,7 @@ const CourseDetails = () => {
 
 
           <img
-            className="rounded-t-lg w-full aspect-[16/9] lg:max-h-[550px]"
+            className="rounded-xl w-full aspect-[16/9] lg:max-h-[550px]"
             src={img}
             alt={"Course Thumbnail"}
           />
@@ -50,31 +50,31 @@ const CourseDetails = () => {
                     Lessons in this class
                   </h1>
 
-                  <div>
-                    <div className="flex items-center justify-between gap-4 mb-6 border-[#505050] border-b-2">
-                      <h3 className="text-light text-xl font-semibold leading-[21px] tracking-[-0.2px] pb-2">
-                        1.Introduction
+                  <div className="mb-6 sm:mb-8 md:mb-12">
+                    <div className="flex items-center justify-between gap-4 mb-6 border-[#505050] border-b">
+                      <h3 className="text-light text-sm md:text-base font-bold leading-[21px] tracking-[-0.2px] pb-2.5">
+                        1. Introduction
                       </h3>
                       <p className="text-light">2.30</p>
                     </div>
-                    <div className="flex items-center justify-between gap-4 mb-6 border-[#505050] border-b-2">
-                      <h3 className="text-light text-xl font-semibold leading-[21px] tracking-[-0.2px] pb-2">
-                        2.How to Begin
+                    <div className="flex items-center justify-between gap-4 mb-6 border-[#505050] border-b">
+                      <h3 className="text-light text-sm md:text-base font-bold leading-[21px] tracking-[-0.2px] pb-2.5">
+                        2. How to Begin
                       </h3>
                       <p className="text-light">5.30</p>
                     </div>
-                    <div className="flex items-center justify-between gap-4 mb-6 border-[#505050] border-b-2">
-                      <h3 className="text-light text-xl font-semibold leading-[21px] tracking-[-0.2px] pb-2">
-                        3.Marketing Foundations
+                    <div className="flex items-center justify-between gap-4 mb-6 border-[#505050] border-b">
+                      <h3 className="text-light text-sm md:text-base font-semibold leading-[21px] tracking-[-0.2px] pb-2">
+                        3. Marketing Foundations
                       </h3>
                       <p className="text-light">23.30</p>
                     </div>
                     <div>
-                      <p className="flex justify-center items-center section-title text-[#009696]">SHOW ALL LESSONS<FaCaretDown /> </p>
+                      <p className="flex justify-center items-center text-[#009696] gap-1">SHOW ALL LESSONS<FaCaretDown /> </p>
                     </div>
                     <div className="text-light">
-                      <h1 className="section-title mt-5 mb-5">About This Course</h1>
-                      <p>
+                      <h1 className="section-title mt-3 sm:mt-4 md:mt-5 mb-3 sm:mb-4 md:mb-5">About This Course</h1>
+                      <p className="text-light text-sm leading-5">
                         Learn how to create a powerful social media strategy
                         tailored for real estate agents. This course will cover
                         platform selection, content creation, and leveraging
@@ -86,9 +86,7 @@ const CourseDetails = () => {
                       </p>
                     </div>
 
-                    <div>
-                      <p className="flex justify-center items-center section-title text-[#009696]">SHOW MORE<FaCaretDown /> </p>
-                    </div>
+                    <p className="flex justify-center items-center text-[#009696] gap-1 mt-3 sm:mt-4 md:mt-5">SHOW MORE<FaCaretDown /> </p>
                   </div>
                 </div>
               </div>

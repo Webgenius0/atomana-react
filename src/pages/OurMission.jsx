@@ -32,11 +32,11 @@ const OurMission = () => {
     <div className="pt-6 md:pt-8 lg:pt-12 pb-3">
       <div className="flex items-center gap-4 justify-between">
         <Link
-          to="/my-systems/team"
+          to="/my-systems/team" 
           className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit"
         >
           <ArrowLeftSvg />
-          <h2 className="section-title">Our Mission</h2>
+          <h2 className="section-title">Our Mission</h2> 
         </Link>
 
         <div className="flex items-center gap-2.5">
