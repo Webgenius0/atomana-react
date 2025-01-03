@@ -69,6 +69,7 @@ const Table = () => {
         notes: "",
         selected: false, // Reset checkbox property
       });
+      
     } else {
       // Validate the current dynamic row values
       if (Object.values(newRow).some((value) => value === "")) {
