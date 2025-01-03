@@ -4,6 +4,7 @@ import CalenderSvg from "@/components/svgs/CalenderSvg";
 import ClockSvg from "@/components/svgs/ClockSvg";
 import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
 import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
+import TimeRangePicker from "@/components/TimeRangePicker";
 import CustomTimeRangePicker from "@/components/TimeRangePicker";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -20,7 +21,7 @@ const OpenHouseForm = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    navigate("/profile/manage-team");
+    navigate("/my-systems");
   };
   const handleResetForm = () => {
     reset();
@@ -96,10 +97,7 @@ const OpenHouseForm = () => {
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
               What time frame do you want to hold it?
             </label>
-            <label className="flex items-center px-4 rounded-[10px] border border-[#d8dfeb] bg-dark w-full gap-2.5">
-              {/* <CustomTimeRangePicker /> */}
-              <ClockSvg />
-            </label>
+            <TimeRangePicker />
           </div>
           <div className="flex flex-col gap-2 w-full">
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">

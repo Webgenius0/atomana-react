@@ -11,6 +11,8 @@ const DataCard = ({ data, children }) => {
       navigate(`/my-systems/team/our-mission`);
     } else if (title === "Open House Request Form") {
       navigate(`/my-systems/open-house/open-house-form`);
+    } else if (title === "MyListing Expenses") {
+      navigate(`/my-systems/finances/my-listing`);
     }
   };
 

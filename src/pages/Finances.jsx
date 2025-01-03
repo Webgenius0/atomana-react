@@ -2,10 +2,7 @@ import DataCard from "@/components/DataCard";
 import { useGetSystemsData } from "@/hooks/useGetSystemsData";
 
 const Finances = () => {
-  const { data, isLoading, isError, error } = useGetSystemsData("finances");
-
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error: {error.message}</div>;
+  const { data } = useGetSystemsData("expenses");
 
   return (
     <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-5">

@@ -1,6 +1,7 @@
 import ChartCard from "@/components/ChartCard";
+import DataCard from "@/components/DataCard";
 import Dropdown from "@/components/Dropdown";
-import EssentialCard from "@/components/EssentialCard";
+import personimg from "@/assets/images/user.png";
 import Pagination from "@/components/Pagination";
 import ProgressBar from "@/components/ProgressBar";
 import ArrowRightSvg from "@/components/svgs/ArrowRightSvg";
@@ -8,17 +9,18 @@ import TabStepper from "@/components/TabStepper";
 import { useGetSystemsData } from "@/hooks/useGetSystemsData";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { FaCalendarAlt } from "react-icons/fa";
 
 const MyTeam = () => {
+  const [currentPage, setCurrentPage] = useState(1);
   const [selectedValue, setSelectedValue] = useState("");
-  const { data, isLoading, isError, error } = useGetSystemsData();
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error: {error.message}</div>;
+  const { data } = useGetSystemsData();
 
   const tabs = [
     { label: "Dashboard", path: "/dashboard" },
     { label: "Updates", path: "/updates" },
   ];
+
   const ourMission = [
     {
       title: "To Create Lifelong Relationships and Raving Fans",
@@ -47,6 +49,11 @@ const MyTeam = () => {
   ];
   const options = [
     { value: "month", label: "This Month" },
+    { value: "quater", label: "Quater" },
+    { value: "year", label: "Yearly" },
+  ];
+  const heightoptions = [
+    { value: "highestsales", label: "sort By: Highest sales" },
     { value: "quater", label: "Quater" },
     { value: "year", label: "Yearly" },
   ];
@@ -141,173 +148,141 @@ const MyTeam = () => {
     setSelectedValue(value);
   };
 
-  const [currentPage, setCurrentPage] = useState(1);;
-
   return (
     <>
-      <div className="my-container mx-auto">
-        <TabStepper tabs={tabs} />
+      <div className="my-container">
+        <div className="my-4 sm:my-5 md:my-6">
+          <TabStepper tabs={tabs} />
+        </div>
         <div>
           <div className="mt-5 mb-5">
-            <h1 className="text-white section-title">MyData</h1>
+            <h1 className="section-title">MyData</h1>
             <div className="flex gap-5 pt-5">
               <div className="flex items-center ml-5">
-                <input
-                  id="inline-radio"
-                  type="radio"
-                  value="current"
-                  name="inline-radio-group"
-                  checked={selectedValue === "current"}
-                  onChange={() => handleChange("current")}
-                  className={`w-4 h-4 bg-[#009696] border-[#009696] ${
-                    selectedValue === "current"
-                      ? "focus:ring-[#009696]"
-                      : "focus:ring-blue-500"
-                  }`}
-                />
-                <label
-                  htmlFor="inline-radio"
-                  className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                <button
+                  onClick={() => handleChange("current")}
+                  className="flex items-center gap-2"
                 >
-                  Current Value
-                </label>
+                  <div
+                    className={`h-3 w-3 rounded-full bg-[#009696] transition-opacity ${
+                      selectedValue === "current" ? "opacity-100" : "opacity-50"
+                    }`}
+                  ></div>
+                  <span className=" text-sm font-medium text-gray-900 dark:text-gray-300">
+                    Current Value
+                  </span>
+                </button>
               </div>
 
-              <div className="flex items-center">
-                <input
-                  id="inline-2-radio"
-                  type="radio"
-                  value="goal"
-                  name="inline-radio-group"
-                  checked={selectedValue === "goal"}
-                  onChange={() => handleChange("goal")}
-                  className={`w-4 h-4 bg-gray-100 border-gray-300 ${
-                    selectedValue === "goal"
-                      ? "focus:ring-green-500"
-                      : "focus:ring-blue-500"
-                  }`}
-                />
-                <label
-                  htmlFor="inline-2-radio"
-                  className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              <div className="flex items-center ml-5">
+                <button
+                  onClick={() => handleChange("goal")}
+                  className="flex items-center gap-2"
                 >
-                  Goal Value
-                </label>
+                  <div
+                    className={`h-3 w-3 rounded-full bg-[#009696] transition-opacity ${
+                      selectedValue === "goal" ? "opacity-100" : "opacity-50"
+                    }`}
+                  ></div>
+                  <span className=" text-sm font-medium text-gray-900 dark:text-gray-300">
+                    Goal Value
+                  </span>
+                </button>
               </div>
             </div>
           </div>
-          <div>
-            <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-              {chartData.map((chart) => (
-                <ChartCard
-                  key={chart.id}
-                  data={chart.data}
-                  xKey={chart.xKey}
-                  yKey={chart.yKey}
-                  yDomain={chart.yDomain}
-                  total={chart.total}
-                />
-              ))}
-            </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            {chartData.map((chart) => (
+              <ChartCard
+                key={chart.id}
+                data={chart.data}
+                xKey={chart.xKey}
+                yKey={chart.yKey}
+                yDomain={chart.yDomain}
+              />
+            ))}
           </div>
-          <div>
-            <div className="bg-[#242424] mt-5 p-5 rounded">
-              <div className="flex justify-between">
-                <h1 className=" text-xl section-title">Agent Leaderboard</h1>
-                <div>
-                  <Dropdown options={options} onSelect={handleSelect} />
-                </div>
+          <div className="bg-[#242424] mt-5 px-5 py-6 rounded">
+            <div className="flex justify-between gap-1 gap-y-3 flex-wrap">
+              <h1 className="section-title">Agent Leaderboard</h1>
+              <div className="flex gap-2">
+                <Dropdown options={heightoptions} onSelect={handleSelect} />
+                <Dropdown options={options} onSelect={handleSelect} />
               </div>
-              <div className="grid grid-cols-2 gap-4 w-full  rounded  ">
-                {progressValues.map((item, index) => (
-                  <div key={index} className="w-full">
-                    <ProgressBar
-                      name={item.name}
-                      sales={item.sales}
-                      progress={item.progress}
-                    />
+            </div>
+            <div className="grid md:grid-cols-2 gap-y-4 md:gap-y-6 gap-12 w-full mt-5">
+              {agenLeaderBoardData?.map((agent, index) => (
+                <div key={index} className="w-full">
+                  <div className="flex items-center justify-between mb-2.5 gap-x-2 flex-wrap">
+                    <p className="text-sm leading-5 tracking-[0.25px] text-[#ffffff99]">
+                      {agent?.name}
+                    </p>
+                    <p className="text-sm leading-5 tracking-[0.25px] text-[#ffffff99]">
+                      ${agent?.amount} ({agent?.sales} sales)
+                    </p>
                   </div>
-                ))}
 
-                <div>
-                  <Pagination
-                    currentPage={currentPage}
-                    totalItems={45}
-                    itemsPerPage={12}
-                    onPageChange={(page) => setCurrentPage(page)}
+                  <ProgressBar
+                    currentValue={agent?.sales}
+                    goalValue={agent?.salesGoal}
                   />
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <h1 className="text-white section-title text-xl mt-5 mb-5">
-              MyEssentials
-            </h1>
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-5">
-              {data?.map((item) => (
-                <EssentialCard key={item?.id} data={item} />
               ))}
             </div>
 
-            <div></div>
+            <div className="my-4 sm:my-5 md:my-6">
+              <Pagination
+                currentPage={currentPage}
+                totalItems={45}
+                itemsPerPage={12}
+                onPageChange={(page) => setCurrentPage(page)}
+              />
+            </div>
+          </div>
+          <div className="mt-6">
+            <h1 className="section-title mb-4">MyEssentials</h1>
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-5">
+              {data?.slice(0, 5)?.map((item) => (
+                <DataCard key={item?.id} data={item}>
+                  <div className="space-y-8 sm:space-y-10 md:space-y-12 lg:space-y-14 mt-2">
+                    <div className="flex items-center justify-between">
+                      <p className="text-secondary text-xs font-medium leading-[21px] tracking-[-0.12px]">
+                        Status:{" "}
+                        <span className="text-light">{item?.status}</span>
+                      </p>
+                      <p className="text-secondary text-xs font-medium leading-[21px] tracking-[-0.12px]">
+                        Last Activity:{" "}
+                        <span className="text-light">{item?.lastActivity}</span>
+                      </p>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-4">
+                        <img
+                          className="w-8 h-8 rounded-full"
+                          src={personimg}
+                          alt=""
+                        />
+                        <div className="font-medium dark:text-white">
+                          <div className="text-xs text-light ">
+                            John Hernandez{" "}
+                          </div>
+                        </div>
+                      </div>
 
-            <div>
-              <div>
-                <h1 className="text-white section-title text-xl mt-5 mb-5">
-                  Our Mission
-                </h1>
-                <div>
-                  <div className="bg-[#242424] p-5 flex gap-10 rounded">
-                    <div>
-                      <p className="section-title max-w-xs ">
-                        To Create Lifelong Relationships and Raving Fans
-                      </p>
-                    </div>
-
-                    <div>
-                      <h1 className="section-title max-w-xs">Excellence</h1>
-                      <p className="max-w-xs text-light">
-                        Consistent execution, Do things the right way
-                        consistently
-                      </p>
-                    </div>
-                    <div>
-                      <h1 className="section-title max-w-xs">Excellence</h1>
-                      <p className="max-w-xs text-light">
-                        Consistent execution, Do things the right way
-                        consistently
-                      </p>
-                    </div>
-                    <div>
-                      <h1 className="section-title max-w-xs">Excellence</h1>
-                      <p className=" max-w-xs text-light">
-                        Consistent execution, Do things the right way
-                        consistently
-                      </p>
-                    </div>
-                    <div>
-                      <h1 className="section-title max-w-xs">Excellence</h1>
-                      <p className=" max-w-xs text-light">
-                        Consistent execution, Do things the right way
-                        consistently
-                      </p>
-                    </div>
-                    <div>
-                      <h1 className="section-title max-w-xs">Excellence</h1>
-                      <p className=" max-w-xs text-light">
-                        Consistent execution, Do things the right way
-                        consistently
+                      <p className="flex justify-center items-center gap-2  text-light bg-[#505050] rounded-full px-3 py-1 text-xs font-medium leading-[21px] tracking-[-0.12px]">
+                        <span>
+                          <FaCalendarAlt />
+                        </span>
+                        2024 Q1
                       </p>
                     </div>
                   </div>
-                </div>
-              </div>
+                </DataCard>
+              ))}
             </div>
 
             <div className="flex items-center justify-end">
-              <Link to="" className="flex items-center gap-3">
+              <Link to="/my-essentials" className="flex items-center gap-3">
                 <p className="text-sm leading-6 capitalize text-light tracking-[-0.14px] hover:text-secondary duration-300">
                   View All Leads
                 </p>

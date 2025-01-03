@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { FaCaretDown } from "react-icons/fa"; 
+import { FaCaretDown } from "react-icons/fa"; // Import the down arrow icon from react-icons
 
-const Dropdown = ({ options, placeholder, onSelect }) => {
+const DropdownTwo = ({ options, placeholder, onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -20,11 +20,11 @@ const Dropdown = ({ options, placeholder, onSelect }) => {
   };
 
   return (
-    <div className="relative w-fit bg-[#242424]">
-      {/* Dropdown button with selected option */}
+    <div className="relative w-fit bg-dark">
+      {/* DropdownTwo button with selected option */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-3 py-1 text-left text-xs text-white truncate bg-transparent border rounded-md shadow-sm focus:outline-none flex items-center justify-between"
+        className="w-full px-3 py-2 text-left text-xs text-white truncate bg-transparent border rounded-[10px] shadow-sm focus:outline-none flex items-center justify-between"
       >
         {/* Display selected option or placeholder */}
         <span>
@@ -36,7 +36,7 @@ const Dropdown = ({ options, placeholder, onSelect }) => {
         <FaCaretDown className="ml-2 text-white" />
       </button>
 
-      {/* Options dropdown list */}
+      {/* Options DropdownTwo list */}
       {isOpen && (
         <ul className="absolute z-10 w-full mt-2 bg-[#242424] border rounded-md shadow-lg">
           {options.map((option) => (
@@ -54,4 +54,4 @@ const Dropdown = ({ options, placeholder, onSelect }) => {
   );
 };
 
-export default Dropdown;
+export default DropdownTwo;

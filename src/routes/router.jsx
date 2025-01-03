@@ -23,11 +23,15 @@ import MemberProfile from "@/pages/MemberProfile";
 import CourseDetails from "@/pages/CourseDetails";
 import OurMission from "@/pages/OurMission";
 import OpenHouseForm from "@/pages/OpenHouseForm";
+import MyEssentials from "@/pages/MyEssentials";
+import ErrorPage from "@/pages/ErrorPage";
+import MyListingExpense from "@/pages/MyListingExpense";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -43,6 +47,14 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
+            element: (
+              <PageTitle title="My Systems">
+                <MySystems />
+              </PageTitle>
+            ),
+          },
+          {
+            path: "all",
             element: (
               <PageTitle title="My Systems">
                 <MySystems />
@@ -80,11 +92,24 @@ const router = createBrowserRouter([
           },
           {
             path: "finances",
-            element: (
-              <PageTitle title="Finances">
-                <Finances />
-              </PageTitle>
-            ),
+            children: [
+              {
+                index: true,
+                element: (
+                  <PageTitle title="Finances">
+                    <Finances />
+                  </PageTitle>
+                ),
+              },
+              {
+                path: "my-listing",
+                element: (
+                  <PageTitle title="My Listing Expenses">
+                    <MyListingExpense />
+                  </PageTitle>
+                ),
+              },
+            ],
           },
           {
             path: "new-listing",
@@ -217,6 +242,14 @@ const router = createBrowserRouter([
             ),
           },
         ],
+      },
+      {
+        path: "/my-essentials",
+        element: (
+          <PageTitle title="My Essentials">
+            <MyEssentials />
+          </PageTitle>
+        ),
       },
     ],
   },
