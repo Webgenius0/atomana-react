@@ -112,6 +112,14 @@ const router = createBrowserRouter([
                   </PageTitle>
                 ),
               },
+              {
+                path: "pl",
+                element: (
+                  <PageTitle title="My P&L">
+                    <Mypl />
+                  </PageTitle>
+                ),
+              },
             ],
           },
           {
@@ -146,6 +154,22 @@ const router = createBrowserRouter([
                 element: (
                   <PageTitle title="Our Mission">
                     <OurMission />
+                  </PageTitle>
+                ),
+              },
+              {
+                path: "hoa",
+                element: (
+                  <PageTitle title="Hoa Community Documents">
+                    <HoaDocument />
+                  </PageTitle>
+                ),
+              },
+              {
+                path: "access",
+                element: (
+                  <PageTitle title="Access Instruction">
+                    <AccessInstraction />
                   </PageTitle>
                 ),
               },
@@ -251,30 +275,6 @@ const router = createBrowserRouter([
         element: (
           <PageTitle title="My Essentials">
             <MyEssentials />
-          </PageTitle>
-        ),
-      },
-      {
-        path: "access",
-        element: (
-          <PageTitle title="Access"> 
-            <AccessInstraction />
-          </PageTitle>
-        ),
-      },
-      {
-        path: "hoa",
-        element: (
-          <PageTitle title="Hoa"> 
-            <HoaDocument /> 
-          </PageTitle>
-        ),
-      },
-      {
-        path: "pl",
-        element: (
-          <PageTitle title="pl"> 
-            <Mypl /> 
           </PageTitle>
         ),
       },

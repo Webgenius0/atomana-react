@@ -179,13 +179,6 @@ export const useGetSystemsData = (type) => {
       title: "Pending Rental Contract",
     },
     {
-      id: "E991",
-      type: "Team",
-      status: "In Review",
-      lastActivity: "09/14",
-      title: "Team Updates",
-    },
-    {
       id: "A128",
       type: "Open Houses",
       status: "Completed",

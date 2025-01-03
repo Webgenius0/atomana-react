@@ -7,8 +7,9 @@
 .recharts-legend-icon {
   display: none !important;
 }
-.recharts-legend-item-text{
-color:#e5e7eb !important; 
+.recharts-legend-item-text {
+  margin-top: 20px;
+  color: #ffffff99 !important;
 }
 .logo {
   height: 6em;

@@ -13,7 +13,7 @@ import { FaCalendarAlt } from "react-icons/fa";
 import "../App.css"
 const MyTeam = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedValue, setSelectedValue] = useState("");
+  const [selectedValue, setSelectedValue] = useState("current");
   const { data } = useGetSystemsData();
 
   const tabs = [
@@ -63,6 +63,7 @@ const MyTeam = () => {
       data: [{ name: "January", value: 200 }],
       xKey: "name",
       yKey: "value",
+      title: "Current Sales Volume",
       yDomain: [0, 400],
     },
     {
@@ -70,6 +71,7 @@ const MyTeam = () => {
       data: [{ name: "Q1", amount: 100000 }],
       xKey: "name",
       yKey: "amount",
+      title: "Units Sold",
       yDomain: [0, 1000000],
     },
     {
@@ -77,6 +79,7 @@ const MyTeam = () => {
       data: [{ name: "Item A", sales: 30000 }],
       xKey: "name",
       yKey: "sales",
+      title: "Expenses",
       yDomain: [0, 200000],
     },
     {
@@ -84,6 +87,7 @@ const MyTeam = () => {
       data: [{ name: "John", salary: 300 }],
       xKey: "name",
       yKey: "salary",
+      title: "Gross Profit",
       yDomain: [0, 400],
     },
   ];
@@ -142,7 +146,7 @@ const MyTeam = () => {
   const handleSelect = (option) => {
     console.log("Selected option:", option);
   };
-
+ 
   const handleChange = (value) => {
     console.log("Selected Value:", value);
     setSelectedValue(value);
@@ -160,7 +164,7 @@ const MyTeam = () => {
             <div className="flex gap-5 pt-5">
               <div className="flex items-center ml-5">
                 <button
-                  onClick={() => handleChange("current")}
+                  onClick={() => handleChange("current")} 
                   className="flex items-center gap-2"
                 >
                   <div
@@ -199,6 +203,7 @@ const MyTeam = () => {
                 xKey={chart.xKey}
                 yKey={chart.yKey}
                 yDomain={chart.yDomain}
+                title= {chart.title}
               />
             ))}
           </div>
@@ -206,7 +211,7 @@ const MyTeam = () => {
             <div className="flex justify-between gap-1 gap-y-3 flex-wrap">
               <h1 className="section-title">Agent Leaderboard</h1>
               <div className="flex gap-2">
-                <Dropdown options={heightoptions} onSelect={handleSelect} />
+                <Dropdown options={heightoptions} onSelect={handleSelect} /> 
                 <Dropdown options={options} onSelect={handleSelect} />
               </div>
             </div>

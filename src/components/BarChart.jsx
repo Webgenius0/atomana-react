@@ -53,8 +53,7 @@ const BarCharts = ({ data, xKey, yKey, yDomain }) => {
           axisLine={false}
           tickFormatter={(value) => formatYAxisTicks(value, yDomain)}
         />
-        <Tooltip />
-        <Legend />
+
         <Bar dataKey={yKey} fill="#009696" background={{ fill: "#0e5959" }} />
       </BarChart>
     </ResponsiveContainer>
