@@ -25,6 +25,9 @@ import OurMission from "@/pages/OurMission";
 import OpenHouseForm from "@/pages/OpenHouseForm";
 import MyEssentials from "@/pages/MyEssentials";
 import ErrorPage from "@/pages/ErrorPage";
+import AccessInstraction from "@/pages/AccessInstraction";
+import HoaDocument from "@/pages/HoaDocument";
+import Mypl from "@/pages/Mypl";
 import MyListingExpense from "@/pages/MyListingExpense";
 
 const router = createBrowserRouter([
@@ -109,6 +112,14 @@ const router = createBrowserRouter([
                   </PageTitle>
                 ),
               },
+              {
+                path: "pl",
+                element: (
+                  <PageTitle title="My P&L">
+                    <Mypl />
+                  </PageTitle>
+                ),
+              },
             ],
           },
           {
@@ -143,6 +154,22 @@ const router = createBrowserRouter([
                 element: (
                   <PageTitle title="Our Mission">
                     <OurMission />
+                  </PageTitle>
+                ),
+              },
+              {
+                path: "hoa",
+                element: (
+                  <PageTitle title="Hoa Community Documents">
+                    <HoaDocument />
+                  </PageTitle>
+                ),
+              },
+              {
+                path: "access",
+                element: (
+                  <PageTitle title="Access Instruction">
+                    <AccessInstraction />
                   </PageTitle>
                 ),
               },
