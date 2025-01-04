@@ -3,36 +3,30 @@ import TabBtn from "@/components/TabBtn";
 import React from "react";
 import { Outlet, useLocation } from "react-router-dom";
 
-const MySystemsLayout = () => {
+const MyVendorlistLayout = () => { 
   const systemTabs = [
     {
       label: "All",
       link: "/my-systems/all",
     },
     {
-      label: "Activities",
-      link: "/my-systems/activities",
+      label: "Utilities",
+      link: "/my-systems/activities",  
     },
     {
-      label: "Open Houses",
+      label: "Pest Control",
       link: "/my-systems/open-house",
     },
     {
-      label: "Finances",
+      label: "Insurance",
       link: "/my-systems/finances",
     },
     {
-      label: "New Listing",
-      link: "/my-systems/new-listing",
+      label: "Rental Management",
+      link: "/my-systems/new-listing", 
     },
-    {
-      label: "New Contract",
-      link: "/my-systems/new-contract",
-    },
-    {
-      label: "Team",
-      link: "/my-systems/team",
-    },
+    
+  
   ];
 
   const location = useLocation().pathname;
@@ -43,8 +37,7 @@ const MySystemsLayout = () => {
         <div
           className={
             location === "/my-systems/team/our-mission" ||
-            location === "/my-systems/open-house/open-house-form" || 
-            location === "/my-systems/open-house/open-house-form-details" || 
+            location === "/my-systems/open-house/open-house-form" ||
             location === "/my-systems/finances/pl" ||
             location === "/my-systems/team/hoa" ||
             location === "/my-systems/team/access"
@@ -52,7 +45,7 @@ const MySystemsLayout = () => {
               : "block"
           }
         >
-          <h2 className="section-title">Systems</h2>
+          <h2 className="section-title">Vendor List</h2> 
           <SubTabs tabLinks={systemTabs} />
         </div>
         <Outlet />
@@ -61,4 +54,4 @@ const MySystemsLayout = () => {
   );
 };
 
-export default MySystemsLayout;
+export default MyVendorlistLayout;

@@ -29,6 +29,8 @@ import AccessInstraction from "@/pages/AccessInstraction";
 import HoaDocument from "@/pages/HoaDocument";
 import Mypl from "@/pages/Mypl";
 import MyListingExpense from "@/pages/MyListingExpense";
+import MyVendorlistLayout from "@/layouts/MyVendorlistLayout";
+import OpenHouseFormDetails from "@/pages/OpenHouseFormDetails";
 
 const router = createBrowserRouter([
   {
@@ -39,14 +41,14 @@ const router = createBrowserRouter([
       {
         index: true,
         element: (
-          <PageTitle title="My Team">
+          <PageTitle title="My Team"> 
             <MyTeam />
           </PageTitle>
         ),
       },
       {
         path: "/my-systems",
-        element: <MySystemsLayout />,
+        element: <MySystemsLayout />, 
         children: [
           {
             index: true,
@@ -86,8 +88,16 @@ const router = createBrowserRouter([
               {
                 path: "open-house-form",
                 element: (
-                  <PageTitle title="Open House Form">
+                  <PageTitle title="Open House Form"> 
                     <OpenHouseForm />
+                  </PageTitle>
+                ),
+              },
+              {
+                path: "open-house-form-details",
+                element: (
+                  <PageTitle title="Details"> 
+                    <OpenHouseFormDetails /> 
                   </PageTitle>
                 ),
               },
@@ -107,7 +117,7 @@ const router = createBrowserRouter([
               {
                 path: "my-listing",
                 element: (
-                  <PageTitle title="My Listing Expenses">
+                  <PageTitle title="My Listing Expenses">  
                     <MyListingExpense />
                   </PageTitle>
                 ),
@@ -115,7 +125,7 @@ const router = createBrowserRouter([
               {
                 path: "pl",
                 element: (
-                  <PageTitle title="My P&L">
+                  <PageTitle title="My P&L"> 
                     <Mypl />
                   </PageTitle>
                 ),
@@ -125,7 +135,7 @@ const router = createBrowserRouter([
           {
             path: "new-listing",
             element: (
-              <PageTitle title="New Listing">
+              <PageTitle title="New Listing"> 
                 <NewListing />
               </PageTitle>
             ),
@@ -133,18 +143,20 @@ const router = createBrowserRouter([
           {
             path: "new-contract",
             element: (
-              <PageTitle title="New Contract">
+              <PageTitle title="New Contract"> 
                 <NewContract />
               </PageTitle>
             ),
           },
           {
             path: "team",
+          
+            
             children: [
               {
                 index: true,
                 element: (
-                  <PageTitle title="Team">
+                  <PageTitle title="Team"> 
                     <Team />
                   </PageTitle>
                 ),
@@ -177,10 +189,11 @@ const router = createBrowserRouter([
           },
         ],
       },
+     
       {
         path: "/my-ai",
         element: (
-          <PageTitle title="My AI">
+          <PageTitle title="My AI"> 
             <MyAI />
           </PageTitle>
         ),
@@ -277,6 +290,17 @@ const router = createBrowserRouter([
             <MyEssentials />
           </PageTitle>
         ),
+      },
+      {
+        path: "/vendorlist",
+        element: (
+          <MyVendorlistLayout/>
+        ),
+        children:[
+          {
+            
+          }
+        ]
       },
     ],
   },

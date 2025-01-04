@@ -11,7 +11,7 @@ const DataCard = ({ data, children }) => {
       navigate(`/my-systems/team/our-mission`);
     }
      else if (title === "Open House Request Form") {
-      navigate(`/my-systems/open-house/open-house-form`);
+      navigate(`/my-systems/open-house/open-house-form`);  
     }
      else if (title === "HOA Community Docs") {
       navigate(`/my-systems/team/hoa`);
@@ -20,16 +20,16 @@ const DataCard = ({ data, children }) => {
       navigate(`/my-systems/team/access`);
     }
      else if (title === "MyListing Expenses") {
-      navigate(`/my-systems/finances/my-listing`);
+      navigate(`/my-systems/finances/my-listing`);  
     }
     else if (title === "MyP&L") {
-      navigate(`/my-systems/finances/pl`);
+      navigate(`/my-systems/finances/pl`); 
     }
   };
 
   return (
     <div
-      onClick={() => handleCardClick(title)}
+      onClick={() => handleCardClick(title)} 
       role={
         title == "Our Mission" || title == "Open House Request Form"
           ? "button"
