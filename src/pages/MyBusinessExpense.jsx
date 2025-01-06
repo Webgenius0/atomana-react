@@ -1,3 +1,6 @@
+
+
+
 import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
 import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
 import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
@@ -6,7 +9,7 @@ import TabStepper from "@/components/TabStepper";
 import React from "react";
 import { Link } from "react-router-dom";
 
-const MyListingExpense = () => {
+const MyBusinessExpense = () => {
   const tabs = [
     { label: "Forms", path: "/forms" },  
     { label: "Charts", path: "/charts" }, 
@@ -22,7 +25,7 @@ const MyListingExpense = () => {
           className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit"
         >
           <ArrowLeftSvg />
-          <h2 className="section-title">MyListing Expenses</h2> 
+          <h2 className="section-title">MyBusiness Expenses</h2> 
         </Link>
 
         <div className="flex items-center gap-2.5">
@@ -50,4 +53,4 @@ const MyListingExpense = () => {
   );
 };
 
-export default MyListingExpense;
+export default MyBusinessExpense;

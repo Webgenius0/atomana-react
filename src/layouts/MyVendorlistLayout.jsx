@@ -39,7 +39,7 @@ const MyVendorlistLayout = () => {
             location === "/my-systems/team/our-mission" ||
             location === "/my-systems/open-house/open-house-form" ||
             location === "/my-systems/finances/pl" ||
-            location === "/my-systems/team/hoa" ||
+            location === "/my-systems/team/hoa" || 
             location === "/my-systems/team/access"
               ? "hidden"
               : "block"

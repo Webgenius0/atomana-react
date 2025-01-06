@@ -31,6 +31,8 @@ import Mypl from "@/pages/Mypl";
 import MyListingExpense from "@/pages/MyListingExpense";
 import MyVendorlistLayout from "@/layouts/MyVendorlistLayout";
 import OpenHouseFormDetails from "@/pages/OpenHouseFormDetails";
+import MyAgentExpense from "@/pages/MyAgentExpense";
+import MyBusinessExpense from "@/pages/MyBusinessExpense";
 
 const router = createBrowserRouter([
   {
@@ -119,6 +121,22 @@ const router = createBrowserRouter([
                 element: (
                   <PageTitle title="My Listing Expenses">  
                     <MyListingExpense />
+                  </PageTitle>
+                ),
+              },
+              {
+                path: "my-business-expenses", 
+                element: (
+                  <PageTitle title="My Business Expenses">  
+                    <MyBusinessExpense />
+                  </PageTitle>
+                ),
+              },
+              {
+                path: "my-agent-expenses",
+                element: (
+                  <PageTitle title="PMyAgent Expenses">  
+                    <MyAgentExpense />
                   </PageTitle>
                 ),
               },

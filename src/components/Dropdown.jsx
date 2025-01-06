@@ -24,7 +24,7 @@ const Dropdown = ({ options, placeholder, onSelect }) => {
       {/* Dropdown button with selected option */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-3 py-1 text-left text-xs text-white truncate bg-transparent border rounded-md shadow-sm focus:outline-none flex items-center justify-between"
+        className="w-full px-3 py-2 text-left text-xs text-white truncate bg-transparent border rounded-md shadow-sm focus:outline-none flex items-center justify-between"
       >
         {/* Display selected option or placeholder */}
         <span>

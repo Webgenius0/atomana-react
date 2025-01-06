@@ -52,7 +52,7 @@ const MySystemsLayout = () => {
               : "block"
           }
         >
-          <h2 className="section-title">Systems</h2>
+          <h2 className="section-title">Systems</h2> 
           <SubTabs tabLinks={systemTabs} />
         </div>
         <Outlet />

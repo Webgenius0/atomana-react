@@ -10,26 +10,32 @@ const DataCard = ({ data, children }) => {
     if (title === "Our Mission") {
       navigate(`/my-systems/team/our-mission`);
     }
-     else if (title === "Open House Request Form") {
-      navigate(`/my-systems/open-house/open-house-form`);  
+    else if (title === "Open House Request Form") {
+      navigate(`/my-systems/open-house/open-house-form`);
     }
-     else if (title === "HOA Community Docs") {
+    else if (title === "HOA Community Docs") {
       navigate(`/my-systems/team/hoa`);
     }
-     else if (title === "Access Instruction") {
+    else if (title === "Access Instruction") {
       navigate(`/my-systems/team/access`);
     }
-     else if (title === "MyListing Expenses") {
-      navigate(`/my-systems/finances/my-listing`);  
+    else if (title === "MyListing Expenses") {
+      navigate(`/my-systems/finances/my-listing`);
     }
     else if (title === "MyP&L") {
-      navigate(`/my-systems/finances/pl`); 
+      navigate(`/my-systems/finances/pl`);
+    }
+    else if (title === "MyBusiness Expenses") {
+      navigate(`/my-systems/finances/my-business-expenses`);
+    }
+    else if (title === "PMyAgent Expenses") {
+      navigate(`/my-systems/finances/my-agent-expenses`);
     }
   };
 
   return (
     <div
-      onClick={() => handleCardClick(title)} 
+      onClick={() => handleCardClick(title)}
       role={
         title == "Our Mission" || title == "Open House Request Form"
           ? "button"
@@ -50,7 +56,7 @@ const DataCard = ({ data, children }) => {
 
       {/* card-title */}
       <h3 className="text-light text-lg sm:text-xl font-semibold leading-[21px] tracking-[-0.2px]">
-        {title} 
+        {title}
       </h3>
       {children}
     </div>
