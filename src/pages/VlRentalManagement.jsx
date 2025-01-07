@@ -2,8 +2,8 @@ import DataCard from '@/components/DataCard';
 import { useGetVendorListData } from '@/hooks/useVendorListData';
 import React from 'react'
 
-const VlUtilities = () => {
-  const { data } = useGetVendorListData('utilities');
+const VlRentalManagement = () => {
+    const { data } = useGetVendorListData('rental management');
 
     return (
       <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-5">
@@ -24,4 +24,4 @@ const VlUtilities = () => {
     );
 }
 
-export default VlUtilities
+export default VlRentalManagement

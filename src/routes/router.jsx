@@ -29,12 +29,15 @@ import AccessInstraction from "@/pages/AccessInstraction";
 import HoaDocument from "@/pages/HoaDocument";
 import Mypl from "@/pages/Mypl";
 import MyListingExpense from "@/pages/MyListingExpense";
-import MyVendorlistLayout from "@/layouts/MyVendorlistLayout";
+
 import OpenHouseFormDetails from "@/pages/OpenHouseFormDetails";
 import MyAgentExpense from "@/pages/MyAgentExpense";
 import MyBusinessExpense from "@/pages/MyBusinessExpense";
 import VlAll from "@/pages/VlAll";
 import VlUtilities from "@/pages/VlUtilities";
+import VlPestControl from "@/pages/VlPestControl";
+import VlRentalManagement from "@/pages/VlRentalManagement";
+import VlInsurance from "@/pages/VlInsurance";
 
 const router = createBrowserRouter([
   {
@@ -221,6 +224,31 @@ const router = createBrowserRouter([
               </PageTitle>
             ),
           },
+          {
+            path: "vendor-list/pest-control",
+            element: (
+              <PageTitle title="Vendor List Utilities">
+                <VlPestControl />
+              </PageTitle>
+            ),
+          },
+          {
+            path: "vendor-list/rental-management", 
+            element: (
+              <PageTitle title="Vendor List Utilities">
+                <VlRentalManagement />
+              </PageTitle>
+            ),
+          },
+          {
+            path: "vendor-list/insurance", 
+            element: (
+              <PageTitle title="Vendor List Utilities">
+                <VlInsurance />
+              </PageTitle>
+            ),
+          },
+         
         ],
       },
       {
