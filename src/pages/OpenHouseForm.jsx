@@ -139,7 +139,7 @@ const OpenHouseForm = () => {
           />
            <button
               onClick={handleResetForm}
-              className="request-btn text-light" 
+              className="request-btn text-light"  
             >
               Continue
             </button>

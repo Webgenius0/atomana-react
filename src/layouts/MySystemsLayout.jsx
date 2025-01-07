@@ -47,7 +47,10 @@ const MySystemsLayout = () => {
             location === "/my-systems/open-house/open-house-form-details" || 
             location === "/my-systems/finances/pl" ||
             location === "/my-systems/team/hoa" ||
-            location === "/my-systems/team/access"
+            location === "/my-systems/team/access"||
+            location === "/my-systems/finances/my-listing"||
+            location === "/my-systems/finances/my-agent-expenses"||
+            location === "/my-systems/finances/my-business-expenses"
               ? "hidden"
               : "block"
           }
