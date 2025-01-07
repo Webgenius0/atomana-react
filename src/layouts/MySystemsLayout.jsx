@@ -1,5 +1,4 @@
 import SubTabs from "@/components/SubTabs";
-import TabBtn from "@/components/TabBtn";
 import React from "react";
 import { Outlet, useLocation } from "react-router-dom";
 
@@ -35,6 +34,29 @@ const MySystemsLayout = () => {
     },
   ];
 
+  const vendorListTabs = [
+    {
+      label: "All",
+      link: "/my-systems/vendor-list/all",
+    },
+    {
+      label: "Utilities",
+      link: "/my-systems/vendor-list/utilities",
+    },
+    {
+      label: "Pest Control",
+      link: "/my-systems/vendor-list/pest-control",
+    },
+    {
+      label: "Insurance",
+      link: "/my-systems/vendor-list/insurance",
+    },
+    {
+      label: "Rental Management",
+      link: "/my-systems/vendor-list/rental-management",
+    },
+  ];
+
   const location = useLocation().pathname;
 
   return (
@@ -43,20 +65,30 @@ const MySystemsLayout = () => {
         <div
           className={
             location === "/my-systems/team/our-mission" ||
-            location === "/my-systems/open-house/open-house-form" || 
-            location === "/my-systems/open-house/open-house-form-details" || 
+            location === "/my-systems/open-house/open-house-form" ||
+            location === "/my-systems/open-house/open-house-form-details" ||
             location === "/my-systems/finances/pl" ||
             location === "/my-systems/team/hoa" ||
-            location === "/my-systems/team/access"||
-            location === "/my-systems/finances/my-listing"||
-            location === "/my-systems/finances/my-agent-expenses"||
+            location === "/my-systems/team/access" ||
+            location === "/my-systems/finances/my-listing" ||
+            location === "/my-systems/finances/my-agent-expenses" ||
             location === "/my-systems/finances/my-business-expenses"
               ? "hidden"
               : "block"
           }
         >
-          <h2 className="section-title">Systems</h2> 
-          <SubTabs tabLinks={systemTabs} />
+          <h2 className="section-title">Systems</h2>
+          <SubTabs
+            tabLinks={
+              location === "/my-systems/vendor-list/all" ||
+              location === "/my-systems/vendor-list/utilities" ||
+              location === "/my-systems/vendor-list/pest-control" ||
+              location === "/my-systems/vendor-list/insurance" ||
+              location === "/my-systems/vendor-list/rental-management"
+                ? vendorListTabs
+                : systemTabs
+            }
+          />
         </div>
         <Outlet />
       </div>

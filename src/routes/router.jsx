@@ -33,6 +33,8 @@ import MyVendorlistLayout from "@/layouts/MyVendorlistLayout";
 import OpenHouseFormDetails from "@/pages/OpenHouseFormDetails";
 import MyAgentExpense from "@/pages/MyAgentExpense";
 import MyBusinessExpense from "@/pages/MyBusinessExpense";
+import VlAll from "@/pages/VlAll";
+import VlUtilities from "@/pages/VlUtilities";
 
 const router = createBrowserRouter([
   {
@@ -43,14 +45,14 @@ const router = createBrowserRouter([
       {
         index: true,
         element: (
-          <PageTitle title="My Team"> 
+          <PageTitle title="My Team">
             <MyTeam />
           </PageTitle>
         ),
       },
       {
         path: "/my-systems",
-        element: <MySystemsLayout />, 
+        element: <MySystemsLayout />,
         children: [
           {
             index: true,
@@ -90,7 +92,7 @@ const router = createBrowserRouter([
               {
                 path: "open-house-form",
                 element: (
-                  <PageTitle title="Open House Form"> 
+                  <PageTitle title="Open House Form">
                     <OpenHouseForm />
                   </PageTitle>
                 ),
@@ -98,8 +100,8 @@ const router = createBrowserRouter([
               {
                 path: "open-house-form-details",
                 element: (
-                  <PageTitle title="Details"> 
-                    <OpenHouseFormDetails /> 
+                  <PageTitle title="Details">
+                    <OpenHouseFormDetails />
                   </PageTitle>
                 ),
               },
@@ -119,15 +121,15 @@ const router = createBrowserRouter([
               {
                 path: "my-listing",
                 element: (
-                  <PageTitle title="My Listing Expenses">  
+                  <PageTitle title="My Listing Expenses">
                     <MyListingExpense />
                   </PageTitle>
                 ),
               },
               {
-                path: "my-business-expenses", 
+                path: "my-business-expenses",
                 element: (
-                  <PageTitle title="My Business Expenses">  
+                  <PageTitle title="My Business Expenses">
                     <MyBusinessExpense />
                   </PageTitle>
                 ),
@@ -135,7 +137,7 @@ const router = createBrowserRouter([
               {
                 path: "my-agent-expenses",
                 element: (
-                  <PageTitle title="PMyAgent Expenses">  
+                  <PageTitle title="PMyAgent Expenses">
                     <MyAgentExpense />
                   </PageTitle>
                 ),
@@ -143,7 +145,7 @@ const router = createBrowserRouter([
               {
                 path: "pl",
                 element: (
-                  <PageTitle title="My P&L"> 
+                  <PageTitle title="My P&L">
                     <Mypl />
                   </PageTitle>
                 ),
@@ -153,7 +155,7 @@ const router = createBrowserRouter([
           {
             path: "new-listing",
             element: (
-              <PageTitle title="New Listing"> 
+              <PageTitle title="New Listing">
                 <NewListing />
               </PageTitle>
             ),
@@ -161,20 +163,18 @@ const router = createBrowserRouter([
           {
             path: "new-contract",
             element: (
-              <PageTitle title="New Contract"> 
+              <PageTitle title="New Contract">
                 <NewContract />
               </PageTitle>
             ),
           },
           {
             path: "team",
-          
-            
             children: [
               {
                 index: true,
                 element: (
-                  <PageTitle title="Team"> 
+                  <PageTitle title="Team">
                     <Team />
                   </PageTitle>
                 ),
@@ -205,13 +205,28 @@ const router = createBrowserRouter([
               },
             ],
           },
+          {
+            path: "vendor-list/all",
+            element: (
+              <PageTitle title="Vendor List all">
+                <VlAll />
+              </PageTitle>
+            ),
+          },
+          {
+            path: "vendor-list/utilities",
+            element: (
+              <PageTitle title="Vendor List Utilities">
+                <VlUtilities />
+              </PageTitle>
+            ),
+          },
         ],
       },
-     
       {
         path: "/my-ai",
         element: (
-          <PageTitle title="My AI"> 
+          <PageTitle title="My AI">
             <MyAI />
           </PageTitle>
         ),
@@ -308,17 +323,6 @@ const router = createBrowserRouter([
             <MyEssentials />
           </PageTitle>
         ),
-      },
-      {
-        path: "/vendorlist",
-        element: (
-          <MyVendorlistLayout/>
-        ),
-        children:[
-          {
-            
-          }
-        ]
       },
     ],
   },

@@ -99,7 +99,7 @@ export const useGetSystemsData = (type) => {
       type: "Expenses",
       status: "In Review",
       lastActivity: "09/09",
-      title: "PMyAgent Expenses",
+      title: "MyAgent Expenses",
     },
     {
       id: "C457",

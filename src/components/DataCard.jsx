@@ -9,27 +9,22 @@ const DataCard = ({ data, children }) => {
   const handleCardClick = (title) => {
     if (title === "Our Mission") {
       navigate(`/my-systems/team/our-mission`);
-    }
-    else if (title === "Open House Request Form") {
+    } else if (title === "Open House Request Form") {
       navigate(`/my-systems/open-house/open-house-form`);
-    }
-    else if (title === "HOA Community Docs") {
+    } else if (title === "HOA Community Docs") {
       navigate(`/my-systems/team/hoa`);
-    }
-    else if (title === "Access Instruction") {
+    } else if (title === "Access Instruction") {
       navigate(`/my-systems/team/access`);
-    }
-    else if (title === "MyListing Expenses") {
+    } else if (title === "MyListing Expenses") {
       navigate(`/my-systems/finances/my-listing`);
-    }
-    else if (title === "MyP&L") {
+    } else if (title === "MyP&L") {
       navigate(`/my-systems/finances/pl`);
-    }
-    else if (title === "MyBusiness Expenses") {
+    } else if (title === "MyBusiness Expenses") {
       navigate(`/my-systems/finances/my-business-expenses`);
-    }
-    else if (title === "PMyAgent Expenses") {
+    } else if (title === "MyAgent Expenses") {
       navigate(`/my-systems/finances/my-agent-expenses`);
+    } else if (title === "Vendor List") {
+      navigate(`/my-systems/vendor-list/all`);
     }
   };
 
@@ -37,7 +32,10 @@ const DataCard = ({ data, children }) => {
     <div
       onClick={() => handleCardClick(title)}
       role={
-        title == "Our Mission" || title == "Open House Request Form"
+        title == "Our Mission" ||
+        title == "Open House Request Form" ||
+        title === "HOA Community Docs" ||
+        title === "Vendor List"
           ? "button"
           : "presentation"
       }

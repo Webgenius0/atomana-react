@@ -1,5 +1,4 @@
 import SubTabs from "@/components/SubTabs";
-import TabBtn from "@/components/TabBtn";
 import React from "react";
 import { Outlet, useLocation } from "react-router-dom";
 
@@ -7,26 +6,24 @@ const MyVendorlistLayout = () => {
   const systemTabs = [
     {
       label: "All",
-      link: "/my-systems/all",
+      link: "/my-systems/vendor-list/all",
     },
     {
       label: "Utilities",
-      link: "/my-systems/activities",  
+      link: "/my-systems/vendor-list/utilities", 
     },
     {
       label: "Pest Control",
-      link: "/my-systems/open-house",
+      link: "/my-systems/vendor-list/pest-control", 
     },
     {
       label: "Insurance",
-      link: "/my-systems/finances",
+      link: "/my-systems/vendor-list/insurance", 
     },
     {
       label: "Rental Management",
-      link: "/my-systems/new-listing", 
+      link: "/my-systems/vendor-list/rental-management", 
     },
-    
-  
   ];
 
   const location = useLocation().pathname;
