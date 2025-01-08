@@ -38,6 +38,7 @@ import VlUtilities from "@/pages/VlUtilities";
 import VlPestControl from "@/pages/VlPestControl";
 import VlRentalManagement from "@/pages/VlRentalManagement";
 import VlInsurance from "@/pages/VlInsurance";
+import VlBrightHomeInspection from "@/pages/VlBrightHomeInspection";
 
 const router = createBrowserRouter([
   {
@@ -201,8 +202,16 @@ const router = createBrowserRouter([
               {
                 path: "access",
                 element: (
-                  <PageTitle title="Access Instruction">
+                  <PageTitle title="Access Instruction"> 
                     <AccessInstraction />
+                  </PageTitle>
+                ),
+              },
+              {
+                path: "description",
+                element: (
+                  <PageTitle title="Bright Home Description"> 
+                    <VlBrightHomeInspection />
                   </PageTitle>
                 ),
               },

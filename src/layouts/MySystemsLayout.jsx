@@ -75,6 +75,7 @@ const MySystemsLayout = () => {
               location === "/my-systems/finances/my-listing" ||
               location === "/my-systems/finances/my-agent-expenses" ||
               location === "/my-systems/finances/my-business-expenses"
+           
               ? "hidden"
               : "block"
           }
