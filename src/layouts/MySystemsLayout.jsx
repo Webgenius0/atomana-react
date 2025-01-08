@@ -75,7 +75,6 @@ const MySystemsLayout = () => {
               location === "/my-systems/finances/my-listing" ||
               location === "/my-systems/finances/my-agent-expenses" ||
               location === "/my-systems/finances/my-business-expenses"
-           
               ? "hidden"
               : "block"
           }
@@ -87,7 +86,8 @@ const MySystemsLayout = () => {
               location === "/my-systems/vendor-list/utilities" ||
               location === "/my-systems/vendor-list/pest-control" ||
               location === "/my-systems/vendor-list/insurance" ||
-              location === "/my-systems/vendor-list/rental-management"
+              location === "/my-systems/vendor-list/rental-management" ||
+              location === "/my-systems/vendor-list/description"
               ? (<>  <div className="pt-6 md:pt-8 lg:pt-12 pb-3">
                 <div className="flex items-center gap-4 justify-between">
                   <Link
@@ -132,7 +132,8 @@ const MySystemsLayout = () => {
                 location === "/my-systems/vendor-list/utilities" ||
                 location === "/my-systems/vendor-list/pest-control" ||
                 location === "/my-systems/vendor-list/insurance" ||
-                location === "/my-systems/vendor-list/rental-management"
+                location === "/my-systems/vendor-list/rental-management" ||
+                location === "/my-systems/vendor-list/description"
                 ? vendorListTabs
                 : systemTabs
             }

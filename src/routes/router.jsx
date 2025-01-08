@@ -202,16 +202,8 @@ const router = createBrowserRouter([
               {
                 path: "access",
                 element: (
-                  <PageTitle title="Access Instruction"> 
+                  <PageTitle title="Access Instruction">
                     <AccessInstraction />
-                  </PageTitle>
-                ),
-              },
-              {
-                path: "description",
-                element: (
-                  <PageTitle title="Bright Home Description"> 
-                    <VlBrightHomeInspection />
                   </PageTitle>
                 ),
               },
@@ -242,7 +234,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "vendor-list/rental-management", 
+            path: "vendor-list/rental-management",
             element: (
               <PageTitle title="Vendor List Utilities">
                 <VlRentalManagement />
@@ -250,14 +242,21 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "vendor-list/insurance", 
+            path: "vendor-list/insurance",
             element: (
               <PageTitle title="Vendor List Utilities">
                 <VlInsurance />
               </PageTitle>
             ),
           },
-         
+          {
+            path: "vendor-list/description",
+            element: (
+              <PageTitle title="Bright Home Description">
+                <VlBrightHomeInspection />
+              </PageTitle>
+            ),
+          },
         ],
       },
       {
