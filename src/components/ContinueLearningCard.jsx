@@ -93,7 +93,7 @@ const ContinueLearningCard = ({ data }) => {
      {isModalOpen && (
         <VideoModal onClose={() => setModalOpen(false)}>
           <div className="p-4">
-            <h2 className="text-xl font-bold mb-4 text-white">{title}</h2>
+            <h2 className="text-xl font-bold mb-4 text-white">{title}</h2> 
             <video
               controls
               className="w-full rounded-lg"
