@@ -40,6 +40,10 @@ import VlRentalManagement from "@/pages/VlRentalManagement";
 import VlInsurance from "@/pages/VlInsurance";
 import VlBrightHomeInspection from "@/pages/VlBrightHomeInspection";
 
+import Login from "@/pages/Login";
+import VerifyOTP from "@/pages/VerifyOTP";
+import SignUp from "@/pages/SignUp";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -361,6 +365,24 @@ const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "/sign-in",
+    element: (
+      <Login/>
+    ),
+  },
+  {
+    path: "/sign-up",
+    element: (
+      <SignUp/>
+    ),
+  },
+  {
+    path: "/verify-otp",
+    element: (
+      <VerifyOTP/>
+    ),
   },
 ]);
 
