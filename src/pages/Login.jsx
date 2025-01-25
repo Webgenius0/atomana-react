@@ -87,6 +87,9 @@ export default function Login() {
                                     </div>
                                     {errors.password && <p className='text-red-500 text-xs'>{errors.password.message}</p>}
                                 </div>
+                                <Link to={`/forget-password`}><div className='underline decoration-[rgba(0,150,150,1)] text-[rgba(0,150,150,1)] font-extrabold text-lg cursor-pointer'>
+                                    Forget your password?
+                                </div></Link>
                                 <button
                                     type='submit'
                                     className="mt-5 tracking-wide font-semibold bg-[#FFF] text-[#151515] text-[16px] font-normal leading-normal font-Inria w-full py-4 rounded-lg hover:bg-[rgba(0,150,150,1)] hover:text-[#FFF] transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none ">
