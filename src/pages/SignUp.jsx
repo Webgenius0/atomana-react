@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 
 
-export default function SignUp() {
+const SignUp = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const {
@@ -205,3 +205,5 @@ export default function SignUp() {
         </div>
     )
 }
+
+export default SignUp;

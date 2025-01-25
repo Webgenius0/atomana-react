@@ -1,33 +1,6 @@
-import AppleIconSvg from '@/components/svgs/AppleIconSvg'
-import GoogleSvg from '@/components/svgs/GoogleSvg'
-import logo from "@/assets/images/logo.png";
-import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom';
-import { useAuth } from '@/hooks/useAuth';
+import React from 'react'
 
-
-const Login = () => {
-    const [showPassword, setShowPassword] = useState(false)
-    const {
-        register,
-        handleSubmit,
-        watch,
-        reset,
-        formState: { errors },
-    } = useForm()
-    const { login } = useAuth();
-
-    const onSubmit = async (data) => {
-        console.log('submitting form data', data);
-        const response = await login(data);
-        if (response.success) {
-            navigate("/dashboard");
-        } else {
-            setErrorMessage(response.message || "An error occurred. Please try again.");
-        }
-        reset();
-    }
+const AuthLayout = () => {
     return (
         <div className="min-h-screen flex justify-center bg-[#151515] text-[#FFFFFF]">
             <div className="max-w-screen-xl flex flex-col mx-auto flex-1 gap-[2rem]">
@@ -150,4 +123,4 @@ const Login = () => {
     )
 }
 
-export default  Login;
+export default AuthLayout

@@ -43,6 +43,7 @@ import VlBrightHomeInspection from "@/pages/VlBrightHomeInspection";
 import Login from "@/pages/Login";
 import VerifyOTP from "@/pages/VerifyOTP";
 import SignUp from "@/pages/SignUp";
+import ForgetPassword from "@/pages/ForgetPassword";
 
 const router = createBrowserRouter([
   {
@@ -382,6 +383,12 @@ const router = createBrowserRouter([
     path: "/verify-otp",
     element: (
       <VerifyOTP/>
+    ),
+  },
+  {
+    path: "/forget-password",
+    element: (
+      <ForgetPassword/>
     ),
   },
 ]);
