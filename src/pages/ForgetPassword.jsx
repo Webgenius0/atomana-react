@@ -2,7 +2,7 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 
-export default function ForgetPassword() {
+const ForgetPassword = () => {
 
     const {
         handleSubmit,
@@ -42,3 +42,5 @@ export default function ForgetPassword() {
     </div>
   )
 }
+
+export default ForgetPassword;

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function VerifyOTP() {
+const VerifyOTP = () => {
   return (
     <div className="min-h-screen flex justify-center bg-[#151515] text-[#FFFFFF]">
     <div className="max-w-screen-xl flex flex-col mx-auto flex-1 gap-[2rem]">
@@ -34,3 +34,5 @@ export default function VerifyOTP() {
     </div>
   )
 }
+
+export default VerifyOTP;

@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom';
 
 
-export default function SignUp() {
+const SignUp = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const {
@@ -194,3 +194,5 @@ export default function SignUp() {
         </div>
     )
 }
+
+export default SignUp;
