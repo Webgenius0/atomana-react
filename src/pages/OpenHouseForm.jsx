@@ -18,14 +18,19 @@ const OpenHouseForm = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   const onSubmit = (data) => {
-    navigate("/my-systems");
+    navigate(`/my-systems/open-house/open-house-form-details`);  
+
   };
   const handleResetForm = () => {
     reset();
   };
+
+
+
+  
   return (
     <div className="pt-6 md:pt-8 lg:pt-12 pb-3">
       <div className="flex items-center gap-4 justify-between">
@@ -50,7 +55,7 @@ const OpenHouseForm = () => {
       <div className="mt-6 md:mt-8 lg:mt-12">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="max-w-[670px] mx-auto flex flex-col gap-[15px]"
+          className="max-w-[670px] mx-start flex flex-col gap-[15px]"
         >
           <div className="flex flex-col gap-2">
             <h2 className="section-title">Spears Group Open House Request</h2>
@@ -120,16 +125,30 @@ const OpenHouseForm = () => {
             />
           </div>
 
-          <div className="flex items-center gap-4 justify-between mt-0 sm:mt-3 md:mt-6">
-            <input
-              className="request-btn approve cursor-pointer"
-              type="submit"
-              value="Add"
-            />
+       
+        </form>
+        <form action=""   onSubmit={handleSubmit(onSubmit)}>
+        <div className=" flex items-center gap-4 justify-between mt-0 sm:mt-3 md:mt-6"> 
+           <div className="flex items-center gap-4">
+               
+           <input
+           onClick={() => handleCardClick(title)}
+            className="request-btn approve cursor-pointer"  
+            type="submit"
+            value="Add"
+          />
+           <button
+              onClick={handleResetForm}
+              className="request-btn text-light"  
+            >
+              Continue
+            </button>
+
+           </div>
 
             <button
               onClick={handleResetForm}
-              className="request-btn text-light"
+              className="request-btn text-light" 
             >
               Cancel
             </button>

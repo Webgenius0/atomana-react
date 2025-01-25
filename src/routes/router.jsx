@@ -30,6 +30,21 @@ import HoaDocument from "@/pages/HoaDocument";
 import Mypl from "@/pages/Mypl";
 import MyListingExpense from "@/pages/MyListingExpense";
 
+import OpenHouseFormDetails from "@/pages/OpenHouseFormDetails";
+import MyAgentExpense from "@/pages/MyAgentExpense";
+import MyBusinessExpense from "@/pages/MyBusinessExpense";
+import VlAll from "@/pages/VlAll";
+import VlUtilities from "@/pages/VlUtilities";
+import VlPestControl from "@/pages/VlPestControl";
+import VlRentalManagement from "@/pages/VlRentalManagement";
+import VlInsurance from "@/pages/VlInsurance";
+import VlBrightHomeInspection from "@/pages/VlBrightHomeInspection";
+
+import Login from "@/pages/Login";
+import VerifyOTP from "@/pages/VerifyOTP";
+import SignUp from "@/pages/SignUp";
+import ForgetPassword from "@/pages/ForgetPassword";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -91,6 +106,14 @@ const router = createBrowserRouter([
                   </PageTitle>
                 ),
               },
+              {
+                path: "open-house-form-details",
+                element: (
+                  <PageTitle title="Details">
+                    <OpenHouseFormDetails />
+                  </PageTitle>
+                ),
+              },
             ],
           },
           {
@@ -109,6 +132,22 @@ const router = createBrowserRouter([
                 element: (
                   <PageTitle title="My Listing Expenses">
                     <MyListingExpense />
+                  </PageTitle>
+                ),
+              },
+              {
+                path: "my-business-expenses",
+                element: (
+                  <PageTitle title="My Business Expenses">
+                    <MyBusinessExpense />
+                  </PageTitle>
+                ),
+              },
+              {
+                path: "my-agent-expenses",
+                element: (
+                  <PageTitle title="PMyAgent Expenses">
+                    <MyAgentExpense />
                   </PageTitle>
                 ),
               },
@@ -174,6 +213,54 @@ const router = createBrowserRouter([
                 ),
               },
             ],
+          },
+          {
+            path: "vendor-list/all",
+            element: (
+              <PageTitle title="Vendor List all">
+                <VlAll />
+              </PageTitle>
+            ),
+          },
+          {
+            path: "vendor-list/utilities",
+            element: (
+              <PageTitle title="Vendor List Utilities">
+                <VlUtilities />
+              </PageTitle>
+            ),
+          },
+          {
+            path: "vendor-list/pest-control",
+            element: (
+              <PageTitle title="Vendor List Utilities">
+                <VlPestControl />
+              </PageTitle>
+            ),
+          },
+          {
+            path: "vendor-list/rental-management",
+            element: (
+              <PageTitle title="Vendor List Utilities">
+                <VlRentalManagement />
+              </PageTitle>
+            ),
+          },
+          {
+            path: "vendor-list/insurance",
+            element: (
+              <PageTitle title="Vendor List Utilities">
+                <VlInsurance />
+              </PageTitle>
+            ),
+          },
+          {
+            path: "vendor-list/description",
+            element: (
+              <PageTitle title="Bright Home Description">
+                <VlBrightHomeInspection />
+              </PageTitle>
+            ),
           },
         ],
       },
@@ -279,6 +366,30 @@ const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "/sign-in",
+    element: (
+      <Login/>
+    ),
+  },
+  {
+    path: "/sign-up",
+    element: (
+      <SignUp/>
+    ),
+  },
+  {
+    path: "/verify-otp",
+    element: (
+      <VerifyOTP/>
+    ),
+  },
+  {
+    path: "/forget-password",
+    element: (
+      <ForgetPassword/>
+    ),
   },
 ]);
 

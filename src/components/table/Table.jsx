@@ -2,14 +2,43 @@ import React, { useState } from "react";
 
 const Table = () => {
   const [showDynamicRow, setShowDynamicRow] = useState(false);
-
   const data = [
     {
       date: "12/01/2024",
       type: "Income",
       category: "Commission Income",
       subcategory: "-",
-      description: "Commission earned from property sale",
+      description: "Commission earned from property sale", 
+      amount: "$10,000.00",
+      paymentMethod: "Bank Transfer",
+      vendorPayee: "Client Payment",
+      receipt: "ABCMarketing_Receipt.png",
+      owner: "Dave M.",
+      reimbursable: "No",
+      listing: "123 Main St",
+      notes: "Commission payment for high-value sale.",
+    },
+    {
+      date: "12/01/2024",
+      type: "Income",
+      category: "Cost of Sales", 
+      subcategory: "-",
+      description: "Commission earned from property sale", 
+      amount: "$10,000.00",
+      paymentMethod: "Bank Transfer",
+      vendorPayee: "Client Payment",
+      receipt: "ABCMarketing_Receipt.png",
+      owner: "Dave M.",
+      reimbursable: "No",
+      listing: "123 Main St",
+      notes: "Commission payment for high-value sale.",
+    },
+    {
+      date: "12/01/2024",
+      type: "Income",
+      category: "Referral Fee", 
+      subcategory: "-",
+      description: "Commission earned from property sale", 
       amount: "$10,000.00",
       paymentMethod: "Bank Transfer",
       vendorPayee: "Client Payment",
@@ -48,7 +77,6 @@ const Table = () => {
   };
 
   const handleAddExpense = () => {
-    if (!showDynamicRow) {
       // Show the dynamic row if it's not already shown
       setShowDynamicRow(true);
   
@@ -69,8 +97,10 @@ const Table = () => {
         notes: "",
         selected: false, // Reset checkbox property
       });
-      
-    } else {
+    
+  };
+
+  const handleConfirmExpense = () =>{
       // Validate the current dynamic row values
       if (Object.values(newRow).some((value) => value === "")) {
         alert("Please fill in all fields before adding an expense!");
@@ -80,25 +110,30 @@ const Table = () => {
       // Add the filled dynamic row to the table data
       setTableData([...tableData, newRow]);
   
-      // Reset the dynamic row for the next input
-      setNewRow({
-        date: new Date().toLocaleDateString(),
-        type: "",
-        category: "",
-        subcategory: "",
-        description: "",
-        amount: "",
-        paymentMethod: "",
-        vendorPayee: "",
-        receipt: "",
-        owner: "",
-        reimbursable: "",
-        listing: "",
-        notes: "",
-        selected: false,
-      });
+      // Cancel the table row & redirect to add to expense button
+      handleCancelExpense()
     }
-  };
+
+  const handleCancelExpense = () =>{
+    setShowDynamicRow(false);
+    // Reset the dynamic row for the next input
+    // setNewRow({
+    //   date: "",
+    //   type: "",
+    //   category: "",
+    //   subcategory: "",
+    //   description: "",
+    //   amount: "",
+    //   paymentMethod: "",
+    //   vendorPayee: "",
+    //   receipt: "",
+    //   owner: "",
+    //   reimbursable: "",
+    //   listing: "",
+    //   notes: "",
+    //   selected: false,
+    // });
+  }
   
 
   return (
@@ -484,13 +519,28 @@ const Table = () => {
                 }
               />
             </td>
+          { !showDynamicRow &&
+            <td
+            colSpan={13}
+            className="cursor-pointer px-4 py-2 border border-[#5E5E5E] text-[11px] font-Roboto text-[#ffffff4d]"
+            onClick={handleAddExpense}
+          >
+            + Add an Expense
+          </td>
+          }
+          {
+            showDynamicRow &&
             <td
               colSpan={13}
               className="cursor-pointer px-4 py-2 border border-[#5E5E5E] text-[11px] font-Roboto text-[#ffffff4d]"
-              onClick={handleAddExpense}
+              
             >
-              + Add an Expense
+              <div className="flex items-center space-x-4">
+                <button className="px-3 py-2 bg-green-600 hover:bg-green-700 border border-green-600 rounded-lg text-white text-xs font-medium font-Roboto transition duration-200 ease-in-out shadow-md" onClick={handleConfirmExpense}>Confirm</button>
+                <button className="px-3 py-2 bg-red-600 hover:bg-red-700 border border-red-600 rounded-lg text-white text-xs font-medium font-Roboto transition duration-200 ease-in-out shadow-md" onClick={handleCancelExpense}>Cancel</button>
+              </div>
             </td>
+          }
           </tr>
         </tbody>
       </table>

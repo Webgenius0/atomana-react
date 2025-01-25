@@ -76,7 +76,7 @@ const AccessInstraction = () => {
             <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
               Key Access Code
             </p>
-            <p className="text-sm font-normal leading-5 text-[#ffffffcc]">
+            <p className="text-sm font-normal leading-5 text-[#ffffffcc]"> 
               1234 Maple Street, San Francisco, CA 94117
             </p>
           </div>

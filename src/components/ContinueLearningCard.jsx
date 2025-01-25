@@ -5,12 +5,24 @@ import { RiCopyrightFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import ProgressBar from "./ProgressBar";
 import CopySvg from "./svgs/CopySvg";
+import VideoModal from "./VideoModal";
+import { useState } from "react";
 
 const ContinueLearningCard = ({ data }) => {
   const { type, title, lessons = 0, duration = "0 hrs", progress } = data;
+  const [isModalOpen, setModalOpen] = useState(false);
+  const handleCardClick = (e) => {
+    if (type === "Video") {
+      e.preventDefault(); 
+      setModalOpen(true); 
+    }
+  };
 
   return (
-    <Link to={"/course-details"}>
+ <>
+ 
+ <Link to={"/course-details"} 
+    onClick={handleCardClick}>
       <div className="relative rounded-2xl bg-[#242424] hover:shadow-[2px_2px_4px] hover:shadow-[#009696] duration-300 ease-in-out overflow-hidden">
         {/* Top Section with Badge and Icon */}
         <div className="absolute top-2 left-2 right-2 flex items-center justify-between px-4 z-10">
@@ -76,6 +88,27 @@ const ContinueLearningCard = ({ data }) => {
         </div>
       </div>
     </Link>
+
+     {/* Modal for Video */}
+     {isModalOpen && (
+        <VideoModal onClose={() => setModalOpen(false)}>
+          <div className="p-4">
+            <h2 className="text-xl font-bold mb-4 text-white">{title}</h2> 
+            <video
+              controls
+              className="w-full rounded-lg"
+              src="/path-to-video.mp4" 
+            />
+          </div>
+        </VideoModal>
+      )}
+
+    
+ 
+ 
+ </>
+
+    
   );
 };
 

@@ -18,7 +18,7 @@ const AccountInformation = () => {
         </Link>
 
         <div className="mt-[25px]">
-          <div className="space-y-[2px] border-b border-secondPrimary py-4">
+          <div className="space-y-[2px] border-b border-secondPrimary py-4"> 
             <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
               Full name
             </p>
