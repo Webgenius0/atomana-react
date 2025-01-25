@@ -1,40 +1,49 @@
 import axiosConfig from "@/lib/axios.config";
 import { useCallback, useEffect } from "react";
+import { useAuth } from "./useAuth";
 
 export function useAxios() {
   return axiosConfig;
 }
 
 export function useAxiosSecure() {
+  const { logout } = useAuth();
   const axios = useCallback(axiosConfig, []);
 
   useEffect(() => {
-    axios.interceptors.request.use(
+    const requestInterceptor = axios.interceptors.request.use(
       (config) => {
-        // Modify the request (e.g., add auth token)
-
+        const token = localStorage.getItem("accessToken");
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
         return config;
       },
       (error) => {
-        console.log(error);
-        return error;
+        return Promise.reject(error);
       }
     );
-  }, []);
 
-  useEffect(() => {
-    axios.interceptors.response.use(
-      (res) => {
-        return res;
-      },
-      (err) => {
-        const status = err.response.status;
-        if (status === 401 || status === 403) {
-            
+    const responseInterceptor = axios.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error.response) {
+          const status = error.response.status;
+
+          if (status === 401 || status === 403) {
+            console.warn("Session expired. Logging out...");
+            logout();
+          }
         }
+        return Promise.reject(error);
       }
     );
-  }, []);
+
+    return () => {
+      axios.interceptors.request.eject(requestInterceptor);
+      axios.interceptors.response.eject(responseInterceptor);
+    };
+  }, [axios, logout]);
 
   return axios;
 }
