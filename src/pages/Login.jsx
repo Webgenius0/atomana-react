@@ -39,6 +39,7 @@ const Login = () => {
                             alt="logo"
                             className="w-full h-full object-cover"
                         />
+                        
                     </div>
                     <div className='flex gap-3 items-center justify-center'>
                         <p className='text-[#CCC] text-[14px] font-normal leading-[21px] tracking-[-0.14px] font-Inter'>New to MyOps?</p>
