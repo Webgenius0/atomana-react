@@ -30,10 +30,10 @@ const Login = () => {
     }
     return (
         <div className="min-h-screen flex justify-center bg-[#151515] text-[#FFFFFF]">
-            <div className="max-w-screen-xl flex flex-col mx-auto flex-1 gap-[2rem]">
+            <div className="max-w-screen-xl w-full flex flex-col mx-auto flex-1 gap-[2rem]">
                 <div className='my-4 flex items-center justify-between px-[50px] py-[25px]'>
                     {/* logo */}
-                    <div className="max-w-[80px] overflow-hidden">
+                    <div className="max-w-[80px] w-full overflow-hidden">
                         <img
                             src={logo}
                             alt="logo"
@@ -45,17 +45,17 @@ const Login = () => {
                         <Link to={`/sign-up`}><p className='cursor-pointer text-[#FFF] text-[14px] font-bold leading-[21px] tracking-[-0.14px] font-Inter'>Sign Up</p></Link>
                     </div>
                 </div>
-                <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12 mx-auto">
+                <div className="max-w-[440px] p-5 sm:p-0 w-full mx-auto">
                     <div>
                         <strong className='font-Inria text-[20px] italic font-bold leading-[24px] tracking-[-0.2px] capitalize'>Log In</strong>
                         <p className='font-Inria text-[20px] font-bold leading-[24px] tracking-[-0.2px] capitalize text-white/50 mt-[10px]'>Welcome back to MyOps</p>
                     </div>
-                    <div className="mt-12 flex flex-col items-center">
+                    <div className="w-full mt-12 flex flex-col items-center">
                         {/* <h1 className="text-2xl xl:text-3xl font-extrabold">
                             Login
                         </h1> */}
-                        <div className="w-full flex-1">
-                            <form className="min-w-[440px] flex flex-col gap-[20px] mx-auto max-w-xs" onSubmit={handleSubmit(onSubmit)}>
+                        <div className="w-full">
+                            <form className="w-full flex flex-col gap-[20px]" onSubmit={handleSubmit(onSubmit)}>
                                 <div className='flex flex-col gap-[8px]'>
                                     <label className='text-[14px] font-medium leading-[21px] tracking-[-0.14px] text-[#FFF]' htmlFor="email">Email</label>
                                     <input
