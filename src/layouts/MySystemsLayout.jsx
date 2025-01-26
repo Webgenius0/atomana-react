@@ -1,4 +1,4 @@
-import SearchIconSvg from "@/assets/icons/SearchIconSvg";
+import SearchIconSvg from "@/components/svgs/SearchIconSvg";
 import SubTabs from "@/components/SubTabs";
 import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
 import React from "react";
