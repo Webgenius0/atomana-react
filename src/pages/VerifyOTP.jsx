@@ -22,7 +22,7 @@ const VerifyOTP = () => {
                         <p className='font-Inria text-[18px] sm:text-[20px] font-bold leading-[24px] tracking-[-0.2px] capitalize text-white/50 mt-[10px]'>Please verify with OTP</p>
                     </div>
                     <form className="w-full mt-8 md:mt-12 flex flex-col gap-[8px] sm:gap-4">
-                        <h2 className='text-[20px] sm:text-[24px]'>Code</h2>
+                        <h2 className='text-lg sm:text-[24px]'>Code</h2>
                         <div className="sm:flex grid grid-cols-6 gap-[6px] sm:gap-3">
                             <input className='border-2 border-white rounded-lg sm:rounded-xl text-white w-12 sm:w-16 h-12 sm:h-16 bg-[#151515] text-[20px] sm:text-[28px] text-center' type="text" />
                             <input className='border-2 border-white rounded-lg sm:rounded-xl text-white w-12 sm:w-16 h-12 sm:h-16 bg-[#151515] text-[20px] sm:text-[28px] text-center' type="text" />
