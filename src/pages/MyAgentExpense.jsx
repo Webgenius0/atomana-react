@@ -3,7 +3,7 @@
 
 
 
-import SearchIconSvg from "@/assets/icons/SearchIconSvg";
+import SearchIconSvg from "@/components/svgs/SearchIconSvg";
 import Dropdown from "@/components/Dropdown";
 import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
 import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";

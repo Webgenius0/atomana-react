@@ -97,12 +97,12 @@ const Login = () => {
                                     </div>
                                     {errors.password && <p className='text-red-500 text-xs'>{errors.password.message}</p>}
                                 </div>
-                                <Link to={`/forget-password`}><div className='underline decoration-[rgba(0,150,150,1)] text-[rgba(0,150,150,1)] font-medium text-sm sm:text-lg cursor-pointer'>
+                                <Link to={`/forget-password`}><div className='underline decoration-[rgba(0,150,150,1)] text-[rgba(0,150,150,1)] font-medium text-sm sm:text-base cursor-pointer'>
                                     Forget your password?
                                 </div></Link>
                                 <button
                                     type='submit'
-                                    className="mt-5 tracking-wide font-semibold bg-[#FFF] text-[#151515] text-[16px] font-normal leading-normal font-Inria w-full py-4 rounded-lg hover:bg-[rgba(0,150,150,1)] hover:text-[#FFF] transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none ">
+                                    className="h-[50px] mt-5 tracking-wide bg-[#FFF] text-[#151515] text-[16px] font-normal leading-normal font-Inria w-full py-4 rounded-lg hover:bg-[rgba(0,150,150,1)] hover:text-[#FFF] transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none ">
                                     <svg className="w-6 h-6 -ml-2" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />

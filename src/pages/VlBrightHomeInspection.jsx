@@ -1,5 +1,5 @@
 
-import SearchIconSvg from "@/assets/icons/SearchIconSvg";
+import SearchIconSvg from "@/components/svgs/SearchIconSvg";
 import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
 import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
 import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";

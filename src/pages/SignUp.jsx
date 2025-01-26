@@ -44,7 +44,7 @@ const SignUp = () => {
                         />
                     </div>
                     <div className='flex gap-1 sm:gap-3 items-center justify-center'>
-                        <p className='text-[#CCC] text-[14px] font-normal leading-[21px] tracking-[-0.14px] font-Inter'>Already have an account?</p>
+                        <p className='text-[#CCC] text-sm font-normal leading-[21px] tracking-[-0.14px] font-Inter'>Already have an account?</p>
                         <Link to={`/sign-in`}><p className='cursor-pointer text-[#FFF] text-[14px] font-bold leading-[21px] tracking-[-0.14px] font-Inter'>Log In</p></Link>
                     </div>
                 </div>
@@ -147,7 +147,7 @@ const SignUp = () => {
                                 </div>
                                 <button
                                     type='submit'
-                                    className="mt-5 tracking-wide font-semibold bg-[#FFF] text-[#151515] text-[16px] font-normal leading-normal font-Inria w-full py-4 rounded-lg hover:bg-[rgba(0,150,150,1)] hover:text-[#FFF] transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+                                    className="h-[50px] mt-5 tracking-wide  bg-[#FFF] text-[#151515] text-[16px] font-normal leading-normal font-Inria w-full py-4 rounded-lg hover:bg-[rgba(0,150,150,1)] hover:text-[#FFF] transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
                                     <svg className="w-6 h-6 -ml-2" fill="none" stroke="currentColor" strokeWidth="2"
                                         strokeLinecap="round" strokeLinejoin="round">
                                         <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
@@ -158,7 +158,7 @@ const SignUp = () => {
                                         Create Account
                                     </span>
                                 </button>
-                                <p className="max-w-[440px] w-full mt-6 text-[#CCC] text-center font-sans text-[14px] font-normal leading-[21px] tracking-[-0.14px]">
+                                <p className="max-w-[440px] w-full mt-6 text-[#CCC] text-center font-sans text-sm font-normal leading-[21px] tracking-[-0.14px]">
                                     By continuing, you acknowledge that you understand and agree to the
                                     <a href="#" className="border-b border-gray-500 border-dotted ml-1">
                                         Terms & Conditions
