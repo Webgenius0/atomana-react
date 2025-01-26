@@ -1,21 +1,20 @@
-import axiosConfig from "@/lib/axios.config";
+import {axiosPublic, axiosPrivate} from "@/lib/configs/axios.config";
 import { useCallback, useEffect } from "react";
 import { useAuth } from "./useAuth";
 
 export function useAxios() {
-  return axiosConfig;
+  return axiosPublic;
 }
 
 export function useAxiosSecure() {
-  const { logout } = useAuth();
-  const axios = useCallback(axiosConfig, []);
+  const { logout, auth } = useAuth();
+  const axios = useCallback(axiosPrivate, []);
 
   useEffect(() => {
     const requestInterceptor = axios.interceptors.request.use(
       (config) => {
-        const token = localStorage.getItem("accessToken");
-        if (token) {
-          config.headers.Authorization = `Bearer ${token}`;
+        if (auth?.token) {
+          config.headers.Authorization = `Bearer ${auth?.token}`;
         }
         return config;
       },
@@ -43,7 +42,7 @@ export function useAxiosSecure() {
       axios.interceptors.request.eject(requestInterceptor);
       axios.interceptors.response.eject(responseInterceptor);
     };
-  }, [axios, logout]);
+  }, [axios, logout, auth]);
 
   return axios;
 }

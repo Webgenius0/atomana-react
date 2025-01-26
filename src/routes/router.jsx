@@ -45,12 +45,16 @@ import Login from "@/pages/Login";
 import VerifyOTP from "@/pages/VerifyOTP";
 import SignUp from "@/pages/SignUp";
 import ForgetPassword from "@/pages/ForgetPassword";
-// import AgentLeaderModal from "@/components/AgentLeaderModal";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout />,
+    element: (
+      <PrivateRoute>
+        <MainLayout />
+      </PrivateRoute>
+    ),
     errorElement: <ErrorPage />,
     children: [
       {
@@ -383,27 +387,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/sign-in",
-    element: (
-      <Login/>
-    ),
+    element: <Login />,
   },
   {
     path: "/sign-up",
-    element: (
-      <SignUp/>
-    ),
+    element: <SignUp />,
   },
   {
     path: "/verify-otp",
-    element: (
-      <VerifyOTP/>
-    ),
+    element: <VerifyOTP />,
   },
   {
     path: "/forget-password",
-    element: (
-      <ForgetPassword/>
-    ),
+    element: <ForgetPassword />,
   },
 ]);
 
