@@ -6,46 +6,66 @@
 // import ProfileSvg from './svgs/ProfileSvg'
 // import AverageListSvg from './svgs/AverageListSvg'
 
-// function AgentLeaderModal() {
-//     // const modalIcon = [
-//     //     <Hash/>,
-//     //     <DollarSvg/>,
-//     //     <CalenderSvg/>,
-//     //     <PendingSales/>,
-//     //     <ProfileSvg/>,
-//     //     <AverageListSvg/>
-//     // ]
-//     const modalList = {
-//         {
-//             icon : <Hash/>,
-//             iconName : 'Rank',
-//         },
-//         {
-//             icon : <AverageListSvg/>,
-//             iconName : 'Average Sales Price',
-//         },
-
-//     }
-//     const modalData = {
-//         // {
-//         //     name : John. L,
-//         //     rank: 1,
-
-//         // },
-//     }
+// function AgentLeaderModal({agentData}) {
+    
 //   return (
-//     <div className='bg-[#4A4A4A] p-6 rounded-xl text-white z-80'>
-//         <div className='flex flex-col gap-y-4'>
-//             <h1 className='text-4xl font-semibold leading-normal tracking-[-0.36px]'>James L.</h1>
+//     <div className='max-w-[750px] w-full bg-[#4A4A4A] p-6 rounded-xl text-white z-[1000]'>
+//         <div className='w-full flex flex-col gap-y-4'>
+//             <div>
+//                <h1 className='text-4xl font-semibold leading-normal tracking-[-0.36px]'>James L.</h1> 
+//                <p>X</p>
+//             </div>
 //             <div className='grid grid-cols-2 gap-2'>
 //                 <div className='flex items-center gap-2 flex-1'>
-//                 {modalIcon.map((item, index) => (
-//     < key={index}>
-//       {item.icon}
-//       <p className='bg-[#CCCCCC] text-white'>{item.iconName}</p>
-//     </>
+//                     <Hash/>
+//                     <p className='text-[#CCCCCC]'>Rank</p>
 //                 </div>
-//                 <div className='bg-[#CCCCCC] text-white p-3 flex items-center justify-center flex-1 rounded-xl'>
+//                 <div className='bg-[#CCCCCC] text-white p-3 flex items-center justify-center flex-1 rounded-[100px]'>
+//                     <p>1</p>
+//                 </div>
+//             </div>
+//             <div className='grid grid-cols-2 gap-2'>
+//                 <div className='flex items-center gap-2 flex-1'>
+//                     <DollarSvg/>
+//                     <p className='text-[#CCCCCC]'>Average sales price</p>
+//                 </div>
+//                 <div className='bg-[#CCCCCC] text-white p-3 flex items-center justify-center flex-1 rounded-[100px]'>
+//                     <p>1</p>
+//                 </div>
+//             </div>
+//             <div className='grid grid-cols-2 gap-2'>
+//                 <div className='flex items-center gap-2 flex-1'>
+//                     <CalenderSvg/>
+//                     <p className='text-[#CCCCCC]'>Volume sold to date</p>
+//                 </div>
+//                 <div className='bg-[#CCCCCC] text-white p-3 flex items-center justify-center flex-1 rounded-[100px]'>
+//                     <p>1</p>
+//                 </div>
+//             </div>
+//             <div className='grid grid-cols-2 gap-2'>
+//                 <div className='flex items-center gap-2 flex-1'>
+//                     <PendingSales/>
+//                     <p className='text-[#CCCCCC]'>Pending slaes to volume</p>
+//                 </div>
+//                 <div className='bg-[#CCCCCC] text-white p-3 flex items-center justify-center flex-1 rounded-[100px]'>
+//                     <p>1</p>
+//                 </div>
+//             </div>
+//             <div className='grid grid-cols-2 gap-2'>
+//                 <div className='flex items-center gap-2 flex-1'>
+//                     <ProfileSvg/>
+//                     <p className='text-[#CCCCCC]'>Agent active listing volume</p>
+//                 </div>
+//                 <div className='bg-[#CCCCCC] text-white p-3 flex items-center justify-center flex-1 rounded-[100px]'>
+//                     <p>1</p>
+//                 </div>
+//             </div>
+//             <div className='grid grid-cols-2 gap-2'>
+//                 <div className='flex items-center gap-2 flex-1'>
+//                     <AverageListSvg/>
+//                     <p className='text-[#CCCCCC]'>Average list price</p>
+//                 </div>
+//                 <div className='bg-[#CCCCCC] text-white p-3 flex items-center justify-center flex-1 rounded-[100px]'>
 //                     <p>1</p>
 //                 </div>
 //             </div>

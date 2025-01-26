@@ -96,8 +96,6 @@ function AgentLeaderBoard() {
       const handleSelect = (option) => {
         console.log("Selected option:", option);
       };
-      const handleMouseEnter = () => {setIsHovered(true)}
-      const handleMouseLeave = () => {setIsHovered(false)}
   return (
     <div className="my-container">
         <div className='flex items-center justify-between pt-6 md:pt-8 lg:pt-12 pb-4 md:pb-5 lg:pb-8 mb-4'>
@@ -114,7 +112,7 @@ function AgentLeaderBoard() {
                 <ThreeDot/>
             </div>
         </div>
-        <div className='bg-[#242424] text-[#FFF] flex flex-col gap-[8px] p-5 sm:p-4'>
+        <div className='bg-[#242424] text-[#FFF] flex flex-col gap-[8px] p-5 sm:p-4 '>
             {/* sub container header */}
             <div className="flex justify-between gap-1 gap-y-3 flex-wrap">
               <h1 className="section-title">Top 25</h1>
@@ -123,21 +121,21 @@ function AgentLeaderBoard() {
                 <Dropdown options={options} onSelect={handleSelect} />
               </div>
             </div>
-            <div className="grid md:grid-cols-1 gap-y-4 md:gap-y-6 gap-12 w-full mt-5">
+            {/* sub container table */}
+            <div className="grid md:grid-cols-1 gap-y-4 md:gap-y-6 gap-12 w-full mt-5 z-20">
                 {agenLeaderBoardData?.map((agent, index) => {
                     // Step 1: Track hover state for each item
                     const [isHovered, setIsHovered] = useState(false);
 
                     // Step 2: Event handlers for mouse enter and leave
-                    const handleMouseEnter = () => setIsHovered(true);
-                    const handleMouseLeave = () => setIsHovered(false);
+                    const handleClickData = () => setIsHovered(true);
+                    const handleCancel = () => setIsHovered(false);
 
                     return (
                     <div
                         key={index}
                         className="relative flex items-center gap-4 sm:gap-[25px] px-0 sm:px-4 md:px-6"
-                        onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}
+                        
                     >
                         <div className="italic">{index + 1}</div>
                         <div className="w-full">
@@ -153,10 +151,10 @@ function AgentLeaderBoard() {
                             currentValue={agent?.sales}
                             goalValue={agent?.salesGoal}
                         />
-                        {/* Step 3: Conditionally render the modal when hovered */}
+                        {/* Step 3: Conditionally render the modal when clicked */}
                         {isHovered && (
                             <div className="absolute top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%]">
-                            <AgentLeaderModal agent={agent} />
+                            <AgentLeaderModal agentData={agenLeaderBoardData} onClose={handleClickData}/>
                             </div>
                         )}
                         </div>

@@ -45,6 +45,7 @@ import Login from "@/pages/Login";
 import VerifyOTP from "@/pages/VerifyOTP";
 import SignUp from "@/pages/SignUp";
 import ForgetPassword from "@/pages/ForgetPassword";
+// import AgentLeaderModal from "@/components/AgentLeaderModal";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
           </PageTitle>
         ),
       },
+      // {
+      //   path: "/test",
+      //   element: <AgentLeaderModal/>
+      // },
       {
         path: "/my-systems",
         element: <MySystemsLayout />,
