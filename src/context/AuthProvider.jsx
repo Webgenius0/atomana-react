@@ -1,75 +1,81 @@
-import { createContext, useState, useEffect } from "react";
-import axiosConfig from "@/lib/axios.config";
+import { createContext, useState } from "react";
+import { axiosPublic } from "@/lib/configs/axios.config";
+import useLocalStorage from "@/hooks/useLocalstorage";
 
-export const AuthContext = createContext(null);
+const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [accessToken, setAccessToken] = useState(localStorage.getItem("accessToken") || "");
+  const [auth, setAuth, clearAuth] = useLocalStorage("auth", "");
+  const [userData, setUserData, clearUserData] = useLocalStorage(
+    "userData",
+    ""
+  );
   const [emailForOTP, setEmailForOTP] = useState("");
 
-  useEffect(() => {
-    if (accessToken) {
-      axiosConfig.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-    } else {
-      delete axiosConfig.defaults.headers.common["Authorization"];
-    }
-  }, [accessToken]);
+  const isLogged = !!auth && !!auth.token && !!userData && !!userData?.email;
 
   // Registration function with OTP email setting
   const signup = async (userData) => {
-    try {
-      const response = await axiosConfig.post("/auth/register", userData);
-      if (response.data.success) {
-        setEmailForOTP(userData.email);
-        return { success: true };
-      }
-      return { success: false, message: "Registration failed" };
-    } catch (error) {
-      console.error("Registration failed:", error);
-      return { success: false, message: error.message };
+    const { data } = await axiosPublic.post("/api/v1/auth/register", userData);
+    if (!data?.success) {
+      throw new Error("Registration failed");
     }
+    setEmailForOTP(userData.email);
   };
 
   // Verify OTP function
   const verifyOTP = async (otp) => {
-    try {
-      const response = await axiosConfig.post("/auth/verify-otp", { email: emailForOTP, otp });
-      if (response.data.success) {
-        return { success: true };
-      }
-      return { success: false, message: "OTP verification failed" };
-    } catch (error) {
-      console.error("OTP verification failed:", error);
-      return { success: false, message: error.message };
+    const { data } = await axiosPublic.post("/api/v1/auth/otp-match", {
+      email: emailForOTP,
+      otp,
+    });
+    if (!data?.success) {
+      throw new Error("Verify failed");
+    }
+  };
+
+  // Verify OTP function
+  const sendOTP = async (otp) => {
+    const { data } = await axiosPublic.post("/api/v1/auth/otp-send", {
+      email: emailForOTP,
+      otp,
+    });
+    if (!data?.success) {
+      throw new Error("Sending otp failed");
     }
   };
 
   // Login function
   const login = async (credentials) => {
-    try {
-      const response = await axiosConfig.post("/auth/login", credentials);
-      setAccessToken(response.data.accessToken);
-      localStorage.setItem("accessToken", response.data.accessToken);
-      setUser(response.data.user);
-      return { success: true };
-    } catch (error) {
-      console.error("Login failed:", error);
-      return { success: false, message: error.message };
+    const { data } = await axiosPublic.post("/api/v1/auth/login", credentials);
+    if (!data?.success) {
+      throw new Error(data?.message);
     }
+    setAuth((prev) => ({ ...prev, accessToken: data.token }));
+    setUserData((prev) => ({ ...prev, email: data?.user?.email }));
   };
 
   const logout = () => {
-    setAccessToken("");
-    setUser(null);
-    localStorage.removeItem("accessToken");
+    clearAuth();
+    clearUserData();
   };
 
   return (
-    <AuthContext.Provider value={{ user, signup, verifyOTP, login, logout }}>
+    <AuthContext.Provider
+      value={{
+        userData,
+        signup,
+        verifyOTP,
+        sendOTP,
+        auth,
+        isLogged,
+        login,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
 };
 
-export default AuthProvider;
+export { AuthProvider, AuthContext };
