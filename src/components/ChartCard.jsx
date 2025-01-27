@@ -8,7 +8,7 @@ const ChartCard = ({ data, xKey, yKey, yDomain, total, title }) => {
     { value: "option3", label: "Option 3" },
   ];
   const handleSelect = (option) => {
-    // console.log("Selected option:", option);
+    console.log("Selected option:", option);
   };
 
   return (

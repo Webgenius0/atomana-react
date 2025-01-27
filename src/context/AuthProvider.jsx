@@ -21,16 +21,37 @@ const AuthProvider = ({ children }) => {
       throw new Error("Registration failed");
     }
     setEmailForOTP(userData.email);
+    setAuth(data.data.token);
   };
 
   // Verify OTP function
   const verifyOTP = async (otp) => {
-    const { data } = await axiosPublic.post("/api/v1/auth/otp-match", {
-      email: emailForOTP,
+    const payload = {
       otp,
-    });
-    if (!data?.success) {
-      throw new Error("Verify failed");
+      email: emailForOTP,
+      operation: "email",
+    };
+
+    try {
+      const { data } = await axiosPublic.post(
+        "/api/v1/auth/otp-match",
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${auth}`,
+          },
+        }
+      );
+
+      if (!data?.success) {
+        throw new Error("Verify failed");
+      }
+    } catch (error) {
+      console.error(
+        "Error verifying OTP:",
+        error.response?.data || error.message
+      );
+      throw error;
     }
   };
 
@@ -52,7 +73,7 @@ const AuthProvider = ({ children }) => {
       throw new Error(data?.message);
     }
     setAuth((prev) => ({ ...prev, accessToken: data.token }));
-    setUserData((prev) => ({ ...prev, email: data?.user?.email }));
+    setUserData((prev) => ({ ...prev, user: data?.data?.user }));
   };
 
   const logout = () => {

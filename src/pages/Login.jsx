@@ -175,7 +175,7 @@ const Login = () => {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="mt-5 tracking-wide bg-[#FFF] text-[#151515] text-[16px] font-normal leading-normal font-Inria w-full py-4 rounded-lg hover:bg-[rgba(0,150,150,1)] hover:text-[#FFF] transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none "
+                  className="h-[50px] mt-5 tracking-wide bg-[#FFF] text-[#151515] text-[16px] font-normal leading-normal font-Inria w-full py-4 rounded-lg hover:bg-[rgba(0,150,150,1)] hover:text-[#FFF] transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                 >
                   {isLoading ? (
                     <span>Loading....</span>

@@ -39,6 +39,7 @@ import VlPestControl from "@/pages/VlPestControl";
 import VlRentalManagement from "@/pages/VlRentalManagement";
 import VlInsurance from "@/pages/VlInsurance";
 import VlBrightHomeInspection from "@/pages/VlBrightHomeInspection";
+import AgentLeaderBoard from "@/pages/AgentLeaderBoard";
 
 import Login from "@/pages/Login";
 import VerifyOTP from "@/pages/VerifyOTP";
@@ -367,6 +368,14 @@ const router = createBrowserRouter([
         element: (
           <PageTitle title="My Essentials">
             <MyEssentials />
+          </PageTitle>
+        ),
+      },
+      {
+        path: "/agent-leaderboard",
+        element: (
+          <PageTitle title="Agent Leaderboard">
+            <AgentLeaderBoard/>
           </PageTitle>
         ),
       },

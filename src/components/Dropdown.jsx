@@ -1,10 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaCaretDown } from "react-icons/fa"; 
 
 const Dropdown = ({ options, placeholder, onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
+  const downRef = useRef(null);
 
+  // outside click of the dropdown menu will close the recent open one.
+  useEffect(()=>{
+    const handleClickOutside = (e) =>{
+      if (downRef.current && !downRef.current.contains(e.target)){
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () =>{
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  },[])
   // Set the first option as the default selection if none is selected
   useEffect(() => {
     if (!selectedOption && options.length > 0) {
@@ -20,7 +33,7 @@ const Dropdown = ({ options, placeholder, onSelect }) => {
   };
 
   return (
-    <div className="relative w-fit bg-[#242424]">
+    <div ref={downRef} className="relative w-fit bg-[#242424]">
       {/* Dropdown button with selected option */}
       <button
         onClick={() => setIsOpen(!isOpen)}
@@ -33,9 +46,8 @@ const Dropdown = ({ options, placeholder, onSelect }) => {
             : placeholder || "Select an option"}
         </span>
         {/* Down Arrow */}
-        <FaCaretDown className="ml-2 text-white" />
+        <FaCaretDown className="ml-2 text-white"/>
       </button>
-
       {/* Options dropdown list */}
       {isOpen && (
         <ul className="absolute z-10 w-full mt-2 bg-[#242424] border rounded-md shadow-lg">

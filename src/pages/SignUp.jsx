@@ -80,9 +80,6 @@ const SignUp = () => {
             </p>
           </div>
           <div className="w-full mt-8 md:mt-12 flex flex-col items-center">
-            {/* <h1 className="text-2xl xl:text-3xl font-extrabold">
-                            Sign up
-                        </h1> */}
             <div className="w-full">
               <form
                 className="w-full flex flex-col gap-[20px] mx-auto"
@@ -277,7 +274,7 @@ const SignUp = () => {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="mt-5 tracking-wide bg-[#FFF] text-[#151515] text-[16px] font-normal leading-normal font-Inria w-full py-4 rounded-lg hover:bg-[rgba(0,150,150,1)] hover:text-[#FFF] transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                  className="h-[50px] mt-5 tracking-wide  bg-[#FFF] text-[#151515] text-[16px] font-normal leading-normal font-Inria w-full py-4 rounded-lg hover:bg-[rgba(0,150,150,1)] hover:text-[#FFF] transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                 >
                   {isLoading ? (
                     <span>Loading....</span>
@@ -299,7 +296,7 @@ const SignUp = () => {
                     </>
                   )}
                 </button>
-                <p className="max-w-[440px] w-full mt-6 text-[#CCC] text-center font-sans text-[14px] font-normal leading-[21px] tracking-[-0.14px]">
+                <p className="max-w-[440px] w-full mt-6 text-[#CCC] text-center font-sans text-sm font-normal leading-[21px] tracking-[-0.14px]">
                   By continuing, you acknowledge that you understand and agree
                   to the
                   <a
@@ -318,7 +315,7 @@ const SignUp = () => {
                 </p>
               </form>
 
-              <div className="mt-6 mb-12 sm:my-12 border-b text-center ">
+              <div className="my-6 sm:my-12 border-b text-center ">
                 <div className=" px-4 inline-block text-sm bg-[#151515] text-[#FFFFFF] tracking-wide font-medium transform translate-y-1/2">
                   Or
                 </div>
