@@ -34,7 +34,7 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  // Verify OTP function
+  // resend OTP function
   const sendOTP = async (otp) => {
     const { data } = await axiosPublic.post("/api/v1/auth/otp-send", {
       email: emailForOTP,

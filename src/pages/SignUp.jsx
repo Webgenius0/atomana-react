@@ -32,14 +32,12 @@ const SignUp = () => {
       const response = errorResponse(err, (fields) => {
         Object.entries(fields).forEach(([field, messages]) => {
           let fieldName = field;
-
           // demo to update api response type to local field
           //   switch (field) {
           //     case "name":
           //       fieldName = "name";
           //       break;
           //   }
-
           setError(fieldName, {
             message: messages?.[0],
           });
