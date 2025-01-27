@@ -7,8 +7,8 @@ import ProgressBar from "@/components/ProgressBar";
 import ArrowRightSvg from "@/components/svgs/ArrowRightSvg";
 import TabStepper from "@/components/TabStepper";
 import { useGetSystemsData } from "@/hooks/useGetSystemsData";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FaCalendarAlt } from "react-icons/fa";
 import "../App.css";
 
@@ -153,48 +153,34 @@ const MyTeam = () => {
     setSelectedValue(value);
   };
 
+  const agentRef = useRef()
+  const dropdownRef = useRef()
+  const navigate = useNavigate();
+  useEffect(() => {
+    const handlePageRedirect = (e) => {
+      // Check if click is inside agentRef but outside dropdownRef
+      if (
+        agentRef.current &&
+        agentRef.current.contains(e.target) &&
+        (!dropdownRef.current || !dropdownRef.current.contains(e.target))
+      ) {
+        navigate("/agent-leaderboard");
+      }
+    };
+
+    document.addEventListener("mousedown", handlePageRedirect);
+
+    return () => {
+      document.removeEventListener("mousedown", handlePageRedirect);
+    };
+  }, [navigate]);
+  
   return (
     <>
       <div className="my-container">
-        <div className="my-4 sm:my-5 md:my-6">
-          <TabStepper tabs={tabs} />
-        </div>
         <div>
           <div className="mt-5 mb-5">
             <h1 className="section-title">MyData</h1>
-            <div className="flex gap-5 pt-5">
-              <div className="flex items-center ml-5">
-                <button
-                  onClick={() => handleChange("current")}
-                  className="flex items-center gap-2"
-                >
-                  <div
-                    className={`h-3 w-3 rounded-full bg-[#009696] transition-opacity ${
-                      selectedValue === "current" ? "opacity-100" : "opacity-50"
-                    }`}
-                  ></div>
-                  <span className=" text-sm font-medium text-gray-900 dark:text-gray-300">
-                    Current Value
-                  </span>
-                </button>
-              </div>
-
-              <div className="flex items-center ml-5">
-                <button
-                  onClick={() => handleChange("goal")}
-                  className="flex items-center gap-2"
-                >
-                  <div
-                    className={`h-3 w-3 rounded-full bg-[#009696] transition-opacity ${
-                      selectedValue === "goal" ? "opacity-100" : "opacity-50"
-                    }`}
-                  ></div>
-                  <span className=" text-sm font-medium text-white ">
-                    Goal Value
-                  </span>
-                </button>
-              </div>
-            </div>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {chartData.map((chart) => (
@@ -208,10 +194,10 @@ const MyTeam = () => {
               />
             ))}
           </div>
-          <div className="bg-[#242424] mt-5 px-5 py-6 rounded">
+          <div ref={agentRef} className="bg-[#242424] mt-5 px-5 py-6 rounded" >
             <div className="flex justify-between gap-1 gap-y-3 flex-wrap">
               <h1 className="section-title">Agent Leaderboard</h1>
-              <div className="flex gap-2">
+              <div ref={dropdownRef} className="flex gap-2">
                 <Dropdown options={heightoptions} onSelect={handleSelect} />
                 <Dropdown options={options} onSelect={handleSelect} />
               </div>
@@ -234,15 +220,6 @@ const MyTeam = () => {
                   />
                 </div>
               ))}
-            </div>
-
-            <div className="my-4 sm:my-5 md:my-6">
-              <Pagination
-                currentPage={currentPage}
-                totalItems={45}
-                itemsPerPage={12}
-                onPageChange={(page) => setCurrentPage(page)}
-              />
             </div>
           </div>
           <div className="mt-6">
@@ -286,19 +263,8 @@ const MyTeam = () => {
                 </DataCard>
               ))}
             </div>
-
-            <div className="flex items-center justify-end">
-              <Link to="/my-essentials" className="flex items-center gap-3">
-                <p className="text-sm leading-6 capitalize text-light tracking-[-0.14px] hover:text-secondary duration-300">
-                  View All Leads
-                </p>
-                <button className="w-8 h-8 rounded-full flex items-center justify-center border border-[#4D4D4D] bg-[#242424] shadow-[0px_0px_0px_1px_#000]">
-                  <ArrowRightSvg />
-                </button>
-              </Link>
-            </div>
           </div>
-          <div className="mt-10">
+          <div className="mt-6">
             <h2 className="section-title">Our Mission</h2>
             <div className="my-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 sm:gap-6 md:gap-8 lg:gap-10 p-4 bg-[#242424] rounded">
               {ourMission?.map((mission, idx) => (
