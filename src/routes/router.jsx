@@ -65,10 +65,6 @@ const router = createBrowserRouter([
           </PageTitle>
         ),
       },
-      // {
-      //   path: "/test",
-      //   element: <AgentLeaderModal/>
-      // },
       {
         path: "/my-systems",
         element: <MySystemsLayout />,
