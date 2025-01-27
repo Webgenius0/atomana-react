@@ -46,6 +46,7 @@ import VerifyOTP from "@/pages/VerifyOTP";
 import SignUp from "@/pages/SignUp";
 import ForgetPassword from "@/pages/ForgetPassword";
 import PrivateRoute from "./PrivateRoute";
+import AgentLeaderModal from "@/components/AgentLeaderModal";
 
 const router = createBrowserRouter([
   {
@@ -378,6 +379,12 @@ const router = createBrowserRouter([
             <AgentLeaderBoard/>
           </PageTitle>
         ),
+      },
+      {
+        path: "/test",
+        element:(
+          <AgentLeaderModal/>
+        )
       },
     ],
   },

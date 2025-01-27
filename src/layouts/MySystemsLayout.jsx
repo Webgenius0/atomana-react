@@ -2,39 +2,47 @@ import SearchIconSvg from "@/components/svgs/SearchIconSvg";
 import SubTabs from "@/components/SubTabs";
 import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
 import { Link, Outlet, useLocation } from "react-router-dom";
+import SensorDoorSvg from "@/components/svgs/SensorDoorSvg";
+import DollarSvg from '@/components/svgs/DollarSvg'
+import HomeWorkSvg from "@/components/svgs/HomeWorkSvg";
+import BallotSvg from "@/components/svgs/BallotSvg";
+import PeopleSvg from "@/components/svgs/PeopleSvg";
+import TabCard from "@/components/TabCard";
 
 const MySystemsLayout = () => {
   const systemTabs = [
     {
-      label: "All",
-      link: "/my-systems/all",
-    },
-    {
-      label: "Activities",
-      link: "/my-systems/activities",
-    },
-    {
-      label: "Open Houses",
+      icon: SensorDoorSvg,
+      title: "Open Houses",
+      items: 'Total Items: 1',
       link: "/my-systems/open-house",
     },
     {
-      label: "Finances",
+      icon: DollarSvg,
+      title: "Finances",
+      items: 'Total Vendors: 4',
       link: "/my-systems/finances",
     },
     {
-      label: "New Listing",
+      icon: HomeWorkSvg,
+      title: "New Listing",
+      items: 'Total Vendors: 1',
       link: "/my-systems/new-listing",
     },
     {
-      label: "New Contract",
+      icon: BallotSvg,
+      title: "New Contract",
+      items: 'Total Vendors: 2',
       link: "/my-systems/new-contract",
     },
     {
-      label: "Team",
+      icon: PeopleSvg,
+      title: "Team",
+      items: 'Total Items: 5',
       link: "/my-systems/team",
     },
   ];
-
+  console.log("systemTabs in Parent:", systemTabs);
   const vendorListTabs = [
     {
       label: "All",
@@ -79,8 +87,6 @@ const MySystemsLayout = () => {
               : "block"
           }
         >
-
-
           {
             location === "/my-systems/vendor-list/all" ||
               location === "/my-systems/vendor-list/utilities" ||
@@ -125,7 +131,7 @@ const MySystemsLayout = () => {
               ? " "
               : "Systems"
           }</h2>
-
+          <TabCard systemTabs={systemTabs}/>
           <SubTabs
             tabLinks={
               location === "/my-systems/vendor-list/all" ||
