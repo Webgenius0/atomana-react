@@ -7,7 +7,6 @@ import MyPR from "@/pages/MyPR";
 import MySystems from "@/pages/MySystems";
 import MyTeam from "@/pages/MyTeam";
 import { createBrowserRouter } from "react-router-dom";
-import Activities from "@/pages/Activities";
 import OpenHouses from "@/pages/OpenHouses";
 import Finances from "@/pages/Finances";
 import NewListing from "@/pages/NewListing";
@@ -46,6 +45,9 @@ import VerifyOTP from "@/pages/VerifyOTP";
 import SignUp from "@/pages/SignUp";
 import ForgetPassword from "@/pages/ForgetPassword";
 import PrivateRoute from "./PrivateRoute";
+import AgentLeaderModal from "@/components/AgentLeaderModal";
+import VendorList from "@/pages/VendorList";
+import VendorListLayout from "@/layouts/VendorListLayout";
 
 const router = createBrowserRouter([
   {
@@ -67,7 +69,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/my-systems",
-        element: <MySystemsLayout />,
+        element: (
+          <PageTitle title="My Systems">
+            <MySystemsLayout />
+          </PageTitle>
+        ),
         children: [
           {
             index: true,
@@ -78,94 +84,68 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "all",
-            element: (
-              <PageTitle title="My Systems">
-                <MySystems />
-              </PageTitle>
-            ),
-          },
-          {
-            path: "activities",
-            element: (
-              <PageTitle title="Activities">
-                <Activities />
-              </PageTitle>
-            ),
-          },
-          {
             path: "open-house",
-            children: [
-              {
-                index: true,
-                element: (
-                  <PageTitle title="Open House">
-                    <OpenHouses />
-                  </PageTitle>
-                ),
-              },
-              {
-                path: "open-house-form",
-                element: (
-                  <PageTitle title="Open House Form">
-                    <OpenHouseForm />
-                  </PageTitle>
-                ),
-              },
-              {
-                path: "open-house-form-details",
-                element: (
-                  <PageTitle title="Details">
-                    <OpenHouseFormDetails />
-                  </PageTitle>
-                ),
-              },
-            ],
+            element: (
+              <PageTitle title="Open House">
+                <OpenHouses />
+              </PageTitle>
+            )
+          },
+          {
+            path: "open-house/open-house-form",
+            element: (
+              <PageTitle title="Open House Form">
+                <OpenHouseForm />
+              </PageTitle>
+            ),
+          },
+          {
+            path: "open-house/open-house-form-details",
+            element: (
+              <PageTitle title="Details">
+                <OpenHouseFormDetails />
+              </PageTitle>
+            ),
           },
           {
             path: "finances",
-            children: [
-              {
-                index: true,
-                element: (
-                  <PageTitle title="Finances">
-                    <Finances />
-                  </PageTitle>
-                ),
-              },
-              {
-                path: "my-listing",
-                element: (
-                  <PageTitle title="My Listing Expenses">
-                    <MyListingExpense />
-                  </PageTitle>
-                ),
-              },
-              {
-                path: "my-business-expenses",
-                element: (
-                  <PageTitle title="My Business Expenses">
-                    <MyBusinessExpense />
-                  </PageTitle>
-                ),
-              },
-              {
-                path: "my-agent-expenses",
-                element: (
-                  <PageTitle title="PMyAgent Expenses">
-                    <MyAgentExpense />
-                  </PageTitle>
-                ),
-              },
-              {
-                path: "pl",
-                element: (
-                  <PageTitle title="My P&L">
-                    <Mypl />
-                  </PageTitle>
-                ),
-              },
-            ],
+            element: (
+              <PageTitle title="Finances">
+                <Finances />
+              </PageTitle>
+            ),
+          },
+          {
+            path: "finances/my-listing",
+            element: (
+              <PageTitle title="My Listing Expenses">
+                <MyListingExpense />
+              </PageTitle>
+            ),
+          },
+          {
+            path: "finances/my-business-expenses",
+            element: (
+              <PageTitle title="My Business Expenses">
+                <MyBusinessExpense />
+              </PageTitle>
+            ),
+          },
+          {
+            path: "finances/my-agent-expenses",
+            element: (
+              <PageTitle title="PMyAgent Expenses">
+                <MyAgentExpense />
+              </PageTitle>
+            ),
+          },              
+          {
+            path: "finances/pl",
+            element: (
+              <PageTitle title="My P&L">
+                <Mypl />
+              </PageTitle>
+            ),
           },
           {
             path: "new-listing",
@@ -185,89 +165,95 @@ const router = createBrowserRouter([
           },
           {
             path: "team",
+            element: (
+              <PageTitle title="Team">
+                <Team />
+              </PageTitle>
+            ),
+          },
+          {
+            path: "team/our-mission",
+            element: (
+              <PageTitle title="Our Mission">
+                <OurMission />
+              </PageTitle>
+            ),
+          },
+          {
+            path: "team/hoa",
+            element: (
+              <PageTitle title="Hoa Community Documents">
+                <HoaDocument />
+              </PageTitle>
+            ),
+          },
+          {
+            path: "team/access",
+            element: (
+              <PageTitle title="Access Instruction">
+                <AccessInstraction />
+              </PageTitle>
+            ),
+          },
+          {
+            path: "vendor-list",
+            element: (
+              <PageTitle title="Vendor List">
+                <VendorListLayout />
+              </PageTitle>
+            ),
             children: [
               {
                 index: true,
                 element: (
-                  <PageTitle title="Team">
-                    <Team />
+                  <PageTitle title="Vendor List">
+                    <VendorList />
                   </PageTitle>
                 ),
               },
-              {
-                path: "our-mission",
-                element: (
-                  <PageTitle title="Our Mission">
-                    <OurMission />
-                  </PageTitle>
-                ),
-              },
-              {
-                path: "hoa",
-                element: (
-                  <PageTitle title="Hoa Community Documents">
-                    <HoaDocument />
-                  </PageTitle>
-                ),
-              },
-              {
-                path: "access",
-                element: (
-                  <PageTitle title="Access Instruction">
-                    <AccessInstraction />
-                  </PageTitle>
-                ),
-              },
+                {
+              path: "utilities",
+              element: (
+                <PageTitle title="Vendor List Utilities">
+                  <VlUtilities />
+                </PageTitle>
+              ),
+            },
+            {
+              path: "pest-control",
+              element: (
+                <PageTitle title="Vendor List Utilities">
+                  <VlPestControl />
+                </PageTitle>
+              ),
+            },
+            {
+              path: "rental-management",
+              element: (
+                <PageTitle title="Vendor List Utilities">
+                  <VlRentalManagement />
+                </PageTitle>
+              ),
+            },
+            {
+              path: "insurance",
+              element: (
+                <PageTitle title="Vendor List Utilities">
+                  <VlInsurance />
+                </PageTitle>
+              ),
+            },
+            {
+              path: "description",
+              element: (
+                <PageTitle title="Bright Home Description">
+                  <VlBrightHomeInspection />
+                </PageTitle>
+              ),
+            },
             ],
           },
-          {
-            path: "vendor-list/all",
-            element: (
-              <PageTitle title="Vendor List all">
-                <VlAll />
-              </PageTitle>
-            ),
-          },
-          {
-            path: "vendor-list/utilities",
-            element: (
-              <PageTitle title="Vendor List Utilities">
-                <VlUtilities />
-              </PageTitle>
-            ),
-          },
-          {
-            path: "vendor-list/pest-control",
-            element: (
-              <PageTitle title="Vendor List Utilities">
-                <VlPestControl />
-              </PageTitle>
-            ),
-          },
-          {
-            path: "vendor-list/rental-management",
-            element: (
-              <PageTitle title="Vendor List Utilities">
-                <VlRentalManagement />
-              </PageTitle>
-            ),
-          },
-          {
-            path: "vendor-list/insurance",
-            element: (
-              <PageTitle title="Vendor List Utilities">
-                <VlInsurance />
-              </PageTitle>
-            ),
-          },
-          {
-            path: "vendor-list/description",
-            element: (
-              <PageTitle title="Bright Home Description">
-                <VlBrightHomeInspection />
-              </PageTitle>
-            ),
-          },
+          
         ],
       },
       {
@@ -375,9 +361,15 @@ const router = createBrowserRouter([
         path: "/agent-leaderboard",
         element: (
           <PageTitle title="Agent Leaderboard">
-            <AgentLeaderBoard/>
+            <AgentLeaderBoard />
           </PageTitle>
         ),
+      },
+      {
+        path: "/test",
+        element: (
+          <AgentLeaderModal />
+        )
       },
     ],
   },

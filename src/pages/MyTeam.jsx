@@ -1,26 +1,16 @@
 import ChartCard from "@/components/ChartCard";
 import DataCard from "@/components/DataCard";
 import Dropdown from "@/components/Dropdown";
-import personimg from "@/assets/images/user.png";
-import Pagination from "@/components/Pagination";
+import personImg from "@/assets/images/user.png";
 import ProgressBar from "@/components/ProgressBar";
-import ArrowRightSvg from "@/components/svgs/ArrowRightSvg";
-import TabStepper from "@/components/TabStepper";
 import { useGetSystemsData } from "@/hooks/useGetSystemsData";
-import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { FaCalendarAlt } from "react-icons/fa";
 import "../App.css";
 
 const MyTeam = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectedValue, setSelectedValue] = useState("current");
   const { data } = useGetSystemsData();
-
-  const tabs = [
-    { label: "Dashboard", path: "/dashboard" },
-    { label: "Updates", path: "/updates" },
-  ];
 
   const ourMission = [
     {
@@ -53,7 +43,7 @@ const MyTeam = () => {
     { value: "quater", label: "Quater" },
     { value: "year", label: "Yearly" },
   ];
-  const heightoptions = [
+  const heightOptions = [
     { value: "highestsales", label: "sort By: Highest sales" },
     { value: "quater", label: "Quater" },
     { value: "year", label: "Yearly" },
@@ -93,7 +83,7 @@ const MyTeam = () => {
     },
   ];
 
-  const agenLeaderBoardData = [
+  const agentLeaderBoardData = [
     {
       name: "James L.",
       amount: "264,054",
@@ -148,13 +138,8 @@ const MyTeam = () => {
     console.log("Selected option:", option);
   };
 
-  const handleChange = (value) => {
-    console.log("Selected Value:", value);
-    setSelectedValue(value);
-  };
-
-  const agentRef = useRef()
-  const dropdownRef = useRef()
+  const agentRef = useRef();
+  const dropdownRef = useRef();
   const navigate = useNavigate();
   useEffect(() => {
     const handlePageRedirect = (e) => {
@@ -174,7 +159,7 @@ const MyTeam = () => {
       document.removeEventListener("mousedown", handlePageRedirect);
     };
   }, [navigate]);
-  
+
   return (
     <>
       <div className="my-container">
@@ -194,16 +179,16 @@ const MyTeam = () => {
               />
             ))}
           </div>
-          <div ref={agentRef} className="bg-[#242424] mt-5 px-5 py-6 rounded" >
+          <div ref={agentRef} className="bg-[#242424] mt-5 px-5 py-6 rounded">
             <div className="flex justify-between gap-1 gap-y-3 flex-wrap">
               <h1 className="section-title">Agent Leaderboard</h1>
               <div ref={dropdownRef} className="flex gap-2">
-                <Dropdown options={heightoptions} onSelect={handleSelect} />
+                <Dropdown options={heightOptions} onSelect={handleSelect} />
                 <Dropdown options={options} onSelect={handleSelect} />
               </div>
             </div>
             <div className="grid md:grid-cols-2 gap-y-4 md:gap-y-6 gap-12 w-full mt-5">
-              {agenLeaderBoardData?.map((agent, index) => (
+              {agentLeaderBoardData?.map((agent, index) => (
                 <div key={index} className="w-full">
                   <div className="flex items-center justify-between mb-2.5 gap-x-2 flex-wrap">
                     <p className="text-sm leading-5 tracking-[0.25px] text-[#ffffff99]">
@@ -226,41 +211,7 @@ const MyTeam = () => {
             <h1 className="section-title mb-4">MyEssentials</h1>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-5">
               {data?.slice(0, 5)?.map((item) => (
-                <DataCard key={item?.id} data={item}>
-                  <div className="space-y-8 sm:space-y-10 md:space-y-12 lg:space-y-14 mt-2">
-                    <div className="flex items-center justify-between">
-                      <p className="text-secondary text-xs font-medium leading-[21px] tracking-[-0.12px]">
-                        Status:{" "}
-                        <span className="text-light">{item?.status}</span>
-                      </p>
-                      <p className="text-secondary text-xs font-medium leading-[21px] tracking-[-0.12px]">
-                        Last Activity:{" "}
-                        <span className="text-light">{item?.lastActivity}</span>
-                      </p>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4">
-                        <img
-                          className="w-8 h-8 rounded-full"
-                          src={personimg}
-                          alt=""
-                        />
-                        <div className="font-medium dark:text-white">
-                          <div className="text-xs text-light ">
-                            John Hernandez{" "}
-                          </div>
-                        </div>
-                      </div>
-
-                      <p className="flex justify-center items-center gap-2  text-light bg-[#505050] rounded-full px-3 py-1 text-xs font-medium leading-[21px] tracking-[-0.12px]">
-                        <span>
-                          <FaCalendarAlt />
-                        </span>
-                        2024 Q1
-                      </p>
-                    </div>
-                  </div>
-                </DataCard>
+                <DataCard key={item?.id} data={item} />
               ))}
             </div>
           </div>

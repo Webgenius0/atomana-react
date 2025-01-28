@@ -1,8 +1,7 @@
-
 import { useNavigate } from "react-router-dom";
 import ThreeDotsSvg from "./svgs/ThreeDotsSvg";
 
-const DataCard = ({ data, children }) => {
+const DataCard = ({ data }) => {
   const { type, title } = data;
   const navigate = useNavigate();
 
@@ -24,12 +23,10 @@ const DataCard = ({ data, children }) => {
     } else if (title === "MyAgent Expenses") {
       navigate(`/my-systems/finances/my-agent-expenses`);
     } else if (title === "Vendor List") {
-      navigate(`/my-systems/vendor-list/all`); 
+      navigate(`/my-systems/vendor-list`); 
     } else if (title === "Bright Home Inspections") {
       navigate(`/my-systems/vendor-list/description`); 
     }
-  
-  
   };
 
   return (
@@ -60,7 +57,6 @@ const DataCard = ({ data, children }) => {
       <h3 className="text-light text-lg sm:text-xl font-semibold leading-[21px] tracking-[-0.2px]">
         {title}
       </h3>
-      {children}
     </div>
   );
 };
