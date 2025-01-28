@@ -225,10 +225,11 @@ export const useGetSystemsData = (type) => {
   // Filter data by the type,
   const filteredData = type
     ? systemsData?.filter(
-        (item) => item?.type.toLowerCase() === type.toLowerCase()
-      )
+      (item) => item?.type.toLowerCase() === type.toLowerCase()
+    )
     : systemsData;
 
   // return { data: filteredData, isLoading, isError, error };
-  return { data: filteredData };
+  // return { data: filteredData };
+  return filteredData;
 };

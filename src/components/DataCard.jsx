@@ -23,12 +23,10 @@ const DataCard = ({ data }) => {
     } else if (title === "MyAgent Expenses") {
       navigate(`/my-systems/finances/my-agent-expenses`);
     } else if (title === "Vendor List") {
-      navigate(`/my-systems/vendor-list/all`); 
+      navigate(`/my-systems/vendor-list`); 
     } else if (title === "Bright Home Inspections") {
       navigate(`/my-systems/vendor-list/description`); 
     }
-  
-  
   };
 
   return (

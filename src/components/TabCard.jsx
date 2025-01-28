@@ -1,20 +1,16 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-function TabCard({systemTabs}) {
-    console.log("Received systemTabs:", systemTabs);
+function TabCard({ tab, IconComponent }) {
+
   return (
-    <div className='text-white grid grid-cols-4 gap-2 '>
-        {systemTabs.map((tab, i)=>(
-            <div key={i} className='lg:p-6 sm:p-4 p-2 bg-[#242424] rounded-md'>
-                <p>{tab.icon}</p>
-                <h1>{tab.title}</h1>
-                <p>{tab.items}</p>
-            </div>
-        
-        ))
-       }     
-        
-    </div>
+    <Link to={tab?.path}>
+      <div className='cursor-pointer lg:p-6 sm:p-4 p-2 bg-[#242424] rounded-md'>
+        <p className='py-2'>{IconComponent && <IconComponent />}</p>
+        <h1 className='py-2'>{tab.category}</h1>
+        <p className='py-2'> {tab.totalCategoryName}: {tab.totalCategories}</p>
+      </div>
+    </Link>
   )
 }
 

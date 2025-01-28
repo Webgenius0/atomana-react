@@ -2,7 +2,7 @@ import DataCard from "@/components/DataCard";
 import { useGetSystemsData } from "@/hooks/useGetSystemsData";
 
 const NewContract = () => {
-  const { data } = useGetSystemsData("new contract");
+  const data  = useGetSystemsData("new contract");
 
   return (
     <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-5">

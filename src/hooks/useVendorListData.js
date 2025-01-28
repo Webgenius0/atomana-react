@@ -128,8 +128,8 @@ export const useGetVendorListData = (type) => {
   ];
 
   // Filter data by the type,
-  const filteredData = type ? VendorListData?.filter( (item) => item?.type.toLowerCase() === type.toLowerCase()) : VendorListData;
+  const filteredData = type ? VendorListData?.filter((item) => item?.type.toLowerCase() === type.toLowerCase()) : VendorListData;
 
   // return { data: filteredData, isLoading, isError, error };
-  return { data: filteredData };
+  return filteredData;
 };
