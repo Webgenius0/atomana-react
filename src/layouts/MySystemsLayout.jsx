@@ -1,7 +1,6 @@
 import SearchIconSvg from "@/components/svgs/SearchIconSvg";
 import SubTabs from "@/components/SubTabs";
 import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
-import React from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 
 const MySystemsLayout = () => {

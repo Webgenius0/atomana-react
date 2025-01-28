@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import ThreeDotsSvg from "./svgs/ThreeDotsSvg";
 
-const DataCard = ({ data, children }) => {
+const DataCard = ({ data }) => {
   const { type, title } = data;
   const navigate = useNavigate();
 
@@ -59,7 +59,6 @@ const DataCard = ({ data, children }) => {
       <h3 className="text-light text-lg sm:text-xl font-semibold leading-[21px] tracking-[-0.2px]">
         {title}
       </h3>
-      {children}
     </div>
   );
 };

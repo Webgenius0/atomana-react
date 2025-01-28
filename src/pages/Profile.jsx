@@ -2,8 +2,11 @@ import React from "react";
 import profileAvatar from "@/assets/images/profile.png";
 import { Link } from "react-router-dom";
 import ArrowGreaterSvg from "@/components/svgs/ArrowGreaterSvg";
+import { useAuth } from "@/hooks/useAuth";
 
 const Profile = () => {
+  const { logout } = useAuth();
+
   return (
     <div className="my-container">
       <div className="space-y-[25px] py-[25px]">
@@ -82,6 +85,17 @@ const Profile = () => {
               </span>
               <ArrowGreaterSvg />
             </Link>
+          </div>
+          <div>
+            <button
+              onClick={() => logout()}
+              className="flex items-center justify-between gap-4 border-secondPrimary py-4 duration-300 hover:opacity-60"
+            >
+              <span className="text-sm font-medium leading-5 text-light">
+                Logout
+              </span>
+              <ArrowGreaterSvg />
+            </button>
           </div>
         </div>
       </div>
