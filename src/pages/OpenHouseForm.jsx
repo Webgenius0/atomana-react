@@ -1,12 +1,9 @@
 import CustomDatePicker from "@/components/CustomDatePicker";
 import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
 import CalenderSvg from "@/components/svgs/CalenderSvg";
-import ClockSvg from "@/components/svgs/ClockSvg";
 import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
 import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
 import TimeRangePicker from "@/components/TimeRangePicker";
-import CustomTimeRangePicker from "@/components/TimeRangePicker";
-import React from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -18,16 +15,17 @@ const OpenHouseForm = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    navigate(`/my-systems/open-house/open-house-form-details`);  
-
+    navigate(`/my-systems/open-house/open-house-form-details`);
   };
-  const handleResetForm = () => {
+
+  const handleResetForm = (e) => {
+    e.preventDefault();
     reset();
   };
-  
+
   return (
     <>
       <div className="flex items-center gap-4 justify-between">
@@ -121,31 +119,20 @@ const OpenHouseForm = () => {
               {...register("signs")}
             />
           </div>
-
-       
         </form>
         <form action="" onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex sm:flex-row flex-col items-center gap-4 justify-between mt-4 md:mt-6"> 
-           <div className="flex items-center sm:justify-start justify-center gap-4 sm:w-unset w-full">
-               
-           <input
-            // onClick={() => handleCardClick(title)}
-            className="request-btn approve cursor-pointer"  
-            type="submit"
-            value="Add"
-          />
-           <button
-              onClick={handleResetForm}
-              className="request-btn text-light"  
-            >
-              Continue
-            </button>
-
-           </div>
+          <div className="flex sm:flex-row flex-col items-center gap-4 justify-between mt-4 md:mt-6">
+            <div className="flex items-center sm:justify-start justify-center gap-4 sm:w-unset w-full">
+              <input
+                className="request-btn approve cursor-pointer"
+                type="submit"
+                value="Add"
+              />
+            </div>
 
             <button
               onClick={handleResetForm}
-              className="request-btn text-light" 
+              className="request-btn text-light"
             >
               Cancel
             </button>
