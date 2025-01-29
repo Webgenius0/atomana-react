@@ -45,6 +45,7 @@ import PrivateRoute from "./PrivateRoute";
 import AgentLeaderModal from "@/components/AgentLeaderModal";
 import VendorList from "@/pages/VendorList";
 import VendorListLayout from "@/layouts/VendorListLayout";
+import AddVendor from "@/pages/AddVendor";
 
 const router = createBrowserRouter([
   {
@@ -241,6 +242,14 @@ const router = createBrowserRouter([
                 ),
               },
               {
+                path: "add-vendor",
+                element: (
+                  <PageTitle title="Add Vendor">
+                    <AddVendor/>
+                  </PageTitle>
+                ),
+              },
+              {
                 path: "description",
                 element: (
                   <PageTitle title="Bright Home Description">
@@ -361,12 +370,6 @@ const router = createBrowserRouter([
             <AgentLeaderBoard />
           </PageTitle>
         ),
-      },
-      {
-        path: "/test",
-        element: (
-          <AgentLeaderModal />
-        )
       },
     ],
   },
