@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
+import toast from "react-hot-toast";
 import errorResponse from "@/lib/errorResponse";
 
 const SignUp = () => {
@@ -26,6 +27,7 @@ const SignUp = () => {
     try {
       setIsLoading(true);
       await signup(data);
+      toast.success("Registration successfully!")
       navigate("/verify-otp");
       reset();
     } catch (err) {
@@ -44,7 +46,7 @@ const SignUp = () => {
         });
       });
       if (response) {
-        console.log(response);
+        toast.error(response);
       }
     } finally {
       setIsLoading(false);

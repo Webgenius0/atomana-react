@@ -56,10 +56,15 @@ const AuthProvider = ({ children }) => {
   };
 
   // resend OTP function
-  const sendOTP = async (otp) => {
-    const { data } = await axiosPublic.post("/api/v1/auth/otp-send", {
+  const sendOTP = async () => {
+    const payload = {
       email: emailForOTP,
-      otp,
+      operation: "email",
+    };
+    const { data } = await axiosPublic.post("/api/v1/auth/otp-send", payload, {
+      headers: {
+        Authorization: `Bearer ${auth}`,
+      },
     });
     if (!data?.success) {
       throw new Error("Sending otp failed");
@@ -72,6 +77,7 @@ const AuthProvider = ({ children }) => {
     if (!data?.success) {
       throw new Error(data?.message);
     }
+
     setAuth((prev) => ({ ...prev, accessToken: data.token }));
     setUserData((prev) => ({ ...prev, user: data?.data?.user }));
   };

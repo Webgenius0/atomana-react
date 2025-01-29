@@ -1,10 +1,13 @@
 import { useAuth } from "@/hooks/useAuth";
 import errorResponse from "@/lib/errorResponse";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 const VerifyOTP = () => {
-  const { verifyOTP } = useAuth();
+   const [isLoading, setIsLoading] = useState(false);
+  const { verifyOTP, sendOTP } = useAuth();
   const navigate = useNavigate();
 
   // const response = await verifyOTP(otp);
@@ -18,7 +21,9 @@ const VerifyOTP = () => {
   const onSubmit = async (data) => {
     try {
       const otp = Object.values(data).join("");
+      setIsLoading(true);
       await verifyOTP(otp);
+      toast.success("Verification successful")
       navigate("/sign-in");
     } catch (err) {
       const response = errorResponse(err, (fields) => {
@@ -35,9 +40,12 @@ const VerifyOTP = () => {
           });
         });
       });
+
       if (response) {
-        console.log(response);
+        toast.error(response);
       }
+    } finally {
+      setIsLoading(false)
     }
   };
 
@@ -74,6 +82,34 @@ const VerifyOTP = () => {
     }
   };
 
+  const handleResend = async () =>{
+    try {
+      setIsLoading(true)
+      await sendOTP();
+      toast.success("OTP sent!")
+    } catch (err) {
+      const response = errorResponse(err, (fields) => {
+        Object.entries(fields).forEach(([field, messages]) => {
+          let fieldName = field;
+          // demo to update api response type to local field
+          // switch (field) {
+          //   case "name":
+          //     fieldName = "name";
+          //     break;
+          // }
+          setError(fieldName, {
+            message: messages?.[0],
+          });
+        });
+      });
+      if (response) {
+        toast.error(response);
+      }
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   return (
     <div className="min-h-screen flex justify-center bg-[#151515] text-[#FFFFFF]">
       <div className="max-w-screen-xl w-full flex flex-col mx-auto flex-1 gap-[2rem]">
@@ -109,7 +145,13 @@ const VerifyOTP = () => {
               type="submit"
               className="h-[50px] mt-3 mb-0 sm:my-3 tracking-wide bg-[#FFF] text-[#151515] text-base sm:text-lg font-normal leading-normal font-Inria w-full sm:w-[90%] py-[10px] sm:py-4 rounded-lg hover:bg-[rgba(0,150,150,1)] hover:text-[#FFF] transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
             >
-              Verify your account
+               {isLoading ? (
+                    <span>Loading....</span>
+                  ) : (
+                    <span >
+                      Verify your account
+                    </span>
+                  )}
             </button>
             <div className="flex flex-col gap-0 sm:gap-1">
               <p className="font-medium text-sm sm:text-base">
@@ -117,9 +159,9 @@ const VerifyOTP = () => {
                 <span className="text-[rgba(0,150,150,1)] font-bold">60</span>{" "}
                 Second
               </p>
-              <p className="underline decoration-[rgba(0,150,150,1)] text-[rgba(0,150,150,1)] font-medium text-sm sm:text-base cursor-pointer">
+              <button onClick={handleResend} className="underline decoration-[rgba(0,150,150,1)] text-[rgba(0,150,150,1)] font-medium text-sm sm:text-base cursor-pointer mr-auto">
                 Resend Code
-              </p>
+              </button>
             </div>
           </form>
         </div>

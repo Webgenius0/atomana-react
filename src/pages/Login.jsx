@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
+import toast from "react-hot-toast";
 import errorResponse from "@/lib/errorResponse";
 
 const Login = () => {
@@ -14,8 +15,8 @@ const Login = () => {
     register,
     handleSubmit,
     setError,
-    reset,
     formState: { errors },
+    reset,
   } = useForm();
 
   const { login } = useAuth();
@@ -25,31 +26,32 @@ const Login = () => {
     try {
       setIsLoading(true);
       await login(data);
+      toast.success("Login successfully!");
       navigate("/");
       reset();
     } catch (err) {
       const response = errorResponse(err, (fields) => {
         Object.entries(fields).forEach(([field, messages]) => {
           let fieldName = field;
-
           // demo to update api response type to local field
-          //   switch (field) {
-          //     case "name":
-          //       fieldName = "name";
-          //       break;
-          //   }
+          // switch (field) {
+          //   case "name":
+          //     fieldName = "name";
+          //     break;
+          // }
           setError(fieldName, {
             message: messages?.[0],
           });
         });
       });
       if (response) {
-        console.log(response);
+        toast.error(response);
       }
     } finally {
       setIsLoading(false);
     }
   };
+
   return (
     <div className="min-h-screen flex justify-center bg-[#151515] text-[#FFFFFF]">
       <div className="max-w-screen-xl w-full flex flex-col mx-auto flex-1 gap-[2rem] mb-4">
@@ -99,6 +101,7 @@ const Login = () => {
                     disabled={isLoading}
                     {...register("email", { required: true })}
                   />
+                  {errors?.email && <p>{errors?.email?.message}</p>}
                 </div>
                 <div className="flex flex-col gap-[8px]">
                   <label
@@ -161,11 +164,11 @@ const Login = () => {
                       </svg>
                     )}
                   </div>
-                  {errors.password && (
+                  {/* {errors.password && (
                     <p className="text-red-500 text-xs">
                       {errors.password.message}
                     </p>
-                  )}
+                  )} */}
                 </div>
                 <Link to={`/forget-password`}>
                   <div className="underline decoration-[rgba(0,150,150,1)] text-[rgba(0,150,150,1)] font-medium text-sm sm:text-lg cursor-pointer">
@@ -180,20 +183,22 @@ const Login = () => {
                   {isLoading ? (
                     <span>Loading....</span>
                   ) : (
-                    <svg
-                      className="w-6 h-6 -ml-2"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-                      <circle cx="8.5" cy="7" r="4" />
-                      <path d="M20 8v6M23 11h-6" />
-                    </svg>
+                    <span className="flex items-end gap-2">
+                      <svg
+                        className="w-6 h-6 -ml-2"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                        <circle cx="8.5" cy="7" r="4" />
+                        <path d="M20 8v6M23 11h-6" />
+                      </svg>
+                      Login
+                    </span>
                   )}
-                  <span className="ml-3">Login</span>
                 </button>
               </form>
 
