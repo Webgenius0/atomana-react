@@ -5,7 +5,7 @@ function TabCard({ tab, IconComponent }) {
 
   return (
     <Link to={tab?.path}>
-      <div className='cursor-pointer lg:p-6 sm:p-4 p-2 bg-[#242424] rounded-md'>
+      <div className='cursor-pointer lg:p-6 sm:p-4 p-2 bg-[#242424] rounded-2xl'>
         <p className='py-2'>{IconComponent && <IconComponent />}</p>
         <h1 className='py-2'>{tab.category}</h1>
         <p className='py-2'> {tab.totalCategoryName}: {tab.totalCategories}</p>

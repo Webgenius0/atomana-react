@@ -149,7 +149,7 @@ const Mypl = () => {
         <div className="flex items-center gap-4 justify-between">
           <Link
             to="/my-systems/finances"
-            className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit"
+            className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5"
           >
             <ArrowLeftSvg />
             <h2 className="section-title">My P&L</h2>
@@ -160,8 +160,8 @@ const Mypl = () => {
           </button>
         </div>
 
-        <div className="my-6">
-          <div className="flex gap-5 pt-5">
+        <div className="my-5">
+          <div className="flex gap-5">
             <div className="flex items-center ml-5">
               <button
                 onClick={() => handleChange("current")}

@@ -5,7 +5,7 @@ const TabStepper = ({ tabs }) => {
   const [activeTab, setActiveTab] = useState(tabs[0].path);
 
   return (
-    <div>
+    <>
       <div className="flex items-start gap-5">
         {tabs?.map((tab) => (
           <Link
@@ -22,7 +22,7 @@ const TabStepper = ({ tabs }) => {
           </Link>
         ))}
       </div>
-    </div>
+    </>
   );
 };
 

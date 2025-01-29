@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 
 const AccessInstraction = () => {
   return (
-    <div className="pt-6 md:pt-8 lg:pt-12 pb-3">
+    <>
       <div className="flex items-center gap-4 justify-between">
         <Link
           to="/my-systems/team"
-          className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit"
+          className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5"
         >
           <ArrowLeftSvg />
           <div>
@@ -25,9 +25,9 @@ const AccessInstraction = () => {
         </button>
       </div>
 
-      <div className="mt-5 md:mt-8 lg:mt-[50px]">
+      <div className="mt-5">
         <h2 className="section-title">Property Details</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-12 md:mt-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-12 md:mt-2">
           {/* Address */}
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
@@ -163,7 +163,7 @@ const AccessInstraction = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

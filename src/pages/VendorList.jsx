@@ -5,46 +5,50 @@ import InsuranceSvg from "@/components/svgs/InsuranceSvg";
 import RentalManagementSvg from "@/components/svgs/RentalManagementSvg";
 import { useGetVendorListData } from '@/hooks/useVendorListData';
 import TabCard from '@/components/TabCard';
+import { Link} from 'react-router-dom';
+import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
+import SearchGraySvg from '@/components/svgs/SearchGraySvg';
+import PlusSvg from '@/components/svgs/PlusSvg';
 
 function VendorList() {
     const utilitiesData = useGetVendorListData("Utilities")
-    const insuranceData = useGetVendorListData("Insurance")
+    const insuranceData = useGetVendorListData("insurance")
     const pestControlData = useGetVendorListData("Pest Control")
     const rentalData = useGetVendorListData("Rental Management")
 
     const vendorListTabs = [
         {
             icon: UtilitiesSvg,
-            category: "Utilies",
+            category: "Utilities",
             totalCategories: utilitiesData.length,
             totalCategoryName: "Total Vendors",
-            path: "/my-systems/finances",
+            path: "/my-systems/vendor-list/utilities",
         },
         {
             icon: PestControlSvg,
             category: "Pest Control",
-            totalCategories: insuranceData.length,
+            totalCategories: pestControlData.length,
             totalCategoryName: "Total Vendors",
-            path: "/my-systems/new-listing",
+            path: "/my-systems/vendor-list/pest-control",
         },
         {
             icon: InsuranceSvg,
             category: "Insurance",
-            totalCategories: pestControlData.length,
+            totalCategories: insuranceData.length,
             totalCategoryName: "Total Vendors",
-            path: "/my-systems/new-contract",
+            path: "/my-systems/vendor-list/insurance",
         },
         {
             icon: RentalManagementSvg,
             category: "Rental Management",
             totalCategories: rentalData.length,
             totalCategoryName: "Total Items",
-            path: "/my-systems/team",
+            path: "/my-systems/vendor-list/rental-management",
         },
     ]
 
     return (
-        <div className="my-container mx-auto">
+        <div className="mx-auto">   
             <div className='text-white grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-x-4 gap-x-3 lg:gap-y-4 gap-y-3 my-4'>
                 {vendorListTabs?.map((tab, idx) => {
                     const IconComponent = tab.icon

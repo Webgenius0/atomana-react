@@ -3,10 +3,10 @@ import { useGetVendorListData } from '@/hooks/useVendorListData';
 import React from 'react'
 
 const VlInsurance = () => {
-    const { data } = useGetVendorListData('insurance');
+    const data = useGetVendorListData('insurance');
 
     return (
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-5">
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-5">
         {data?.map((item) => (
           <DataCard key={item?.id} data={item}>
             <div className="flex items-center justify-between mt-6">

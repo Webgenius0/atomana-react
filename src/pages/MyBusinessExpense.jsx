@@ -16,13 +16,11 @@ const MyBusinessExpense = () => {
   ];
 
   return (
-    <div>
-
-      <div className="pt-6 md:pt-8 lg:pt-12 pb-3">
+    <>
       <div className="flex items-center gap-4 justify-between">
         <Link
           to="/my-systems/finances"
-          className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit"
+          className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5"
         >
           <ArrowLeftSvg />
           <h2 className="section-title">MyBusiness Expenses</h2> 
@@ -37,9 +35,8 @@ const MyBusinessExpense = () => {
           </button>
         </div>
       </div>
-      </div>
 
-      <div className="my-4 sm:my-5 md:my-6">
+      <div className="mb-5 sm:mb-6">
           <TabStepper tabs={tabs} />
         </div>
 
@@ -49,7 +46,7 @@ const MyBusinessExpense = () => {
 
 
       <Table />
-    </div>
+    </>
   );
 };
 

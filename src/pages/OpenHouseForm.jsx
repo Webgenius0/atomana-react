@@ -29,11 +29,11 @@ const OpenHouseForm = () => {
   };
   
   return (
-    <div className="pt-6 md:pt-8 lg:pt-12 pb-3">
+    <>
       <div className="flex items-center gap-4 justify-between">
         <Link
           to="/my-systems/open-house"
-          className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit"
+          className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5"
         >
           <ArrowLeftSvg />
           <h2 className="section-title">Open House Form</h2>
@@ -49,7 +49,7 @@ const OpenHouseForm = () => {
         </div>
       </div>
 
-      <div className="max-w-[670px] w-full mx-auto mt-6 md:mt-8 lg:mt-12">
+      <div className="max-w-[670px] w-full mx-auto mt-4">
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="max-w-[670px] mx-start flex flex-col gap-[15px]"
@@ -152,7 +152,7 @@ const OpenHouseForm = () => {
           </div>
         </form>
       </div>
-    </div>
+    </>
   );
 };
 

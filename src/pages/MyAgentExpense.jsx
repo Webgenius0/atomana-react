@@ -25,13 +25,11 @@ const MyAgentExpense = () => {
     };
 
     return (
-        <div>
-
-            <div className="pt-6 md:pt-8 lg:pt-12 pb-3">
+        <>
                 <div className="flex items-center gap-4 justify-between">
                     <Link
                         to="/my-systems/finances"
-                        className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit"
+                        className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5"
                     >
                         <ArrowLeftSvg />
                         <h2 className="section-title">MyAgentExpense Expenses</h2>
@@ -46,7 +44,6 @@ const MyAgentExpense = () => {
                         </button>
                     </div>
                 </div>
-            </div>
 
             <div className="my-4 sm:my-5 md:my-6">
                 <div className="flex justify-between items-center">
@@ -54,7 +51,7 @@ const MyAgentExpense = () => {
                     <div className="relative w-full max-w-xs">
                         <input
                             type="text"
-                            className="border rounded-full bg-transparent pl-10 pr-4 py-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="border rounded-full bg-transparent pl-10 pr-4 py-1 w-full text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                             placeholder="Search reviews"
                         />
                         <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
@@ -77,7 +74,7 @@ const MyAgentExpense = () => {
 
 
             <Table />
-        </div>
+        </>
     );
 };
 
