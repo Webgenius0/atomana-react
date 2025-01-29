@@ -45,6 +45,7 @@ import PrivateRoute from "./PrivateRoute";
 import AgentLeaderModal from "@/components/AgentLeaderModal";
 import VendorList from "@/pages/VendorList";
 import VendorListLayout from "@/layouts/VendorListLayout";
+import BlogCourseDetails from "@/pages/BlogCourseDetails";
 
 const router = createBrowserRouter([
   {
@@ -274,6 +275,14 @@ const router = createBrowserRouter([
         element: (
           <PageTitle title="Course Details">
             <CourseDetails />
+          </PageTitle>
+        ),
+      },
+      {
+        path: "/blog-course-details",
+        element: (
+          <PageTitle title="Blog Course Details">
+            <BlogCourseDetails />
           </PageTitle>
         ),
       },
