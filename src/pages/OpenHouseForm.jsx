@@ -27,15 +27,12 @@ const OpenHouseForm = () => {
   const handleResetForm = () => {
     reset();
   };
-
-
-
   
   return (
     <div className="pt-6 md:pt-8 lg:pt-12 pb-3">
       <div className="flex items-center gap-4 justify-between">
         <Link
-          to="/my-systems/team"
+          to="/my-systems/open-house"
           className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit"
         >
           <ArrowLeftSvg />
@@ -52,7 +49,7 @@ const OpenHouseForm = () => {
         </div>
       </div>
 
-      <div className="mt-6 md:mt-8 lg:mt-12">
+      <div className="max-w-[670px] w-full mx-auto mt-6 md:mt-8 lg:mt-12">
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="max-w-[670px] mx-start flex flex-col gap-[15px]"
@@ -127,12 +124,12 @@ const OpenHouseForm = () => {
 
        
         </form>
-        <form action=""   onSubmit={handleSubmit(onSubmit)}>
-        <div className=" flex items-center gap-4 justify-between mt-0 sm:mt-3 md:mt-6"> 
-           <div className="flex items-center gap-4">
+        <form action="" onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex sm:flex-row flex-col items-center gap-4 justify-between mt-4 md:mt-6"> 
+           <div className="flex items-center sm:justify-start justify-center gap-4 sm:w-unset w-full">
                
            <input
-           onClick={() => handleCardClick(title)}
+            // onClick={() => handleCardClick(title)}
             className="request-btn approve cursor-pointer"  
             type="submit"
             value="Add"
