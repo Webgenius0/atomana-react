@@ -7,12 +7,10 @@ import { Link } from 'react-router-dom'
 const OpenHouseFormDetails = () => {
   return (
     <>
-
-      <div className="pt-6 md:pt-8 lg:pt-12 pb-3">
         <div className="flex items-center gap-4 justify-between">
           <Link
             to="/my-systems/open-house"
-            className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit"
+            className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5"
           >
             <ArrowLeftSvg />
             <h2 className="section-title">Open House Form</h2>
@@ -29,7 +27,7 @@ const OpenHouseFormDetails = () => {
         </div>
 
 
-        <div className="mt-5 md:mt-8 lg:mt-[50px]">
+        <div className="mt-4">
          <div className='flex flex-col gap-[50px]'>
          <div>
             <h2 className="section-title">1. Property Details</h2>
@@ -176,11 +174,6 @@ const OpenHouseFormDetails = () => {
 
          </div>
         </div>
-
-
-
-
-      </div>
 
     </>
   )

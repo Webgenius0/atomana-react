@@ -208,46 +208,46 @@ const router = createBrowserRouter([
                   </PageTitle>
                 ),
               },
-                {
-              path: "utilities",
-              element: (
-                <PageTitle title="Vendor List Utilities">
-                  <VlUtilities />
-                </PageTitle>
-              ),
-            },
-            {
-              path: "pest-control",
-              element: (
-                <PageTitle title="Vendor List Utilities">
-                  <VlPestControl />
-                </PageTitle>
-              ),
-            },
-            {
-              path: "rental-management",
-              element: (
-                <PageTitle title="Vendor List Utilities">
-                  <VlRentalManagement />
-                </PageTitle>
-              ),
-            },
-            {
-              path: "insurance",
-              element: (
-                <PageTitle title="Vendor List Utilities">
-                  <VlInsurance />
-                </PageTitle>
-              ),
-            },
-            {
-              path: "description",
-              element: (
-                <PageTitle title="Bright Home Description">
-                  <VlBrightHomeInspection />
-                </PageTitle>
-              ),
-            },
+              {
+                path: "utilities",
+                element: (
+                  <PageTitle title="Vendor List Utilities">
+                    <VlUtilities />
+                  </PageTitle>
+                ),
+              },
+              {
+                path: "pest-control",
+                element: (
+                  <PageTitle title="Vendor List Utilities">
+                    <VlPestControl />
+                  </PageTitle>
+                ),
+              },
+              {
+                path: "rental-management",
+                element: (
+                  <PageTitle title="Vendor List Utilities">
+                    <VlRentalManagement />
+                  </PageTitle>
+                ),
+              },
+              {
+                path: "insurance",
+                element: (
+                  <PageTitle title="Vendor List Utilities">
+                    <VlInsurance />
+                  </PageTitle>
+                ),
+              },
+              {
+                path: "description",
+                element: (
+                  <PageTitle title="Bright Home Description">
+                    <VlBrightHomeInspection />
+                  </PageTitle>
+                ),
+              },
             ],
           },
           

@@ -29,11 +29,11 @@ const OurMission = () => {
   ];
 
   return (
-    <div className="pt-6 md:pt-8 lg:pt-12 pb-3">
+    <>
       <div className="flex items-center gap-4 justify-between">
         <Link
           to="/my-systems/team" 
-          className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit"
+          className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5"
         >
           <ArrowLeftSvg />
           <h2 className="section-title">Our Mission</h2> 
@@ -50,7 +50,7 @@ const OurMission = () => {
       </div>
 
       <div>
-        <h2 className="section-title my-5 md:my-8 lg:my-[50px]">
+        <h2 className="section-title my-5">
           To Create Lifelong Relationships and Raving Fans
         </h2>
 
@@ -65,7 +65,7 @@ const OurMission = () => {
           ))}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

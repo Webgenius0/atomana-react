@@ -1,16 +1,14 @@
 import ChartCard from "@/components/ChartCard";
 import DataCard from "@/components/DataCard";
 import Dropdown from "@/components/Dropdown";
-import personImg from "@/assets/images/user.png";
 import ProgressBar from "@/components/ProgressBar";
 import { useGetSystemsData } from "@/hooks/useGetSystemsData";
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaCalendarAlt } from "react-icons/fa";
 import "../App.css";
 
 const MyTeam = () => {
-  const { data } = useGetSystemsData();
+  const data  = useGetSystemsData();
 
   const ourMission = [
     {
