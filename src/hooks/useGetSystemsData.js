@@ -25,12 +25,12 @@ export const useGetSystemsData = (type) => {
     {
       id: "B321",
       type: "Expenses",
-      title: "MyListing Expenses",
+      title: "My Listing Expenses",
     },
     {
       id: "B322",
       type: "Expenses",
-      title: "MyBusiness Expenses",
+      title: "My Business Expenses",
     },
     {
       id: "C455",
@@ -40,7 +40,7 @@ export const useGetSystemsData = (type) => {
     {
       id: "D789",
       type: "New Contract",
-      title: "New Contract Information Form ",
+      title: "New Contract Information Form",
     },
     {
       id: "D790",
@@ -60,12 +60,12 @@ export const useGetSystemsData = (type) => {
     {
       id: "B323",
       type: "Expenses",
-      title: "MyAgent Expenses",
+      title: "My Agent Expenses",
     },
     {
       id: "B324",
       type: "Expenses",
-      title: "MyP&L",
+      title: "My P&L",
     },
     {
       id: "E990",
@@ -75,11 +75,11 @@ export const useGetSystemsData = (type) => {
     {
       id: "E992",
       type: "Team",
-      title: "Access Instructions",
+      title: "Access Instruction",
     },
     {
       id: "B944",
-      type: "team",
+      type: "Team",
       title: "Sales Tracker",
     },
     {

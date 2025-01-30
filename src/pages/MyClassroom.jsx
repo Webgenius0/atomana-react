@@ -1,6 +1,7 @@
 import ContinueLearningCard from "@/components/ContinueLearningCard";
 import CourseCard from "@/components/CourseCard";
 import ArrowRightSvg from "@/components/svgs/ArrowRightSvg";
+import PlusSvg from "@/components/svgs/PlusSvg";
 import { useGetMyClassroomsData } from "@/hooks/useGetMyClassroomsData";
 
 import { Link } from "react-router-dom";
@@ -29,7 +30,7 @@ const MyClassroom = () => {
 
     {
       "id": "A123",
-      "type": "Open Houses",
+      "type": "Blog",
       "status": "In Review",
       "lastActivity": "09/12",
       "title": "Advanced CRM Features: Maximizing Efficiency",
@@ -39,7 +40,7 @@ const MyClassroom = () => {
     },
     {
       "id": "A123",
-      "type": "Open Houses",
+      "type": "Blog",
       "status": "In Review",
       "lastActivity": "09/12",
       "title": "Introduction to Real Estate Marketing Strategies",
@@ -50,7 +51,7 @@ const MyClassroom = () => {
 
     {
       "id": "A123",
-      "type": "Open Houses",
+      "type": "Blog",
       "status": "In Review",
       "lastActivity": "09/12",
       "title": "Advanced CRM Features: Maximizing Efficiency",
@@ -67,9 +68,9 @@ const MyClassroom = () => {
             <p className="text-sm leading-6 capitalize text-light tracking-[-0.14px] hover:text-secondary duration-300">
               Add content
             </p>
-            <button className="w-8 h-8 rounded-full flex items-center justify-center border border-[#4D4D4D] bg-[#242424] shadow-[0px_0px_0px_1px_#000]">
-              <ArrowRightSvg />
-            </button>
+            <span className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 border border-[#024040] bg-gradient-to-r from-black via-black to-[#024040] shadow-[0_0_0_1px_black]">
+              <PlusSvg />
+            </span>
           </Link>
         </div>
         <h1 className="text-white section-title text-xl mt-5 mb-5">New Courses</h1>
@@ -79,7 +80,7 @@ const MyClassroom = () => {
           ))}
         </div>
         <div className="flex items-center justify-end mt-3">
-          <Link to="" className="flex items-center gap-3">
+          <Link to="/my-classroom/courses/" className="flex items-center gap-3">
             <p className="text-sm leading-6 capitalize text-light tracking-[-0.14px] hover:text-secondary duration-300">
               View all new courses
             </p>

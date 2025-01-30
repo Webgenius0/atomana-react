@@ -46,6 +46,9 @@ import AgentLeaderModal from "@/components/AgentLeaderModal";
 import VendorList from "@/pages/VendorList";
 import VendorListLayout from "@/layouts/VendorListLayout";
 import AddVendor from "@/pages/AddVendor";
+import NewListingInformationForm from "@/pages/NewListingInformationForm";
+import Courses from "@/pages/Courses";
+import BlogCourseDetails from "@/pages/BlogCourseDetails";
 
 const router = createBrowserRouter([
   {
@@ -132,7 +135,7 @@ const router = createBrowserRouter([
           {
             path: "finances/my-agent-expenses",
             element: (
-              <PageTitle title="PMyAgent Expenses">
+              <PageTitle title="My Agent Expenses">
                 <MyAgentExpense />
               </PageTitle>
             ),
@@ -150,6 +153,14 @@ const router = createBrowserRouter([
             element: (
               <PageTitle title="New Listing">
                 <NewListing />
+              </PageTitle>
+            ),
+          },
+          {
+            path: "new-listing/new-listing-information-form",
+            element: (
+              <PageTitle title="New Listing Information Form">
+                <NewListingInformationForm />
               </PageTitle>
             ),
           },
@@ -252,7 +263,7 @@ const router = createBrowserRouter([
               {
                 path: "description",
                 element: (
-                  <PageTitle title="Bright Home Description">
+                  <PageTitle title="Bright Home Inspections">
                     <VlBrightHomeInspection />
                   </PageTitle>
                 ),
@@ -279,7 +290,15 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/course-details",
+        path: "/my-classroom/courses",
+        element: (
+          <PageTitle title="All Courses">
+            <Courses />
+          </PageTitle>
+        ),
+      },
+      {
+        path: "/my-classroom/course-details",
         element: (
           <PageTitle title="Course Details">
             <CourseDetails />

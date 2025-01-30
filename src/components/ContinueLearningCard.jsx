@@ -21,7 +21,7 @@ const ContinueLearningCard = ({ data }) => {
   return (
  <>
  
- <Link to={"/course-details"} 
+ <Link to={"/my-classroom/course-details"} 
     onClick={handleCardClick}>
       <div className="relative rounded-2xl bg-[#242424] hover:shadow-[2px_2px_4px] hover:shadow-[#009696] duration-300 ease-in-out overflow-hidden">
         {/* Top Section with Badge and Icon */}
