@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FaCalendarAlt, FaCaretDown } from "react-icons/fa";
 import { IoTime } from "react-icons/io5";
 import img from "@/assets/images/img1.png";
+import CopySvg from "@/components/svgs/CopySvg";
 
 const CourseDetails = () => {
   const [showAllLessons, setShowAllLessons] = useState(false);
@@ -38,6 +39,16 @@ const CourseDetails = () => {
           Introduction to Real Estate Marketing Strategies
         </h1>
         <div className="relative rounded-2xl bg-transparent mt-5">
+          <div className="absolute top-2 left-2 right-2 flex items-center justify-between px-4 z-10">
+            <div className="flex py-1 px-2 justify-center items-center gap-1 rounded-lg border border-[#009696] bg-secondPrimary text-[#ccc] text-xs leading-[21px] tracking-[-0.12px]">
+              <span className="w-[9px] h-[9px] rounded-full bg-[#009696]"></span>
+              video
+            </div>
+
+            <button className="w-8 h-8 rounded-full flex items-center justify-center  bg-[#242424] bg-opacity-45 ">
+              <CopySvg />
+            </button>
+          </div>
           <img
             className="rounded-xl w-full aspect-[16/9] lg:max-h-[550px]"
             src={img}
@@ -67,17 +78,19 @@ const CourseDetails = () => {
             </h1>
 
             <div className="mb-6 sm:mb-8 md:mb-12">
-              {lessons.slice(0, showAllLessons ? lessons.length : 3).map((lesson) => (
-                <div
-                  key={lesson.id}
-                  className="flex items-center justify-between gap-4 mb-6 border-[#505050] border-b"
-                >
-                  <h3 className="text-light text-sm md:text-base font-bold leading-[21px] tracking-[-0.2px] pb-2.5">
-                    {lesson.title}
-                  </h3>
-                  <p className="text-light">{lesson.duration}</p>
-                </div>
-              ))}
+              {lessons
+                .slice(0, showAllLessons ? lessons.length : 3)
+                .map((lesson) => (
+                  <div
+                    key={lesson.id}
+                    className="flex items-center justify-between gap-4 mb-6 border-[#505050] border-b"
+                  >
+                    <h3 className="text-light text-sm md:text-base font-bold leading-[21px] tracking-[-0.2px] pb-2.5">
+                      {lesson.title}
+                    </h3>
+                    <p className="text-light">{lesson.duration}</p>
+                  </div>
+                ))}
 
               <p
                 onClick={toggleLessons}
@@ -96,7 +109,9 @@ const CourseDetails = () => {
                   About This Course
                 </h1>
                 <p className="text-light text-sm leading-5">
-                  {showMore ? courseDescription : `${courseDescription.slice(0, 400)}...`}
+                  {showMore
+                    ? courseDescription
+                    : `${courseDescription.slice(0, 400)}...`}
                 </p>
               </div>
 

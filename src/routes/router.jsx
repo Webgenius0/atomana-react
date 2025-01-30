@@ -42,7 +42,6 @@ import VerifyOTP from "@/pages/VerifyOTP";
 import SignUp from "@/pages/SignUp";
 import ForgetPassword from "@/pages/ForgetPassword";
 import PrivateRoute from "./PrivateRoute";
-import AgentLeaderModal from "@/components/AgentLeaderModal";
 import VendorList from "@/pages/VendorList";
 import VendorListLayout from "@/layouts/VendorListLayout";
 import AddVendor from "@/pages/AddVendor";
@@ -302,6 +301,15 @@ const router = createBrowserRouter([
         element: (
           <PageTitle title="Course Details">
             <CourseDetails />
+          </PageTitle>
+        ),
+      },
+      {
+        // path: "/my-classroom/:id",
+        path: "/my-classroom/video-details",
+        element: (
+          <PageTitle title="Blog Course Details">
+            <BlogCourseDetails />
           </PageTitle>
         ),
       },
