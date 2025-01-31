@@ -19,7 +19,7 @@ import ManageTeam from "@/pages/ManageTeam";
 import AddTeamMember from "@/pages/AddTeamMember";
 import EditTeamMember from "@/pages/EditTeamMember";
 import MemberProfile from "@/pages/MemberProfile";
-import CourseDetails from "@/pages/CourseDetails";
+import CourseDetails from "@/pages/VideoCourseDetails";
 import OurMission from "@/pages/OurMission";
 import OpenHouseForm from "@/pages/OpenHouseForm";
 import MyEssentials from "@/pages/MyEssentials";
@@ -48,6 +48,8 @@ import AddVendor from "@/pages/AddVendor";
 import NewListingInformationForm from "@/pages/NewListingInformationForm";
 import Courses from "@/pages/Courses";
 import BlogCourseDetails from "@/pages/BlogCourseDetails";
+import VideoCourseDetails from "@/pages/VideoCourseDetails";
+import CreateCourse from "@/pages/CreateCourse";
 
 const router = createBrowserRouter([
   {
@@ -300,7 +302,7 @@ const router = createBrowserRouter([
         path: "/my-classroom/course-details",
         element: (
           <PageTitle title="Course Details">
-            <CourseDetails />
+            < BlogCourseDetails/>
           </PageTitle>
         ),
       },
@@ -309,7 +311,15 @@ const router = createBrowserRouter([
         path: "/my-classroom/video-details",
         element: (
           <PageTitle title="Blog Course Details">
-            <BlogCourseDetails />
+            < VideoCourseDetails/>
+          </PageTitle>
+        ),
+      },
+      {
+        path: "/my-classroom/create-course",
+        element: (
+          <PageTitle title="Course Details">
+            < CreateCourse/>
           </PageTitle>
         ),
       },

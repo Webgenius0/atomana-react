@@ -10,7 +10,7 @@ const ContinueLearningCard = ({ data }) => {
   
   return (
     // <Link to={`/my-classroom/course-details/${id}`}>
-    <Link to={`/my-classroom/video-details`}>
+    <Link  to={type === "Video" ? "/my-classroom/video-details" : "/my-classroom/course-details"}>
       <div className="relative rounded-2xl bg-[#242424] hover:shadow-[2px_2px_4px] hover:shadow-[#009696] duration-300 ease-in-out overflow-hidden">
       
         <div className="absolute top-2 left-2 right-2 flex items-center justify-between px-4 z-10">
@@ -54,7 +54,7 @@ const ContinueLearningCard = ({ data }) => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 w-full text-light bg-[#505050] rounded-full px-3 py-1 text-xs font-medium leading-[21px] tracking-[-0.12px]">
               {/* Left Section */}
-              <div className="flex justify-center items-center gap-2 border-r border-[#ccc] pr-2 w-1/2 justify-end">
+              <div className="flex justify-center items-center gap-2 border-r border-[#ccc] pr-2 w-1/2 ">
                 <span>
                   <FaCalendarAlt />
                 </span>
@@ -62,7 +62,7 @@ const ContinueLearningCard = ({ data }) => {
               </div>
 
               {/* Right Section */}
-              <div className="flex justify-center items-center gap-2 pl-2 w-1/2 justify-start">
+              <div className="flex justify-center items-center gap-2 pl-2 w-1/2 ">
                 <span>
                   <IoTime />
                 </span>

@@ -2,7 +2,7 @@ import ContinueLearningCard from "@/components/ContinueLearningCard";
 import CourseCard from "@/components/CourseCard";
 import ArrowRightSvg from "@/components/svgs/ArrowRightSvg";
 import PlusSvg from "@/components/svgs/PlusSvg";
-import { useGetMyClassroomsData } from "@/hooks/useGetMyClassroomsData";
+//import { useGetMyClassroomsData } from "@/hooks/useGetMyClassroomsData";
 
 import { Link } from "react-router-dom";
 
@@ -64,7 +64,7 @@ const MyClassroom = () => {
     <>
       <div className="my-container ">
         <div className="flex items-center justify-end mt-5">
-          <Link to="" className="flex items-center gap-3">
+          <Link to={'/my-classroom/create-course'} className="flex items-center gap-3">
             <p className="text-sm leading-6 capitalize text-light tracking-[-0.14px] hover:text-secondary duration-300">
               Add content
             </p>
@@ -80,7 +80,7 @@ const MyClassroom = () => {
           ))}
         </div>
         <div className="flex items-center justify-end mt-3">
-          <Link to="/my-classroom/courses/" className="flex items-center gap-3">
+          <Link to="/my-classroom/courses" className="flex items-center gap-3">
             <p className="text-sm leading-6 capitalize text-light tracking-[-0.14px] hover:text-secondary duration-300">
               View all new courses
             </p>

@@ -4,7 +4,7 @@ import { IoTime } from "react-icons/io5";
 import img from "@/assets/images/img1.png";
 import CopySvg from "@/components/svgs/CopySvg";
 
-const CourseDetails = () => {
+const VideoCourseDetails = () => {
   const [showAllLessons, setShowAllLessons] = useState(false);
   const [showMore, setShowMore] = useState(false);
 
@@ -134,4 +134,4 @@ const CourseDetails = () => {
   );
 };
 
-export default CourseDetails;
+export default VideoCourseDetails;
