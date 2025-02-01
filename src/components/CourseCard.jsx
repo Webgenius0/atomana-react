@@ -1,12 +1,12 @@
 import { FaCalendarAlt } from "react-icons/fa";
 import { IoTime } from "react-icons/io5";
-import img from "@/assets/images/img1.png";
-import { RiCopyrightFill } from "react-icons/ri";
+// import img from "@/assets/images/img1.png";
+// import { RiCopyrightFill } from "react-icons/ri";
 import CopySvg from "./svgs/CopySvg";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const CourseCard = ({ data }) => {
-  const { id, type, title, lessons = 0, duration = "0 hrs" } = data;
+  const { id, type, title, lessons = 0, duration = "0 hrs", image } = data;
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -48,7 +48,7 @@ const CourseCard = ({ data }) => {
       {/* Image */}
       <img
         className="rounded-t-lg h-[150px] w-full"
-        src={img}
+        src={image}
         alt={title || "Course Thumbnail"}
       />
 

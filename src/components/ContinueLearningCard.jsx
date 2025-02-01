@@ -6,7 +6,7 @@ import ProgressBar from "./ProgressBar";
 import CopySvg from "./svgs/CopySvg";
 
 const ContinueLearningCard = ({ data }) => {
-  const { id, type, title, lessons = 0, duration = "0 hrs", progress } = data;
+  const { id, type, title, lessons = 0, duration = "0 hrs", progress, image } = data;
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -52,7 +52,7 @@ const ContinueLearningCard = ({ data }) => {
      
         <img
           className="rounded-t-lg h-[150px] w-full"
-          src={img}
+          src={image}
           alt={title || "Course Thumbnail"}
         />
 
