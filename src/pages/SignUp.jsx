@@ -56,7 +56,7 @@ const SignUp = () => {
     try {
       setIsLoading(true);
       await signup(data);
-      toast.success('Registration successfully!');
+      toast.success('OTP sent!');
       navigate('/verify-otp');
       reset();
     } catch (err) {
