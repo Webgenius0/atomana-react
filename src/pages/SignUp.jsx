@@ -1,12 +1,39 @@
-import AppleIconSvg from "@/components/svgs/AppleIconSvg";
-import GoogleSvg from "@/components/svgs/GoogleSvg";
-import logo from "@/assets/images/logo.png";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "@/hooks/useAuth";
-import toast from "react-hot-toast";
-import errorResponse from "@/lib/errorResponse";
+import logo from '@/assets/images/logo.png';
+import AppleIconSvg from '@/components/svgs/AppleIconSvg';
+import GoogleSvg from '@/components/svgs/GoogleSvg';
+import { useAuth } from '@/hooks/useAuth';
+import errorResponse from '@/lib/errorResponse';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { Link, useNavigate } from 'react-router-dom';
+import { z } from 'zod';
+
+const signupSchema = z
+  .object({
+    first_name: z
+      .string({ required_error: 'first name is required' })
+      .min(1, 'first name is required'),
+    last_name: z
+      .string({ required_error: 'last name is required' })
+      .min(1, 'last name is required'),
+    email: z
+      .string({ required_error: 'email is required' })
+      .min(1, 'email is required')
+      .email('invalid email'),
+    password: z
+      .string({ required_error: 'password is required' })
+      .min(1, 'password is required')
+      .min(8, 'password should be at least 8 characters long'),
+    password_confirmation: z
+      .string({ required_error: 'confirm password is required' })
+      .min(1, 'password is required'),
+  })
+  .refine((data) => data.password === data.password_confirmation, {
+    path: ['password_confirmation'],
+    message: 'passwords do not match',
+  });
 
 const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -21,14 +48,16 @@ const SignUp = () => {
     reset,
     setError,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: zodResolver(signupSchema),
+  });
 
   const onSubmit = async (data) => {
     try {
       setIsLoading(true);
       await signup(data);
-      toast.success("Registration successfully!")
-      navigate("/verify-otp");
+      toast.success('OTP sent!');
+      navigate('/verify-otp');
       reset();
     } catch (err) {
       const response = errorResponse(err, (fields) => {
@@ -100,8 +129,13 @@ const SignUp = () => {
                     placeholder="enter first name"
                     id="firstName"
                     disabled={isLoading}
-                    {...register("first_name", { required: true })}
+                    {...register('first_name')}
                   />
+                  {errors?.first_name && (
+                    <p className="text-red-500 text-xs">
+                      {errors?.first_name?.message}
+                    </p>
+                  )}
                 </div>
                 <div className="flex flex-col gap-[8px]">
                   <label
@@ -116,8 +150,13 @@ const SignUp = () => {
                     placeholder="enter last name"
                     id="lastName"
                     disabled={isLoading}
-                    {...register("last_name", { required: true })}
+                    {...register('last_name')}
                   />
+                  {errors?.last_name && (
+                    <p className="text-red-500 text-xs">
+                      {errors?.last_name?.message}
+                    </p>
+                  )}
                 </div>
                 <div className="flex flex-col gap-[8px]">
                   <label
@@ -132,8 +171,13 @@ const SignUp = () => {
                     placeholder="example@email.com"
                     id="email"
                     disabled={isLoading}
-                    {...register("email", { required: true })}
+                    {...register('email')}
                   />
+                  {errors?.email && (
+                    <p className="text-red-500 text-xs">
+                      {errors?.email?.message}
+                    </p>
+                  )}
                 </div>
                 <div className="flex flex-col gap-[8px]">
                   <label
@@ -145,17 +189,11 @@ const SignUp = () => {
                   <div className="relative">
                     <input
                       className="h-[50px] w-full p-[16px_12px_16px_16px] rounded-[10px] border border-[#D8DFEB] bg-[#151515] outline-none placeholder:text-xs sm:placeholder:text-base"
-                      type={showPassword ? "text" : "password"}
+                      type={showPassword ? 'text' : 'password'}
                       placeholder="Password (8 or more characters long)"
                       id="password"
                       disabled={isLoading}
-                      {...register("password", {
-                        required: true,
-                        minLength: {
-                          value: 8,
-                          message: "password should be more than 8 character",
-                        },
-                      })}
+                      {...register('password')}
                     />
                     {showPassword ? (
                       <svg
@@ -212,17 +250,11 @@ const SignUp = () => {
                   <div className="relative">
                     <input
                       className="h-[50px] w-full p-[16px_12px_16px_16px] rounded-[10px] border border-[#D8DFEB] bg-[#151515] outline-none placeholder:text-xs sm:placeholder:text-base"
-                      type={showConfirmPassword ? "text" : "password"}
+                      type={showConfirmPassword ? 'text' : 'password'}
                       placeholder="Password (8 or more characters long)"
-                      id="confirmPassword"
+                      id="password_confirmation"
                       disabled={isLoading}
-                      {...register("password_confirmation", {
-                        required: true,
-                        minLength: {
-                          value: 8,
-                          message: "password should be more than 8 character",
-                        },
-                      })}
+                      {...register('password_confirmation')}
                     />
                     {showConfirmPassword ? (
                       <svg
@@ -267,9 +299,9 @@ const SignUp = () => {
                       </svg>
                     )}
                   </div>
-                  {errors.confirmPassword && (
+                  {errors.password_confirmation && (
                     <p className="text-red-500 text-xs">
-                      {errors.confirmPassword.message}
+                      {errors.password_confirmation.message}
                     </p>
                   )}
                 </div>
