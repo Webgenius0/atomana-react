@@ -10,7 +10,7 @@ const ContinueLearningCard = ({ data }) => {
   
   return (
     // <Link to={`/my-classroom/course-details/${id}`}>
-    <Link  to={type === "Video" ? "/my-classroom/video-details" : "/my-classroom/course-details"}>
+    <Link  to={type == "Video" ? "/my-classroom/video" : "/my-classroom/blog"}>
       <div className="relative rounded-2xl bg-[#242424] hover:shadow-[2px_2px_4px] hover:shadow-[#009696] duration-300 ease-in-out overflow-hidden">
       
         <div className="absolute top-2 left-2 right-2 flex items-center justify-between px-4 z-10">

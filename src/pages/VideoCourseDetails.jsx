@@ -3,10 +3,13 @@ import { FaCalendarAlt, FaCaretDown } from "react-icons/fa";
 import { IoTime } from "react-icons/io5";
 import img from "@/assets/images/img1.png";
 import CopySvg from "@/components/svgs/CopySvg";
+import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
+import { Link, useLocation } from "react-router-dom";
 
 const VideoCourseDetails = () => {
   const [showAllLessons, setShowAllLessons] = useState(false);
   const [showMore, setShowMore] = useState(false);
+  const location = useLocation()
 
   const toggleLessons = () => {
     setShowAllLessons((prev) => !prev);
@@ -35,9 +38,14 @@ const VideoCourseDetails = () => {
   return (
     <>
       <div className="my-container ">
-        <h1 className="text-light text-lg font-medium mt-5 section-title">
-          Introduction to Real Estate Marketing Strategies
-        </h1>
+        <Link to={`${location.state?.from || "/my-classroom/courses"}`}>
+          <div className="flex items-center gap-3 mt-5">
+            <ArrowLeftSvg />
+            <h1 className="text-white text-lg font-medium section-title">
+              Introduction to Real Estate Marketing Strategies
+            </h1>
+          </div>
+        </Link>
         <div className="relative rounded-2xl bg-transparent mt-5">
           <div className="absolute top-2 left-2 right-2 flex items-center justify-between px-4 z-10">
             <div className="flex py-1 px-2 justify-center items-center gap-1 rounded-lg border border-[#009696] bg-secondPrimary text-[#ccc] text-xs leading-[21px] tracking-[-0.12px]">
