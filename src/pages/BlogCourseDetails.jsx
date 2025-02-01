@@ -2,12 +2,13 @@ import { useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
 import img from "@/assets/images/img1.png";
 import CopySvg from "@/components/svgs/CopySvg";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
 
 const BlogCourseDetails = () => {
   const [showAllLessons, setShowAllLessons] = useState(false);
   const [showMore, setShowMore] = useState(false);
+  const location = useLocation();
 
   const id = useParams();
 
@@ -30,7 +31,7 @@ const BlogCourseDetails = () => {
       <div className="my-container ">
         <div className="pt-6 md:pt-8 lg:pt-12 pb-3">
           <Link
-            to="/my-classroom"
+            to={`${location.state?.from || "/my-classroom/courses"}`}
             className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit"
           >
             <ArrowLeftSvg />

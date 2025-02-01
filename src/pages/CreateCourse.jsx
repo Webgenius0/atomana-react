@@ -1,10 +1,11 @@
 import { useForm, Controller } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
 import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
 import PlusSvg from "@/components/svgs/PlusSvg";
 
 const CreateCourse = () => {
+  const location = useLocation();
   const {
     register,
     handleSubmit,
@@ -17,11 +18,11 @@ const CreateCourse = () => {
   };
 
   return (
-    <div className="my-container pb-20"> 
+    <div className="my-container pb-20 relative h-[80vh]"> 
       <div className="flex items-center justify-between pt-6 md:pt-8 lg:pt-12 pb-4 md:pb-5 lg:pb-8 mb-4">
         <div className="flex gap-4 items-center">
           <Link
-            to="/"
+            to={`${location.state?.from || "/my-classroom/courses"}`}
             className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit"
           >
             <ArrowLeftSvg />
@@ -107,14 +108,13 @@ const CreateCourse = () => {
         </div>
       </form>
 
-      
-      <div className="flex flex-col items-start justify-end mt-5">
+      <div className="flex flex-col items-start justify-end mt-5 cursor-pointer">
         <label className="text-sm font-medium text-light">Lessons</label>
         <Link
-          to={"/my-classroom/create-course"}
+          to={"/my-classroom/create-course/add-lessons/"}
           className="flex items-center gap-3"
         >
-          <p className="text-sm leading-6 capitalize text-light tracking-[-0.14px] hover:text-secondary duration-300">
+          <p className="text-sm leading-6 capitalize text-light tracking-[-0.14px] hover:text-secondary duration-300 hover:opacity-60">
             Add lesson
           </p>
           <span className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 border border-[#024040] bg-gradient-to-r from-black via-black to-[#024040] shadow-[0_0_0_1px_black]">
@@ -122,20 +122,16 @@ const CreateCourse = () => {
           </span>
         </Link>
       </div>
-
  
-      <div className="fixed bottom-0 left-0 w-full  p-4 shadow-lg">
-        <div className="flex items-center justify-between ">
-          <input
-            className="request-btn approve cursor-pointer px-6 py-3 bg-white text-black font-medium rounded-lg hover:opacity-80 duration-300"
-            type="submit"
-            value="Add"
-          />
-
-          <button className="request-btn text-light bg-gray-700 px-6 py-3 rounded-lg hover:opacity-80 duration-300">
-            Cancel
-          </button>
-        </div>
+      <div className="flex items-center sm:flex-row flex-col sm:space-y-0 space-y-4 justify-between absolute bottom-[4%] w-full">
+        <input
+          className="request-btn approve cursor-pointer px-6 py-3 bg-white text-black font-medium rounded-lg hover:opacity-80 duration-300"
+          type="submit"
+          value="Add"
+        />
+        <button className="request-btn text-light bg-gray-700 px-6 py-3 rounded-lg hover:opacity-80 duration-300">
+          Cancel
+        </button>
       </div>
     </div>
   );
