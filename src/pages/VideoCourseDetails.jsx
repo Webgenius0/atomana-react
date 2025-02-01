@@ -10,6 +10,8 @@ import { IoTime } from "react-icons/io5";
 import CopySvg from "@/components/svgs/CopySvg";
 import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
 import { Link, useLocation } from "react-router-dom";
+import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
+import { Link, useLocation } from "react-router-dom";
 
 const VideoCourseDetails = () => {
   const [showAllLessons, setShowAllLessons] = useState(false);

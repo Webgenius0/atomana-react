@@ -1,17 +1,40 @@
 import { FaCalendarAlt } from "react-icons/fa";
 import { IoTime } from "react-icons/io5";
 import img from "@/assets/images/img1.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import ProgressBar from "./ProgressBar";
 import CopySvg from "./svgs/CopySvg";
 
 const ContinueLearningCard = ({ data }) => {
   const { id, type, title, lessons = 0, duration = "0 hrs", progress } = data;
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleCardClick = (type) =>{
+    if (type == "Blog"){
+      navigate(`/my-classroom/blog/${id}`,{
+        state: {from: location.pathname},
+      });
+    }
+    else if (type == "Video"){
+      navigate(`/my-classroom/video/${id}`,{
+        state: {from: location.pathname},
+      });
+    }
+  }
   
   return (
     // <Link to={`/my-classroom/course-details/${id}`}>
-    <Link  to={type == "Video" ? "/my-classroom/video" : "/my-classroom/blog"}>
-      <div className="relative rounded-2xl bg-[#242424] hover:shadow-[2px_2px_4px] hover:shadow-[#009696] duration-300 ease-in-out overflow-hidden">
+    // <Link  to={type == "Video" ? `/my-classroom/video/${id}` : `/my-classroom/blog/${id}`}> </Link>
+      <div
+      onClick={()=> handleCardClick(type)}
+      role={
+        type == "Blog" ||
+        type == "Video"
+        ? "button"
+        : "presentation"
+      }
+      className="relative rounded-2xl bg-[#242424] hover:shadow-[2px_2px_4px] hover:shadow-[#009696] duration-300 ease-in-out overflow-hidden">
       
         <div className="absolute top-2 left-2 right-2 flex items-center justify-between px-4 z-10">
     
@@ -72,7 +95,6 @@ const ContinueLearningCard = ({ data }) => {
           </div>
         </div>
       </div>
-    </Link>
   );
 };
 
