@@ -17,6 +17,7 @@ const loginSchema = z.object({
     .email('invalid email'),
   password: z
     .string({ required_error: 'password is required' })
+    .min(1, 'password is required')
     .min(8, 'password should be at least 8 characters long'),
 });
 
