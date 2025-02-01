@@ -1,31 +1,31 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import ProfileAvatar from "@/assets/images/bot.png";
-import PlusSvg from "@/components/svgs/PlusSvg";
-import TextEffect from "@/components/TextEffect";
-import { Link } from "react-router-dom";
-import logo from "@/assets/images/my-ai-logo.png";
-import CrossSvg from "@/components/svgs/CrossSvg";
+import ProfileAvatar from '@/assets/images/bot.png';
+import logo from '@/assets/images/my-ai-logo.png';
+import CrossSvg from '@/components/svgs/CrossSvg';
+import PlusSvg from '@/components/svgs/PlusSvg';
+import TextEffect from '@/components/TextEffect';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const MyAI = () => {
   const [hideSidebar, setHideSidebar] = useState(false);
   const [queriesData, setQueriesData] = useState([]);
   const [chatHistories, setChatHistories] = useState([]);
   const [activeChatId, setActiveChatId] = useState(null);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
   // Fetch the data from the JSON file
   useEffect(() => {
     const fetchQueries = async () => {
       try {
-        const response = await axios.get("queries.json");
+        const response = await axios.get('queries.json');
         const initialChat = {
           id: 1,
-          title: "Welcome Chat",
+          title: 'Welcome Chat',
           messages: [
             {
-              sender: "bot",
+              sender: 'bot',
               message: "Hi, I'm Maria. How can I assist you today?",
             },
           ],
@@ -34,7 +34,7 @@ const MyAI = () => {
         setChatHistories([initialChat]);
         setActiveChatId(1);
       } catch (error) {
-        console.error("Error fetching chat data", error);
+        console.error('Error fetching chat data', error);
       }
     };
 
@@ -42,7 +42,7 @@ const MyAI = () => {
   }, []);
 
   const handleSendMessage = () => {
-    if (message.trim() === "") return;
+    if (message.trim() === '') return;
 
     // Send user message
     setChatHistories((prev) =>
@@ -50,7 +50,7 @@ const MyAI = () => {
         chat.id === activeChatId
           ? {
               ...chat,
-              messages: [...chat.messages, { sender: "user", message }],
+              messages: [...chat.messages, { sender: 'user', message }],
             }
           : chat
       )
@@ -67,7 +67,7 @@ const MyAI = () => {
                 ...chat,
                 messages: [
                   ...chat.messages,
-                  { sender: "bot", message: botResponse },
+                  { sender: 'bot', message: botResponse },
                 ],
               }
             : chat
@@ -76,7 +76,7 @@ const MyAI = () => {
       setLoading(false);
     }, 1000);
 
-    setMessage(""); // Clear the input field
+    setMessage(''); // Clear the input field
   };
 
   const getBotResponse = (userQuery) => {
@@ -94,7 +94,7 @@ const MyAI = () => {
     const newChat = {
       id: chatHistories.length + 1,
       title: `New Chat ${chatHistories.length + 1}`,
-      messages: [{ sender: "bot", message: "Hi, how can I assist you today?" }],
+      messages: [{ sender: 'bot', message: 'Hi, how can I assist you today?' }],
     };
     setChatHistories((prev) => [newChat, ...prev]);
     setActiveChatId(newChat.id);
@@ -103,10 +103,13 @@ const MyAI = () => {
   const activeChat = chatHistories.find((chat) => chat.id === activeChatId);
   useEffect(() => {
     if (!hideSidebar) {
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = 'auto';
     }
+
+    // reset body overflow on unmount
+    return () => (document.body.style.overflow = 'auto');
   }, [hideSidebar]);
 
   return (
@@ -138,7 +141,7 @@ const MyAI = () => {
           {/* Sidebar */}
           <aside
             className={`fixed top-0 ${
-              hideSidebar ? "-left-full" : "left-0"
+              hideSidebar ? '-left-full' : 'left-0'
             } duration-500 w-[300px] md:w-[250px] lg:w-[300px] h-full bg-[#1c1c1c] py-4 lg:py-[25px] px-6 lg:px-[50px] ease-in-out md:relative md:top-auto md:left-auto border-r border-secondPrimary z-[1000]`}
           >
             <div className="sidebar-content">
@@ -177,7 +180,7 @@ const MyAI = () => {
                         key={chat.id}
                         onClick={() => setActiveChatId(chat.id)}
                         className={`text-light text-sm tracking-[-0.28px] cursor-pointer duration-300 ${
-                          activeChatId === chat.id ? "font-bold" : ""
+                          activeChatId === chat.id ? 'font-bold' : ''
                         }`}
                       >
                         {chat.title}
@@ -203,7 +206,7 @@ const MyAI = () => {
             <div className="px-5 py-[25px] overflow-y-auto scrollbar-none flex-1">
               {activeChat?.messages.map((chat, index) => (
                 <div key={index} className="mb-3">
-                  {chat.sender === "bot" ? (
+                  {chat.sender === 'bot' ? (
                     <div className="flex items-start gap-3">
                       <img
                         src={ProfileAvatar}
@@ -245,7 +248,7 @@ const MyAI = () => {
                   id="chatInput"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
+                  onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
                 />
                 <button
                   className="w-8 h-8 rounded-full flex items-center justify-center border border-[#024040] bg-gradient-to-r from-black via-black to-[#024040] shadow-[0_0_0_1px_black]"
