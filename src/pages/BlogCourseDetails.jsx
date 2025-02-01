@@ -2,15 +2,13 @@ import { useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
 import img from "@/assets/images/img1.png";
 import CopySvg from "@/components/svgs/CopySvg";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
 
 const BlogCourseDetails = () => {
   const [showAllLessons, setShowAllLessons] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const location = useLocation();
-
-  const id = useParams();
 
   // const details = data.find(item => item.id === id);
 
@@ -27,9 +25,9 @@ const BlogCourseDetails = () => {
 
 
   return (
-    <>
-      <div className="my-container ">
-        <div className="pt-6 md:pt-8 lg:pt-12 pb-3">
+    <div className="my-container ">
+      <div className="max-w-[740px] w-full mx-auto">
+        <div className="pt-4 md:pt-6 lg:pt-8 pb-3">
           <Link
             to={`${location.state?.from || "/my-classroom/courses"}`}
             className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit"
@@ -45,7 +43,7 @@ const BlogCourseDetails = () => {
             </div>
           </Link>
         </div>
-        <div className="pt-6  pb-3">
+        <div className="pt-4  pb-3">
           <p className="text-[#FFFFFF] font-normal text-sm leading-6">
             In real estate, time is everything. Between managing client
             relationships, scheduling showings, and tracking endless tasks,
@@ -60,8 +58,8 @@ const BlogCourseDetails = () => {
             it work for you, instead of the other way around.
           </p>
         </div>
-        <div className="pt-6 pb-3">
-          <h1 className="text-light  font-medium mt-5 section-title">
+        <div className="pt-4 pb-3">
+          <h1 className="text-light  font-medium section-title">
             Centralize Client Information
           </h1>
           <p className="text-[#FFFFFF] font-normal text-sm leading-6">
@@ -97,7 +95,7 @@ const BlogCourseDetails = () => {
           </div> */}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

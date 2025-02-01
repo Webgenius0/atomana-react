@@ -300,7 +300,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/my-classroom/blog",
+        path: "/my-classroom/blog/:id",
         element: (
           <PageTitle title="Blog">
             < BlogCourseDetails/>
@@ -309,7 +309,7 @@ const router = createBrowserRouter([
       },
       {
         // path: "/my-classroom/:id",
-        path: "/my-classroom/video",
+        path: "/my-classroom/video/:id",
         element: (
           <PageTitle title="Video">
             < VideoCourseDetails/>

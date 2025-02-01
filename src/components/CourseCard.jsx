@@ -6,18 +6,18 @@ import CopySvg from "./svgs/CopySvg";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const CourseCard = ({ data }) => {
-  const { type, title, lessons = 0, duration = "0 hrs" } = data;
+  const { id, type, title, lessons = 0, duration = "0 hrs" } = data;
   const location = useLocation();
   const navigate = useNavigate();
 
   const handleCardClick = (type) =>{
     if (type == "Blog"){
-      navigate("/my-classroom/blog",{
+      navigate(`/my-classroom/blog/${id}`,{
         state: {from: location.pathname},
       });
     }
     else if (type == "Video"){
-      navigate("/my-classroom/video",{
+      navigate(`/my-classroom/video/${id}`,{
         state: {from: location.pathname},
       });
     }
