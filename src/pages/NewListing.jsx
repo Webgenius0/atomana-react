@@ -15,7 +15,7 @@ const NewListing = () => {
           <ArrowLeftSvg />
           <h2 className="section-title">New Listing</h2>
       </Link>
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-5">
+      <div className="grid min-[500px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-5">
         {data?.map((item) => (
           <DataCard key={item?.id} data={item}>
             <div className="flex items-center justify-between mt-6">

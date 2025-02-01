@@ -1,4 +1,5 @@
 import DataCard from '@/components/DataCard';
+import VlHeader from '@/components/VlHeader';
 import { useGetVendorListData } from '@/hooks/useVendorListData';
 import React from 'react'
 
@@ -6,7 +7,9 @@ const VlPestControl = () => {
     const data = useGetVendorListData('pest control');
 
     return (
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-5">
+      <>
+      <VlHeader/>
+      <div className="grid min-[500px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-5">
         {data?.map((item) => (
           <DataCard key={item?.id} data={item}>
             <div className="flex items-center justify-between mt-6">
@@ -21,6 +24,7 @@ const VlPestControl = () => {
           </DataCard>
         ))}
       </div>
+      </>
     );
 }
 

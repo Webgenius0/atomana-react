@@ -1,7 +1,7 @@
 [
   {
     "id": "A123",
-    "type": "Open Houses",
+    "type": "Blog",
     "status": "In Review",
     "lastActivity": "09/12",
     "title": "Open House Request Form",
@@ -12,11 +12,105 @@
 
   {
     "id": "A123",
-    "type": "Open Houses",
+    "type": "Blog",
     "status": "In Review",
     "lastActivity": "09/12",
     "title": "Open House Request Form",
     "progress": 50,
+    "lessons": 10,
+    "duration": "2 hrs"
+  },
+  {
+    "id": "A123",
+    "type": "Video",
+    "status": "In Review",
+    "lastActivity": "09/12",
+    "title": "Introduction to Real Estate Marketing Strategies",
+    "progress": 45,
+    "lessons": 10,
+    "duration": "2 hrs"
+  },
+
+  {
+    "id": "A123",
+    "type": "Blog",
+    "status": "In Review",
+    "lastActivity": "09/12",
+    "title": "Advanced CRM Features: Maximizing Efficiency",
+    "progress": 50,
+    "lessons": 10,
+    "duration": "2 hrs"
+  },
+  {
+    "id": "A123",
+    "type": "Blog",
+    "status": "In Review",
+    "lastActivity": "09/12",
+    "title": "Introduction to Real Estate Marketing Strategies",
+    "progress": 45,
+    "lessons": 10,
+    "duration": "2 hrs"
+  },
+
+  {
+    "id": "A123",
+    "type": "Blog",
+    "status": "In Review",
+    "lastActivity": "09/12",
+    "title": "Advanced CRM Features: Maximizing Efficiency",
+    "progress": 50,
+    "lessons": 10,
+    "duration": "2 hrs"
+  },
+  {
+    "id": "A123",
+    "type": "Blog",
+    "status": "In Review",
+    "lastActivity": "09/12",
+    "title": "Open House Request Form",
+    "progress": 45,
+    "lessons": 10,
+    "duration": "2 hrs"
+  },
+
+  {
+    "id": "A123",
+    "type": "Blog",
+    "status": "In Review",
+    "lastActivity": "09/12",
+    "title": "Open House Request Form",
+    "progress": 50,
+    "lessons": 10,
+    "duration": "2 hrs"
+  },
+  {
+    "id": "A123",
+    "type": "Video",
+    "status": "In Review",
+    "lastActivity": "09/12",
+    "title": "Introduction to Real Estate Marketing Strategies",
+    "progress": 45,
+    "lessons": 10,
+    "duration": "2 hrs"
+  },
+
+  {
+    "id": "A123",
+    "type": "Blog",
+    "status": "In Review",
+    "lastActivity": "09/12",
+    "title": "Advanced CRM Features: Maximizing Efficiency",
+    "progress": 50,
+    "lessons": 10,
+    "duration": "2 hrs"
+  },
+  {
+    "id": "A123",
+    "type": "Blog",
+    "status": "In Review",
+    "lastActivity": "09/12",
+    "title": "Introduction to Real Estate Marketing Strategies",
+    "progress": 45,
     "lessons": 10,
     "duration": "2 hrs"
   }

@@ -1,42 +1,62 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import ThreeDotsSvg from "./svgs/ThreeDotsSvg";
 
 const DataCard = ({ data }) => {
   const { type, title } = data;
   const navigate = useNavigate();
+  const location = useLocation();
 
+  // navigate when card is clicked into category
   const handleCardClick = (title) => {
     if (title === "Our Mission") {
-      navigate(`/my-systems/team/our-mission`);
+      navigate("/my-systems/team/our-mission")
     } else if (title === "Open House Request Form") {
-      navigate(`/my-systems/open-house/open-house-form`);
+      navigate(`/my-systems/open-house/open-house-form`,{
+        state: {from: location.pathname},
+      });
     } else if (title === "HOA Community Docs") {
       navigate(`/my-systems/team/hoa`);
     } else if (title === "Access Instruction") {
       navigate(`/my-systems/team/access`);
-    } else if (title === "MyListing Expenses") {
-      navigate(`/my-systems/finances/my-listing`);
-    } else if (title === "MyP&L") {
+    } else if (title === "My Listing Expenses") {
+      navigate(`/my-systems/finances/my-listing`,{
+        state: {from: location.pathname},
+      });
+    } else if (title === "My P&L") {
       navigate(`/my-systems/finances/pl`);
-    } else if (title === "MyBusiness Expenses") {
-      navigate(`/my-systems/finances/my-business-expenses`);
-    } else if (title === "MyAgent Expenses") {
+    } else if (title === "My Business Expenses") {
+      navigate(`/my-systems/finances/my-business-expenses`,{
+        state: {from: location.pathname},
+      });
+    } else if (title === "My Agent Expenses") {
       navigate(`/my-systems/finances/my-agent-expenses`);
     } else if (title === "Vendor List") {
       navigate(`/my-systems/vendor-list`); 
     } else if (title === "Bright Home Inspections") {
       navigate(`/my-systems/vendor-list/description`); 
+    }else if (title === "New Listing Information Form") {
+      navigate(`/my-systems/new-listing/new-listing-information-form`,{
+        state: {from: location.pathname}
+      });
     }
   };
 
   return (
     <div
+    // data card cursor pointer setup
       onClick={() => handleCardClick(title)}
       role={
         title == "Our Mission" ||
         title == "Open House Request Form" ||
         title === "HOA Community Docs" ||
-        title === "Vendor List"
+        title === "Vendor List" ||
+        title == "New Listing Information Form" ||
+        title == "Access Instruction" ||
+        title == "My Listing Expenses" ||
+        title == "My Business Expenses" ||
+        title == "My Agent Expenses" ||
+        title == "My P&L" ||
+        title == "Bright Home Inspections"
           ? "button"
           : "presentation"
       }
@@ -54,7 +74,7 @@ const DataCard = ({ data }) => {
       </div>
 
       {/* card-title */}
-      <h3 className="text-light text-base sm:text-lg lg:text-xl font-semibold leading-[21px] tracking-[-0.2px]">
+      <h3 className="text-light lg:text-lg md:text-base text-sm font-semibold leading-[21px] tracking-[-0.2px]">
         {title}
       </h3>
     </div>

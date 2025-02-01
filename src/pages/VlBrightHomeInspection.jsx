@@ -15,7 +15,7 @@ const VlBrightHomeInspection = () => {
             <div className="pt-6 md:pt-4 lg:pt-4 pb-3">
                 <div className="flex items-center gap-4 justify-between">
                     <Link
-                        to="/my-systems/team"
+                        to="/my-systems/vendor-list/utilities/"
                         className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit"
                     >
                         <ArrowLeftSvg />
