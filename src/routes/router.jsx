@@ -19,7 +19,6 @@ import ManageTeam from "@/pages/ManageTeam";
 import AddTeamMember from "@/pages/AddTeamMember";
 import EditTeamMember from "@/pages/EditTeamMember";
 import MemberProfile from "@/pages/MemberProfile";
-import CourseDetails from "@/pages/CourseDetails";
 import OurMission from "@/pages/OurMission";
 import OpenHouseForm from "@/pages/OpenHouseForm";
 import MyEssentials from "@/pages/MyEssentials";
@@ -42,9 +41,14 @@ import VerifyOTP from "@/pages/VerifyOTP";
 import SignUp from "@/pages/SignUp";
 import ForgetPassword from "@/pages/ForgetPassword";
 import PrivateRoute from "./PrivateRoute";
-import AgentLeaderModal from "@/components/AgentLeaderModal";
 import VendorList from "@/pages/VendorList";
 import VendorListLayout from "@/layouts/VendorListLayout";
+import AddVendor from "@/pages/AddVendor";
+import NewListingInformationForm from "@/pages/NewListingInformationForm";
+import Courses from "@/pages/Courses";
+import BlogCourseDetails from "@/pages/BlogCourseDetails";
+import VideoCourseDetails from "@/pages/VideoCourseDetails";
+import CreateCourse from "@/pages/CreateCourse";
 
 const router = createBrowserRouter([
   {
@@ -131,7 +135,7 @@ const router = createBrowserRouter([
           {
             path: "finances/my-agent-expenses",
             element: (
-              <PageTitle title="PMyAgent Expenses">
+              <PageTitle title="My Agent Expenses">
                 <MyAgentExpense />
               </PageTitle>
             ),
@@ -149,6 +153,14 @@ const router = createBrowserRouter([
             element: (
               <PageTitle title="New Listing">
                 <NewListing />
+              </PageTitle>
+            ),
+          },
+          {
+            path: "new-listing/new-listing-information-form",
+            element: (
+              <PageTitle title="New Listing Information Form">
+                <NewListingInformationForm />
               </PageTitle>
             ),
           },
@@ -241,9 +253,17 @@ const router = createBrowserRouter([
                 ),
               },
               {
+                path: "add-vendor",
+                element: (
+                  <PageTitle title="Add Vendor">
+                    <AddVendor/>
+                  </PageTitle>
+                ),
+              },
+              {
                 path: "description",
                 element: (
-                  <PageTitle title="Bright Home Description">
+                  <PageTitle title="Bright Home Inspections">
                     <VlBrightHomeInspection />
                   </PageTitle>
                 ),
@@ -270,10 +290,35 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/course-details",
+        path: "/my-classroom/courses",
+        element: (
+          <PageTitle title="All Courses">
+            <Courses />
+          </PageTitle>
+        ),
+      },
+      {
+        path: "/my-classroom/course-details",
         element: (
           <PageTitle title="Course Details">
-            <CourseDetails />
+            < BlogCourseDetails/>
+          </PageTitle>
+        ),
+      },
+      {
+        // path: "/my-classroom/:id",
+        path: "/my-classroom/video-details",
+        element: (
+          <PageTitle title="Blog Course Details">
+            < VideoCourseDetails/>
+          </PageTitle>
+        ),
+      },
+      {
+        path: "/my-classroom/create-course",
+        element: (
+          <PageTitle title="Course Details">
+            < CreateCourse/>
           </PageTitle>
         ),
       },
@@ -361,12 +406,6 @@ const router = createBrowserRouter([
             <AgentLeaderBoard />
           </PageTitle>
         ),
-      },
-      {
-        path: "/test",
-        element: (
-          <AgentLeaderModal />
-        )
       },
     ],
   },

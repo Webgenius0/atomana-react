@@ -4,20 +4,22 @@ import CalenderSvg from "@/components/svgs/CalenderSvg";
 import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
 import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
 import TimeRangePicker from "@/components/TimeRangePicker";
-import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Controller, useForm } from "react-hook-form";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const OpenHouseForm = () => {
   const {
     register,
     handleSubmit,
     reset,
-    watch,
+    control,
     formState: { errors },
-  } = useForm();
+  } = useForm({expirationDate: null});
   const navigate = useNavigate();
+  const location = useLocation();
 
   const onSubmit = (data) => {
+    console.log("open house form data: ",data)
     navigate(`/my-systems/open-house/open-house-form-details`);
   };
 
@@ -30,7 +32,7 @@ const OpenHouseForm = () => {
     <>
       <div className="flex items-center gap-4 justify-between">
         <Link
-          to="/my-systems/open-house"
+          to={`${location.state?.from || "/my-systems/open-house/open-house-form"}`}
           className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5"
         >
           <ArrowLeftSvg />
@@ -89,7 +91,13 @@ const OpenHouseForm = () => {
             </label>
 
             <label className="flex items-center px-4 rounded-[10px] border border-[#d8dfeb] bg-dark w-full gap-2.5">
-              <CustomDatePicker />
+              <Controller
+                name="expirationDate"
+                control={control}
+                render={({ field }) => (
+                  <CustomDatePicker value={field.value} onChange={field.onChange} />
+                )}
+              />
               <CalenderSvg />
             </label>
           </div>

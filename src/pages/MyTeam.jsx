@@ -177,7 +177,7 @@ const MyTeam = () => {
               />
             ))}
           </div>
-          <div ref={agentRef} className="bg-[#242424] mt-5 px-5 py-6 rounded">
+          <div ref={agentRef} className="bg-[#242424] mt-5 px-5 py-6 rounded cursor-pointer">
             <div className="flex justify-between gap-1 gap-y-3 flex-wrap">
               <h1 className="section-title">Agent Leaderboard</h1>
               <div ref={dropdownRef} className="flex gap-2">
