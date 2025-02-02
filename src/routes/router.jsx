@@ -48,8 +48,8 @@ import NewListingInformationForm from "@/pages/NewListingInformationForm";
 import Courses from "@/pages/Courses";
 import BlogCourseDetails from "@/pages/BlogCourseDetails";
 import VideoCourseDetails from "@/pages/VideoCourseDetails";
-import CreateCourse from "@/pages/CreateCourse";
 import AddLessons from "@/pages/AddLessons";
+import CreateCourse from "@/pages/CreateCourse";
 
 const router = createBrowserRouter([
   {
@@ -319,7 +319,7 @@ const router = createBrowserRouter([
         path: "/my-classroom/create-course",
         element: (
           <PageTitle title="Course Details">
-            < CreateCourse/>
+            <CreateCourse/>
           </PageTitle>
         ),
       },

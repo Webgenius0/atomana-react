@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
 import img from "@/assets/images/img1.png";
 import CopySvg from "@/components/svgs/CopySvg";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
+import axios from "axios";
 
 const BlogCourseDetails = () => {
   const [showAllLessons, setShowAllLessons] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const location = useLocation();
-
+  const { id } = useParams();
+  const [image, setImage] = useState("")
   // const details = data.find(item => item.id === id);
 
   const toggleLessons = () => {
@@ -20,7 +22,29 @@ const BlogCourseDetails = () => {
     setShowMore((prev) => !prev);
   };
 
+  useEffect(() => {
+    const fetchImage = async () => {
+      try {
+        const response = await axios.get("/my_classroom.json");
+        const data = response.data;
 
+        if (Array.isArray(data)) {
+          const item = data.find((entry) => entry.id === id);
+          if (item) {
+            setImage(item.image);
+          } else {
+            console.error("No matching entry found for ID:", id);
+          }
+        } else {
+          console.error("Invalid JSON structure:", data);
+        }
+      } catch (error) {
+        console.error("Error fetching image:", error);
+      }
+    };
+
+    fetchImage();
+  }, [id]);
 
 
 
@@ -79,10 +103,10 @@ const BlogCourseDetails = () => {
         </div>
 
         <div className="relative rounded-2xl bg-transparent mt-5">
-        
+
           <img
             className="rounded w-full aspect-[16/9] lg:max-h-[550px]"
-            src={img}
+            src={image}
             alt={"Course Thumbnail"}
           />
 
