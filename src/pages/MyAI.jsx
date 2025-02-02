@@ -107,6 +107,7 @@ const MyAI = () => {
     } else {
       document.body.style.overflow = "auto";
     }
+
   }, [hideSidebar]);
 
   return (

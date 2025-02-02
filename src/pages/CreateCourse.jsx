@@ -3,6 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
 import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
 import PlusSvg from "@/components/svgs/PlusSvg";
+import CancelButtonSvg from "@/components/svgs/CancelButtonSvg";
+import EditButtonSvg from "@/components/svgs/EditButtonSvg";
 
 const CreateCourse = () => {
   const location = useLocation();
@@ -57,7 +59,7 @@ const CreateCourse = () => {
                       value="Course"
                       checked={field.value === "Course"}
                     />
-                    <p className="text-sm font-medium text-light">Course</p>
+                    <p className="text-sm font-medium text-light">Video</p>
                   </label>
                   <label className="flex items-center gap-2">
                     <input
@@ -110,7 +112,16 @@ const CreateCourse = () => {
         </form>
 
         <div className="flex flex-col items-start justify-end mt-5 cursor-pointer">
-          <label className="text-sm font-medium text-light">Lessons</label>
+          <div className="flex flex-col gap-2 mb-5">
+            <label className="text-sm font-medium text-light">Lessons</label>
+            <div>
+              <input type="text" className="outline-none" placeholder="Maximizing Your Real Estate CRM: Best Practices for Success"/>
+              <div>
+                   <div className="bg-[#242424] border-[#4D4D4D] border rounded-full p-2"><CancelButtonSvg /></div>
+                    <div className="bg-[#242424] border-[#4D4D4D] border rounded-full p-2"><EditButtonSvg/></div>
+              </div>
+            </div>
+          </div>
           <Link
             to={"/my-classroom/create-course/add-lessons/"}
             className="flex items-center gap-3"
