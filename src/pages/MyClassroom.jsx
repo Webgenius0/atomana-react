@@ -1,7 +1,7 @@
 import ContinueLearningCard from "@/components/ContinueLearningCard";
 import CourseCard from "@/components/CourseCard";
 import ArrowRightSvg from "@/components/svgs/ArrowRightSvg";
-import { useGetMyClassroomsData } from "@/hooks/useGetMyClassroomsData";
+// import { useGetMyClassroomsData } from "@/hooks/useGetMyClassroomsData";
 
 import { Link } from "react-router-dom";
 

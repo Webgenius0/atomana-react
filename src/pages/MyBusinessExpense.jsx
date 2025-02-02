@@ -6,7 +6,6 @@ import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
 import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
 import Table from "@/components/table/Table";
 import TabStepper from "@/components/TabStepper";
-import React from "react";
 import { Link } from "react-router-dom";
 
 const MyBusinessExpense = () => {

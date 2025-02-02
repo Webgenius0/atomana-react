@@ -1,4 +1,3 @@
-import React from 'react'
 import UtilitiesSvg from "@/components/svgs/UtilitiesSvg";
 import PestControlSvg from "@/components/svgs/PestControlSvg";
 import InsuranceSvg from "@/components/svgs/InsuranceSvg";

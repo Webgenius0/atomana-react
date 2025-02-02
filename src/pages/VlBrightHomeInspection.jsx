@@ -3,7 +3,6 @@ import SearchIconSvg from "@/components/svgs/SearchIconSvg";
 import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
 import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
 import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
-import React from "react";
 import { Link } from "react-router-dom";
 import person from "../assets/images/person.png"
 
