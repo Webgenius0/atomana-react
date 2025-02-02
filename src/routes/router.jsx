@@ -50,6 +50,7 @@ import BlogCourseDetails from "@/pages/BlogCourseDetails";
 import VideoCourseDetails from "@/pages/VideoCourseDetails";
 import AddLessons from "@/pages/AddLessons";
 import CreateCourse from "@/pages/CreateCourse";
+import UpdateLesson from "@/pages/UpdateLesson";
 
 const router = createBrowserRouter([
   {
@@ -328,6 +329,14 @@ const router = createBrowserRouter([
         element: (
           <PageTitle title="Add Lessons">
             <AddLessons/>
+          </PageTitle>
+        )
+      },
+      {
+        path: "/my-classroom/create-course/edit-lesson/:id",
+        element: (
+          <PageTitle title="Update Lesson">
+            <UpdateLesson/>
           </PageTitle>
         )
       },

@@ -5,22 +5,42 @@ import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
 import PlusSvg from "@/components/svgs/PlusSvg";
 import CancelButtonSvg from "@/components/svgs/CancelButtonSvg";
 import EditButtonSvg from "@/components/svgs/EditButtonSvg";
+import { useContext, useEffect, useState } from "react";
+import { LessonDataContext } from "@/context/LessonDataProvider";
 
 const CreateCourse = () => {
+  const [showModal, setShowModal] = useState(false)
   const location = useLocation();
   const {
     register,
     handleSubmit,
     control,
+    reset,
     formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
     console.log("Form Data:", data);
   };
+  const { lessonData, setLessonData } = useContext(LessonDataContext);
+
+  const handleCancel = () => {
+    reset();
+    setLessonData([]);
+  }
+
+  const handleLessonDelete = (title) => {
+    if (title) {
+      return setLessonData((prevData) => prevData.filter((data) => data.title !== title))
+    }
+  }
+
+  const handleShowModal = () => {
+    setShowModal(!showModal)
+  }
 
   return (
-    <div className="my-container h-[80vh] flex flex-col justify-between">
+    <div className="my-container flex flex-col justify-between min-h-[80vh] h-full">
       <div>
         <div className="flex items-center justify-between pt-6 md:pt-8 lg:pt-12 pb-4 md:pb-5 lg:pb-8 mb-4">
           <div className="flex gap-4 items-center">
@@ -39,7 +59,7 @@ const CreateCourse = () => {
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="max-w-[670px]  flex flex-col gap-5"
+          className="max-w-[670px]  flex flex-col gap-5 mb-8 sm:mb-16"
         >
           <div>
             <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
@@ -56,8 +76,8 @@ const CreateCourse = () => {
                     <input
                       type="radio"
                       {...field}
-                      value="Course"
-                      checked={field.value === "Course"}
+                      value="Video"
+                      checked={field.value === "Video"}
                     />
                     <p className="text-sm font-medium text-light">Video</p>
                   </label>
@@ -109,40 +129,40 @@ const CreateCourse = () => {
               </p>
             )}
           </div>
-        </form>
-
-        <div className="flex flex-col items-start justify-end mt-5 cursor-pointer">
-          <div className="flex flex-col gap-2 mb-5">
-            <label className="text-sm font-medium text-light">Lessons</label>
-            <div>
-              <input type="text" className="outline-none" placeholder="Maximizing Your Real Estate CRM: Best Practices for Success"/>
-              <div>
-                   <div className="bg-[#242424] border-[#4D4D4D] border rounded-full p-2"><CancelButtonSvg /></div>
-                    <div className="bg-[#242424] border-[#4D4D4D] border rounded-full p-2"><EditButtonSvg/></div>
+          <div>
+            <div className="flex flex-col items-start justify-end mt-5 cursor-pointer">
+              <div className="flex flex-col gap-2 mb-5">
+                <label className="text-sm font-medium text-light">Lessons</label>
+                {lessonData.map(lesson => (<div className="flex gap-4 items-center">
+                  <input type="text" className="flex-grow text-white font-Inter text-sm font-bold bg-[#151515]" disabled value={`${lesson.title || " "}`} />
+                  <div className="flex gap-2 items-center">
+                    <Link to={`/my-classroom/create-course/edit-lesson/${lesson.title}`}><div className="bg-[#242424] border-[#4D4D4D] border rounded-full p-2 w-fit"><EditButtonSvg /></div></Link>
+                    <div onClick={() => handleLessonDelete(lesson.title)} className="bg-[#242424] border-[#4D4D4D] border rounded-full p-2 w-fit"><CancelButtonSvg /></div>
+                  </div>
+                </div>))}
               </div>
+              <Link
+                to={"/my-classroom/create-course/add-lessons/"}
+                className="flex items-center gap-3"
+              >
+                <p className="text-sm leading-6 capitalize text-light tracking-[-0.14px] hover:text-secondary duration-300 hover:opacity-60">
+                  Add lesson
+                </p>
+                <span className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 border border-[#024040] bg-gradient-to-r from-black via-black to-[#024040] shadow-[0_0_0_1px_black]">
+                  <PlusSvg />
+                </span>
+              </Link>
             </div>
           </div>
-          <Link
-            to={"/my-classroom/create-course/add-lessons/"}
-            className="flex items-center gap-3"
-          >
-            <p className="text-sm leading-6 capitalize text-light tracking-[-0.14px] hover:text-secondary duration-300 hover:opacity-60">
-              Add lesson
-            </p>
-            <span className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 border border-[#024040] bg-gradient-to-r from-black via-black to-[#024040] shadow-[0_0_0_1px_black]">
-              <PlusSvg />
-            </span>
-          </Link>
-        </div>
+        </form>
       </div>
-
-      <div className="flex items-center sm:flex-row flex-col sm:space-y-0 space-y-4 justify-between">
+      <div className="flex items-center sm:flex-row flex-col sm:space-y-0 space-y-4 justify-between pb-8">
         <input
           className="request-btn approve cursor-pointer px-6 py-3 bg-white text-black font-medium rounded-lg hover:opacity-80 duration-300"
           type="submit"
           value="Publish"
         />
-        <button className="request-btn text-light bg-[#151515] px-6 py-3 rounded-lg hover:opacity-80 duration-300">
+        <button onClick={handleCancel} className="request-btn text-light bg-[#151515] px-6 py-3 rounded-lg hover:opacity-80 duration-300">
           Cancel
         </button>
       </div>
