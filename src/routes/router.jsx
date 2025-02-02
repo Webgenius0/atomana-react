@@ -49,6 +49,7 @@ import Courses from "@/pages/Courses";
 import BlogCourseDetails from "@/pages/BlogCourseDetails";
 import VideoCourseDetails from "@/pages/VideoCourseDetails";
 import CreateCourse from "@/pages/CreateCourse";
+import AddLessons from "@/pages/AddLessons";
 
 const router = createBrowserRouter([
   {
@@ -298,18 +299,18 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/my-classroom/course-details",
+        path: "/my-classroom/blog/:id",
         element: (
-          <PageTitle title="Course Details">
+          <PageTitle title="Blog">
             < BlogCourseDetails/>
           </PageTitle>
         ),
       },
       {
         // path: "/my-classroom/:id",
-        path: "/my-classroom/video-details",
+        path: "/my-classroom/video/:id",
         element: (
-          <PageTitle title="Blog Course Details">
+          <PageTitle title="Video">
             < VideoCourseDetails/>
           </PageTitle>
         ),
@@ -321,6 +322,14 @@ const router = createBrowserRouter([
             < CreateCourse/>
           </PageTitle>
         ),
+      },
+      {
+        path: "/my-classroom/create-course/add-lessons",
+        element: (
+          <PageTitle title="Add Lessons">
+            <AddLessons/>
+          </PageTitle>
+        )
       },
       {
         path: "/my-pr",
