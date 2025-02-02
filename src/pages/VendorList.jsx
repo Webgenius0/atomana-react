@@ -1,4 +1,3 @@
-import React from 'react'
 import UtilitiesSvg from "@/components/svgs/UtilitiesSvg";
 import PestControlSvg from "@/components/svgs/PestControlSvg";
 import InsuranceSvg from "@/components/svgs/InsuranceSvg";
@@ -7,9 +6,6 @@ import { useGetVendorListData } from '@/hooks/useVendorListData';
 import TabCard from '@/components/TabCard';
 import { Link } from 'react-router-dom';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
-import SearchGraySvg from '@/components/svgs/SearchGraySvg';
-import PlusSvg from '@/components/svgs/PlusSvg';
-
 function VendorList() {
     const utilitiesData = useGetVendorListData("Utilities")
     const insuranceData = useGetVendorListData("insurance")

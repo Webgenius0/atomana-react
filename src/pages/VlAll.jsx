@@ -1,6 +1,5 @@
 import DataCard from "@/components/DataCard";
 import { useGetVendorListData } from "@/hooks/useVendorListData";
-import React from "react";
 
 const VlAll = () => {
   const { data } = useGetVendorListData();

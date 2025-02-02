@@ -1,7 +1,6 @@
 import DataCard from '@/components/DataCard';
 import VlHeader from '@/components/VlHeader';
 import { useGetVendorListData } from '@/hooks/useVendorListData';
-import React from 'react'
 
 const VlUtilities = () => {
   const data = useGetVendorListData('utilities');

@@ -1,12 +1,25 @@
-import AppleIconSvg from "@/components/svgs/AppleIconSvg";
-import GoogleSvg from "@/components/svgs/GoogleSvg";
-import logo from "@/assets/images/logo.png";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "@/hooks/useAuth";
-import toast from "react-hot-toast";
-import errorResponse from "@/lib/errorResponse";
+import logo from '@/assets/images/logo.png';
+import AppleIconSvg from '@/components/svgs/AppleIconSvg';
+import GoogleSvg from '@/components/svgs/GoogleSvg';
+import { useAuth } from '@/hooks/useAuth';
+import errorResponse from '@/lib/errorResponse';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { Link, useNavigate } from 'react-router-dom';
+import { z } from 'zod';
+
+const loginSchema = z.object({
+  email: z
+    .string({ required_error: 'email is required' })
+    .min(1, 'email is required')
+    .email('invalid email'),
+  password: z
+    .string({ required_error: 'password is required' })
+    .min(1, 'password is required')
+    .min(8, 'password should be at least 8 characters long'),
+});
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -17,7 +30,9 @@ const Login = () => {
     setError,
     formState: { errors },
     reset,
-  } = useForm();
+  } = useForm({
+    resolver: zodResolver(loginSchema),
+  });
 
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -26,8 +41,8 @@ const Login = () => {
     try {
       setIsLoading(true);
       await login(data);
-      toast.success("Login successfully!");
-      navigate("/");
+      toast.success('Login successfully!');
+      navigate('/');
       reset();
     } catch (err) {
       const response = errorResponse(err, (fields) => {
@@ -99,9 +114,13 @@ const Login = () => {
                     placeholder="example@email.com"
                     id="email"
                     disabled={isLoading}
-                    {...register("email", { required: true })}
+                    {...register('email')}
                   />
-                  {errors?.email && <p>{errors?.email?.message}</p>}
+                  {errors?.email && (
+                    <p className="text-red-500 text-xs">
+                      {errors?.email?.message}
+                    </p>
+                  )}
                 </div>
                 <div className="flex flex-col gap-[8px]">
                   <label
@@ -113,17 +132,11 @@ const Login = () => {
                   <div className="relative">
                     <input
                       className="h-[50px] w-full p-[16px_12px_16px_16px] rounded-[10px] border border-[#D8DFEB] bg-[#151515] outline-none placeholder:text-xs sm:placeholder:text-base"
-                      type={showPassword ? "text" : "password"}
+                      type={showPassword ? 'text' : 'password'}
                       placeholder="Password (8 or more characters long)"
                       id="password"
                       disabled={isLoading}
-                      {...register("password", {
-                        required: true,
-                        minLength: {
-                          value: 8,
-                          message: "password should be more than 8 character",
-                        },
-                      })}
+                      {...register('password')}
                     />
                     {showPassword ? (
                       <svg
@@ -164,11 +177,11 @@ const Login = () => {
                       </svg>
                     )}
                   </div>
-                  {/* {errors.password && (
+                  {errors.password && (
                     <p className="text-red-500 text-xs">
                       {errors.password.message}
                     </p>
-                  )} */}
+                  )}
                 </div>
                 <Link to={`/forget-password`}>
                   <div className="underline decoration-[rgba(0,150,150,1)] text-[rgba(0,150,150,1)] font-medium text-sm sm:text-lg cursor-pointer">

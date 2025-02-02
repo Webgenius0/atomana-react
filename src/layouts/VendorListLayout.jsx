@@ -1,8 +1,4 @@
-import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg'
-import PlusSvg from '@/components/svgs/PlusSvg'
-import SearchGraySvg from '@/components/svgs/SearchGraySvg'
-import React from 'react'
-import { Link, Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 
 function VendorListLayout() {
   return (
