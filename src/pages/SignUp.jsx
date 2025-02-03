@@ -60,16 +60,19 @@ const SignUp = () => {
       navigate('/verify-otp');
       reset();
     } catch (err) {
+      // redirect to sign in page if user already exists
+      if (
+        err?.response?.data?.code === 422 &&
+        err?.response?.data?.error?.email
+      ) {
+        navigate('/sign-in');
+        return toast.error('User already exists. Please Sign in.');
+      }
+
+      // handle other errors
       const response = errorResponse(err, (fields) => {
         Object.entries(fields).forEach(([field, messages]) => {
-          let fieldName = field;
-          // demo to update api response type to local field
-          //   switch (field) {
-          //     case "name":
-          //       fieldName = "name";
-          //       break;
-          //   }
-          setError(fieldName, {
+          setError(field, {
             message: messages?.[0],
           });
         });
