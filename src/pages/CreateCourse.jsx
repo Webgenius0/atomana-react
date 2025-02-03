@@ -1,5 +1,5 @@
 import { useForm, Controller } from "react-hook-form";
-import { Link, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
 import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
 import PlusSvg from "@/components/svgs/PlusSvg";
@@ -7,26 +7,39 @@ import CancelButtonSvg from "@/components/svgs/CancelButtonSvg";
 import EditButtonSvg from "@/components/svgs/EditButtonSvg";
 import { useContext, useEffect, useState } from "react";
 import { LessonDataContext } from "@/context/LessonDataProvider";
+import { NewCourseDataContext } from "@/context/NewCourseDataProvider";
 
 const CreateCourse = () => {
-  const [showModal, setShowModal] = useState(false)
-  const location = useLocation();
   const {
     register,
     handleSubmit,
     control,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm();  
+  const {courseData , setCourseData} = useContext(NewCourseDataContext);
+  const { lessonData, setLessonData } = useContext(LessonDataContext);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    console.log("Form Data:", data);
+    const newData = {
+      ...data,
+      lessonData,
+    }
+    setCourseData(prev=> [...prev, newData])
+    navigate("/my-classroom/create-course/");
+    console.log(courseData)
+    reset()
   };
-  const { lessonData, setLessonData } = useContext(LessonDataContext);
-
-  const handleCancel = () => {
+  
+  const handleCancel = (e) => {
+    e.preventDefault();
     reset();
-    setLessonData([]);
+  }
+
+  const handleAddClick = () =>{
+    navigate("/my-classroom/create-course/add-lessons/")
   }
 
   const handleLessonDelete = (title) => {
@@ -36,25 +49,23 @@ const CreateCourse = () => {
   }
 
   return (
-    <div className="my-container flex flex-col justify-between min-h-[80vh] h-full">
+    <form className="my-container flex flex-col justify-between min-h-[80vh] h-full" onSubmit={handleSubmit(onSubmit)}>
       <div>
         <div className="flex items-center justify-between pt-6 md:pt-8 lg:pt-12 pb-4 md:pb-5 lg:pb-8 mb-4">
-          <div className="flex gap-4 items-center">
+          <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit">
             <Link
               to={`${location.state?.from || "/my-classroom/courses"}`}
-              className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit"
             >
               <ArrowLeftSvg />
-              <h2 className="section-title">Create Content</h2>
             </Link>
+            <h2 className="section-title">Create Content</h2>
           </div>
           <div className="p-2 border border-white rounded-full cursor-pointer">
             <ThreeDotsSvg />
           </div>
         </div>
 
-        <form
-          onSubmit={handleSubmit(onSubmit)}
+        <div  
           className="max-w-[670px]  flex flex-col gap-5 mb-8 sm:mb-16"
         >
           <div>
@@ -97,9 +108,10 @@ const CreateCourse = () => {
           </div>
 
           <div className="flex flex-col gap-2 w-full">
-            <label className="text-sm font-medium text-light">Title</label>
+            <label className="text-sm font-medium text-light" htmlFor="title">Title</label>
             <input
               {...register("title", { required: "Title is required" })}
+              id="title"
               type="text"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm w-full"
               placeholder="Enter course title"
@@ -110,11 +122,12 @@ const CreateCourse = () => {
           </div>
 
           <div className="flex flex-col gap-2 w-full">
-            <label className="text-sm font-medium text-light">Description</label>
+            <label className="text-sm font-medium text-light" htmlFor="description">Description</label>
             <textarea
               {...register("description", {
                 required: "Description is required",
               })}
+              id="description"
               rows="4"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm w-full resize-none"
               placeholder="Write a description..."
@@ -137,8 +150,8 @@ const CreateCourse = () => {
                   </div>
                 </div>))}
               </div>
-              <Link
-                to={"/my-classroom/create-course/add-lessons/"}
+              <div
+              onClick={handleAddClick}
                 className="flex items-center gap-3"
               >
                 <p className="text-sm leading-6 capitalize text-light tracking-[-0.14px] hover:text-secondary duration-300 hover:opacity-60">
@@ -147,10 +160,10 @@ const CreateCourse = () => {
                 <span className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 border border-[#024040] bg-gradient-to-r from-black via-black to-[#024040] shadow-[0_0_0_1px_black]">
                   <PlusSvg />
                 </span>
-              </Link>
+              </div>
             </div>
           </div>
-        </form>
+        </div>
       </div>
       <div className="flex items-center sm:flex-row flex-col sm:space-y-0 space-y-4 justify-between pb-8">
         <input
@@ -162,7 +175,7 @@ const CreateCourse = () => {
           Cancel
         </button>
       </div>
-    </div>
+    </form>
   );
 };
 

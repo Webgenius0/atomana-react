@@ -103,14 +103,13 @@ function AgentLeaderBoard() {
   return (
     <div className="my-container">
       <div className='flex items-center justify-between pt-6 md:pt-8 lg:pt-12 pb-4 md:pb-5 lg:pb-8 mb-4'>
-        <div className="flex gap-4 items-center">
+        <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit">
           <Link
             to="/"
-            className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit"
           >
             <ArrowLeftSvg />
-            <h2 className="section-title">Agent Leaderboard</h2>
           </Link>
+          <h2 className="section-title">Agent Leaderboard</h2>
         </div>
         <div className='p-2 border border-white rounded-full cursor-pointer'>
           <ThreeDotsSvg />

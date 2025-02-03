@@ -14,12 +14,12 @@ const OpenHouseForm = () => {
     reset,
     control,
     formState: { errors },
-  } = useForm({expirationDate: null});
+  } = useForm({ expirationDate: null });
   const navigate = useNavigate();
   const location = useLocation();
 
   const onSubmit = (data) => {
-    console.log("open house form data: ",data)
+    console.log("open house form data: ", data)
     navigate(`/my-systems/open-house/open-house-form-details`);
   };
 
@@ -31,14 +31,14 @@ const OpenHouseForm = () => {
   return (
     <>
       <div className="flex items-center gap-4 justify-between">
-        <Link
-          to={`${location.state?.from || "/my-systems/open-house/open-house-form"}`}
-          className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5"
-        >
-          <ArrowLeftSvg />
+        <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5">
+          <Link
+            to={`${location.state?.from || "/my-systems/open-house/open-house-form"}`}
+          >
+            <ArrowLeftSvg />
+          </Link>
           <h2 className="section-title">Open House Form</h2>
-        </Link>
-
+        </div>
         <div className="flex items-center gap-2.5">
           <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
             <PersonPlusSvg />

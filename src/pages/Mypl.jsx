@@ -146,109 +146,106 @@ const Mypl = () => {
 
   return (
     <div>
-        <div className="flex items-center gap-4 justify-between">
+      <div className="flex items-center gap-4 justify-between">
+        <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5">
           <Link
             to="/my-systems/finances"
-            className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5"
           >
             <ArrowLeftSvg />
-            <h2 className="section-title">My P&L</h2>
           </Link>
-
-          <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
-            <ThreeDotsSvg />
-          </button>
+          <h2 className="section-title">My P&L</h2>
         </div>
+        <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
+          <ThreeDotsSvg />
+        </button>
+      </div>
 
-        <div className="my-5">
-          <div className="flex gap-5">
-            <div className="flex items-center ml-5">
-              <button
-                onClick={() => handleChange("current")}
-                className="flex items-center gap-2"
-              >
-                <div
-                  className={`h-3 w-3 rounded-full bg-[#009696] transition-opacity ${
-                    selectedValue === "current" ? "opacity-100" : "opacity-50"
+      <div className="my-5">
+        <div className="flex gap-5">
+          <div className="flex items-center ml-5">
+            <button
+              onClick={() => handleChange("current")}
+              className="flex items-center gap-2"
+            >
+              <div
+                className={`h-3 w-3 rounded-full bg-[#009696] transition-opacity ${selectedValue === "current" ? "opacity-100" : "opacity-50"
                   }`}
-                ></div>
-                <span className=" text-sm font-medium text-gray-900 dark:text-gray-300">
-                  Current Value
-                </span>
-              </button>
-            </div>
+              ></div>
+              <span className=" text-sm font-medium text-gray-900 dark:text-gray-300">
+                Current Value
+              </span>
+            </button>
+          </div>
 
-            <div className="flex items-center ml-5">
-              <button
-                onClick={() => handleChange("goal")}
-                className="flex items-center gap-2"
-              >
-                <div
-                  className={`h-3 w-3 rounded-full bg-[#009696] transition-opacity ${
-                    selectedValue === "goal" ? "opacity-100" : "opacity-50"
+          <div className="flex items-center ml-5">
+            <button
+              onClick={() => handleChange("goal")}
+              className="flex items-center gap-2"
+            >
+              <div
+                className={`h-3 w-3 rounded-full bg-[#009696] transition-opacity ${selectedValue === "goal" ? "opacity-100" : "opacity-50"
                   }`}
-                ></div>
-                <span className=" text-sm font-medium text-gray-900 dark:text-gray-300">
-                  Goal Value
-                </span>
-              </button>
-            </div>
+              ></div>
+              <span className=" text-sm font-medium text-gray-900 dark:text-gray-300">
+                Goal Value
+              </span>
+            </button>
           </div>
         </div>
-
-        <div className=" grid sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-5 mb-10">
-          {/* Render Chart Cards */}
-          {chartData.map((chart) => (
-            <ChartCard
-              key={chart.id}
-              data={chart.data}
-              xKey={chart.xKey}
-              yKey={chart.yKey}
-              yDomain={chart.yDomain}
-              title="Total Income"
-            />
-
-          ))}
-
-          {/* Render Progress Bars */}
-          {groupedProgressBarData.map((group, groupIndex) => (
-            <div
-              key={groupIndex}
-              className="w-full rounded-lg shadow bg-[#242424] p-4 md:p-6"
-            >
-              <div className="flex justify-between gap-1 gap-y-3 flex-wrap">
-                <h1 className="section-title"> {group.cardTitle}</h1>
-                <div className="flex gap-2 mb-10">
-                  <Dropdown options={heightoptions} onSelect={handleSelect} />
-                  <Dropdown options={options} onSelect={handleSelect} />
-                </div>
-              </div>
-              {group.agents.map((agent, agentIndex) => (
-                <div key={agentIndex} className="w-full mb-4 last:mb-0">
-                  <div className="flex items-center justify-between mb-2.5 gap-x-2 flex-wrap">
-                    <p className="text-sm leading-5 tracking-[0.25px] text-[#009696] underline">
-                      {agent.name}
-                    </p>
-                    <p
-                      className={`text-sm leading-5 tracking-[0.25px] underline ${
-                        group.cardTitle === "Earnings"
-                          ? "text-[#9AE4A7]"
-                          : "text-[#E49A9A]"
-                      }`}
-                    >
-                      {agent.amount}
-                    </p>
-                  </div>
-                  <ProgressBar
-                    currentValue={agent.sales}
-                    goalValue={agent.salesGoal}
-                  />
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
       </div>
+
+      <div className=" grid sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-5 mb-10">
+        {/* Render Chart Cards */}
+        {chartData.map((chart) => (
+          <ChartCard
+            key={chart.id}
+            data={chart.data}
+            xKey={chart.xKey}
+            yKey={chart.yKey}
+            yDomain={chart.yDomain}
+            title="Total Income"
+          />
+
+        ))}
+
+        {/* Render Progress Bars */}
+        {groupedProgressBarData.map((group, groupIndex) => (
+          <div
+            key={groupIndex}
+            className="w-full rounded-lg shadow bg-[#242424] p-4 md:p-6"
+          >
+            <div className="flex justify-between gap-1 gap-y-3 flex-wrap">
+              <h1 className="section-title"> {group.cardTitle}</h1>
+              <div className="flex gap-2 mb-10">
+                <Dropdown options={heightoptions} onSelect={handleSelect} />
+                <Dropdown options={options} onSelect={handleSelect} />
+              </div>
+            </div>
+            {group.agents.map((agent, agentIndex) => (
+              <div key={agentIndex} className="w-full mb-4 last:mb-0">
+                <div className="flex items-center justify-between mb-2.5 gap-x-2 flex-wrap">
+                  <p className="text-sm leading-5 tracking-[0.25px] text-[#009696] underline">
+                    {agent.name}
+                  </p>
+                  <p
+                    className={`text-sm leading-5 tracking-[0.25px] underline ${group.cardTitle === "Earnings"
+                        ? "text-[#9AE4A7]"
+                        : "text-[#E49A9A]"
+                      }`}
+                  >
+                    {agent.amount}
+                  </p>
+                </div>
+                <ProgressBar
+                  currentValue={agent.sales}
+                  goalValue={agent.salesGoal}
+                />
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 

@@ -117,15 +117,14 @@ const VideoCourseDetails = () => {
   return (
     <>
       <div className="my-container">
-        <Link to={`${location.state?.from || "/my-classroom/courses"}`}>
-          <div className="flex items-center gap-3 mt-5 text-white">
+        <div className="flex items-center gap-3 mt-5 text-white">
+          <Link to={`${location.state?.from || "/my-classroom/courses"}`}>
             <FaArrowLeft />
-            <h1 className="text-white text-lg font-medium">
-              {lessons[currentLessonIndex].title}
-            </h1>
-          </div>
-        </Link>
-
+          </Link>
+          <h1 className="text-white text-lg font-medium">
+            {lessons[currentLessonIndex].title}
+          </h1>
+        </div>
         <div className="relative rounded-2xl bg-transparent mt-5">
           <div className="rounded-xl overflow-hidden relative">
             <ReactPlayer

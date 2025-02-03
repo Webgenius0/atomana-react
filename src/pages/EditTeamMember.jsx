@@ -37,13 +37,14 @@ const EditTeamMember = () => {
   return (
     <div className="my-container">
       <div className="py-6 sm:py-8 lg:py-12">
+        <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit">
         <Link
           to="/profile/manage-team"
-          className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit"
         >
           <ArrowLeftSvg />
-          <h2 className="section-title">Edit Team Member</h2>
         </Link>
+        <h2 className="section-title">Edit Team Member</h2>
+        </div>
 
         <div className="mt-6 sm:mt-8 lg:mt-12">
           <form

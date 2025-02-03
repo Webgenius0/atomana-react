@@ -6,13 +6,14 @@ const BusinessInformation = () => {
   return (
     <div className="my-container">
       <div className="pt-6 md:pt-8 lg:pt-12 pb-3">
-        <Link
-          to="/profile"
-          className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit"
-        >
-          <ArrowLeftSvg />
+        <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit">
+          <Link
+            to="/profile"
+          >
+            <ArrowLeftSvg />
+          </Link>
           <h2 className="section-title">Business Information </h2>
-        </Link>
+        </div>
 
         <div className="mt-[25px]">
           <div className="space-y-[2px] border-b border-secondPrimary py-4">

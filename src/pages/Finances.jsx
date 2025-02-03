@@ -8,13 +8,16 @@ const Finances = () => {
 
   return (
     <>
+    <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5">
       <Link
           to="/my-systems/"
-          className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5"
+         
       >
           <ArrowLeftSvg />
-          <h2 className="section-title">Finances</h2>
-      </Link>
+      </Link>  
+      <h2 className="section-title">Finances</h2>
+      </div>
+      
       <div className="grid min-[500px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-5">
         {data?.map((item) => (
           <DataCard key={item?.id} data={item}>

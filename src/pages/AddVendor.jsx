@@ -29,14 +29,15 @@ function AddVendor() {
   return (
     <>
       <div className="pt-6 md:pt-8 lg:pt-12 pb-3">
-        <Link to="/my-systems/vendor-list" className="flex items-center gap-5 hover:opacity-60 w-fit">
-          <ArrowLeftSvg />
+        <div className="flex items-center gap-5 hover:opacity-60 w-fit">
+          <Link to="/my-systems/vendor-list">
+            <ArrowLeftSvg />
+          </Link>
           <h2 className="section-title">Add Vendor</h2>
-        </Link>
-
+        </div>
         <div className="mt-6 md:mt-8 lg:mt-12">
           <form onSubmit={handleSubmit(onSubmit)} className="max-w-[670px] mx-auto flex flex-col gap-4">
-            
+
             {/* Vendor Name */}
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium text-white">Vendor Name</label>

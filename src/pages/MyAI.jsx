@@ -49,9 +49,9 @@ const MyAI = () => {
       prev.map((chat) =>
         chat.id === activeChatId
           ? {
-              ...chat,
-              messages: [...chat.messages, { sender: 'user', message }],
-            }
+            ...chat,
+            messages: [...chat.messages, { sender: 'user', message }],
+          }
           : chat
       )
     );
@@ -64,12 +64,12 @@ const MyAI = () => {
         prev.map((chat) =>
           chat.id === activeChatId
             ? {
-                ...chat,
-                messages: [
-                  ...chat.messages,
-                  { sender: 'bot', message: botResponse },
-                ],
-              }
+              ...chat,
+              messages: [
+                ...chat.messages,
+                { sender: 'bot', message: botResponse },
+              ],
+            }
             : chat
         )
       );
@@ -116,16 +116,18 @@ const MyAI = () => {
     <section>
       <div className="p-3 sm:p-4 md:hidden bg-dark border-b border-secondPrimary sticky top-0 left-0">
         <div className="flex items-center gap-1 justify-between">
-          <Link to="/" className="flex items-center gap-3">
-            <img
-              src={logo}
-              alt="logo"
-              className="w-8 h-8 rounded-full lg:w-10 lg:h-10"
-            />
+          <div className="flex items-center gap-3">
+            <Link to="/">
+              <img
+                src={logo}
+                alt="logo"
+                className="w-8 h-8 rounded-full lg:w-10 lg:h-10"
+              />
+            </Link>
             <span className="text-lg sm:text-xl text-light tracking-[-0.6px]">
               MyOps AI
             </span>
-          </Link>
+          </div>
 
           <button
             onClick={() => setHideSidebar(!hideSidebar)}
@@ -140,9 +142,8 @@ const MyAI = () => {
         <div className="flex w-full h-full items-start">
           {/* Sidebar */}
           <aside
-            className={`fixed top-0 ${
-              hideSidebar ? '-left-full' : 'left-0'
-            } duration-500 w-[300px] md:w-[250px] lg:w-[300px] h-full bg-[#1c1c1c] py-4 lg:py-[25px] px-6 lg:px-[50px] ease-in-out md:relative md:top-auto md:left-auto border-r border-secondPrimary z-[1000]`}
+            className={`fixed top-0 ${hideSidebar ? '-left-full' : 'left-0'
+              } duration-500 w-[300px] md:w-[250px] lg:w-[300px] h-full bg-[#1c1c1c] py-4 lg:py-[25px] px-6 lg:px-[50px] ease-in-out md:relative md:top-auto md:left-auto border-r border-secondPrimary z-[1000]`}
           >
             <div className="sidebar-content">
               {/* Header */}
@@ -179,9 +180,8 @@ const MyAI = () => {
                       <li
                         key={chat.id}
                         onClick={() => setActiveChatId(chat.id)}
-                        className={`text-light text-sm tracking-[-0.28px] cursor-pointer duration-300 ${
-                          activeChatId === chat.id ? 'font-bold' : ''
-                        }`}
+                        className={`text-light text-sm tracking-[-0.28px] cursor-pointer duration-300 ${activeChatId === chat.id ? 'font-bold' : ''
+                          }`}
                       >
                         {chat.title}
                       </li>
