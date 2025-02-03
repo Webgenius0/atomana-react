@@ -35,10 +35,6 @@ const CreateCourse = () => {
     }
   }
 
-  const handleShowModal = () => {
-    setShowModal(!showModal)
-  }
-
   return (
     <div className="my-container flex flex-col justify-between min-h-[80vh] h-full">
       <div>
@@ -131,7 +127,7 @@ const CreateCourse = () => {
           </div>
           <div>
             <div className="flex flex-col items-start justify-end mt-5 cursor-pointer">
-              <div className="flex flex-col gap-2 mb-5">
+              <div className="flex flex-col gap-2 mb-5 max-w-[80%] w-full">
                 <label className="text-sm font-medium text-light">Lessons</label>
                 {lessonData.map(lesson => (<div className="flex gap-4 items-center">
                   <input type="text" className="flex-grow text-white font-Inter text-sm font-bold bg-[#151515]" disabled value={`${lesson.title || " "}`} />

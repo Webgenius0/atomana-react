@@ -4,12 +4,13 @@ import VideoSvg from '@/components/svgs/VideoSvg';
 import { LessonDataContext } from '@/context/LessonDataProvider'
 import React, { useContext, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 function UpdateLesson() {
     const { register, handleSubmit, setValue } = useForm();
     const { lessonData, setLessonData } = useContext(LessonDataContext);
     const { id } = useParams();
+    const navigate = useNavigate()
     
     const [image, setImage] = useState(null);
     const [video, setVideo] = useState(null);
@@ -52,8 +53,8 @@ function UpdateLesson() {
         setLessonData(prevData =>
             prevData.map(lesson => (lesson.title === id ? updatedLesson : lesson))
         );
-
         console.log("Updated Lesson:", updatedLesson);
+        navigate("/my-classroom/create-course/")
     };
 
     return (
@@ -104,7 +105,7 @@ function UpdateLesson() {
                 </div>
 
                 <div className="flex items-center justify-between sm:flex-row flex-col sm:space-y-0 space-y-4 mb-4">
-                    <Link to="/my-classroom/create-course/"><input className="request-btn approve cursor-pointer px-6 py-3 bg-white text-black font-medium rounded-lg hover:opacity-80 duration-300" type="submit" value="Update" /></Link>
+                    <input className="request-btn approve cursor-pointer px-6 py-3 bg-white text-black font-medium rounded-lg hover:opacity-80 duration-300" type="submit" value="Update" />
                     <button className="request-btn text-light bg-[#151515] px-6 py-3 rounded-lg hover:opacity-80 duration-300">
                         Cancel
                     </button>
