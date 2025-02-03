@@ -40,21 +40,21 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       setIsLoading(true);
-      await login(data);
+      const response = await login(data);
+
+      if (!response?.data?.verify) {
+        toast.success('OTP sent!');
+        navigate('/verify-otp');
+        return reset();
+      }
+
       toast.success('Login successfully!');
       navigate('/');
       reset();
     } catch (err) {
       const response = errorResponse(err, (fields) => {
         Object.entries(fields).forEach(([field, messages]) => {
-          let fieldName = field;
-          // demo to update api response type to local field
-          // switch (field) {
-          //   case "name":
-          //     fieldName = "name";
-          //     break;
-          // }
-          setError(fieldName, {
+          setError(field, {
             message: messages?.[0],
           });
         });
