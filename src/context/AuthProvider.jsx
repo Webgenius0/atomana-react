@@ -95,6 +95,73 @@ const AuthProvider = ({ children }) => {
     clearUserData();
   };
 
+  const sendForgetPasswordOTP = async (email) => {
+    const payload = {
+      email,
+      operation: 'password',
+    };
+
+    const { data } = await axiosPublic.post(
+      '/api/v1/auth/forget-password/otp-send',
+      payload
+    );
+
+    if (!data?.success) {
+      throw new Error('Sending otp failed');
+    }
+
+    setEmailForOTP(email);
+  };
+
+  const verifyForgetPasswordOTP = async (otp) => {
+    const payload = {
+      otp,
+      email: emailForOTP,
+      operation: 'password',
+    };
+
+    try {
+      const { data } = await axiosPublic.post(
+        '/api/v1/auth/forget-password/otp-match',
+        payload
+      );
+
+      if (!data?.success) {
+        throw new Error('Verify failed');
+      }
+    } catch (error) {
+      console.error(
+        'Error verifying OTP:',
+        error.response?.data || error.message
+      );
+      throw error;
+    }
+  };
+
+  const resetPassword = async (credentials) => {
+    const payload = {
+      email: emailForOTP,
+      ...credentials,
+    };
+
+    try {
+      const { data } = await axiosPublic.post(
+        '/api/v1/auth/forget-password/reset-password',
+        payload
+      );
+
+      if (!data?.success) {
+        throw new Error('Password reset failed');
+      }
+    } catch (error) {
+      console.error(
+        'Error reset password:',
+        error.response?.data || error.message
+      );
+      throw error;
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -106,6 +173,9 @@ const AuthProvider = ({ children }) => {
         isLogged,
         login,
         logout,
+        sendForgetPasswordOTP,
+        verifyForgetPasswordOTP,
+        resetPassword,
       }}
     >
       {children}
