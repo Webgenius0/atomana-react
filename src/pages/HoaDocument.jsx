@@ -8,19 +8,19 @@ const HoaDocument = () => {
   return (
     <div className="pt-6 md:pt-8 lg:pt-12 pb-3">
       <div className="flex items-center gap-4 justify-between">
-        <Link
-          to="/my-systems/team"
-          className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit"
-        >
-          <ArrowLeftSvg />
+        <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit">
+          <Link
+            to="/my-systems/team"
+          >
+            <ArrowLeftSvg />
+          </Link>
           <div>
             <h2 className="section-title">HOA Community Documents</h2>
             <p className="text-sm text-[#009696] leading-[21px] tracking-[-0.14px]">
               1234 Maple Street, San Francisco, CA 94117
             </p>
           </div>
-        </Link>
-
+        </div>
         <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
           <ThreeDotsSvg />
         </button>

@@ -13,9 +13,9 @@ const MyClassroom = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handelAddContent = () =>{
-    navigate("/my-classroom/create-course",{
-      state: {from: location.pathname},
+  const handelAddContent = () => {
+    navigate("/my-classroom/create-course", {
+      state: { from: location.pathname },
     });
   }
   // const { data, isLoading, isError, error } = useGetMyClassroomsData("team");
@@ -71,19 +71,19 @@ const MyClassroom = () => {
   //     "duration": "2 hrs"
   //   }
   // ]
-  useEffect(()=>{
-    const fetchData = async () =>{
-      try{
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
         const response = await axios.get("/my_classroom.json")
         setData(response.data);
         console.log(response.data);
       }
-      catch (error){
+      catch (error) {
         console.log("Error Fetching Json: ", error)
       }
     };
     fetchData();
-  },[])
+  }, [])
   return (
     <>
       <div className="my-container ">
@@ -106,16 +106,17 @@ const MyClassroom = () => {
           ))}
         </div>
         <div className="flex items-center justify-end mt-3">
-          <Link to="/my-classroom/courses" className="flex items-center gap-3">
+          <div className="flex items-center gap-3">
             <p className="text-sm leading-6 capitalize text-light tracking-[-0.14px] hover:text-secondary duration-300">
               View all new courses
             </p>
-            <button className="w-8 h-8 rounded-full flex items-center justify-center border border-[#4D4D4D] bg-[#242424] shadow-[0px_0px_0px_1px_#000]">
-              <ArrowRightSvg />
-            </button>
-          </Link>
+            <Link to="/my-classroom/courses">
+              <button className="w-8 h-8 rounded-full flex items-center justify-center border border-[#4D4D4D] bg-[#242424] shadow-[0px_0px_0px_1px_#000]">
+                <ArrowRightSvg />
+              </button>
+            </Link>
+          </div>
         </div>
-
         <div>
           <h1 className="text-white text-xl mt-5 mb-5 section-title">
             Continue Learning
@@ -125,7 +126,6 @@ const MyClassroom = () => {
               <ContinueLearningCard key={item?.id} data={item} />
             ))}
           </div>
-
           <div className="flex items-center justify-end mt-3 mb-5">
             <Link to="" className="flex items-center gap-3">
               <p className="text-sm leading-6 capitalize text-light tracking-[-0.14px] hover:text-secondary duration-300">

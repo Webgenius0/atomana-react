@@ -10,8 +10,8 @@ function UpdateLesson() {
     const { register, handleSubmit, setValue } = useForm();
     const { lessonData, setLessonData } = useContext(LessonDataContext);
     const { id } = useParams();
-    const navigate = useNavigate()
-    
+    const navigate = useNavigate();
+
     const [image, setImage] = useState(null);
     const [video, setVideo] = useState(null);
 
@@ -58,26 +58,31 @@ function UpdateLesson() {
     };
 
     return (
-        <div className="my-container flex flex-col h-[80vh]">
-            <div className="pt-6 md:pt-8 lg:pt-12 pb-3">
+        <div className="my-container flex flex-col min-h-[80vh]">
+            <div className="pt-6 md:pt-8 lg:pt-12 pb-3 flex items-center gap-5 duration-300 hover:opacity-60 w-fit">
                 <Link
                     to={`/my-classroom/create-course`}
-                    className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit"
                 >
                     <ArrowLeftSvg />
-                    <h1 className="section-title">Update Lesson</h1>
                 </Link>
+                <h1 className="section-title">Update Lesson</h1>
             </div>
             <form className="flex flex-col justify-between h-full" onSubmit={handleSubmit(onSubmit)}>
                 <div className="max-w-[684px] w-full mx-auto">
                     <div className="flex flex-col gap-8">
-                        <input {...register("title")} className="text-white/50 font-Inria text-xl italic font-bold leading-3xl tracking-[-0.2px] capitalize outline-none bg-[#151515]" />
-                        <textarea {...register("description")} className="text-white placeholder:text-white/50 placeholder:italic py-2 font-Inria text-base font-normal leading-xl tracking-[-0.2px] capitalize outline-none bg-[#151515] w-full min-h-[40px]" rows="1" />
-
-                        <div className="flex items-center gap-6">
+                        <div className='flex flex-col gap-2'>
+                            <label htmlFor='title' className='text-sm font-medium text-light'>Title</label>
+                            <input {...register("title")} id="title" className="px-4 py-2 text-white/50 font-Inria border-white/50 border rounded-lg text-lg sm:text-xl italic font-bold leading-3xl tracking-[-0.2px] capitalize outline-none bg-[#151515]" />
+                        </div>
+                        <div className='flex flex-col gap-2'>
+                            <label htmlFor="description" className='text-sm font-medium text-light'>Description</label>
+                            <textarea {...register("description")} id="description" className="px-4 py-2 text-white placeholder:text-white/50 placeholder:italic font-Inria border-white/50 border rounded-lg text-sm sm:text-base font-normal leading-xl tracking-[-0.2px] capitalize outline-none bg-[#151515] w-full min-h-[40px]" rows="1" />
+                        </div>
+                        <div className="flex justify-center gap-6 sm:flex-row flex-col">
                             {/* Image Upload Section */}
-                            <div className="flex flex-col gap-4">
-                                {image && <img src={image} alt="Uploaded" className="w-[40%] h-[40%] mt-2 rounded-lg" />}
+                            <div className="flex flex-col gap-3 h-fit  max-w-[800px] w-full">
+                                <span className='text-sm font-medium text-light'>Image</span>
+                                {image && <img src={image} alt="Uploaded" className="w-full h-full mt-2 rounded-lg" />}
                                 <span className="cursor-pointer">
                                     <label htmlFor="image-upload">
                                         <span className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 bg-[#000] cursor-pointer">
@@ -89,26 +94,27 @@ function UpdateLesson() {
                             </div>
 
                             {/* Video Upload Section */}
-                            <div className="flex flex-col gap-4">
-                                {video && <img src={video} controls className="w-[40%] h-[40%] mt-2 rounded-lg" />}
+                            <div className="flex flex-col gap-3 h-fit  max-w-[800px] w-full">
+                                <span className='text-sm font-medium text-light'>Video</span>
+                                {video && <img src={video} controls className="w-full h-full mt-2 rounded-lg" />}
                                 <span className="cursor-pointer">
                                     <label htmlFor="video-upload">
                                         <span className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 bg-[#000] cursor-pointer">
                                             <VideoSvg />
                                         </span>
                                     </label>
-                                    <input type="file" className="hidden" id="video-upload" accept="video/*" onChange={handleVideoUploader} />
+                                    <input type="file" className="hidden" id="video-upload" accept="image/*" onChange={handleVideoUploader} />
                                 </span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="flex items-center justify-between sm:flex-row flex-col sm:space-y-0 space-y-4 mb-4">
+                <div className="max-w-[684px] w-full mx-auto flex items-center justify-between sm:flex-row flex-col sm:space-y-0 space-y-4 my-4">
                     <input className="request-btn approve cursor-pointer px-6 py-3 bg-white text-black font-medium rounded-lg hover:opacity-80 duration-300" type="submit" value="Update" />
-                    <button className="request-btn text-light bg-[#151515] px-6 py-3 rounded-lg hover:opacity-80 duration-300">
+                    {/* <button type="button" className="request-btn text-light bg-[#151515] px-6 py-3 rounded-lg hover:opacity-80 duration-300">
                         Cancel
-                    </button>
+                    </button> */}
                 </div>
             </form>
         </div>

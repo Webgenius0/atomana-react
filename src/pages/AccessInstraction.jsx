@@ -7,19 +7,20 @@ const AccessInstraction = () => {
   return (
     <>
       <div className="flex items-center gap-4 justify-between">
-        <Link
-          to="/my-systems/team"
-          className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5"
-        >
-          <ArrowLeftSvg />
+        <div>
+          <Link
+            to="/my-systems/team"
+            className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5"
+          >
+            <ArrowLeftSvg />
+          </Link>
           <div>
             <h2 className="section-title">Access Instructions</h2>
             <p className="text-sm text-[#009696] leading-[21px] tracking-[-0.14px]">
               11234 Maple Street, San Francisco, CA 94117
             </p>
           </div>
-        </Link>
-
+        </div>
         <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
           <ThreeDotsSvg />
         </button>
@@ -76,7 +77,7 @@ const AccessInstraction = () => {
             <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
               Key Access Code
             </p>
-            <p className="text-sm font-normal leading-5 text-[#ffffffcc]"> 
+            <p className="text-sm font-normal leading-5 text-[#ffffffcc]">
               1234 Maple Street, San Francisco, CA 94117
             </p>
           </div>

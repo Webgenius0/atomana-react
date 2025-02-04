@@ -36,14 +36,14 @@ const AddTeamMember = () => {
   return (
     <div className="my-container">
       <div className="pt-6 md:pt-8 lg:pt-12 pb-3">
-        <Link
-          to="/profile/manage-team"
-          className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit"
-        >
-          <ArrowLeftSvg />
+        <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit">
+          <Link
+            to="/profile/manage-team"
+          >
+            <ArrowLeftSvg />
+          </Link>
           <h2 className="section-title">Add a Team Member</h2>
-        </Link>
-
+        </div>
         <div className="mt-6 md:mt-8 lg:mt-12">
           <form
             onSubmit={handleSubmit(onSubmit)}
