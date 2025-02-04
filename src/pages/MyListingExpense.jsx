@@ -1,21 +1,21 @@
-import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
-import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
-import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
-import Table from "@/components/table/Table";
-import TabStepper from "@/components/TabStepper";
-import { Link, useLocation } from "react-router-dom";
+import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
+import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
+import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
+import Table from '@/components/table/Table';
+import TabStepper from '@/components/TabStepper';
+import { Link, useLocation } from 'react-router-dom';
 
 const MyListingExpense = () => {
   const tabs = [
-    { label: "Forms", path: "/forms" },
-    { label: "Charts", path: "/charts" },
+    { label: 'Forms', path: '/forms' },
+    { label: 'Charts', path: '/charts' },
   ];
   const location = useLocation();
   return (
     <>
       <div className="flex items-center gap-4 justify-between">
         <Link
-          to={`${location.state?.from || "/my-systems/finances"}`}
+          to={`${location.state?.from || '/my-systems/finances'}`}
           className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5"
         >
           <ArrowLeftSvg />
