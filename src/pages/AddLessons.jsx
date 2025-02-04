@@ -17,15 +17,24 @@ function AddLessons() {
     const { lessonData, setLessonData } = useContext(LessonDataContext)
 
     const onSubmit = (data) => {
-        const newData = {
-            ...data,
-            image,
-            video
-        }
-        setLessonData((prev) => [...prev, newData])
+        const newLesson = {
+          ...data,
+          image,
+          video
+        };
+      
+        // 🔥 Get existing lessons from localStorage
+        let storedLessons = JSON.parse(localStorage.getItem("lessonData")) || [];
+      
+        storedLessons.push(newLesson);
+        localStorage.setItem("lessonData", JSON.stringify(storedLessons));
+      
+        // Update lessonData context
+        setLessonData(storedLessons);
+      
         navigate("/my-classroom/create-course/");
-        
-    }
+      };
+      
 
     const handleResetButton = (e) => {
         e.preventDefault();
