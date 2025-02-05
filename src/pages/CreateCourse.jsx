@@ -20,7 +20,9 @@ const CreateCourse = () => {
     handleSubmit,
     control,
     reset,
+    watch,
     formState: { errors },
+<<<<<<< HEAD
   } = form
 
   const onSubmit = (data) => {
@@ -34,14 +36,63 @@ const CreateCourse = () => {
     reset()
   };
  nm 
+=======
+  } = useForm();
+  const { courseData, setCourseData } = useContext(NewCourseDataContext);
+  const { lessonData, setLessonData } = useContext(LessonDataContext);
+  const formValues = watch();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+>>>>>>> d1fbf8ed705bae879b594af98a124b6c7325db72
   const handleCancel = (e) => {
     e.preventDefault();
     reset();
   }
 
+<<<<<<< HEAD
   const handleAddClick = () => {
     navigate("/my-classroom/create-course/add-lessons/")
   }
+=======
+ 
+  useEffect(() => {
+    const storedCourse = JSON.parse(localStorage.getItem("courseData")) || null;
+    const storedLessons = JSON.parse(localStorage.getItem("lessonData")) || [];
+
+    if (storedCourse) setCourseData(storedCourse);
+    if (storedLessons.length) setLessonData(storedLessons);
+  }, []);
+
+  const onSubmit = (data) => {
+   
+    const storedCourse = JSON.parse(localStorage.getItem("courseData")) || {};
+    const storedLessons = JSON.parse(localStorage.getItem("lessonData")) || [];
+  
+    // 🔥 Combine them into a single object
+    const finalCourseData = {
+      ...storedCourse,  // Existing course details (title, description)
+      ...data,          
+      lessons: storedLessons,  
+    };
+  
+    console.log("Final Merged Data: ", finalCourseData);
+  
+  
+    localStorage.setItem("finalCourse", JSON.stringify(finalCourseData));
+  
+   
+    navigate("/my-classroom/courses/");
+  };
+  
+
+  const handleAddClick = () => {
+    // 🔥 Save current form data before navigating
+    localStorage.setItem("courseData", JSON.stringify({ title: watch("title"), description: watch("description") }));
+    navigate("/my-classroom/create-course/add-lessons/");
+  };
+  
+>>>>>>> d1fbf8ed705bae879b594af98a124b6c7325db72
 
   const handleLessonDelete = (title) => {
     if (title) {
@@ -49,6 +100,16 @@ const CreateCourse = () => {
     }
   }
   
+
+  // useEffect(()=>{
+  //   const emptyCourse = {}
+  //   const allCourses = JSON.parse(localStorage.getItem('course')) || []
+
+  //   allCourses.push(emptyCourse)
+  //   localStorage.setItem('course', JSON.stringify(allCourses));
+
+  //   console.log('new courses array added to localStorage');
+  // },[])
 
   return (
     <form className="my-container flex flex-col justify-between min-h-[80vh] h-full" onSubmit={handleSubmit(onSubmit)}>
@@ -144,14 +205,23 @@ const CreateCourse = () => {
             <div className="flex flex-col items-start justify-end mt-5 cursor-pointer">
               <div className="flex flex-col gap-2 mb-5 max-w-[80%] w-full">
                 <label className="text-sm font-medium text-light">Lessons</label>
+<<<<<<< HEAD
                 {lessonData.map((lesson,idx) => (
+=======
+                {lessonData.map((lesson, idx) => (
+>>>>>>> d1fbf8ed705bae879b594af98a124b6c7325db72
                   <div key={idx} className="flex gap-4 items-center">
                     <input type="text" className="flex-grow text-white font-Inter text-sm font-bold bg-[#151515]" disabled value={`${lesson.title || " "}`} />
                     <div className="flex gap-2 items-center">
                       <Link to={`/my-classroom/create-course/edit-lesson/${lesson.title}`}><div className="bg-[#242424] border-[#4D4D4D] border rounded-full p-2 w-fit"><EditButtonSvg /></div></Link>
                       <div onClick={() => handleLessonDelete(lesson.title)} className="bg-[#242424] border-[#4D4D4D] border rounded-full p-2 w-fit"><CancelButtonSvg /></div>
                     </div>
+<<<<<<< HEAD
                   </div>))}
+=======
+                  </div>
+                ))}
+>>>>>>> d1fbf8ed705bae879b594af98a124b6c7325db72
               </div>
               <div
                 onClick={handleAddClick}
