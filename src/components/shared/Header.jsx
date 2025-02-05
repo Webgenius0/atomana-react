@@ -16,14 +16,24 @@ import MySystemsSvgActive from "@/components/svgs/MySystemsSvgActive";
 import SearchWhiteSvg from "../svgs/SearchWhiteSvg";
 import Modal from "../Modal";
 import LogoSquareSvg from "../svgs/LogoSquareSvg";
+import SearchBarModal from "../SearchBarModal";
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const location = useLocation();
 
-  const handleOpenModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
+ 
+  const handleOpenModal = () => {
+    setIsModalOpen(true)
+    // Prevent layout shift by maintaining scrollbar space
+  document.body.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`;
+  };
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
+    // Reset paddingRight when modal closes
+  document.body.style.paddingRight = "";
+  };
 
   const handleNotificationClick = () => {
     setShowNotification((prev) => !prev);
@@ -33,6 +43,7 @@ const Header = () => {
     setShowNotification(false);
   };
 
+  
   return (
     <header className={`sticky top-0 left-0 bg-dark z-50`}>
       <nav>
@@ -55,7 +66,7 @@ const Header = () => {
               </Link>
 
               {/* search */}
-              <label className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-secondPrimary to-[#1a1a1a] border border-primary rounded-full px-4 max-w-[625px] w-full focus-within:border-[#009696] focus-within:shadow-[0_0_3px] focus-within:shadow-[#009696]">
+              <label onClick={handleOpenModal} className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-secondPrimary to-[#1a1a1a] border border-primary rounded-full px-4 max-w-[625px] w-full focus-within:border-[#009696] focus-within:shadow-[0_0_3px] focus-within:shadow-[#009696]">
                 <LogoSquareSvg />
                 <input
                   type="text"
@@ -63,8 +74,9 @@ const Header = () => {
                   placeholder="Ask Maria about clients, properties, appointments, or anything else you need help with"
                 />
               </label>
+              {isModalOpen && <SearchBarModal onClose={handleCloseModal} />}
 
-              <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+              <Modal  isOpen={isModalOpen} onClose={handleCloseModal}>
                 <label className="flex items-center gap-2 bg-gradient-to-r from-secondPrimary to-[#1a1a1a] border border-primary rounded-full px-4 max-w-[625px] w-full focus-within:border-[#009696] focus-within:shadow-[0_0_3px] focus-within:shadow-[#009696]">
                   <input
                     type="text"

@@ -18,7 +18,7 @@ const Notification = ({ onClose }) => {
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [onClose]);
+  }, []);
 
   const notifications = [
     {

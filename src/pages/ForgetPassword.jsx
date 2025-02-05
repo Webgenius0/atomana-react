@@ -1,12 +1,46 @@
-import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { useAuth } from '@/hooks/useAuth';
+import errorResponse from '@/lib/errorResponse';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const ForgetPassword = () => {
-  const { handleSubmit, register, reset } = useForm();
+  const [isLoading, setIsLoading] = useState(false);
+  const { state } = useLocation();
+  const {
+    handleSubmit,
+    register,
+    setError,
+    formState: { errors },
+  } = useForm({
+    defaultValues: state,
+  });
+  const { sendForgetPasswordOTP } = useAuth();
+  const navigate = useNavigate();
 
-  const onSubmit = (data) => {
-    console.log(data);
-    reset();
+  const onSubmit = async (data) => {
+    try {
+      setIsLoading(true);
+      await sendForgetPasswordOTP(data.email);
+      toast.success('OTP sent!');
+      navigate('/forget-password/verify-otp', {
+        state,
+      });
+    } catch (err) {
+      const response = errorResponse(err, (fields) => {
+        Object.entries(fields).forEach(([field, messages]) => {
+          setError(field, {
+            message: messages?.[0],
+          });
+        });
+      });
+      if (response) {
+        toast.error(response);
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
   return (
     <div className="min-h-screen flex justify-center bg-[#151515] text-[#FFFFFF]">
@@ -29,15 +63,18 @@ const ForgetPassword = () => {
               <input
                 className="w-full border-2 border-white rounded-xl text-white h-12 sm:h-[50px] bg-[#151515] text-[18px] outline-none px-3 py-2"
                 type="text"
-                {...register("email", { required: true })}
+                {...register('email', { required: true })}
               />
-              {}
+              {errors?.email && (
+                <p className="text-red-500 text-xs">{errors?.email?.message}</p>
+              )}
             </div>
             <button
               type="submit"
+              disabled={isLoading}
               className="mt-3 mb-0 sm:my-3 tracking-wide bg-[#FFF] text-[#151515] text-base sm:text-lg font-normal leading-normal font-Inria w-full h-[50px] py-[10px] sm:py-4 rounded-lg hover:bg-[rgba(0,150,150,1)] hover:text-[#FFF] transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
             >
-              Reset
+              {isLoading ? <span>Loading....</span> : <span>Send OTP</span>}
             </button>
             <div className="flex flex-col gap-2">
               <Link to={`/sign-in`}>

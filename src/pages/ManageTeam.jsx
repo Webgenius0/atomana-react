@@ -36,14 +36,14 @@ const ManageTeam = () => {
     <div className="my-container">
       <div className="pt-6 md:pt-8 lg:pt-12 pb-3">
         <div className="flex items-center justify-between gap-x-1 gap-y-3 flex-wrap">
-          <Link
-            to="/profile"
-            className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit"
-          >
-            <ArrowLeftSvg />
-            <h2 className="section-title">Manage Team & Permissions </h2>
-          </Link>
-
+          <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit">
+              <Link
+              to="/profile"
+            >
+              <ArrowLeftSvg />
+            </Link>
+              <h2 className="section-title">Manage Team & Permissions </h2>
+          </div>
           <Link
             to="/profile/add-team-member"
             className="flex items-center gap-2.5 text-sm leading-6 tracking-[-0.14px] text-light hover:opacity-60 duration-300 ml-auto "

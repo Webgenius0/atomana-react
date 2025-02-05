@@ -5,8 +5,10 @@ import router from "@/routes/router.jsx";
 import "@/assets/styles.css";
 import { HelmetProvider } from "react-helmet-async";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import {AuthProvider} from "./context/AuthProvider";
+import { AuthProvider } from "./context/AuthProvider";
 import { Toaster } from "react-hot-toast";
+import { LessonDataProvider } from "./context/LessonDataProvider";
+import { NewCourseDataProvider } from "./context/NewCourseDataProvider";
 
 const queryClient = new QueryClient();
 
@@ -15,8 +17,12 @@ createRoot(document.getElementById("root")).render(
     <AuthProvider>
       <QueryClientProvider client={queryClient}>
         <HelmetProvider>
-          <RouterProvider router={router} />
-          <Toaster />
+          <NewCourseDataProvider>
+            <LessonDataProvider>
+              <RouterProvider router={router} />
+              <Toaster />
+            </LessonDataProvider>
+          </NewCourseDataProvider>
         </HelmetProvider>
       </QueryClientProvider>
     </AuthProvider>

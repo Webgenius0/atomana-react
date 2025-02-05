@@ -1,27 +1,15 @@
 import logo from '@/assets/images/logo.png';
-import AppleIconSvg from '@/components/svgs/AppleIconSvg';
-import GoogleSvg from '@/components/svgs/GoogleSvg';
 import { useAuth } from '@/hooks/useAuth';
 import errorResponse from '@/lib/errorResponse';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
 const signupSchema = z
   .object({
-    first_name: z
-      .string({ required_error: 'first name is required' })
-      .min(1, 'first name is required'),
-    last_name: z
-      .string({ required_error: 'last name is required' })
-      .min(1, 'last name is required'),
-    email: z
-      .string({ required_error: 'email is required' })
-      .min(1, 'email is required')
-      .email('invalid email'),
     password: z
       .string({ required_error: 'password is required' })
       .min(1, 'password is required')
@@ -35,12 +23,12 @@ const signupSchema = z
     message: 'passwords do not match',
   });
 
-const SignUp = () => {
+const ResetPassword = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
-  const { signup } = useAuth();
+  const { resetPassword } = useAuth();
 
   const {
     register,
@@ -55,21 +43,11 @@ const SignUp = () => {
   const onSubmit = async (data) => {
     try {
       setIsLoading(true);
-      await signup(data);
-      toast.success('OTP sent!');
-      navigate('/verify-otp');
+      await resetPassword(data);
+      toast.success('Password reset successfully!');
+      navigate('/sign-in');
       reset();
     } catch (err) {
-      // redirect to sign in page if user already exists
-      if (
-        err?.response?.data?.code === 422 &&
-        err?.response?.data?.error?.email
-      ) {
-        navigate('/sign-in');
-        return toast.error('User already exists. Please Sign in.');
-      }
-
-      // handle other errors
       const response = errorResponse(err, (fields) => {
         Object.entries(fields).forEach(([field, messages]) => {
           setError(field, {
@@ -93,24 +71,14 @@ const SignUp = () => {
           <div className="max-w-[80px] w-full overflow-hidden">
             <img src={logo} alt="logo" className="w-full h-full object-cover" />
           </div>
-          <div className="flex gap-1 sm:gap-3 items-center justify-center">
-            <p className="text-[#CCC] text-[14px] font-normal leading-[21px] tracking-[-0.14px] font-Inter">
-              Already have an account?
-            </p>
-            <Link to={`/sign-in`}>
-              <p className="cursor-pointer text-[#FFF] text-[14px] font-bold leading-[21px] tracking-[-0.14px] font-Inter">
-                Log In
-              </p>
-            </Link>
-          </div>
         </div>
         <div className="max-w-[440px] w-full p-5 sm:p-0 mx-auto">
           <div>
             <strong className="font-Inria text-[18px] sm:text-[20px] italic font-bold leading-[24px] tracking-[-0.2px] capitalize">
-              Simplify. Organize. Succeed.
+              Reset Password
             </strong>
             <p className="font-Inria text-[18px] sm:text-[20px] font-bold leading-[24px] tracking-[-0.2px] capitalize text-white/50 mt-[10px]">
-              Sign up and Create your MyOps account
+              Set New Password
             </p>
           </div>
           <div className="w-full mt-8 md:mt-12 flex flex-col items-center">
@@ -122,72 +90,9 @@ const SignUp = () => {
                 <div className="flex flex-col gap-[8px]">
                   <label
                     className="text-[14px] font-medium leading-[21px] tracking-[-0.14px] text-[#FFF]"
-                    htmlFor="firstName"
-                  >
-                    First Name
-                  </label>
-                  <input
-                    className="h-[50px] p-[16px_12px_16px_16px] rounded-[10px] border border-[#D8DFEB] bg-[#151515] outline-none placeholder:text-xs sm:placeholder:text-base"
-                    type="text"
-                    placeholder="enter first name"
-                    id="firstName"
-                    disabled={isLoading}
-                    {...register('first_name')}
-                  />
-                  {errors?.first_name && (
-                    <p className="text-red-500 text-xs">
-                      {errors?.first_name?.message}
-                    </p>
-                  )}
-                </div>
-                <div className="flex flex-col gap-[8px]">
-                  <label
-                    className="text-[14px] font-medium leading-[21px] tracking-[-0.14px] text-[#FFF]"
-                    htmlFor="lastName"
-                  >
-                    Last Name
-                  </label>
-                  <input
-                    className="h-[50px] p-[16px_12px_16px_16px] rounded-[10px] border border-[#D8DFEB] bg-[#151515] outline-none placeholder:text-xs sm:placeholder:text-base"
-                    type="text"
-                    placeholder="enter last name"
-                    id="lastName"
-                    disabled={isLoading}
-                    {...register('last_name')}
-                  />
-                  {errors?.last_name && (
-                    <p className="text-red-500 text-xs">
-                      {errors?.last_name?.message}
-                    </p>
-                  )}
-                </div>
-                <div className="flex flex-col gap-[8px]">
-                  <label
-                    className="text-[14px] font-medium leading-[21px] tracking-[-0.14px] text-[#FFF]"
-                    htmlFor="email"
-                  >
-                    Email
-                  </label>
-                  <input
-                    className="h-[50px] p-[16px_12px_16px_16px] rounded-[10px] border border-[#D8DFEB] bg-[#151515] outline-none placeholder:text-xs sm:placeholder:text-base"
-                    type="email"
-                    placeholder="example@email.com"
-                    id="email"
-                    disabled={isLoading}
-                    {...register('email')}
-                  />
-                  {errors?.email && (
-                    <p className="text-red-500 text-xs">
-                      {errors?.email?.message}
-                    </p>
-                  )}
-                </div>
-                <div className="flex flex-col gap-[8px]">
-                  <label
-                    className="text-[14px] font-medium leading-[21px] tracking-[-0.14px] text-[#FFF]"
                     htmlFor="password"
                   >
-                    Password
+                    New Password
                   </label>
                   <div className="relative">
                     <input
@@ -318,65 +223,25 @@ const SignUp = () => {
                   ) : (
                     <>
                       <svg
-                        className="w-6 h-6 -ml-2"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
+                        className="lucide lucide-rotate-ccw"
                       >
-                        <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-                        <circle cx="8.5" cy="7" r="4" />
-                        <path d="M20 8v6M23 11h-6" />
+                        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                        <path d="M3 3v5h5" />
                       </svg>
-                      <span className="ml-3">Create Account</span>
+                      <span className="ml-3">Reset Password</span>
                     </>
                   )}
                 </button>
-                <p className="max-w-[440px] w-full mt-6 text-[#CCC] text-center font-sans text-sm font-normal leading-[21px] tracking-[-0.14px]">
-                  By continuing, you acknowledge that you understand and agree
-                  to the
-                  <a
-                    href="#"
-                    className="border-b border-gray-500 border-dotted ml-1"
-                  >
-                    Terms & Conditions
-                  </a>
-                  <span className="mx-1">and</span>
-                  <a
-                    href="#"
-                    className="border-b border-gray-500 border-dotted"
-                  >
-                    Privacy Policy.
-                  </a>
-                </p>
               </form>
-
-              <div className="my-6 sm:my-12 border-b text-center ">
-                <div className=" px-4 inline-block text-sm bg-[#151515] text-[#FFFFFF] tracking-wide font-medium transform translate-y-1/2">
-                  Or
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-[20px] items-center">
-                <button className="flex h-[50px] px-0 sm:px-[100px] py-[15px] justify-center items-center gap-[10px] self-stretch rounded-[8px] border border-white">
-                  <div className="p-2 rounded-full">
-                    <GoogleSvg />
-                  </div>
-                  <span className="ml-4 text-sm sm:text-base">
-                    Sign Up with Google
-                  </span>
-                </button>
-
-                <button className="flex h-[50px] px-0 sm:px-[100px] py-[15px] justify-center items-center gap-[10px] self-stretch rounded-[8px] border border-white">
-                  <div className="p-2 rounded-full">
-                    <AppleIconSvg />
-                  </div>
-                  <span className="ml-4 text-sm sm:text-base">
-                    Sign up with Apple
-                  </span>
-                </button>
-              </div>
             </div>
           </div>
         </div>
@@ -385,4 +250,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default ResetPassword;

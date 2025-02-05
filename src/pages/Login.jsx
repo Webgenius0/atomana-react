@@ -29,6 +29,7 @@ const Login = () => {
     handleSubmit,
     setError,
     formState: { errors },
+    watch,
     reset,
   } = useForm({
     resolver: zodResolver(loginSchema),
@@ -40,21 +41,21 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       setIsLoading(true);
-      await login(data);
+      const response = await login(data);
+
+      if (!response?.data?.verify) {
+        toast.success('OTP sent!');
+        navigate('/verify-otp');
+        return reset();
+      }
+
       toast.success('Login successfully!');
       navigate('/');
       reset();
     } catch (err) {
       const response = errorResponse(err, (fields) => {
         Object.entries(fields).forEach(([field, messages]) => {
-          let fieldName = field;
-          // demo to update api response type to local field
-          // switch (field) {
-          //   case "name":
-          //     fieldName = "name";
-          //     break;
-          // }
-          setError(fieldName, {
+          setError(field, {
             message: messages?.[0],
           });
         });
@@ -183,7 +184,7 @@ const Login = () => {
                     </p>
                   )}
                 </div>
-                <Link to={`/forget-password`}>
+                <Link to={`/forget-password`} state={{ email: watch('email') }}>
                   <div className="underline decoration-[rgba(0,150,150,1)] text-[rgba(0,150,150,1)] font-medium text-sm sm:text-lg cursor-pointer">
                     Forget your password?
                   </div>

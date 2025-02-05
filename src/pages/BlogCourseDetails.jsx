@@ -51,21 +51,20 @@ const BlogCourseDetails = () => {
   return (
     <div className="my-container ">
       <div className="max-w-[740px] w-full mx-auto">
-        <div className="pt-4 md:pt-6 lg:pt-8 pb-3">
+        <div className="pt-4 md:pt-6 lg:pt-8 pb-3 flex items-center gap-5 duration-300 hover:opacity-60 w-fit">
           <Link
             to={`${location.state?.from || "/my-classroom/courses"}`}
-            className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit"
           >
             <ArrowLeftSvg />
-            <div>
-              <h2 className="section-title">
-                Maximizing Your Real Estate CRM: Best Practices for Success
-              </h2>
-              <p className="text-xs text-[#FFFFFF] leading-6">
-                Published on January 21, 2025
-              </p>
-            </div>
           </Link>
+          <div>
+            <h2 className="section-title">
+              Maximizing Your Real Estate CRM: Best Practices for Success
+            </h2>
+            <p className="text-xs text-[#FFFFFF] leading-6">
+              Published on January 21, 2025
+            </p>
+          </div>
         </div>
         <div className="pt-4  pb-3">
           <p className="text-[#FFFFFF] font-normal text-sm leading-6">

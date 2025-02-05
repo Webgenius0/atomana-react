@@ -8,14 +8,14 @@ const OpenHouseFormDetails = () => {
   return (
     <>
         <div className="flex items-center gap-4 justify-between">
-          <Link
+          <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5">
+            <Link
             to="/my-systems/open-house"
-            className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5"
           >
             <ArrowLeftSvg />
-            <h2 className="section-title">Open House Form</h2>
           </Link>
-
+          <h2 className="section-title">Open House Form</h2>
+          </div>
           <div className="flex items-center gap-2.5">
             <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
               <PersonPlusSvg />

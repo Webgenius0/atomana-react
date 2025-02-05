@@ -20,14 +20,14 @@ const MyAgentExpense = () => {
   return (
     <>
       <div className="flex items-center gap-4 justify-between">
-        <Link
-          to="/my-systems/finances"
-          className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5"
-        >
-          <ArrowLeftSvg />
+        <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5">
+          <Link
+            to="/my-systems/finances"
+          >
+            <ArrowLeftSvg />
+          </Link>
           <h2 className="section-title">MyAgent Expenses</h2>
-        </Link>
-
+        </div>
         <div className="flex items-center gap-2.5">
           <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
             <PersonPlusSvg />
