@@ -20,7 +20,7 @@ const MyListingExpense = () => {
         >
           <ArrowLeftSvg />
           <h2 className="section-title">MyListing Expenses</h2>
-        </div>
+        </Link>
         <div className="flex items-center gap-2.5">
           <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
             <PersonPlusSvg />

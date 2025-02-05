@@ -1,10 +1,9 @@
 import CourseCard from '@/components/CourseCard'
 import Dropdown from '@/components/Dropdown'
 import PlusSvg from '@/components/svgs/PlusSvg'
-import VideoModal from '@/components/VideoModal'
 import axios from 'axios'
-import { useEffect, useRef, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 function Courses() {
     const [data, setData] = useState([])
