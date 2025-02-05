@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ReactPlayer from "react-player";
-import { FaArrowLeft, FaArrowRight, FaCalendarAlt, FaCaretDown } from "react-icons/fa";
+import { FaArrowLeft, FaCalendarAlt, FaCaretDown } from "react-icons/fa";
 import { RiArrowLeftDoubleLine } from "react-icons/ri";
 import { RiArrowRightDoubleLine } from "react-icons/ri";
 

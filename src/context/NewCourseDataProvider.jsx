@@ -1,5 +1,4 @@
 import { createContext, useState } from "react";
-import { axiosPublic } from "@/lib/configs/axios.config";
 import useLocalStorage from "@/hooks/useLocalstorage";
 import { useForm } from "react-hook-form";
 

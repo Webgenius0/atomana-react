@@ -1,5 +1,4 @@
 import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
-import React from "react";
 import { Link } from "react-router-dom";
 
 const BusinessInformation = () => {
