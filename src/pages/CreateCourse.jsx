@@ -1,11 +1,11 @@
-import { Controller } from "react-hook-form";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useForm, Controller } from "react-hook-form";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
 import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
 import PlusSvg from "@/components/svgs/PlusSvg";
 import CancelButtonSvg from "@/components/svgs/CancelButtonSvg";
 import EditButtonSvg from "@/components/svgs/EditButtonSvg";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LessonDataContext } from "@/context/LessonDataProvider";
 import { NewCourseDataContext } from "@/context/NewCourseDataProvider";
 
