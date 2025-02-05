@@ -73,7 +73,7 @@ function AddLessons() {
                     <div className="max-w-[684px] w-full mx-auto">
                         <div className='flex flex-col sm:gap-8 gap-4'>
                             <input type="text" placeholder='title' {...register("title")} className='py-2 px-4 text-white/50 font-Inria  border-white/50 border rounded-lg text-lg sm:text-xl italic font-bold leading-3xl tracking-[-0.2px] capitalize outline-none bg-[#151515] ' />
-                            <textarea placeholder='| description' {...register("description")} className='px-4 py-2 text-white placeholder:text-white/50 placeholder:italic font-Inria text-sm sm:text-base border-white/50 border rounded-lg font-normal leading-xl  tracking-[-0.2px] capitalize outline-none bg-[#151515] w-full min-h-[40px]' rows="1" />
+                            <textarea placeholder='| description' {...register("description")} className='px-4 py-2 text-white placeholder:text-white/50 placeholder:italic font-Inria text-sm sm:text-base border-white/50 border rounded-lg font-normal leading-xl  tracking-[-0.2px] capitalize outline-none bg-[#151515] w-full min-h-[40px]' rows="3" />
                             <div className='flex items-center gap-4 cursor-pointer'>
                                 <span onClick={handleToggle} className={`${!showGallery ? "block" : "hidden"} w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 border border-[#024040] bg-gradient-to-r from-black via-black to-[#024040] shadow-[0_0_0_1px_black]`}>
                                     <PlusSvg />
