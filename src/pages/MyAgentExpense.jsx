@@ -1,29 +1,27 @@
-import SearchIconSvg from "@/components/svgs/SearchIconSvg";
-import Dropdown from "@/components/Dropdown";
-import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
-import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
-import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
-import Table from "@/components/table/Table";
-import { Link } from "react-router-dom";
+import Dropdown from '@/components/Dropdown';
+import MyAgentTable from '@/components/my-agent-table/MyAgentTable';
+import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
+import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
+import SearchIconSvg from '@/components/svgs/SearchIconSvg';
+import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
+import { Link } from 'react-router-dom';
 
 const MyAgentExpense = () => {
   const heightoptions = [
-    { value: "highestsales", label: "Time Range: YTD 2024" },
-    { value: "quater", label: "Quater" },
-    { value: "year", label: "Yearly" },
+    { value: 'highestsales', label: 'Time Range: YTD 2024' },
+    { value: 'quater', label: 'Quater' },
+    { value: 'year', label: 'Yearly' },
   ];
 
   const handleSelect = (option) => {
-    console.log("Selected option:", option);
+    console.log('Selected option:', option);
   };
 
   return (
     <>
       <div className="flex items-center gap-4 justify-between">
         <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5">
-          <Link
-            to="/my-systems/finances"
-          >
+          <Link to="/my-systems/finances">
             <ArrowLeftSvg />
           </Link>
           <h2 className="section-title">MyAgent Expenses</h2>
@@ -59,7 +57,7 @@ const MyAgentExpense = () => {
         </div>
       </div>
 
-      <Table />
+      <MyAgentTable />
     </>
   );
 };
