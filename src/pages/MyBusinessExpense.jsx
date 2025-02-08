@@ -1,14 +1,14 @@
-import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
-import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
-import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
-import Table from "@/components/table/Table";
-import TabStepper from "@/components/TabStepper";
-import { Link, useLocation } from "react-router-dom";
+import MyBusinessTable from '@/components/my-business-table/MyBusinessTable';
+import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
+import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
+import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
+import TabStepper from '@/components/TabStepper';
+import { Link, useLocation } from 'react-router-dom';
 
 const MyBusinessExpense = () => {
   const tabs = [
-    { label: "Forms", path: "/forms" },
-    { label: "Charts", path: "/charts" },
+    { label: 'Forms', path: '/forms' },
+    { label: 'Charts', path: '/charts' },
   ];
   const location = useLocation();
 
@@ -16,9 +16,7 @@ const MyBusinessExpense = () => {
     <>
       <div className="flex items-center gap-4 justify-between">
         <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5">
-          <Link
-            to={`${location.state?.from || "/my-systems/finances"}`}
-          >
+          <Link to={`${location.state?.from || '/my-systems/finances'}`}>
             <ArrowLeftSvg />
           </Link>
           <h2 className="section-title">MyBusiness Expenses</h2>
@@ -38,7 +36,7 @@ const MyBusinessExpense = () => {
         <TabStepper tabs={tabs} />
       </div>
 
-      <Table />
+      <MyBusinessTable />
     </>
   );
 };
