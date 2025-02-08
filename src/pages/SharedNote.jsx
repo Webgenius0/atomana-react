@@ -265,7 +265,6 @@ const SharedNote = () => {
               onClick={() => setHideSidebar(true)}
             ></div>
           )}
-
           <main className="flex-1 flex flex-col items-center justify-start min-h-screen bg-[#1c1c1c]">
             {selectedNote && (
               <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-full px-5 py-[25px]">
@@ -286,7 +285,7 @@ const SharedNote = () => {
 
             <div className="px-5 py-[25px] overflow-y-auto scrollbar-none text-center flex-1 w-full">
               {selectedNote ? (
-                <div className="flex flex-col items-start gap-4 text-left p-6 rounded-lg max-w-xl mx-auto">
+                <div className="flex flex-col items-start gap-4 text-left p-6 rounded-lg w-full">
                   <h2 className="text-xl font-bold text-white">
                     {selectedNote.header}
                   </h2>
@@ -296,6 +295,50 @@ const SharedNote = () => {
                   <p className="text-sm text-light">
                     {selectedNote.description}
                   </p>
+                  {selectedNote && activeTab === "passwords" && (
+                    <>
+                      <div className="mt-4 border-b w-full">
+                        <h3 className="text-sm font-bold text-white">
+                          Website
+                        </h3>
+                        <p className="text-sm text-[#ffffff80]">
+                          {selectedNote.website}
+                        </p>
+                      </div>
+
+                      <div className="mt-4 border-b w-full">
+                        <h3 className="text-sm font-bold text-white">
+                          Username
+                        </h3>
+                        <p className="text-sm text-[#ffffff80]">
+                          {selectedNote.username}
+                        </p>
+                      </div>
+
+                      <div className="mt-4 border-b w-full">
+                        <h3 className="text-sm font-bold text-white">
+                          Password
+                        </h3>
+                        <p className="text-sm text-[#ffffff80]">
+                          {selectedNote.password}
+                        </p>
+                      </div>
+
+                      <div className="mt-4 border-b w-full">
+                        <h3 className="text-sm font-bold text-white">Email</h3>
+                        <p className="text-sm text-[#ffffff80]">
+                          {selectedNote.email}
+                        </p>
+                      </div>
+
+                      <div className="mt-4">
+                        <h3 className="text-sm font-bold text-white">Notes</h3>
+                        <p className="text-sm text-[#ffffff80]">
+                          {selectedNote.notes}
+                        </p>
+                      </div>
+                    </>
+                  )}
                   <button
                     onClick={() => setSelectedNote(null)}
                     className="mt-4 px-4 py-2 bg-secondPrimary text-white rounded-md hover:bg-opacity-80 transition"
