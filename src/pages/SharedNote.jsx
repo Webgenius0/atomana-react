@@ -7,86 +7,111 @@ import PlusSvg from "@/components/svgs/PlusSvg";
 import SearchGraySvg from "@/components/svgs/SearchGraySvg";
 import SettingSvg from "@/components/svgs/SettingSvg";
 import { FiFolder, FiChevronDown, FiChevronUp } from "react-icons/fi";
+import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
+import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
+import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
 
 const SharedNote = () => {
   const [hideSidebar, setHideSidebar] = useState(false);
   const [searchMember, setSearchMember] = useState("");
   const [selectedNote, setSelectedNote] = useState(null);
+  const [activeTab, setActiveTab] = useState("notes");
+  const [activeDropdown, setActiveDropdown] = useState(null);
 
   const handleSearch = (e) => {
     setSearchMember(e.target.value);
   };
 
-  const [dropdownState, setDropdownState] = useState({});
-  const [activeDropdown, setActiveDropdown] = useState(null);
-
-  // Toggle function to open/close dropdowns based on index
   const toggleDropdown = (index) => {
     setActiveDropdown((prevIndex) => (prevIndex === index ? null : index));
   };
 
-  const dropdownData = [
-    {
-      title: "Client Interactions",
-      items: [
-        {
-          header: "Client Follow-up - Sarah Lopez",
-          time: "4:59pm",
-          description: "Project Kickoff",
-        },
-        {
-          header: "Initial Consultation - Michael Tran",
-          time: "3:58pm",
-          description: "Budget Planning",
-        },
-      ],
-    },
-    {
-      title: "Property Showings",
-      items: [
-        {
-          header: "Weekly Standup",
-          time: "10:00am",
-          description: "Discuss sprint progress",
-        },
-        {
-          header: "Project Review - Alpha Team",
-          time: "1:30pm",
-          description: "Review milestones",
-        },
-      ],
-    },
-    {
-      title: "Marketing & Promo",
-      items: [
-        {
-          header: "Social Media Campaign",
-          time: "11:15am",
-          description: "Launch planning",
-        },
-        {
-          header: "SEO Audit Review",
-          time: "2:45pm",
-          description: "Optimize website",
-        },
-      ],
-    },
-    {
-      title: "Team Meetings Jan",
-      items: [
-        {
-          header: "Quarterly Report",
-          time: "9:00am",
-          description: "Analyze revenue",
-        },
-        {
-          header: "Budget Allocation",
-          time: "4:00pm",
-          description: "Set new budget limits",
-        },
-      ],
-    },
-  ];
+  const dropdownData = {
+    notes: [
+      {
+        title: "Client Interactions",
+        items: [
+          {
+            header: "Client Follow-up - Sarah Lopez",
+            time: "4:59pm",
+            description: "Project Kickoff",
+          },
+          {
+            header: "Initial Consultation - Michael Tran",
+            time: "3:58pm",
+            description: "Budget Planning",
+          },
+        ],
+      },
+      {
+        title: "Property Showings",
+        items: [
+          {
+            header: "Weekly Standup",
+            time: "10:00am",
+            description: "Discuss sprint progress",
+          },
+          {
+            header: "Project Review - Alpha Team",
+            time: "1:30pm",
+            description: "Review milestones",
+          },
+        ],
+      },
+    ],
+    passwords: [
+      {
+        title: "Email Accounts",
+        items: [
+          {
+            header: "Gmail - john.doe@gmail.com",
+            time: "Last updated: 01/01/25",
+            description: "********",
+            website: "www.gmail.com",
+            username: "john.doe",
+            password: "********",
+            email: "john.doe@gmail.com",
+            notes: "Use for work-related communication.",
+          },
+          {
+            header: "Outlook - john.doe@outlook.com",
+            time: "Last updated: 12/15/24",
+            description: "********",
+            website: "www.outlook.com",
+            username: "john.doe",
+            password: "********",
+            email: "john.doe@outlook.com",
+            notes: "Personal email account.",
+          },
+        ],
+      },
+      {
+        title: "Social Media",
+        items: [
+          {
+            header: "Twitter - @johndoe",
+            time: "Last updated: 11/20/24",
+            description: "********",
+            website: "www.twitter.com",
+            username: "@johndoe",
+            password: "********",
+            email: "johndoe@twitter.com",
+            notes: "For social updates and engagement.",
+          },
+          {
+            header: "Instagram - @johndoe",
+            time: "Last updated: 10/05/24",
+            description: "********",
+            website: "www.instagram.com",
+            username: "@johndoe",
+            password: "********",
+            email: "johndoe@instagram.com",
+            notes: "Instagram account for photography.",
+          },
+        ],
+      },
+    ],
+  };
 
   return (
     <section>
@@ -124,9 +149,28 @@ const SharedNote = () => {
           >
             <div className="sidebar-content">
               <div className="flex items-center justify-between">
-                <h2 className="text-light text-sm font-medium leading-[21px] tracking-[-0.14px] flex items-center gap-[5px]">
-                  Shared Notes
-                </h2>
+                <div className="flex items-center gap-5">
+                  <button
+                    onClick={() => setActiveTab("notes")}
+                    className={`text-sm font-medium px-4 py-2 rounded-md ${
+                      activeTab === "notes"
+                        ? "bg-secondPrimary text-white"
+                        : "text-light"
+                    }`}
+                  >
+                    Shared Notes
+                  </button>
+                  <button
+                    onClick={() => setActiveTab("passwords")}
+                    className={`text-sm font-medium px-4 py-2 rounded-md ${
+                      activeTab === "passwords"
+                        ? "bg-secondPrimary text-white"
+                        : "text-light"
+                    }`}
+                  >
+                    Password List
+                  </button>
+                </div>
                 <button className="w-8 h-8 rounded-full flex items-center justify-center border border-[#4D4D4D] bg-[#242424] shadow-[0px_0px_0px_1px_#000]">
                   <SettingSvg />
                 </button>
@@ -147,7 +191,9 @@ const SharedNote = () => {
               {/* Create New Note */}
               <div className="flex items-center gap-[30px] mt-[25px]">
                 <h3 className="text-xs font-bold tracking-[-0.24px] text-[#ffffff80]">
-                  Create new note
+                  {activeTab === "notes"
+                    ? "Create new note"
+                    : "Add new password"}
                 </h3>
                 <button className="w-8 h-8 rounded-full flex items-center justify-center border border-[#4D4D4D] bg-[#242424] shadow-[0px_0px_0px_1px_#000]">
                   <PlusSvg />
@@ -155,7 +201,7 @@ const SharedNote = () => {
               </div>
 
               <div className="mt-6">
-                {dropdownData.map((category, index) => {
+                {dropdownData[activeTab].map((category, index) => {
                   const contentRef = useRef(null);
 
                   return (
@@ -185,7 +231,7 @@ const SharedNote = () => {
                               : "0px",
                           opacity: activeDropdown === index ? 1 : 0,
                         }}
-                        className="overflow-hidden transition-all duration-500 ease-in-out  border-b border-secondPrimary rounded-md"
+                        className="overflow-hidden transition-all duration-500 ease-in-out border-b border-secondPrimary rounded-md"
                       >
                         {category.items.map((item, itemIndex) => (
                           <div
@@ -209,36 +255,6 @@ const SharedNote = () => {
                   );
                 })}
               </div>
-              <div className="mt-2 border-b border-secondPrimary rounded-md  divide-y divide-secondPrimary">
-                <div className="p-4">
-                  <div>
-                    <div className="flex items-center justify-between">
-                      {" "}
-                      <h4 className="text-xs text-white font-semibold">
-                        Home Inspection
-                      </h4>
-                      <p className="text-white text-xs">01/23/25</p>
-                    </div>
-                    <p className="text-sm text-light mt-1">
-                      New vendor added for home inspections. Bright Home
-                      Inspections offers competitive pricing and fast report
-                      turnar
-                    </p>
-                  </div>
-                </div>
-                <div className="p-4">
-                  <div>
-                    <div className="flex items-center justify-between">
-                      {" "}
-                      <h4 className="text-xs text-white font-semibold">
-                        Initial Consultation - Michael Tran
-                      </h4>
-                      <p className="text-white text-xs">3:58pm</p>
-                    </div>
-                    <p className="text-sm text-light mt-1">Project Kickoff</p>
-                  </div>
-                </div>
-              </div>
             </div>
           </aside>
 
@@ -250,10 +266,27 @@ const SharedNote = () => {
             ></div>
           )}
 
-          <main className="flex-1 flex items-center justify-center min-h-screen bg-[#1c1c1c]">
-            <div className="px-5 py-[25px] overflow-y-auto scrollbar-none text-center">
+          <main className="flex-1 flex flex-col items-center justify-start min-h-screen bg-[#1c1c1c]">
+            {selectedNote && (
+              <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-full px-5 py-[25px]">
+                <Link to={`${location.state?.from || "/my-systems/finances"}`}>
+                  <ArrowLeftSvg />
+                </Link>
+                <h2 className="section-title">{selectedNote.header}</h2>
+                <div className="flex items-center gap-2.5 ml-auto">
+                  <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
+                    <PersonPlusSvg />
+                  </button>
+                  <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
+                    <ThreeDotsSvg />
+                  </button>
+                </div>
+              </div>
+            )}
+
+            <div className="px-5 py-[25px] overflow-y-auto scrollbar-none text-center flex-1 w-full">
               {selectedNote ? (
-                <div className="flex flex-col items-start gap-4 text-left  p-6 rounded-lg  max-w-xl mx-auto ">
+                <div className="flex flex-col items-start gap-4 text-left p-6 rounded-lg max-w-xl mx-auto">
                   <h2 className="text-xl font-bold text-white">
                     {selectedNote.header}
                   </h2>
@@ -264,23 +297,25 @@ const SharedNote = () => {
                     {selectedNote.description}
                   </p>
                   <button
-                    onClick={() => setSelectedNote(null)} // Reset selected note
+                    onClick={() => setSelectedNote(null)}
                     className="mt-4 px-4 py-2 bg-secondPrimary text-white rounded-md hover:bg-opacity-80 transition"
                   >
-                    Back to Notes
+                    Back to {activeTab === "notes" ? "Notes" : "Passwords"}
                   </button>
                 </div>
               ) : (
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center justify-center min-h-screen">
                   <button className="w-12 h-12 rounded-full flex items-center justify-center border border-[#4D4D4D] bg-[#1d9aaa] shadow-[0px_0px_0px_1px_#000]">
                     <DocumentSvg />
                   </button>
                   <h2 className="font-bold text-lg tracking-[-0.24px] text-[#ffffff80]">
-                    Select a note or create a new note
+                    Select a {activeTab === "notes" ? "note" : "password"} or
+                    create a new one
                   </h2>
                   <p className="text-sm text-[#ffffff80] max-w-lg">
-                    Select a note and pick up right where you left off or create
-                    a new note.
+                    Select a {activeTab === "notes" ? "note" : "password"} and
+                    pick up right where you left off or create a new{" "}
+                    {activeTab === "notes" ? "note" : "password"}.
                   </p>
                 </div>
               )}
