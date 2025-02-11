@@ -16,7 +16,10 @@ const AuthProvider = ({ children }) => {
 
   // Registration function with OTP email setting
   const signup = async (userData) => {
-    const { data } = await axiosPublic.post('/api/v1/auth/register', userData);
+    const { data } = await axiosPublic.post(
+      '/api/v1/auth/register-admin',
+      userData
+    );
     if (!data?.success) {
       throw new Error('Registration failed');
     }
