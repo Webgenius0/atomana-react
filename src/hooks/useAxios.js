@@ -1,6 +1,6 @@
-import {axiosPublic, axiosPrivate} from "@/lib/configs/axios.config";
-import { useCallback, useEffect } from "react";
-import { useAuth } from "./useAuth";
+import { axiosPrivate, axiosPublic } from '@/lib/configs/axios.config';
+import { useCallback, useEffect } from 'react';
+import { useAuth } from './useAuth';
 
 export function useAxios() {
   return axiosPublic;
@@ -30,7 +30,7 @@ export function useAxiosSecure() {
           const status = error.response.status;
 
           if (status === 401 || status === 403) {
-            console.warn("Session expired. Logging out...");
+            console.warn('Session expired. Logging out...');
             logout();
           }
         }
