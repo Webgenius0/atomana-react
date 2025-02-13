@@ -1,13 +1,13 @@
-import { useForm, Controller } from "react-hook-form";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
-import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
-import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
-import PlusSvg from "@/components/svgs/PlusSvg";
-import CancelButtonSvg from "@/components/svgs/CancelButtonSvg";
-import EditButtonSvg from "@/components/svgs/EditButtonSvg";
-import { useContext, useEffect, useState } from "react";
-import { LessonDataContext } from "@/context/LessonDataProvider";
-import { NewCourseDataContext } from "@/context/NewCourseDataProvider";
+import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
+import CancelButtonSvg from '@/components/svgs/CancelButtonSvg';
+import EditButtonSvg from '@/components/svgs/EditButtonSvg';
+import PlusSvg from '@/components/svgs/PlusSvg';
+import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
+import { LessonDataContext } from '@/context/LessonDataProvider';
+import { NewCourseDataContext } from '@/context/NewCourseDataProvider';
+import { useContext } from 'react';
+import { Controller } from 'react-hook-form';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const CreateCourse = () => {
   const { courseData, setCourseData, form } = useContext(NewCourseDataContext);
@@ -22,34 +22,35 @@ const CreateCourse = () => {
     reset,
     watch,
     formState: { errors },
-  } = form
+  } = form;
 
   const onSubmit = (data) => {
     const newData = {
       ...data,
       lessonData,
-    }
-    setCourseData(prev => [...prev, newData])
+    };
+    setCourseData((prev) => [...prev, newData]);
     // navigate("/my-classroom/create-course/");
-    console.log(newData)
-    reset()
+    // console.log(newData)
+    reset();
   };
- 
+
   const handleCancel = (e) => {
     e.preventDefault();
     reset();
-  }
+  };
 
   const handleAddClick = () => {
-    navigate("/my-classroom/create-course/add-lessons/")
-  }
+    navigate('/my-classroom/create-course/add-lessons/');
+  };
 
   const handleLessonDelete = (title) => {
     if (title) {
-      return setLessonData((prevData) => prevData.filter((data) => data.title !== title))
+      return setLessonData((prevData) =>
+        prevData.filter((data) => data.title !== title)
+      );
     }
-  }
-  
+  };
 
   // useEffect(()=>{
   //   const emptyCourse = {}
@@ -62,13 +63,14 @@ const CreateCourse = () => {
   // },[])
 
   return (
-    <form className="my-container flex flex-col justify-between min-h-[80vh] h-full" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="my-container flex flex-col justify-between min-h-[80vh] h-full"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <div>
         <div className="flex items-center justify-between pt-6 md:pt-8 lg:pt-12 pb-4 md:pb-5 lg:pb-8 mb-4">
           <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit">
-            <Link
-              to={`${location.state?.from || "/my-classroom/courses"}`}
-            >
+            <Link to={`${location.state?.from || '/my-classroom/courses'}`}>
               <ArrowLeftSvg />
             </Link>
             <h2 className="section-title">Create Content</h2>
@@ -78,9 +80,7 @@ const CreateCourse = () => {
           </div>
         </div>
 
-        <div
-          className="max-w-[670px]  flex flex-col gap-5 mb-8 sm:mb-16"
-        >
+        <div className="max-w-[670px]  flex flex-col gap-5 mb-8 sm:mb-16">
           <div>
             <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
               What type of content are you creating?
@@ -89,7 +89,7 @@ const CreateCourse = () => {
               name="contentType"
               control={control}
               defaultValue="Course"
-              rules={{ required: "Content type is required" }}
+              rules={{ required: 'Content type is required' }}
               render={({ field }) => (
                 <div className="flex space-x-4 mt-2">
                   <label className="flex items-center gap-2">
@@ -97,7 +97,7 @@ const CreateCourse = () => {
                       type="radio"
                       {...field}
                       value="Video"
-                      checked={field.value === "Video"}
+                      checked={field.value === 'Video'}
                     />
                     <p className="text-sm font-medium text-light">Video</p>
                   </label>
@@ -106,7 +106,7 @@ const CreateCourse = () => {
                       type="radio"
                       {...field}
                       value="Blog"
-                      checked={field.value === "Blog"}
+                      checked={field.value === 'Blog'}
                     />
                     <p className="text-sm font-medium text-light">Blog</p>
                   </label>
@@ -121,24 +121,33 @@ const CreateCourse = () => {
           </div>
 
           <div className="flex flex-col gap-2 w-full">
-            <label className="text-sm font-medium text-light" htmlFor="title">Title</label>
+            <label className="text-sm font-medium text-light" htmlFor="title">
+              Title
+            </label>
             <input
-              {...register("title", { required: "Title is required" })}
+              {...register('title', { required: 'Title is required' })}
               id="title"
               type="text"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm w-full"
               placeholder="Enter course title"
             />
             {errors.title && (
-              <p className="text-red-500 text-xs mt-1">{errors.title.message}</p>
+              <p className="text-red-500 text-xs mt-1">
+                {errors.title.message}
+              </p>
             )}
           </div>
 
           <div className="flex flex-col gap-2 w-full">
-            <label className="text-sm font-medium text-light" htmlFor="description">Description</label>
+            <label
+              className="text-sm font-medium text-light"
+              htmlFor="description"
+            >
+              Description
+            </label>
             <textarea
-              {...register("description", {
-                required: "Description is required",
+              {...register('description', {
+                required: 'Description is required',
               })}
               id="description"
               rows="4"
@@ -154,20 +163,36 @@ const CreateCourse = () => {
           <div>
             <div className="flex flex-col items-start justify-end mt-5 cursor-pointer">
               <div className="flex flex-col gap-2 mb-5 max-w-[80%] w-full">
-                <label className="text-sm font-medium text-light">Lessons</label>
-                {lessonData.map((lesson,idx) => (
+                <label className="text-sm font-medium text-light">
+                  Lessons
+                </label>
+                {lessonData.map((lesson, idx) => (
                   <div key={idx} className="flex gap-4 items-center">
-                    <input type="text" className="flex-grow text-white font-Inter text-sm font-bold bg-[#151515]" disabled value={`${lesson.title || " "}`} />
+                    <input
+                      type="text"
+                      className="flex-grow text-white font-Inter text-sm font-bold bg-[#151515]"
+                      disabled
+                      value={`${lesson.title || ' '}`}
+                    />
                     <div className="flex gap-2 items-center">
-                      <Link to={`/my-classroom/create-course/edit-lesson/${lesson.title}`}><div className="bg-[#242424] border-[#4D4D4D] border rounded-full p-2 w-fit"><EditButtonSvg /></div></Link>
-                      <div onClick={() => handleLessonDelete(lesson.title)} className="bg-[#242424] border-[#4D4D4D] border rounded-full p-2 w-fit"><CancelButtonSvg /></div>
+                      <Link
+                        to={`/my-classroom/create-course/edit-lesson/${lesson.title}`}
+                      >
+                        <div className="bg-[#242424] border-[#4D4D4D] border rounded-full p-2 w-fit">
+                          <EditButtonSvg />
+                        </div>
+                      </Link>
+                      <div
+                        onClick={() => handleLessonDelete(lesson.title)}
+                        className="bg-[#242424] border-[#4D4D4D] border rounded-full p-2 w-fit"
+                      >
+                        <CancelButtonSvg />
+                      </div>
                     </div>
-                  </div>))}
+                  </div>
+                ))}
               </div>
-              <div
-                onClick={handleAddClick}
-                className="flex items-center gap-3"
-              >
+              <div onClick={handleAddClick} className="flex items-center gap-3">
                 <p className="text-sm leading-6 capitalize text-light tracking-[-0.14px] hover:text-secondary duration-300 hover:opacity-60">
                   Add lesson
                 </p>
@@ -185,7 +210,10 @@ const CreateCourse = () => {
           type="submit"
           value="Publish"
         />
-        <button onClick={handleCancel} className="request-btn text-light bg-[#151515] px-6 py-3 rounded-lg hover:opacity-80 duration-300">
+        <button
+          onClick={handleCancel}
+          className="request-btn text-light bg-[#151515] px-6 py-3 rounded-lg hover:opacity-80 duration-300"
+        >
           Cancel
         </button>
       </div>

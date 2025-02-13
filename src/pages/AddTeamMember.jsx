@@ -11,7 +11,6 @@ const AddTeamMember = () => {
     register,
     handleSubmit,
     reset,
-    watch,
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
@@ -19,8 +18,6 @@ const AddTeamMember = () => {
   const onSubmit = (data) => {
     navigate('/profile/manage-team');
   };
-
-  console.log(watch('example'));
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];

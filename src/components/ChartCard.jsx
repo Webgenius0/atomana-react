@@ -1,14 +1,14 @@
-import BarCharts from "./BarChart";
-import Dropdown from "./Dropdown";
+import BarCharts from './BarChart';
+import Dropdown from './Dropdown';
 
 const ChartCard = ({ data, xKey, yKey, yDomain, total, title }) => {
   const options = [
-    { value: "This Month", label: " This Month" },
-    { value: "This Year", label: "This Year" },
-    { value: "option3", label: "Option 3" },
+    { value: 'This Month', label: ' This Month' },
+    { value: 'This Year', label: 'This Year' },
+    { value: 'option3', label: 'Option 3' },
   ];
   const handleSelect = (option) => {
-    // console.log("Selected option:", option);
+    console.table({ option });
   };
 
   return (

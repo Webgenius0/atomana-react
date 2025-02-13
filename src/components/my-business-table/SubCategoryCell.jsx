@@ -12,7 +12,6 @@ export default function SubCategoryCell({ row }) {
   )?.slug;
 
   const { expenseSubCategories } = useGetExpenseSubCategories(categorySlug);
-  console.log(row.expense_sub_category_id);
 
   const value = expenseSubCategories?.find(
     (subCategory) => subCategory.id === row.expense_sub_category_id
