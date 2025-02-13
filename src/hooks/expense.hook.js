@@ -68,7 +68,7 @@ export const useGetMyBusinessExpenses = ({ per_page = 25, page = 1 }) => {
   const axiosPrivate = useAxiosSecure();
 
   const result = useQuery({
-    queryKey: ['expense_subcategories'],
+    queryKey: ['business_expense'],
     queryFn: async () => {
       const response = await axiosPrivate.get(
         `/api/v1/expense/my-business-expenses`,
@@ -104,7 +104,109 @@ export const useStoreMyBusinessExpenses = () => {
     },
     onSuccess: (data) => {
       if (data?.success) {
-        queryClient.invalidateQueries(['expense_subcategories']);
+        queryClient.invalidateQueries(['business_expense']);
+      }
+    },
+    onError: (error) => {
+      alert(error?.response?.data?.message);
+    },
+  });
+
+  return result;
+};
+
+export const useGetMyListingExpenses = ({ per_page = 25, page = 1 }) => {
+  const axiosPrivate = useAxiosSecure();
+
+  const result = useQuery({
+    queryKey: ['listing_expense'],
+    queryFn: async () => {
+      const response = await axiosPrivate.get(
+        `/api/v1/expense/my-expense-list`,
+        {
+          params: { per_page, page },
+        }
+      );
+      return response.data;
+    },
+  });
+
+  const myListingExpenses = result?.data?.data?.data || [];
+
+  return { ...result, myListingExpenses };
+};
+
+export const useStoreMyListingExpenses = () => {
+  const axiosPrivate = useAxiosSecure();
+  const queryClient = useQueryClient();
+
+  const result = useMutation({
+    mutationFn: async (payload) => {
+      const response = await axiosPrivate.post(
+        `/api/v1/expense/store/my-expense-list`,
+        payload,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      return response.data;
+    },
+    onSuccess: (data) => {
+      if (data?.success) {
+        queryClient.invalidateQueries(['listing_expense']);
+      }
+    },
+    onError: (error) => {
+      alert(error?.response?.data?.message);
+    },
+  });
+
+  return result;
+};
+
+export const useGetMyAgentExpenses = ({ per_page = 25, page = 1 }) => {
+  const axiosPrivate = useAxiosSecure();
+
+  const result = useQuery({
+    queryKey: ['agent_expense'],
+    queryFn: async () => {
+      const response = await axiosPrivate.get(
+        `/api/v1/expense/my-agent-earnings`,
+        {
+          params: { per_page, page },
+        }
+      );
+      return response.data;
+    },
+  });
+
+  const myAgentExpenses = result?.data?.data?.data || [];
+
+  return { ...result, myAgentExpenses };
+};
+
+export const useStoreMyAgentExpenses = () => {
+  const axiosPrivate = useAxiosSecure();
+  const queryClient = useQueryClient();
+
+  const result = useMutation({
+    mutationFn: async (payload) => {
+      const response = await axiosPrivate.post(
+        `/api/v1/expense/store/my-agent-earnings`,
+        payload,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      return response.data;
+    },
+    onSuccess: (data) => {
+      if (data?.success) {
+        queryClient.invalidateQueries(['agent_expense']);
       }
     },
     onError: (error) => {
