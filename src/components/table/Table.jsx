@@ -15,7 +15,6 @@ const Table = ({ columnDef = [], data = [] }) => {
   const [showDynamicRow, setShowDynamicRow] = useState(false);
 
   const handleInputChange = (e, field) => {
-    console.log({ e, field });
     if (e.target?.files?.[0]?.name) {
       const fileName = e.target?.files[0]?.name || '';
       setNewRow({ ...newRow, receipt: fileName });
@@ -121,7 +120,11 @@ const Table = ({ columnDef = [], data = [] }) => {
               </td>
               {columns.map((column) => {
                 if (column.input && typeof column.input === 'function') {
-                  return column.input(newRow[column.key], handleInputChange);
+                  return column.input(
+                    newRow[column.key],
+                    handleInputChange,
+                    newRow
+                  );
                 } else {
                   return (
                     <td

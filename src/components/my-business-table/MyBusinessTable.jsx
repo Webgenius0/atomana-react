@@ -1,4 +1,8 @@
 import Table from '../table/Table';
+import CategoryInput from './CategoryInput';
+import PaymentMethodInput from './PaymentMethodInput';
+import SubCategoryInput from './SubCategoryInput';
+import TypeInput from './TypeInput';
 
 const columnDef = [
   {
@@ -19,27 +23,10 @@ const columnDef = [
   {
     key: 'type',
     header: 'Type',
+    width: 140,
     defaultValue: '',
     input: (value, onChange) => {
-      return (
-        <td className="border border-[#5E5E5E] p-2 w-fit text-light">
-          <select
-            className="py-2 px-2.5 font-Roboto text-[11px] text-light border border-light bg-transparent tracking-[0.25px] rounded cursor-pointer"
-            value={value}
-            onChange={(e) => onChange(e, 'type')}
-          >
-            <option value="" className="bg-dark">
-              Type
-            </option>
-            <option value="Income" className="bg-dark">
-              Income
-            </option>
-            <option value="Expense" className="bg-dark">
-              Expense
-            </option>
-          </select>
-        </td>
-      );
+      return <TypeInput value={value} onChange={onChange} />;
     },
   },
   {
@@ -71,63 +58,21 @@ const columnDef = [
       );
     },
     input: (value, onChange) => {
-      return (
-        <td className="border border-[#5E5E5E] p-2">
-          <select
-            className="py-2 px-2.5 font-Roboto text-[11px] text-light border border-light bg-transparent tracking-[0.25px] rounded cursor-pointer"
-            value={value}
-            onChange={(e) => onChange(e, 'category')}
-          >
-            <option value="" className="bg-dark">
-              Category
-            </option>
-            <option value="Commission Income" className="bg-dark">
-              Commission Income
-            </option>
-            <option value="Cost of Sales" className="bg-dark">
-              Cost of Sales
-            </option>
-            <option value="Referral Fee" className="bg-dark">
-              Referral Fee
-            </option>
-            <option value="Operating Expenses" className="bg-dark">
-              Operating Expenses
-            </option>
-            <option value="Gross Profit" className="bg-dark">
-              Gross Profit
-            </option>
-            <option value="Net Income" className="bg-dark">
-              Net Income
-            </option>
-          </select>
-        </td>
-      );
+      return <CategoryInput value={value} onChange={onChange} />;
     },
   },
   {
     key: 'subcategory',
     header: 'Subcategory',
-    width: 75,
+    width: 125,
     defaultValue: '',
-    input: (value, onChange) => {
+    input: (value, onChange, row) => {
       return (
-        <td className="border border-[#5E5E5E] p-2">
-          <select
-            className="py-2 px-2.5 font-Roboto text-[11px] text-light border border-light bg-transparent tracking-[0.25px] rounded cursor-pointer"
-            value={value}
-            onChange={(e) => onChange(e, 'subcategory')}
-          >
-            <option value="" className="bg-dark">
-              Subcategory
-            </option>
-            <option value="Marketing" className="bg-dark">
-              Marketing
-            </option>
-            <option value="Option 2" className="bg-dark">
-              Option 2
-            </option>
-          </select>
-        </td>
+        <SubCategoryInput
+          value={value}
+          onChange={onChange}
+          categoryId={row.category}
+        />
       );
     },
   },
@@ -151,28 +96,7 @@ const columnDef = [
     width: 100,
     defaultValue: '',
     input: (value, onChange) => {
-      return (
-        <td className="border border-[#5E5E5E] p-2">
-          <select
-            className="py-2 px-2.5 font-Roboto text-[11px] text-light border border-light bg-transparent tracking-[0.25px] rounded cursor-pointer"
-            value={value}
-            onChange={(e) => onChange(e, 'paymentMethod')}
-          >
-            <option value="" className="bg-dark">
-              Payment Method
-            </option>
-            <option value="Cash" className="bg-dark">
-              Cash
-            </option>
-            <option value="Credit Card" className="bg-dark">
-              Credit Card
-            </option>
-            <option value="Bank Transfer" className="bg-dark">
-              Bank Transfer
-            </option>
-          </select>
-        </td>
-      );
+      return <PaymentMethodInput value={value} onChange={onChange} />;
     },
   },
   {
