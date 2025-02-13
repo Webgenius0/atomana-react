@@ -6,6 +6,8 @@ const getDefaultRow = (columnDef) => {
   return row;
 };
 
+
+
 const Table = ({ columnDef = [], data = [] }) => {
   const [columns] = useState(columnDef);
   const [tableData, setTableData] = useState(
