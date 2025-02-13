@@ -1,11 +1,25 @@
-import React from "react";
-import profileAvatar from "@/assets/images/profile.png";
-import { Link } from "react-router-dom";
-import ArrowGreaterSvg from "@/components/svgs/ArrowGreaterSvg";
-import { useAuth } from "@/hooks/useAuth";
+import profileAvatar from '@/assets/images/profile.png';
+import ArrowGreaterSvg from '@/components/svgs/ArrowGreaterSvg';
+import { useAuth } from '@/hooks/useAuth';
+import { cn } from '@/lib/utils';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 
 const Profile = () => {
   const { logout } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleLogout = async () => {
+    setIsLoading(true);
+    try {
+      await logout();
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="my-container">
@@ -88,8 +102,14 @@ const Profile = () => {
           </div>
           <div>
             <button
-              onClick={() => logout()}
-              className="flex items-center justify-between gap-4 border-secondPrimary py-4 duration-300 hover:opacity-60"
+              onClick={handleLogout}
+              disabled={isLoading}
+              className={cn(
+                'flex items-center justify-between gap-4 border-secondPrimary py-4 duration-300 hover:opacity-60',
+                {
+                  'opacity-60': isLoading,
+                }
+              )}
             >
               <span className="text-sm font-medium leading-5 text-light">
                 Logout

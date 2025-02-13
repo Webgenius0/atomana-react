@@ -16,7 +16,10 @@ const AuthProvider = ({ children }) => {
 
   // Registration function with OTP email setting
   const signup = async (userData) => {
-    const { data } = await axiosPublic.post('/api/v1/auth/register', userData);
+    const { data } = await axiosPublic.post(
+      '/api/v1/auth/register-admin',
+      userData
+    );
     if (!data?.success) {
       throw new Error('Registration failed');
     }
@@ -74,6 +77,7 @@ const AuthProvider = ({ children }) => {
   // Login function
   const login = async (credentials) => {
     const { data } = await axiosPublic.post('/api/v1/auth/login', credentials);
+
     if (!data?.success) {
       throw new Error(data?.message);
     }
@@ -84,13 +88,28 @@ const AuthProvider = ({ children }) => {
       return data;
     }
 
-    setAuth((prev) => ({ ...prev, accessToken: data.token }));
+    setAuth({ token: data.data.token });
     setUserData((prev) => ({ ...prev, user: data?.data?.user }));
 
     return data;
   };
 
-  const logout = () => {
+  const logout = async () => {
+    console.log(`Bearer ${auth.token}`);
+    const { data } = await axiosPublic.post(
+      '/api/v1/auth/logout',
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      }
+    );
+
+    if (!data?.success) {
+      throw new Error(data?.message);
+    }
+
     clearAuth();
     clearUserData();
   };

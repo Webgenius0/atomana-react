@@ -1,6 +1,4 @@
-import React from "react";
-
-const InstaSvg = () => {
+const InstaSvg = ({ className }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -8,6 +6,7 @@ const InstaSvg = () => {
       height="15"
       viewBox="0 0 15 15"
       fill="none"
+      className={className}
     >
       <g clipPath="url(#clip0_1151_19240)">
         <path

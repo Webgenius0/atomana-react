@@ -1,6 +1,4 @@
-import React from "react";
-
-const FacebookSvg = () => {
+const FacebookSvg = ({ className }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -8,6 +6,7 @@ const FacebookSvg = () => {
       height="15"
       viewBox="0 0 15 15"
       fill="none"
+      className={className}
     >
       <g clipPath="url(#clip0_1151_19242)">
         <path
