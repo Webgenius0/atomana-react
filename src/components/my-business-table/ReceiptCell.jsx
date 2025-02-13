@@ -1,7 +1,7 @@
 export default function ReceiptCell({ row }) {
   const [name, extension] = row?.recept_name?.split?.('.') || [];
 
-  const receiptName = `${name.slice(0, 10)}...${extension}`;
+  const receiptName = `${name?.slice(0, 10)}...${extension}`;
 
   return (
     <td className="border border-[#5E5E5E] py-2 px-2.5 font-Roboto text-[11px] text-[#009696] tracking-[0.25px] font-normal text-center min-w-[125px]">
@@ -18,7 +18,7 @@ export default function ReceiptCell({ row }) {
             fill="white"
           />
         </svg>
-        {receiptName}
+        {row?.recept_name ? receiptName : '-'}
       </div>
     </td>
   );

@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useAxiosSecure } from './useAxios';
 
 export const useGetExpenseTypes = () => {
@@ -49,30 +49,6 @@ export const useGetExpenseSubCategories = (categorySlug) => {
   return { ...result, expenseSubCategories };
 };
 
-export const useGetMyBusinessExpenses = ({ per_page = 25, page = 1 }) => {
-  const axiosPrivate = useAxiosSecure();
-
-  const result = useQuery({
-    queryKey: ['expense_subcategories', per_page, page],
-    queryFn: async () => {
-      const response = await axiosPrivate.get(
-        `/api/v1/expense/my-business-expenses`,
-        {
-          params: { per_page, page },
-        }
-      );
-      return response.data;
-    },
-  });
-
-  const myBusinessExpenses = (result?.data?.data?.data || []).map((item) => ({
-    ...item,
-    date: new Date().toLocaleDateString(), // date field
-  }));
-
-  return { ...result, myBusinessExpenses };
-};
-
 export const useGetVendors = () => {
   const axiosPrivate = useAxiosSecure();
 
@@ -86,4 +62,55 @@ export const useGetVendors = () => {
 
   const vendors = result?.data?.data;
   return { ...result, vendors };
+};
+
+export const useGetMyBusinessExpenses = ({ per_page = 25, page = 1 }) => {
+  const axiosPrivate = useAxiosSecure();
+
+  const result = useQuery({
+    queryKey: ['expense_subcategories'],
+    queryFn: async () => {
+      const response = await axiosPrivate.get(
+        `/api/v1/expense/my-business-expenses`,
+        {
+          params: { per_page, page },
+        }
+      );
+      return response.data;
+    },
+  });
+
+  const myBusinessExpenses = result?.data?.data?.data || [];
+
+  return { ...result, myBusinessExpenses };
+};
+
+export const useStoreMyBusinessExpenses = () => {
+  const axiosPrivate = useAxiosSecure();
+  const queryClient = useQueryClient();
+
+  const result = useMutation({
+    mutationFn: async (payload) => {
+      const response = await axiosPrivate.post(
+        `/api/v1/expense/store/my-business-expenses`,
+        payload,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      return response.data;
+    },
+    onSuccess: (data) => {
+      if (data?.success) {
+        queryClient.invalidateQueries(['expense_subcategories']);
+      }
+    },
+    onError: (error) => {
+      alert(error?.response?.data?.message);
+    },
+  });
+
+  return result;
 };

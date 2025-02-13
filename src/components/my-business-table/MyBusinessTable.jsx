@@ -1,4 +1,5 @@
 import { useGetMyBusinessExpenses } from '@/hooks/expense.hook';
+import { format } from 'date-fns';
 import { useState } from 'react';
 import AmountCell from './AmountCell';
 import CategoryCell from './CategoryCell';
@@ -12,18 +13,19 @@ import SubCategoryInput from './SubCategoryInput';
 import Table from './Table';
 import TypeInput from './TypeInput';
 import VendorCell from './VendorCell';
+import VendorInput from './VendorInput';
 
 const columnDef = [
   {
     key: 'date',
     header: 'Date',
     width: 73,
-    defaultValue: new Date().toLocaleDateString(),
+    defaultValue: format(new Date(), 'dd/MM/yyyy'),
     input: (value, onChange) => {
       return (
         <td className="border border-[#5E5E5E] py-2 px-2.5 font-Roboto text-[11px] text-light tracking-[0.25px] font-normal text-center">
           <span className="w-full" onChange={(e) => onChange(e, 'date')}>
-            {value}
+            {value || '-'}
           </span>
         </td>
       );
@@ -65,7 +67,7 @@ const columnDef = [
         <SubCategoryInput
           value={value}
           onChange={onChange}
-          categoryId={row.category}
+          categoryId={row.expense_category_id}
         />
       );
     },
@@ -79,7 +81,7 @@ const columnDef = [
     cell: (row) => {
       return (
         <td className="border border-[#5E5E5E] py-2 px-2.5 font-Roboto text-[11px] text-light tracking-[0.25px] font-normal text-center min-w-[200px]">
-          {row?.description?.slice(0, 40) + '...'}
+          {row?.description ? row?.description?.slice(0, 40) + '...' : '-'}
         </td>
       );
     },
@@ -112,47 +114,20 @@ const columnDef = [
       return <VendorCell row={row} />;
     },
     input: (value, onChange) => {
-      return (
-        <td className="border border-[#5E5E5E] p-2">
-          <select
-            className="py-2 px-2.5 font-Roboto text-[11px] text-light border border-light bg-transparent tracking-[0.25px] rounded cursor-pointer"
-            value={value}
-            onChange={(e) => onChange(e, 'vendor_id')}
-          >
-            <option value="" className="bg-dark">
-              Payee / Client
-            </option>
-            <option value="Client Payment" className="bg-dark">
-              Client Payment
-            </option>
-            <option value="Staging Company" className="bg-dark">
-              Staging Company
-            </option>
-            <option value="Referral Agent" className="bg-dark">
-              Referral Agent
-            </option>
-            <option value="Google Ads" className="bg-dark">
-              Google Ads
-            </option>
-            <option value="ISP Provider" className="bg-dark">
-              ISP Provider
-            </option>
-            <option value="Association Inc" className="bg-dark">
-              Association Inc
-            </option>
-          </select>
-        </td>
-      );
+      return <VendorInput value={value} onChange={onChange} />;
     },
   },
   {
-    key: 'recept_name',
+    key: 'recept',
     header: 'Receipt',
     defaultValue: '',
     cell: (row) => {
       return <ReceiptCell row={row} />;
     },
     input: (value, onChange) => {
+      const [name, extension] = value?.name?.split?.('.') || [];
+      const receiptName = `${name?.slice(0, 10)}...${extension}`;
+
       return (
         <td className="border border-[#5E5E5E] p-2">
           <label className="flex items-center gap-1 py-2 px-2.5 font-Roboto text-[11px] text-light border border-light bg-transparent tracking-[0.25px] rounded cursor-pointer">
@@ -175,7 +150,7 @@ const columnDef = [
               onChange={(e) => onChange(e, 'recept')}
             />
 
-            <span>{value || 'Add Receipt'}</span>
+            <span>{value?.name ? receiptName : 'Add Receipt'}</span>
           </label>
         </td>
       );
@@ -188,28 +163,32 @@ const columnDef = [
     cell: (row) => {
       return (
         <td className="border border-[#5E5E5E] py-2 px-2.5 font-Roboto text-[11px] text-[#009696] tracking-[0.25px] font-normal text-center min-w-[110px]">
-          <div className="flex items-center gap-1">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="15"
-              height="15"
-              viewBox="0 0 15 15"
-              fill="none"
-            >
-              <g clipPath="url(#clip0_2401_11593)">
-                <path
-                  d="M7.5 1.25C4.05 1.25 1.25 4.05 1.25 7.5C1.25 10.95 4.05 13.75 7.5 13.75C10.95 13.75 13.75 10.95 13.75 7.5C13.75 4.05 10.95 1.25 7.5 1.25ZM4.41875 11.425C4.6875 10.8625 6.325 10.3125 7.5 10.3125C8.675 10.3125 10.3188 10.8625 10.5813 11.425C9.73125 12.1 8.6625 12.5 7.5 12.5C6.3375 12.5 5.26875 12.1 4.41875 11.425ZM11.475 10.5188C10.5813 9.43125 8.4125 9.0625 7.5 9.0625C6.5875 9.0625 4.41875 9.43125 3.525 10.5188C2.8875 9.68125 2.5 8.6375 2.5 7.5C2.5 4.74375 4.74375 2.5 7.5 2.5C10.2563 2.5 12.5 4.74375 12.5 7.5C12.5 8.6375 12.1125 9.68125 11.475 10.5188ZM7.5 3.75C6.2875 3.75 5.3125 4.725 5.3125 5.9375C5.3125 7.15 6.2875 8.125 7.5 8.125C8.7125 8.125 9.6875 7.15 9.6875 5.9375C9.6875 4.725 8.7125 3.75 7.5 3.75ZM7.5 6.875C6.98125 6.875 6.5625 6.45625 6.5625 5.9375C6.5625 5.41875 6.98125 5 7.5 5C8.01875 5 8.4375 5.41875 8.4375 5.9375C8.4375 6.45625 8.01875 6.875 7.5 6.875Z"
-                  fill="white"
-                />
-              </g>
-              <defs>
-                <clipPath id="clip0_2401_11593">
-                  <rect width="15" height="15" fill="white" />
-                </clipPath>
-              </defs>
-            </svg>
-            {row.owner}
-          </div>
+          {row.owner ? (
+            <div className="flex items-center gap-1">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="15"
+                height="15"
+                viewBox="0 0 15 15"
+                fill="none"
+              >
+                <g clipPath="url(#clip0_2401_11593)">
+                  <path
+                    d="M7.5 1.25C4.05 1.25 1.25 4.05 1.25 7.5C1.25 10.95 4.05 13.75 7.5 13.75C10.95 13.75 13.75 10.95 13.75 7.5C13.75 4.05 10.95 1.25 7.5 1.25ZM4.41875 11.425C4.6875 10.8625 6.325 10.3125 7.5 10.3125C8.675 10.3125 10.3188 10.8625 10.5813 11.425C9.73125 12.1 8.6625 12.5 7.5 12.5C6.3375 12.5 5.26875 12.1 4.41875 11.425ZM11.475 10.5188C10.5813 9.43125 8.4125 9.0625 7.5 9.0625C6.5875 9.0625 4.41875 9.43125 3.525 10.5188C2.8875 9.68125 2.5 8.6375 2.5 7.5C2.5 4.74375 4.74375 2.5 7.5 2.5C10.2563 2.5 12.5 4.74375 12.5 7.5C12.5 8.6375 12.1125 9.68125 11.475 10.5188ZM7.5 3.75C6.2875 3.75 5.3125 4.725 5.3125 5.9375C5.3125 7.15 6.2875 8.125 7.5 8.125C8.7125 8.125 9.6875 7.15 9.6875 5.9375C9.6875 4.725 8.7125 3.75 7.5 3.75ZM7.5 6.875C6.98125 6.875 6.5625 6.45625 6.5625 5.9375C6.5625 5.41875 6.98125 5 7.5 5C8.01875 5 8.4375 5.41875 8.4375 5.9375C8.4375 6.45625 8.01875 6.875 7.5 6.875Z"
+                    fill="white"
+                  />
+                </g>
+                <defs>
+                  <clipPath id="clip0_2401_11593">
+                    <rect width="15" height="15" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
+              {row.owner}
+            </div>
+          ) : (
+            <div>-</div>
+          )}
         </td>
       );
     },
@@ -226,7 +205,11 @@ const columnDef = [
             !row?.reimbursable ? 'bg-[#b91b1b33]' : ''
           }`}
         >
-          {row.reimbursable ? 'Yes' : 'No'}
+          {row.reimbursable === undefined
+            ? '-'
+            : row.reimbursable === true
+            ? 'Yes'
+            : 'No'}
         </td>
       );
     },
@@ -267,7 +250,7 @@ const columnDef = [
     cell: (row) => {
       return (
         <td className="border border-[#5E5E5E] py-2 px-2.5 font-Roboto text-[11px] text-light tracking-[0.25px] font-normal text-center min-w-[150px]">
-          {row?.note?.slice(0, 40) + '...'}
+          {row?.note ? row?.note?.slice(0, 40) + '...' : '-'}
         </td>
       );
     },

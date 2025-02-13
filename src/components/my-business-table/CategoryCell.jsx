@@ -25,7 +25,7 @@ export default function CategoryCell({ row }) {
           : 'text-light'
       }`}
     >
-      {value}
+      {value || '-'}
     </td>
   );
 }
