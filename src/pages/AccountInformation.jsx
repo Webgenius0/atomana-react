@@ -26,7 +26,9 @@ const AccountInformation = () => {
               Full name
             </p>
             <p className="text-sm font-medium leading-5 text-light capitalize">
-              {`${profile?.first_name} ${profile?.last_name}`}
+              {profile?.first_name
+                ? `${profile?.first_name} ${profile?.last_name}`
+                : 'N/A'}
             </p>
           </div>
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
