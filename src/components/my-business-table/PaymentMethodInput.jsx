@@ -8,7 +8,7 @@ export default function PaymentMethodInput({ value, onChange }) {
       <select
         className="py-2 px-2.5 font-Roboto text-[11px] text-light border border-light bg-transparent tracking-[0.25px] rounded cursor-pointer"
         value={value}
-        onChange={(e) => onChange(e, 'paymentMethod')}
+        onChange={(e) => onChange(e, 'payment_method_id')}
         disabled={isLoading}
       >
         <option value="" className="bg-dark">

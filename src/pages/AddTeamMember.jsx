@@ -1,11 +1,12 @@
-import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
-import FileSvg from "@/components/svgs/FileSvg";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
+import FileSvg from '@/components/svgs/FileSvg';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
 
 const AddTeamMember = () => {
-  const [fileName, setFileName] = useState("Select File");
+  const [fileName, setFileName] = useState('Select File');
+
   const {
     register,
     handleSubmit,
@@ -16,10 +17,10 @@ const AddTeamMember = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    navigate("/profile/manage-team");
+    navigate('/profile/manage-team');
   };
 
-  console.log(watch("example"));
+  console.log(watch('example'));
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -29,7 +30,7 @@ const AddTeamMember = () => {
   };
 
   const handleResetForm = () => {
-    setFileName("Select File");
+    setFileName('Select File');
     reset();
   };
 
@@ -37,9 +38,7 @@ const AddTeamMember = () => {
     <div className="my-container">
       <div className="pt-6 md:pt-8 lg:pt-12 pb-3">
         <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit">
-          <Link
-            to="/profile/manage-team"
-          >
+          <Link to="/profile/manage-team">
             <ArrowLeftSvg />
           </Link>
           <h2 className="section-title">Add a Team Member</h2>
@@ -57,7 +56,7 @@ const AddTeamMember = () => {
                 <input
                   className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                   placeholder="First"
-                  {...register("firstName")}
+                  {...register('firstName')}
                 />
               </div>
               <div className="flex flex-col gap-2 w-full">
@@ -67,7 +66,7 @@ const AddTeamMember = () => {
                 <input
                   className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                   placeholder="Last"
-                  {...register("lastName")}
+                  {...register('lastName')}
                 />
               </div>
             </div>
@@ -78,7 +77,7 @@ const AddTeamMember = () => {
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="i.e., Sales Lead"
-                {...register("title")}
+                {...register('title')}
               />
             </div>
             <div className="flex flex-col gap-2 w-full">
@@ -88,7 +87,7 @@ const AddTeamMember = () => {
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="example@email.com"
-                {...register("workEmail")}
+                {...register('workEmail')}
               />
             </div>
             <div className="flex flex-col gap-2 w-full">
@@ -98,7 +97,7 @@ const AddTeamMember = () => {
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="000-000-0000"
-                {...register("phone")}
+                {...register('phone')}
               />
             </div>
 

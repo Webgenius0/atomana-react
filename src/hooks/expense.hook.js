@@ -48,3 +48,42 @@ export const useGetExpenseSubCategories = (categorySlug) => {
   const expenseSubCategories = result?.data?.data;
   return { ...result, expenseSubCategories };
 };
+
+export const useGetMyBusinessExpenses = ({ per_page = 25, page = 1 }) => {
+  const axiosPrivate = useAxiosSecure();
+
+  const result = useQuery({
+    queryKey: ['expense_subcategories', per_page, page],
+    queryFn: async () => {
+      const response = await axiosPrivate.get(
+        `/api/v1/expense/my-business-expenses`,
+        {
+          params: { per_page, page },
+        }
+      );
+      return response.data;
+    },
+  });
+
+  const myBusinessExpenses = (result?.data?.data?.data || []).map((item) => ({
+    ...item,
+    date: new Date().toLocaleDateString(), // date field
+  }));
+
+  return { ...result, myBusinessExpenses };
+};
+
+export const useGetVendors = () => {
+  const axiosPrivate = useAxiosSecure();
+
+  const result = useQuery({
+    queryKey: ['vendors'],
+    queryFn: async () => {
+      const response = await axiosPrivate.get('/api/v1/expense/vendor');
+      return response.data;
+    },
+  });
+
+  const vendors = result?.data?.data;
+  return { ...result, vendors };
+};
