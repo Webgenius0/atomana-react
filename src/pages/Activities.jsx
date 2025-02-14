@@ -1,60 +1,60 @@
-import DataCard from "@/components/DataCard";
-import DropdownTwo from "@/components/DropdownTwo";
-import Pagination from "@/components/Pagination";
-import ProgressCard from "@/components/ProgressCard";
-import CalenderSvg from "@/components/svgs/CalenderSvg";
-import ClockSvg from "@/components/svgs/ClockSvg";
-import PlusSvg from "@/components/svgs/PlusSvg";
-import { useGetSystemsData } from "@/hooks/useGetSystemsData";
-import { useState } from "react";
+import DataCard from '@/components/DataCard';
+import DropdownTwo from '@/components/DropdownTwo';
+import Pagination from '@/components/Pagination';
+import ProgressCard from '@/components/ProgressCard';
+import CalenderSvg from '@/components/svgs/CalenderSvg';
+import ClockSvg from '@/components/svgs/ClockSvg';
+import PlusSvg from '@/components/svgs/PlusSvg';
+import { useGetSystemsData } from '@/hooks/useGetSystemsData';
+import { useState } from 'react';
 
 const Activities = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const data = [
     {
-      title: "Calls Today",
+      title: 'Calls Today',
       currentValue: 21,
       goalValue: 15,
-      goalType: "Daily",
+      goalType: 'Daily',
     },
     {
-      title: "Calls This Week",
+      title: 'Calls This Week',
       currentValue: 58,
       goalValue: 60,
-      goalType: "Weekly",
+      goalType: 'Weekly',
     },
     {
-      title: "Calls This Month",
+      title: 'Calls This Month',
       currentValue: 179,
       goalValue: 250,
-      goalType: "Monthly",
+      goalType: 'Monthly',
     },
     {
-      title: "Calls This Year",
+      title: 'Calls This Year',
       currentValue: 432,
       goalValue: 1250,
-      goalType: "Yearly",
+      goalType: 'Yearly',
     },
   ];
 
-  const { data: allData } = useGetSystemsData("open houses");
+  const { data: allData } = useGetSystemsData('open houses');
 
   const completedData = allData?.filter(
-    (item) => item?.status.toLowerCase() == "completed"
+    (item) => item?.status.toLowerCase() == 'completed'
   );
 
   const scheduledData = allData?.filter(
-    (item) => item?.status.toLowerCase() == "scheduled"
+    (item) => item?.status.toLowerCase() == 'scheduled'
   );
 
   const options = [
-    { value: "month", label: "This Month" },
-    { value: "quater", label: "Quater" },
-    { value: "year", label: "Yearly" },
+    { value: 'month', label: 'This Month' },
+    { value: 'quater', label: 'Quater' },
+    { value: 'year', label: 'Yearly' },
   ];
 
   const handleSelect = (option) => {
-    console.log("Selected option:", option);
+    console.table({ option });
   };
 
   return (
@@ -73,8 +73,8 @@ const Activities = () => {
                 fill="none"
               >
                 <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
                   d="M6.0181 1.04105C6.461 1.37098 6.55258 1.99749 6.22265 2.44039L2.82607 7L6.22265 11.5596C6.55258 12.0025 6.461 12.629 6.0181 12.9589C5.5752 13.2889 4.94869 13.1973 4.61876 12.7544L0.777154 7.59739C0.513084 7.2429 0.513084 6.7571 0.777154 6.40261L4.61876 1.24561C4.94869 0.802702 5.5752 0.711121 6.0181 1.04105Z"
                   fill="white"
                   stroke="#151515"
@@ -92,8 +92,8 @@ const Activities = () => {
                 fill="none"
               >
                 <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
                   d="M0.98177 1.04105C1.42467 0.711121 2.05118 0.802703 2.38111 1.24561L6.2227 6.40261C6.48676 6.7571 6.48676 7.2429 6.2227 7.59739L2.38111 12.7544C2.05118 13.1973 1.42467 13.2889 0.98177 12.9589C0.538866 12.629 0.447283 12.0025 0.777214 11.5596L4.17378 7L0.777214 2.44039C0.447283 1.99749 0.538866 1.37098 0.98177 1.04105Z"
                   fill="white"
                   stroke="#151515"
@@ -128,11 +128,11 @@ const Activities = () => {
             <DataCard key={item?.id} data={item}>
               <div className="space-y-2 mt-2">
                 <p className="text-secondary text-xs font-medium leading-[21px] tracking-[-0.12px]">
-                  Attendees:{" "}
+                  Attendees:{' '}
                   <span className="text-light">{item.attendees}</span>
                 </p>
                 <p className="text-secondary text-xs font-medium leading-[21px] tracking-[-0.12px]">
-                  Status: 
+                  Status:
                   <span className="text-light">{item.status}</span>
                 </p>
               </div>
@@ -164,7 +164,7 @@ const Activities = () => {
                   Invited: <span className="text-light">{item.invited}</span>
                 </p>
                 <p className="text-secondary text-xs font-medium leading-[21px] tracking-[-0.12px]">
-                  Last Activity:{" "}
+                  Last Activity:{' '}
                   <span className="text-light">{item.status}</span>
                 </p>
               </div>

@@ -1,11 +1,11 @@
-import CustomDatePicker from "@/components/CustomDatePicker";
-import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
-import CalenderSvg from "@/components/svgs/CalenderSvg";
-import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
-import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
-import { Controller, useForm } from "react-hook-form";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import FormLineSvg from "@/components/svgs/FromLineSvg";
+import CustomDatePicker from '@/components/CustomDatePicker';
+import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
+import CalenderSvg from '@/components/svgs/CalenderSvg';
+import FormLineSvg from '@/components/svgs/FromLineSvg';
+import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
+import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
+import { Controller, useForm } from 'react-hook-form';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 function NewListingInformationForm() {
   const {
@@ -17,22 +17,22 @@ function NewListingInformationForm() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      isDevelopment: "No",
-      addToDevelopmentPage: "No",
-      isCoListing: "No",
-      coListingDetails: "",
+      isDevelopment: 'No',
+      addToDevelopmentPage: 'No',
+      isCoListing: 'No',
+      coListingDetails: '',
       expirationDate: null,
     },
   });
   const navigate = useNavigate();
   const location = useLocation();
 
-  const isDevelopment = watch("isDevelopment");
-  const isCoListing = watch("isCoListing");
+  const isDevelopment = watch('isDevelopment');
+  const isCoListing = watch('isCoListing');
 
   const onSubmit = (data) => {
-    console.log("new listing form data: ", data);
-    console.log("Selected Date:", data.expirationDate);
+    // console.log("new listing form data: ", data);
+    // console.log("Selected Date:", data.expirationDate);
     navigate(`/my-systems/new-listing/new-listing-information-form`);
     reset();
   };
@@ -45,7 +45,7 @@ function NewListingInformationForm() {
     <>
       <div className="flex items-center gap-4 justify-between">
         <Link
-          to={`${location.state?.from || "/my-systems/new-listing"}`}
+          to={`${location.state?.from || '/my-systems/new-listing'}`}
           className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5"
         >
           <ArrowLeftSvg />
@@ -74,7 +74,7 @@ function NewListingInformationForm() {
               type="email"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="youremail@spearsgroup.com"
-              {...register("email")}
+              {...register('email')}
             />
           </div>
           <div className="flex flex-col gap-2 w-full">
@@ -85,7 +85,7 @@ function NewListingInformationForm() {
               type="text"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="Type the address and subdivision name here"
-              {...register("property-address")}
+              {...register('property-address')}
             />
           </div>
 
@@ -96,7 +96,7 @@ function NewListingInformationForm() {
             <input
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="$0"
-              {...register("price")}
+              {...register('price')}
             />
           </div>
           <div className="flex flex-col gap-2 w-full">
@@ -145,7 +145,7 @@ function NewListingInformationForm() {
           </div>
 
           {/* Add to development page (conditional) */}
-          {isDevelopment === "Yes" && (
+          {isDevelopment === 'Yes' && (
             <div className="flex items-center sm:gap-6 gap-4 sm:ml-12 ml-8">
               <FormLineSvg />
               <div className="w-full">
@@ -204,7 +204,7 @@ function NewListingInformationForm() {
             />
           </div>
           {/* Co-listing details (conditional) */}
-          {isCoListing === "Yes" && (
+          {isCoListing === 'Yes' && (
             <div className="flex items-center sm:gap-6 gap-4 sm:ml-12 ml-8">
               <FormLineSvg />
               <div className="w-full">
@@ -233,7 +233,7 @@ function NewListingInformationForm() {
             <input
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="source"
-              {...register("source")}
+              {...register('source')}
             />
           </div>
         </form>

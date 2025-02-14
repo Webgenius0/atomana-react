@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useStoreMyListingExpenses } from '@/hooks/expense.hook';
+import { cn } from '@/lib/utils';
+import { useEffect, useState } from 'react';
 
 const getDefaultRow = (columnDef) => {
   const row = { selected: false };
@@ -6,20 +8,28 @@ const getDefaultRow = (columnDef) => {
   return row;
 };
 
-
-
 const Table = ({ columnDef = [], data = [] }) => {
   const [columns] = useState(columnDef);
   const [tableData, setTableData] = useState(
-    data.map((item) => ({ ...item, selected: false }))
+    data?.map((item) => ({ ...item, selected: false }))
   );
   const [newRow, setNewRow] = useState(getDefaultRow(columns));
   const [showDynamicRow, setShowDynamicRow] = useState(false);
 
+  const {
+    mutate: storeListingExpense,
+    data: storeResponse,
+    isPending,
+    isSuccess,
+  } = useStoreMyListingExpenses();
+
+  useEffect(() => {
+    setTableData(data?.map((item) => ({ ...item, selected: false })));
+  }, [data]);
+
   const handleInputChange = (e, field) => {
     if (e.target?.files?.[0]?.name) {
-      const fileName = e.target?.files[0]?.name || '';
-      setNewRow({ ...newRow, receipt: fileName });
+      setNewRow({ ...newRow, [field]: e.target?.files[0] });
     } else {
       setNewRow({ ...newRow, [field]: e.target.value });
     }
@@ -31,15 +41,14 @@ const Table = ({ columnDef = [], data = [] }) => {
   };
 
   const handleConfirmExpense = () => {
-    if (Object.values(newRow).some((value) => value === '')) {
-      alert('Please fill in all fields before adding an expense!');
-      return;
-    }
-
-    setTableData([...tableData, newRow]);
-
-    setShowDynamicRow(false);
+    storeListingExpense(newRow);
   };
+
+  useEffect(() => {
+    if (storeResponse?.success && !isPending && isSuccess) {
+      setShowDynamicRow(false);
+    }
+  }, [storeResponse, isPending, isSuccess]);
 
   return (
     <div className="overflow-x-auto">
@@ -52,7 +61,7 @@ const Table = ({ columnDef = [], data = [] }) => {
                 onChange={(e) => {
                   const checked = e.target.checked;
                   setTableData(
-                    tableData.map((row) => ({ ...row, selected: checked }))
+                    tableData?.map((row) => ({ ...row, selected: checked }))
                   );
                 }}
               />
@@ -70,7 +79,7 @@ const Table = ({ columnDef = [], data = [] }) => {
           </tr>
         </thead>
         <tbody>
-          {tableData.map((row, index) => (
+          {tableData?.map((row, index) => (
             <tr key={index} className="">
               <td className="border border-[#5E5E5E] p-2">
                 <input
@@ -79,7 +88,7 @@ const Table = ({ columnDef = [], data = [] }) => {
                   onChange={(e) => {
                     const checked = e.target.checked;
                     setTableData(
-                      tableData.map((r, i) =>
+                      tableData?.map((r, i) =>
                         i === index ? { ...r, selected: checked } : r
                       )
                     );
@@ -99,7 +108,7 @@ const Table = ({ columnDef = [], data = [] }) => {
                         minWidth: column.width,
                       }}
                     >
-                      {column.cell || row[column.key]}
+                      {column.cell || row[column.key] || '-'}
                     </td>
                   );
                 }
@@ -172,14 +181,22 @@ const Table = ({ columnDef = [], data = [] }) => {
               >
                 <div className="flex items-center space-x-4">
                   <button
-                    className="px-3 py-2 bg-green-600 hover:bg-green-700 border border-green-600 rounded-lg text-white text-xs font-medium font-Roboto transition duration-200 ease-in-out shadow-md"
+                    className={cn(
+                      'px-3 py-2 bg-green-600 hover:bg-green-700 border border-green-600 rounded-lg text-white text-xs font-medium font-Roboto transition duration-200 ease-in-out shadow-md',
+                      { 'opacity-60': isPending }
+                    )}
                     onClick={handleConfirmExpense}
+                    disabled={isPending}
                   >
                     Confirm
                   </button>
                   <button
-                    className="px-3 py-2 bg-red-600 hover:bg-red-700 border border-red-600 rounded-lg text-white text-xs font-medium font-Roboto transition duration-200 ease-in-out shadow-md"
+                    className={cn(
+                      'px-3 py-2 bg-red-600 hover:bg-red-700 border border-red-600 rounded-lg text-white text-xs font-medium font-Roboto transition duration-200 ease-in-out shadow-md',
+                      { 'opacity-60': isPending }
+                    )}
                     onClick={() => setShowDynamicRow(false)}
+                    disabled={isPending}
                   >
                     Cancel
                   </button>

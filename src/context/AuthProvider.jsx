@@ -95,8 +95,9 @@ const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    console.log(`Bearer ${auth.token}`);
-    const { data } = await axiosPublic.post(
+    clearAuth();
+    clearUserData();
+    await axiosPublic.post(
       '/api/v1/auth/logout',
       {},
       {
@@ -105,13 +106,6 @@ const AuthProvider = ({ children }) => {
         },
       }
     );
-
-    if (!data?.success) {
-      throw new Error(data?.message);
-    }
-
-    clearAuth();
-    clearUserData();
   };
 
   const sendForgetPasswordOTP = async (email) => {

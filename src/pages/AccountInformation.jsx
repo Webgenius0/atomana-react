@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom';
 const AccountInformation = () => {
   const { profile } = useGetProfile();
 
-  console.log({ profile });
   return (
     <div className="my-container">
       <div className="pt-6 md:pt-8 lg:pt-12 pb-3">
