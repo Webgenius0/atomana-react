@@ -1,20 +1,20 @@
-import Dropdown from '@/components/Dropdown';
-import MyAgentTable from '@/components/my-agent-table/MyAgentTable';
-import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
-import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
-import SearchIconSvg from '@/components/svgs/SearchIconSvg';
-import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
-import { Link } from 'react-router-dom';
+import Dropdown from "@/components/Dropdown";
+import MyAgentTable from "@/components/my-agent-table/MyAgentTable";
+import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
+import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
+import SearchIconSvg from "@/components/svgs/SearchIconSvg";
+import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
+import { Link } from "react-router-dom";
 
 const MyAgentExpense = () => {
   const heightoptions = [
-    { value: 'highestsales', label: 'Time Range: YTD 2024' },
-    { value: 'quater', label: 'Quater' },
-    { value: 'year', label: 'Yearly' },
+    { value: "highestsales", label: "Time Range: YTD 2024" },
+    { value: "quater", label: "Quater" },
+    { value: "year", label: "Yearly" },
   ];
 
   const handleSelect = (option) => {
-    console.log('Selected option:', option);
+    // console.log('Selected option:', option);
   };
 
   return (
@@ -43,7 +43,7 @@ const MyAgentExpense = () => {
             <input
               type="text"
               className="border rounded-full bg-transparent pl-10 pr-4 py-1 w-full text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Search reviews"
+              placeholder="Search expenses"
             />
             <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
               <SearchIconSvg />

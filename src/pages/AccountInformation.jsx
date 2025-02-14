@@ -1,18 +1,20 @@
-import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
-import FacebookSvg from "@/components/svgs/FacebookSvg";
-import InstaSvg from "@/components/svgs/InstaSvg";
-import XSvg from "@/components/svgs/XSvg";
-import React from "react";
-import { Link } from "react-router-dom";
+import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
+import FacebookSvg from '@/components/svgs/FacebookSvg';
+import InstaSvg from '@/components/svgs/InstaSvg';
+import XSvg from '@/components/svgs/XSvg';
+import { STATUS } from '@/constants';
+import { useGetProfile } from '@/hooks/profile.hook';
+import { format } from 'date-fns';
+import { Link } from 'react-router-dom';
 
 const AccountInformation = () => {
+  const { profile } = useGetProfile();
+
   return (
     <div className="my-container">
       <div className="pt-6 md:pt-8 lg:pt-12 pb-3">
         <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit">
-          <Link
-            to="/profile"
-          >
+          <Link to="/profile">
             <ArrowLeftSvg />
           </Link>
           <h2 className="section-title">Account Information</h2>
@@ -22,20 +24,24 @@ const AccountInformation = () => {
             <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
               Full name
             </p>
-            <p className="text-sm font-medium leading-5 text-light">
-              Elena Laol
+            <p className="text-sm font-medium leading-5 text-light capitalize">
+              {profile?.first_name
+                ? `${profile?.first_name} ${profile?.last_name}`
+                : 'N/A'}
             </p>
           </div>
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold leading-5 text-sm text-[#ffffffcc]">Role</p>
-            <p className="text-sm font-medium leading-5 text-light">Admin</p>
+            <p className="text-sm font-medium leading-5 text-light capitalize">
+              {profile?.role}
+            </p>
           </div>
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
               License Number
             </p>
-            <p className="text-sm font-medium leading-5 text-light">
-              329792802
+            <p className="text-sm font-medium leading-5 text-light uppercase">
+              {profile?.licence}
             </p>
           </div>
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
@@ -43,14 +49,16 @@ const AccountInformation = () => {
               ECAR ID
             </p>
             <p className="text-sm font-medium leading-5 text-light">
-              329792802
+              {profile?.ecar_id}
             </p>
           </div>
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
               Status
             </p>
-            <p className="text-sm font-medium leading-5 text-light">Active </p>
+            <p className="text-sm font-medium leading-5 text-light capitalize">
+              {STATUS[profile?.status]}
+            </p>
           </div>
 
           <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
@@ -59,8 +67,7 @@ const AccountInformation = () => {
                 Home address
               </p>
               <p className="text-sm font-medium leading-5 text-light">
-                341 Horton Ave <br />
-                San Francisco, CA 94118
+                {profile?.address || 'N/A'}
               </p>
             </div>
 
@@ -77,7 +84,7 @@ const AccountInformation = () => {
                 Personal email address
               </p>
               <p className="text-sm font-medium leading-5 text-light">
-                elena.laol@gmail.com
+                {profile?.email}
               </p>
             </div>
 
@@ -94,7 +101,7 @@ const AccountInformation = () => {
                 Phone number
               </p>
               <p className="text-sm font-medium leading-5 text-light">
-                208-913-4467
+                {profile?.phone || 'N/A'}
               </p>
             </div>
 
@@ -111,7 +118,9 @@ const AccountInformation = () => {
                 Birthday
               </p>
               <p className="text-sm font-medium leading-5 text-light">
-                11/21/1985
+                {profile?.date_of_birth
+                  ? format(profile?.date_of_birth, 'P')
+                  : 'N/A'}
               </p>
             </div>
 
@@ -128,7 +137,7 @@ const AccountInformation = () => {
                 Spears Group anniversary Home address
               </p>
               <p className="text-sm font-medium leading-5 text-light">
-                06/22/2019
+                {profile?.address || 'N/A'}
               </p>
             </div>
 
@@ -145,9 +154,27 @@ const AccountInformation = () => {
                 Social media
               </p>
               <div className="flex items-center gap-5">
-                <InstaSvg />
-                <XSvg />
-                <FacebookSvg />
+                {profile?.instagram ? (
+                  <a href={profile.instagram} target="_blank">
+                    <InstaSvg />
+                  </a>
+                ) : (
+                  <InstaSvg className="opacity-60" />
+                )}
+                {profile?.twitter ? (
+                  <a href={profile.twitter} target="_blank">
+                    <XSvg />
+                  </a>
+                ) : (
+                  <XSvg className="opacity-60" />
+                )}
+                {profile?.facebook ? (
+                  <a href={profile.facebook} target="_blank">
+                    <FacebookSvg />
+                  </a>
+                ) : (
+                  <FacebookSvg className="opacity-60" />
+                )}
               </div>
             </div>
 
@@ -162,6 +189,9 @@ const AccountInformation = () => {
             <div className="space-y-[2px]">
               <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
                 About Me
+              </p>
+              <p className="text-sm font-medium leading-5 text-light">
+                {profile?.bio || 'N/A'}
               </p>
             </div>
 

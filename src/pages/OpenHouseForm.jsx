@@ -1,11 +1,11 @@
-import CustomDatePicker from "@/components/CustomDatePicker";
-import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
-import CalenderSvg from "@/components/svgs/CalenderSvg";
-import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
-import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
-import TimeRangePicker from "@/components/TimeRangePicker";
-import { Controller, useForm } from "react-hook-form";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import CustomDatePicker from '@/components/CustomDatePicker';
+import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
+import CalenderSvg from '@/components/svgs/CalenderSvg';
+import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
+import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
+import TimeRangePicker from '@/components/TimeRangePicker';
+import { Controller, useForm } from 'react-hook-form';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const OpenHouseForm = () => {
   const {
@@ -19,7 +19,7 @@ const OpenHouseForm = () => {
   const location = useLocation();
 
   const onSubmit = (data) => {
-    console.log("open house form data: ", data)
+    // console.log("open house form data: ", data)
     navigate(`/my-systems/open-house/open-house-form-details`);
   };
 
@@ -33,7 +33,9 @@ const OpenHouseForm = () => {
       <div className="flex items-center gap-4 justify-between">
         <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5">
           <Link
-            to={`${location.state?.from || "/my-systems/open-house/open-house-form"}`}
+            to={`${
+              location.state?.from || '/my-systems/open-house/open-house-form'
+            }`}
           >
             <ArrowLeftSvg />
           </Link>
@@ -69,7 +71,7 @@ const OpenHouseForm = () => {
               type="email"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="youremail@spearsgroup.com"
-              {...register("email")}
+              {...register('email')}
             />
           </div>
           <div className="flex flex-col gap-2 w-full">
@@ -82,7 +84,7 @@ const OpenHouseForm = () => {
               type="text"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="Type your answer here"
-              {...register("answer")}
+              {...register('answer')}
             />
           </div>
           <div className="flex flex-col gap-2 w-full">
@@ -95,7 +97,10 @@ const OpenHouseForm = () => {
                 name="expirationDate"
                 control={control}
                 render={({ field }) => (
-                  <CustomDatePicker value={field.value} onChange={field.onChange} />
+                  <CustomDatePicker
+                    value={field.value}
+                    onChange={field.onChange}
+                  />
                 )}
               />
               <CalenderSvg />
@@ -114,7 +119,7 @@ const OpenHouseForm = () => {
             <input
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="000-000-0000"
-              {...register("phone")}
+              {...register('phone')}
             />
           </div>
           <div className="flex flex-col gap-2 w-full">
@@ -124,7 +129,7 @@ const OpenHouseForm = () => {
             <input
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="0"
-              {...register("signs")}
+              {...register('signs')}
             />
           </div>
         </form>

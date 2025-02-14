@@ -16,12 +16,15 @@ const AuthProvider = ({ children }) => {
 
   // Registration function with OTP email setting
   const signup = async (userData) => {
-    const { data } = await axiosPublic.post('/api/v1/auth/register', userData);
+    const { data } = await axiosPublic.post(
+      '/api/v1/auth/register-admin',
+      userData
+    );
     if (!data?.success) {
       throw new Error('Registration failed');
     }
     setEmailForOTP(userData.email);
-    setAuth(data.data.token);
+    setAuth({ token: data.data.token });
   };
 
   // Verify OTP function
@@ -38,7 +41,7 @@ const AuthProvider = ({ children }) => {
         payload,
         {
           headers: {
-            Authorization: `Bearer ${auth}`,
+            Authorization: `Bearer ${auth.token}`,
           },
         }
       );
@@ -61,9 +64,10 @@ const AuthProvider = ({ children }) => {
       email: emailForOTP,
       operation: 'email',
     };
+
     const { data } = await axiosPublic.post('/api/v1/auth/otp-send', payload, {
       headers: {
-        Authorization: `Bearer ${auth}`,
+        Authorization: `Bearer ${auth.token}`,
       },
     });
     if (!data?.success) {
@@ -74,25 +78,34 @@ const AuthProvider = ({ children }) => {
   // Login function
   const login = async (credentials) => {
     const { data } = await axiosPublic.post('/api/v1/auth/login', credentials);
+
     if (!data?.success) {
       throw new Error(data?.message);
     }
 
+    setAuth({ token: data.data.token });
+    setUserData((prev) => ({ ...prev, user: data?.data?.user }));
+
     if (!data?.data?.verify) {
       setEmailForOTP(credentials.email);
       await sendOTP();
-      return data;
     }
-
-    setAuth((prev) => ({ ...prev, accessToken: data.token }));
-    setUserData((prev) => ({ ...prev, user: data?.data?.user }));
 
     return data;
   };
 
-  const logout = () => {
+  const logout = async () => {
     clearAuth();
     clearUserData();
+    await axiosPublic.post(
+      '/api/v1/auth/logout',
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      }
+    );
   };
 
   const sendForgetPasswordOTP = async (email) => {

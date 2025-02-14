@@ -22,6 +22,12 @@ const signupSchema = z
       .string({ required_error: 'email is required' })
       .min(1, 'email is required')
       .email('invalid email'),
+    licence: z
+      .string({ required_error: 'license number is required' })
+      .min(1, 'license number is required'),
+    ecar_id: z
+      .string({ required_error: 'ecar id is required' })
+      .min(1, 'ecar id is required'),
     password: z
       .string({ required_error: 'password is required' })
       .min(1, 'password is required')
@@ -179,6 +185,48 @@ const SignUp = () => {
                   {errors?.email && (
                     <p className="text-red-500 text-xs">
                       {errors?.email?.message}
+                    </p>
+                  )}
+                </div>
+                <div className="flex flex-col gap-[8px]">
+                  <label
+                    className="text-[14px] font-medium leading-[21px] tracking-[-0.14px] text-[#FFF]"
+                    htmlFor="licenseNumber"
+                  >
+                    License Number
+                  </label>
+                  <input
+                    className="h-[50px] p-[16px_12px_16px_16px] rounded-[10px] border border-[#D8DFEB] bg-[#151515] outline-none placeholder:text-xs sm:placeholder:text-base"
+                    type="text"
+                    placeholder="enter license number"
+                    id="licenseNumber"
+                    disabled={isLoading}
+                    {...register('licence')}
+                  />
+                  {errors?.licence && (
+                    <p className="text-red-500 text-xs">
+                      {errors?.licence?.message}
+                    </p>
+                  )}
+                </div>
+                <div className="flex flex-col gap-[8px]">
+                  <label
+                    className="text-[14px] font-medium leading-[21px] tracking-[-0.14px] text-[#FFF]"
+                    htmlFor="ecarId"
+                  >
+                    ECAR ID
+                  </label>
+                  <input
+                    className="h-[50px] p-[16px_12px_16px_16px] rounded-[10px] border border-[#D8DFEB] bg-[#151515] outline-none placeholder:text-xs sm:placeholder:text-base"
+                    type="text"
+                    placeholder="enter ecar id"
+                    id="ecarId"
+                    disabled={isLoading}
+                    {...register('ecar_id')}
+                  />
+                  {errors?.ecar_id && (
+                    <p className="text-red-500 text-xs">
+                      {errors?.ecar_id?.message}
                     </p>
                   )}
                 </div>

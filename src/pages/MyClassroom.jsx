@@ -1,12 +1,12 @@
-import ContinueLearningCard from "@/components/ContinueLearningCard";
-import CourseCard from "@/components/CourseCard";
-import ArrowRightSvg from "@/components/svgs/ArrowRightSvg";
-import PlusSvg from "@/components/svgs/PlusSvg";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import ContinueLearningCard from '@/components/ContinueLearningCard';
+import CourseCard from '@/components/CourseCard';
+import ArrowRightSvg from '@/components/svgs/ArrowRightSvg';
+import PlusSvg from '@/components/svgs/PlusSvg';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 //import { useGetMyClassroomsData } from "@/hooks/useGetMyClassroomsData";
 
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const MyClassroom = () => {
   const [data, setData] = useState();
@@ -14,10 +14,10 @@ const MyClassroom = () => {
   const navigate = useNavigate();
 
   const handelAddContent = () => {
-    navigate("/my-classroom/create-course", {
+    navigate('/my-classroom/create-course', {
       state: { from: location.pathname },
     });
-  }
+  };
   // const { data, isLoading, isError, error } = useGetMyClassroomsData("team");
 
   // if (isLoading) {
@@ -74,16 +74,15 @@ const MyClassroom = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("/my_classroom.json")
+        const response = await axios.get('/my_classroom.json');
         setData(response.data);
-        console.log(response.data);
-      }
-      catch (error) {
-        console.log("Error Fetching Json: ", error)
+        // console.log(response.data);
+      } catch (error) {
+        console.error('Error Fetching Json: ', error);
       }
     };
     fetchData();
-  }, [])
+  }, []);
   return (
     <>
       <div className="my-container ">

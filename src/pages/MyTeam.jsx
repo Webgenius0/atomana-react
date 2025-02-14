@@ -1,139 +1,139 @@
-import ChartCard from "@/components/ChartCard";
-import DataCard from "@/components/DataCard";
-import Dropdown from "@/components/Dropdown";
-import ProgressBar from "@/components/ProgressBar";
-import { useGetSystemsData } from "@/hooks/useGetSystemsData";
-import { useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import "../App.css";
+import ChartCard from '@/components/ChartCard';
+import DataCard from '@/components/DataCard';
+import Dropdown from '@/components/Dropdown';
+import ProgressBar from '@/components/ProgressBar';
+import { useGetSystemsData } from '@/hooks/useGetSystemsData';
+import { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import '../App.css';
 
 const MyTeam = () => {
-  const data  = useGetSystemsData();
+  const data = useGetSystemsData();
 
   const ourMission = [
     {
-      title: "To Create Lifelong Relationships and Raving Fans",
-      subTitle: "",
+      title: 'To Create Lifelong Relationships and Raving Fans',
+      subTitle: '',
     },
     {
-      title: "Excellence",
-      subTitle: "Consistent execution, Do things the right way consistently",
+      title: 'Excellence',
+      subTitle: 'Consistent execution, Do things the right way consistently',
     },
     {
-      title: "Relentless",
-      subTitle: "Persist without exception",
+      title: 'Relentless',
+      subTitle: 'Persist without exception',
     },
     {
-      title: "Adaptive",
-      subTitle: "Today’s market isn’t yesterday’s market",
+      title: 'Adaptive',
+      subTitle: 'Today’s market isn’t yesterday’s market',
     },
     {
-      title: "Collaborate",
-      subTitle: "Get to solutions together ",
+      title: 'Collaborate',
+      subTitle: 'Get to solutions together ',
     },
     {
-      title: "Extreme Ownership",
-      subTitle: "We own our problems and work towards solutions",
+      title: 'Extreme Ownership',
+      subTitle: 'We own our problems and work towards solutions',
     },
   ];
   const options = [
-    { value: "month", label: "This Month" },
-    { value: "quater", label: "Quater" },
-    { value: "year", label: "Yearly" },
+    { value: 'month', label: 'This Month' },
+    { value: 'quater', label: 'Quater' },
+    { value: 'year', label: 'Yearly' },
   ];
   const heightOptions = [
-    { value: "highestsales", label: "sort By: Highest sales" },
-    { value: "quater", label: "Quater" },
-    { value: "year", label: "Yearly" },
+    { value: 'highestsales', label: 'sort By: Highest sales' },
+    { value: 'quater', label: 'Quater' },
+    { value: 'year', label: 'Yearly' },
   ];
   const chartData = [
     {
       id: 1,
-      data: [{ name: "January", value: 200 }],
-      xKey: "name",
-      yKey: "value",
-      title: "Current Sales Volume",
+      data: [{ name: 'January', value: 200 }],
+      xKey: 'name',
+      yKey: 'value',
+      title: 'Current Sales Volume',
       yDomain: [0, 400],
     },
     {
       id: 2,
-      data: [{ name: "Q1", amount: 100000 }],
-      xKey: "name",
-      yKey: "amount",
-      title: "Units Sold",
+      data: [{ name: 'Q1', amount: 100000 }],
+      xKey: 'name',
+      yKey: 'amount',
+      title: 'Units Sold',
       yDomain: [0, 1000000],
     },
     {
       id: 3,
-      data: [{ name: "Item A", sales: 30000 }],
-      xKey: "name",
-      yKey: "sales",
-      title: "Expenses",
+      data: [{ name: 'Item A', sales: 30000 }],
+      xKey: 'name',
+      yKey: 'sales',
+      title: 'Expenses',
       yDomain: [0, 200000],
     },
     {
       id: 4,
-      data: [{ name: "John", salary: 300 }],
-      xKey: "name",
-      yKey: "salary",
-      title: "Gross Profit",
+      data: [{ name: 'John', salary: 300 }],
+      xKey: 'name',
+      yKey: 'salary',
+      title: 'Gross Profit',
       yDomain: [0, 400],
     },
   ];
 
   const agentLeaderBoardData = [
     {
-      name: "James L.",
-      amount: "264,054",
+      name: 'James L.',
+      amount: '264,054',
       sales: 12,
       salesGoal: 25,
     },
     {
-      name: "Sasha B.",
-      amount: "251,839",
+      name: 'Sasha B.',
+      amount: '251,839',
       sales: 10,
       salesGoal: 25,
     },
     {
-      name: "Russel M.",
-      amount: "204,576",
+      name: 'Russel M.',
+      amount: '204,576',
       sales: 10,
       salesGoal: 30,
     },
     {
-      name: "Kim H.",
-      amount: "202,843",
+      name: 'Kim H.',
+      amount: '202,843',
       sales: 9,
       salesGoal: 40,
     },
     {
-      name: "Ralph D.",
-      amount: "200,003",
+      name: 'Ralph D.',
+      amount: '200,003',
       sales: 9,
       salesGoal: 42,
     },
     {
-      name: "Irwin K.",
-      amount: "199,398",
+      name: 'Irwin K.',
+      amount: '199,398',
       sales: 8,
       salesGoal: 40,
     },
     {
-      name: "Sasha M.",
-      amount: "199,192",
+      name: 'Sasha M.',
+      amount: '199,192',
       sales: 8,
       salesGoal: 40,
     },
     {
-      name: "Sasha N.",
-      amount: "198,278",
+      name: 'Sasha N.',
+      amount: '198,278',
       sales: 1,
       salesGoal: 5,
     },
   ];
 
   const handleSelect = (option) => {
-    console.log("Selected option:", option);
+    // console.log("Selected option:", option);
   };
 
   const agentRef = useRef();
@@ -147,14 +147,14 @@ const MyTeam = () => {
         agentRef.current.contains(e.target) &&
         (!dropdownRef.current || !dropdownRef.current.contains(e.target))
       ) {
-        navigate("/agent-leaderboard");
+        navigate('/agent-leaderboard');
       }
     };
 
-    document.addEventListener("mousedown", handlePageRedirect);
+    document.addEventListener('mousedown', handlePageRedirect);
 
     return () => {
-      document.removeEventListener("mousedown", handlePageRedirect);
+      document.removeEventListener('mousedown', handlePageRedirect);
     };
   }, [navigate]);
 
@@ -177,7 +177,10 @@ const MyTeam = () => {
               />
             ))}
           </div>
-          <div ref={agentRef} className="bg-[#242424] mt-5 px-5 py-6 rounded cursor-pointer">
+          <div
+            ref={agentRef}
+            className="bg-[#242424] mt-5 px-5 py-6 rounded cursor-pointer"
+          >
             <div className="flex justify-between gap-1 gap-y-3 flex-wrap">
               <h1 className="section-title">Agent Leaderboard</h1>
               <div ref={dropdownRef} className="flex gap-2">

@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 const Table = () => {
   const [showDynamicRow, setShowDynamicRow] = useState(false);
+  
   const data = [
     {
       date: '12/01/2024',
