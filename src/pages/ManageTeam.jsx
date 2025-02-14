@@ -1,24 +1,25 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useGetAgents } from "@/hooks/agent.hook";
 import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
 import PlusSvg from "@/components/svgs/PlusSvg";
 import SearchGraySvg from "@/components/svgs/SearchGraySvg";
-import { useState } from "react";
-import { Link } from "react-router-dom";
 import PhoneSvg from "@/components/svgs/PhoneSvg";
 import MessageSvg from "@/components/svgs/MessageSvg";
 import MailSvg from "@/components/svgs/MailSvg";
-import { useGetAgents } from "@/hooks/agent.hook";
 
 const ManageTeam = () => {
-  const { agents, isLoading, isError, error } = useGetAgents();
-  console.log(agents);
   const [searchMember, setSearchMember] = useState("");
+  const [page, setPage] = useState(1); // Track pagination
+
+  const { agents, isLoading, isError, error, totalPages, currentPage } =
+    useGetAgents(page, 10); // Fetch paginated data
 
   const handleSearch = (e) => {
     setSearchMember(e.target.value);
   };
 
-  // Ensure agents is an array before filtering
-  const filteredAgents = (agents?.data || []).filter((agent) => {
+  const filteredAgents = agents.filter((agent) => {
     const searchTerms = searchMember.toLowerCase().split(" ");
     return searchTerms.every(
       (term) =>
@@ -40,7 +41,7 @@ const ManageTeam = () => {
           </div>
           <Link
             to="/profile/add-team-member"
-            className="flex items-center gap-2.5 text-sm leading-6 tracking-[-0.14px] text-light hover:opacity-60 duration-300 ml-auto "
+            className="flex items-center gap-2.5 text-sm leading-6 tracking-[-0.14px] text-light hover:opacity-60 duration-300 ml-auto"
           >
             Add team member
             <span className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 border border-[#024040] bg-gradient-to-r from-black via-black to-[#024040] shadow-[0_0_0_1px_black]">
@@ -105,6 +106,55 @@ const ManageTeam = () => {
               </div>
             ))
           )}
+        </div>
+
+        {/* Pagination Controls */}
+        {/* Pagination Controls */}
+        <div className="mt-8 flex justify-center items-center gap-2">
+          <button
+            className={`px-4 py-2 text-sm font-medium rounded-lg transition-all 
+      ${
+        currentPage === 1
+          ? "bg-gray-700 text-gray-400 cursor-not-allowed"
+          : "bg-[#009696] text-white hover:bg-[#007f7f] active:scale-95"
+      }`}
+            onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+          >
+            ⬅ Previous
+          </button>
+
+          <div className="flex items-center gap-2">
+            {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+              (pageNumber) => (
+                <button
+                  key={pageNumber}
+                  className={`px-3 py-2 text-sm font-semibold rounded-lg transition-all
+          ${
+            pageNumber === currentPage
+              ? "bg-[#009696] text-white"
+              : "bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white"
+          }`}
+                  onClick={() => setPage(pageNumber)}
+                >
+                  {pageNumber}
+                </button>
+              )
+            )}
+          </div>
+
+          <button
+            className={`px-4 py-2 text-sm font-medium rounded-lg transition-all 
+      ${
+        currentPage === totalPages
+          ? "bg-gray-700 text-gray-400 cursor-not-allowed"
+          : "bg-[#009696] text-white hover:bg-[#007f7f] active:scale-95"
+      }`}
+            onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
+            disabled={currentPage === totalPages}
+          >
+            Next ➡
+          </button>
         </div>
       </div>
     </div>
