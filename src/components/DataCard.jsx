@@ -1,5 +1,5 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import ThreeDotsSvg from "./svgs/ThreeDotsSvg";
+import { useLocation, useNavigate } from 'react-router-dom';
+import ThreeDotsSvg from './svgs/ThreeDotsSvg';
 
 const DataCard = ({ data }) => {
   const { type, title } = data;
@@ -8,57 +8,59 @@ const DataCard = ({ data }) => {
 
   // navigate when card is clicked into category
   const handleCardClick = (title) => {
-    if (title === "Our Mission") {
-      navigate("/my-systems/team/our-mission")
-    } else if (title === "Open House Request Form") {
-      navigate(`/my-systems/open-house/open-house-form`,{
-        state: {from: location.pathname},
+    if (title === 'Our Mission') {
+      navigate('/my-systems/team/our-mission');
+    } else if (title === 'Open House Request Form') {
+      navigate(`/my-systems/open-house/open-house-form`, {
+        state: { from: location.pathname },
       });
-    } else if (title === "HOA Community Docs") {
+    } else if (title === 'HOA Community Docs') {
       navigate(`/my-systems/team/hoa`);
-    } else if (title === "Access Instruction") {
+    } else if (title === 'Access Instruction') {
       navigate(`/my-systems/team/access`);
-    } else if (title === "My Listing Expenses") {
-      navigate(`/my-systems/finances/my-listing`,{
-        state: {from: location.pathname},
+    } else if (title === 'Sales Tracker') {
+      navigate(`/my-systems/team/sales-tracker`);
+    } else if (title === 'My Listing Expenses') {
+      navigate(`/my-systems/finances/my-listing`, {
+        state: { from: location.pathname },
       });
-    } else if (title === "My P&L") {
+    } else if (title === 'My P&L') {
       navigate(`/my-systems/finances/pl`);
-    } else if (title === "My Business Expenses") {
-      navigate(`/my-systems/finances/my-business-expenses`,{
-        state: {from: location.pathname},
+    } else if (title === 'My Business Expenses') {
+      navigate(`/my-systems/finances/my-business-expenses`, {
+        state: { from: location.pathname },
       });
-    } else if (title === "My Agent Expenses") {
+    } else if (title === 'My Agent Expenses') {
       navigate(`/my-systems/finances/my-agent-expenses`);
-    } else if (title === "Vendor List") {
-      navigate(`/my-systems/vendor-list`); 
-    } else if (title === "Bright Home Inspections") {
-      navigate(`/my-systems/vendor-list/description`); 
-    }else if (title === "New Listing Information Form") {
-      navigate(`/my-systems/new-listing/new-listing-information-form`,{
-        state: {from: location.pathname}
+    } else if (title === 'Vendor List') {
+      navigate(`/my-systems/vendor-list`);
+    } else if (title === 'Bright Home Inspections') {
+      navigate(`/my-systems/vendor-list/description`);
+    } else if (title === 'New Listing Information Form') {
+      navigate(`/my-systems/new-listing/new-listing-information-form`, {
+        state: { from: location.pathname },
       });
     }
   };
 
   return (
     <div
-    // data card cursor pointer setup
+      // data card cursor pointer setup
       onClick={() => handleCardClick(title)}
       role={
-        title == "Our Mission" ||
-        title == "Open House Request Form" ||
-        title === "HOA Community Docs" ||
-        title === "Vendor List" ||
-        title == "New Listing Information Form" ||
-        title == "Access Instruction" ||
-        title == "My Listing Expenses" ||
-        title == "My Business Expenses" ||
-        title == "My Agent Expenses" ||
-        title == "My P&L" ||
-        title == "Bright Home Inspections"
-          ? "button"
-          : "presentation"
+        title == 'Our Mission' ||
+        title == 'Open House Request Form' ||
+        title === 'HOA Community Docs' ||
+        title === 'Vendor List' ||
+        title == 'New Listing Information Form' ||
+        title == 'Access Instruction' ||
+        title == 'My Listing Expenses' ||
+        title == 'My Business Expenses' ||
+        title == 'My Agent Expenses' ||
+        title == 'My P&L' ||
+        title == 'Bright Home Inspections'
+          ? 'button'
+          : 'presentation'
       }
       className="rounded-2xl bg-[#242424] py-4 px-6 hover:shadow-[2px_2px_4px] hover:shadow-[#009696] duration-300 ease-in-out"
     >
