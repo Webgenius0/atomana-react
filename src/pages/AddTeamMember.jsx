@@ -1,34 +1,42 @@
-import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
-import FileSvg from '@/components/svgs/FileSvg';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+
+import { useState } from "react";
+
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
+import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
+import { useGetAgents, useRegisterAgent } from "@/hooks/agent.hook";
 
 const AddTeamMember = () => {
-  const [fileName, setFileName] = useState('Select File');
-
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
+    watch,
   } = useForm();
   const navigate = useNavigate();
+  const registerAgent = useRegisterAgent();
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const { agents, isLoading, isError, error } = useGetAgents();
+  console.log("Agents:", agents);
 
   const onSubmit = (data) => {
-    navigate('/profile/manage-team');
-  };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setFileName(file.name);
-    }
-  };
-
-  const handleResetForm = () => {
-    setFileName('Select File');
-    reset();
+    console.log(data);
+    const formData = data;
+    console.log(formData);
+    registerAgent.mutate(
+      { formData },
+      {
+        onSuccess: () => {
+          reset();
+          navigate("/profile/manage-team");
+        },
+      }
+    );
   };
 
   return (
@@ -51,110 +59,149 @@ const AddTeamMember = () => {
                   First name
                 </label>
                 <input
-                  className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+                  className="input-field px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                   placeholder="First"
-                  {...register('firstName')}
+                  {...register("first_name", {
+                    required: "First name is required",
+                  })}
                 />
+                {errors.firstName && (
+                  <span className="error-text">{errors.firstName.message}</span>
+                )}
               </div>
               <div className="flex flex-col gap-2 w-full">
                 <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                   Last name
                 </label>
                 <input
-                  className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+                  className="input-field px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                   placeholder="Last"
-                  {...register('lastName')}
+                  {...register("last_name", {
+                    required: "Last name is required",
+                  })}
                 />
+                {errors.lastName && (
+                  <span className="error-text">{errors.lastName.message}</span>
+                )}
               </div>
             </div>
+
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-                Title
+                Email
               </label>
               <input
-                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                placeholder="i.e., Sales Lead"
-                {...register('title')}
-              />
-            </div>
-            <div className="flex flex-col gap-2 w-full">
-              <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-                Work Email
-              </label>
-              <input
-                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+                className="input-field px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="example@email.com"
-                {...register('workEmail')}
+                type="text"
+                {...register("email", { required: "Email is required" })}
               />
+              {errors.email && (
+                <span className="error-text">{errors.email.message}</span>
+              )}
             </div>
+
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-                Work Phone Number
+                Business ID
               </label>
               <input
-                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+                className="input-field px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="000-000-0000"
-                {...register('phone')}
+                {...register("business_id", {
+                  required: "Business ID is required",
+                })}
               />
+              {errors.businessid && (
+                <span className="error-text">{errors.businessid.message}</span>
+              )}
             </div>
 
-            <div className="flex flex-col gap-2 w-full">
+            <div className="relative flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-                Employment Agreement
+                Password
               </label>
-
-              <label
-                htmlFor="file-upload"
-                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full flex items-center justify-between cursor-pointer"
-              >
-                <span className="text-secondary text-sm leading-[21px] tracking-[-0.14px]">
-                  {fileName}
-                </span>
-                <FileSvg />
+              <div className="relative">
                 <input
-                  id="file-upload"
-                  type="file"
-                  className="hidden"
-                  onChange={handleFileChange}
+                  className="input-field pr-10 px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  {...register("password", {
+                    required: "Password is required",
+                  })}
                 />
-              </label>
+                <button
+                  type="button"
+                  className="absolute right-3 top-3 text-gray-400"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? (
+                    <FaEye size={20} />
+                  ) : (
+                    <FaEyeSlash size={20} />
+                  )}
+                </button>
+              </div>
+              {errors.password && (
+                <span className="error-text">{errors.password.message}</span>
+              )}
             </div>
-            <div className="flex flex-col gap-2 w-full">
+
+            <div className="relative flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-                Additional Files
+                Confirm Password
               </label>
-
-              <label
-                htmlFor="file-upload"
-                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full flex items-center justify-between cursor-pointer"
-              >
-                <span className="text-secondary text-sm leading-[21px] tracking-[-0.14px]">
-                  {fileName}
-                </span>
-                <FileSvg />
+              <div className="relative">
                 <input
-                  id="file-upload"
-                  type="file"
-                  className="hidden"
-                  onChange={handleFileChange}
+                  className="input-field pr-10 px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+                  type={showConfirmPassword ? "text" : "password"}
+                  placeholder="Confirm Password"
+                  {...register("password_confirmation", {
+                    required: "Confirm Password is required",
+                    validate: (value) =>
+                      value === watch("password") || "Passwords do not match",
+                  })}
                 />
-              </label>
+                <button
+                  type="button"
+                  className="absolute right-3 top-3 text-gray-400"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                >
+                  {showConfirmPassword ? (
+                    <FaEye size={20} />
+                  ) : (
+                    <FaEyeSlash size={20} />
+                  )}
+                </button>
+              </div>
+              {errors.confirmPassword && (
+                <span className="error-text">
+                  {errors.confirmPassword.message}
+                </span>
+              )}
             </div>
 
-            <div className="flex items-center gap-4 justify-between mt-0 sm:mt-3 md:mt-6">
+            <div className="flex items-center gap-4 justify-between mt-3">
               <input
                 className="request-btn approve cursor-pointer"
                 type="submit"
-                value="Add"
+                value={registerAgent.isLoading ? "Adding..." : "Add"}
+                disabled={registerAgent.isLoading}
               />
-
               <button
-                onClick={handleResetForm}
+                type="button"
+                onClick={() => reset()}
                 className="request-btn text-light"
               >
                 Cancel
               </button>
             </div>
+
+            {registerAgent.isError && (
+              <p className="error-text text-center">
+                {registerAgent.error?.message}
+              </p>
+            )}
           </form>
         </div>
       </div>

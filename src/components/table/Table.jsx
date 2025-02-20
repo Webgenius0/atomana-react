@@ -6,6 +6,8 @@ const getDefaultRow = (columnDef) => {
   return row;
 };
 
+
+
 const Table = ({ columnDef = [], data = [] }) => {
   const [columns] = useState(columnDef);
   const [tableData, setTableData] = useState(
@@ -32,6 +34,7 @@ const Table = ({ columnDef = [], data = [] }) => {
     if (Object.values(newRow).some((value) => value === '')) {
       alert('Please fill in all fields before adding an expense!');
       return;
+      
     }
 
     setTableData([...tableData, newRow]);
