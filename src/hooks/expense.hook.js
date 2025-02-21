@@ -232,21 +232,6 @@ export const useGetAgents = () => {
   return { ...result, agents };
 };
 
-export const useGetProperties = () => {
-  const axiosPrivate = useAxiosSecure();
-
-  const result = useQuery({
-    queryKey: ['properties'],
-    queryFn: async () => {
-      const response = await axiosPrivate.get('/api/v1/property/dropdown');
-      return response.data;
-    },
-  });
-
-  const properties = result?.data?.data;
-  return { ...result, properties };
-};
-
 export const useGetSalesTrack = ({ per_page = 25, page = 1 }) => {
   const axiosPrivate = useAxiosSecure();
 

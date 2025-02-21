@@ -1,4 +1,4 @@
-import { useGetProperties } from '@/hooks/expense.hook';
+import { useGetProperties } from '@/hooks/property.hook';
 
 export default function PropertyInput({ value, onChange }) {
   const { properties, isLoading } = useGetProperties();
