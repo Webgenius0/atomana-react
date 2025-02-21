@@ -13,6 +13,7 @@ const Table = ({ columnDef = [], data = [] }) => {
   const [tableData, setTableData] = useState(
     data.map((item) => ({ ...item, selected: false }))
   );
+  
   const [newRow, setNewRow] = useState(getDefaultRow(columns));
   const [showDynamicRow, setShowDynamicRow] = useState(false);
 
