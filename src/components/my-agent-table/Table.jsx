@@ -55,7 +55,7 @@ const Table = ({ columnDef = [], data = [] }) => {
       <table className="w-full text-left border-collapse border border-[#5E5E5E]">
         <thead>
           <tr>
-            <th className="border border-[#5E5E5E] text-center">
+            <th className="border border-[#5E5E5E] text-center p-2">
               <input
                 type="checkbox"
                 onChange={(e) => {
@@ -81,7 +81,7 @@ const Table = ({ columnDef = [], data = [] }) => {
         <tbody>
           {tableData?.map((row, index) => (
             <tr key={index} className="">
-              <td className="border border-[#5E5E5E] p-2">
+              <td className="border border-[#5E5E5E] text-center p-2">
                 <input
                   type="checkbox"
                   checked={row.selected || false}
@@ -120,7 +120,7 @@ const Table = ({ columnDef = [], data = [] }) => {
 
           {showDynamicRow && (
             <tr>
-              <td className="border border-[#5E5E5E] p-2">
+              <td className="border border-[#5E5E5E] text-center p-2">
                 <input
                   type="checkbox"
                   checked={newRow.selected}
@@ -140,7 +140,7 @@ const Table = ({ columnDef = [], data = [] }) => {
                   return (
                     <td
                       key={column.key}
-                      className="border border-[#5E5E5E] p-2"
+                      className="border border-[#5E5E5E] text-center p-2"
                     >
                       <input
                         className="w-full border bg-transparent p-2 text-[11px] text-light tracking-[0.25px] rounded"
@@ -156,7 +156,7 @@ const Table = ({ columnDef = [], data = [] }) => {
           )}
 
           <tr>
-            <td className="border border-[#5E5E5E] p-2">
+            <td className="border border-[#5E5E5E] text-center p-2">
               <input
                 type="checkbox"
                 checked={newRow.selected}

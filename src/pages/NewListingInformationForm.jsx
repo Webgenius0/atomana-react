@@ -1,46 +1,84 @@
 import CustomDatePicker from '@/components/CustomDatePicker';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import CalenderSvg from '@/components/svgs/CalenderSvg';
-import FormLineSvg from '@/components/svgs/FromLineSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
+import { useStoreProperty } from '@/hooks/property.hook';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { format } from 'date-fns';
+import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { Link, useLocation } from 'react-router-dom';
+import { z } from 'zod';
+
+const formSchema = z.object({
+  email: z
+    .string()
+    .min(1, 'Email is required')
+    .email({ message: 'Invalid Email' }),
+  address: z.string().min(1, 'Address is required'),
+  price: z
+    .string()
+    .min(1, 'Price is required')
+    .refine((value) => !isNaN(Number(value)), { message: 'Invalid Price' }),
+  expiration_date: z.preprocess((value) => {
+    return format(value, 'yyyy-MM-dd');
+  }, z.string({ required_error: 'Expiration date is required' }).min(1, 'Expiration date is required')),
+  development: z.enum(['1', '0'], {
+    required_error: 'Development is required',
+  }),
+  co_listing: z.enum(['1', '0'], { required_error: 'Co-listing is required' }),
+  source: z.string().min(1, 'Source is required'),
+});
 
 function NewListingInformationForm() {
   const {
     register,
     handleSubmit,
     reset,
-    watch,
     control,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      isDevelopment: 'No',
-      addToDevelopmentPage: 'No',
-      isCoListing: 'No',
-      coListingDetails: '',
-      expirationDate: null,
+      email: '',
+      address: '',
+      price: '',
+      expiration_date: '',
+      development: '1',
+      co_listing: '0',
+      source: '',
     },
+    resolver: zodResolver(formSchema),
   });
-  const navigate = useNavigate();
-  const location = useLocation();
 
-  const isDevelopment = watch('isDevelopment');
-  const isCoListing = watch('isCoListing');
+  const location = useLocation();
+  const {
+    mutate: storeProperty,
+    data: storeResponse,
+    isPending,
+    isSuccess,
+  } = useStoreProperty();
+
+  //   const development = watch('development');
+  //   const co_listing = watch('co_listing');
 
   const onSubmit = (data) => {
-    // console.log("new listing form data: ", data);
-    // console.log("Selected Date:", data.expirationDate);
-    navigate(`/my-systems/new-listing/new-listing-information-form`);
-    reset();
+    storeProperty(data);
   };
 
   const handleResetForm = (e) => {
     e.preventDefault();
     reset();
   };
+
+  useEffect(() => {
+    if (storeResponse?.success && !isPending && isSuccess) {
+      toast.success('Property added successfully!');
+      reset();
+    }
+  }, [storeResponse, isPending, isSuccess]);
+
   return (
     <>
       <div className="flex items-center gap-4 justify-between">
@@ -76,6 +114,9 @@ function NewListingInformationForm() {
               placeholder="youremail@spearsgroup.com"
               {...register('email')}
             />
+            {errors?.email && (
+              <p className="text-red-500 text-xs">{errors?.email?.message}</p>
+            )}
           </div>
           <div className="flex flex-col gap-2 w-full">
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
@@ -85,8 +126,11 @@ function NewListingInformationForm() {
               type="text"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="Type the address and subdivision name here"
-              {...register('property-address')}
+              {...register('address')}
             />
+            {errors?.address && (
+              <p className="text-red-500 text-xs">{errors?.address?.message}</p>
+            )}
           </div>
 
           <div className="flex flex-col gap-2 w-full">
@@ -98,6 +142,9 @@ function NewListingInformationForm() {
               placeholder="$0"
               {...register('price')}
             />
+            {errors?.price && (
+              <p className="text-red-500 text-xs">{errors?.price?.message}</p>
+            )}
           </div>
           <div className="flex flex-col gap-2 w-full">
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
@@ -106,7 +153,7 @@ function NewListingInformationForm() {
 
             <label className="flex items-center px-4 rounded-[10px] border border-[#d8dfeb] bg-dark w-full gap-2.5">
               <Controller
-                name="expirationDate"
+                name="expiration_date"
                 control={control}
                 render={({ field }) => (
                   <CustomDatePicker
@@ -117,24 +164,30 @@ function NewListingInformationForm() {
               />
               <CalenderSvg />
             </label>
+
+            {errors?.expiration_date && (
+              <p className="text-red-500 text-xs">
+                {errors?.expiration_date?.message}
+              </p>
+            )}
           </div>
           <div>
             <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
               Is this a development?
             </p>
             <Controller
-              name="isDevelopment"
+              name="development"
               control={control}
               render={({ field }) => (
                 <div className="flex space-x-4">
                   <label className="flex items-center gap-2">
-                    <input {...field} type="radio" value="Yes" />
+                    <input {...field} type="radio" value="1" />
                     <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                       Yes
                     </p>
                   </label>
                   <label className="flex items-center gap-2">
-                    <input {...field} type="radio" value="No" />
+                    <input {...field} type="radio" value="0" />
                     <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                       No
                     </p>
@@ -142,10 +195,15 @@ function NewListingInformationForm() {
                 </div>
               )}
             />
+            {errors?.development && (
+              <p className="text-red-500 text-xs">
+                {errors?.development?.message}
+              </p>
+            )}
           </div>
 
           {/* Add to development page (conditional) */}
-          {isDevelopment === 'Yes' && (
+          {/* {development === '1'  && (
             <div className="flex items-center sm:gap-6 gap-4 sm:ml-12 ml-8">
               <FormLineSvg />
               <div className="w-full">
@@ -173,9 +231,14 @@ function NewListingInformationForm() {
                     </div>
                   )}
                 />
+                {errors?.email && (
+                  <p className="text-red-500 text-xs">
+                    {errors?.email?.message}
+                  </p>
+                )}
               </div>
             </div>
-          )}
+          )} */}
 
           {/* Is this a co-listing? */}
           <div>
@@ -183,18 +246,18 @@ function NewListingInformationForm() {
               Is this a co-listing?
             </p>
             <Controller
-              name="isCoListing"
+              name="co_listing"
               control={control}
               render={({ field }) => (
                 <div className="flex space-x-4">
                   <label className="flex items-center gap-2">
-                    <input {...field} type="radio" value="Yes" />
+                    <input {...field} type="radio" value="1" />
                     <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                       Yes
                     </p>
                   </label>
                   <label className="flex items-center gap-2">
-                    <input {...field} type="radio" value="No" />
+                    <input {...field} type="radio" value="0" />
                     <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                       No
                     </p>
@@ -202,9 +265,14 @@ function NewListingInformationForm() {
                 </div>
               )}
             />
+            {errors?.co_listing && (
+              <p className="text-red-500 text-xs">
+                {errors?.co_listing?.message}
+              </p>
+            )}
           </div>
           {/* Co-listing details (conditional) */}
-          {isCoListing === 'Yes' && (
+          {/* {co_listing === '1'  && (
             <div className="flex items-center sm:gap-6 gap-4 sm:ml-12 ml-8">
               <FormLineSvg />
               <div className="w-full">
@@ -223,9 +291,14 @@ function NewListingInformationForm() {
                     )}
                   />
                 </label>
+                {errors?.email && (
+                  <p className="text-red-500 text-xs">
+                    {errors?.email?.message}
+                  </p>
+                )}
               </div>
             </div>
-          )}
+          )} */}
           <div className="flex flex-col gap-2 w-full">
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
               What was the source of this Lead?
@@ -235,6 +308,9 @@ function NewListingInformationForm() {
               placeholder="source"
               {...register('source')}
             />
+            {errors?.source && (
+              <p className="text-red-500 text-xs">{errors?.source?.message}</p>
+            )}
           </div>
         </form>
         <form action="" onSubmit={handleSubmit(onSubmit)}>
@@ -244,6 +320,7 @@ function NewListingInformationForm() {
                 className="request-btn approve cursor-pointer"
                 type="submit"
                 value="Submit"
+                disabled={isPending}
               />
             </div>
 

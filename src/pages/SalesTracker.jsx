@@ -1,11 +1,14 @@
+import Pagination from '@/components/Pagination';
 import SalesTrackerTable from '@/components/sales-tracker-table/SalesTrackerTable';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
 import TabStepper from '@/components/TabStepper';
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 const SalesTracker = () => {
+  const [currentPage, setCurrentPage] = useState(1);
   const tabs = [
     { label: 'Forms', path: '/forms' },
     { label: 'Charts', path: '/charts' },
@@ -37,6 +40,12 @@ const SalesTracker = () => {
       </div>
 
       <SalesTrackerTable />
+      <Pagination
+        currentPage={currentPage}
+        totalItems={45}
+        itemsPerPage={12}
+        onPageChange={(page) => setCurrentPage(page)}
+      />
     </>
   );
 };
