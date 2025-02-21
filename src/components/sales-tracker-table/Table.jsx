@@ -1,4 +1,4 @@
-import { useStoreMyListingExpenses } from '@/hooks/expense.hook';
+import { useStoreSalesTrack } from '@/hooks/expense.hook';
 import { cn } from '@/lib/utils';
 import { useEffect, useState } from 'react';
 
@@ -17,11 +17,11 @@ const Table = ({ columnDef = [], data = [] }) => {
   const [showDynamicRow, setShowDynamicRow] = useState(false);
 
   const {
-    mutate: storeListingExpense,
+    mutate: storeSalesTrack,
     data: storeResponse,
     isPending,
     isSuccess,
-  } = useStoreMyListingExpenses();
+  } = useStoreSalesTrack();
 
   useEffect(() => {
     setTableData(data?.map((item) => ({ ...item, selected: false })));
@@ -41,7 +41,7 @@ const Table = ({ columnDef = [], data = [] }) => {
   };
 
   const handleConfirmExpense = () => {
-    storeListingExpense(newRow);
+    storeSalesTrack(newRow);
   };
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const Table = ({ columnDef = [], data = [] }) => {
       <table className="w-full text-left border-collapse border border-[#5E5E5E]">
         <thead>
           <tr>
-            <th className="border border-[#5E5E5E] text-center">
+            <th className="border border-[#5E5E5E] text-center p-2">
               <input
                 type="checkbox"
                 onChange={(e) => {
@@ -81,7 +81,7 @@ const Table = ({ columnDef = [], data = [] }) => {
         <tbody>
           {tableData?.map((row, index) => (
             <tr key={index} className="">
-              <td className="border border-[#5E5E5E] p-2">
+              <td className="border border-[#5E5E5E] text-center p-2">
                 <input
                   type="checkbox"
                   checked={row.selected || false}
@@ -120,7 +120,7 @@ const Table = ({ columnDef = [], data = [] }) => {
 
           {showDynamicRow && (
             <tr>
-              <td className="border border-[#5E5E5E] p-2">
+              <td className="border border-[#5E5E5E] text-center p-2">
                 <input
                   type="checkbox"
                   checked={newRow.selected}
@@ -156,15 +156,7 @@ const Table = ({ columnDef = [], data = [] }) => {
           )}
 
           <tr>
-            <td className="border border-[#5E5E5E] p-2">
-              <input
-                type="checkbox"
-                checked={newRow.selected}
-                onChange={(e) =>
-                  setNewRow({ ...newRow, selected: e.target.checked })
-                }
-              />
-            </td>
+            <td className="border border-[#5E5E5E] p-2"></td>
             {!showDynamicRow && (
               <td
                 colSpan={13}

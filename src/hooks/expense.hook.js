@@ -216,3 +216,76 @@ export const useStoreMyAgentExpenses = () => {
 
   return result;
 };
+
+export const useGetAgents = () => {
+  const axiosPrivate = useAxiosSecure();
+
+  const result = useQuery({
+    queryKey: ['agents'],
+    queryFn: async () => {
+      const response = await axiosPrivate.get('/api/v1/user/agent/get-agent');
+      return response.data;
+    },
+  });
+
+  const agents = result?.data?.data;
+  return { ...result, agents };
+};
+
+export const useGetProperties = () => {
+  const axiosPrivate = useAxiosSecure();
+
+  const result = useQuery({
+    queryKey: ['properties'],
+    queryFn: async () => {
+      const response = await axiosPrivate.get('/api/v1/property/dropdown');
+      return response.data;
+    },
+  });
+
+  const properties = result?.data?.data;
+  return { ...result, properties };
+};
+
+export const useGetSalesTrack = ({ per_page = 25, page = 1 }) => {
+  const axiosPrivate = useAxiosSecure();
+
+  const result = useQuery({
+    queryKey: ['sales_track'],
+    queryFn: async () => {
+      const response = await axiosPrivate.get(`/api/v1/sales-track`, {
+        params: { per_page, page },
+      });
+      return response.data;
+    },
+  });
+
+  const salesTrack = result?.data?.data || [];
+
+  return { ...result, salesTrack };
+};
+
+export const useStoreSalesTrack = () => {
+  const axiosPrivate = useAxiosSecure();
+  const queryClient = useQueryClient();
+
+  const result = useMutation({
+    mutationFn: async (payload) => {
+      const response = await axiosPrivate.post(
+        `/api/v1/sales-track/store`,
+        payload
+      );
+      return response.data;
+    },
+    onSuccess: (data) => {
+      if (data?.success) {
+        queryClient.invalidateQueries(['sales_track']);
+      }
+    },
+    onError: (error) => {
+      alert(error?.response?.data?.message);
+    },
+  });
+
+  return result;
+};
