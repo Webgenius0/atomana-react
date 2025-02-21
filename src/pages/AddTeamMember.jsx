@@ -1,12 +1,11 @@
-import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
 
-import { useState } from "react";
+import { useState } from 'react';
 
-import { FaEye } from "react-icons/fa";
-import { FaEyeSlash } from "react-icons/fa";
-import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
-import { useGetAgents, useRegisterAgent } from "@/hooks/agent.hook";
+import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
+import { useGetAgents, useRegisterAgent } from '@/hooks/agent.hook';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const AddTeamMember = () => {
   const {
@@ -22,7 +21,7 @@ const AddTeamMember = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { agents, isLoading, isError, error } = useGetAgents();
-  console.log("Agents:", agents);
+  console.log('Agents:', agents);
 
   const onSubmit = (data) => {
     console.log(data);
@@ -33,7 +32,7 @@ const AddTeamMember = () => {
       {
         onSuccess: () => {
           reset();
-          navigate("/profile/manage-team");
+          navigate('/profile/manage-team');
         },
       }
     );
@@ -61,8 +60,8 @@ const AddTeamMember = () => {
                 <input
                   className="input-field px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                   placeholder="First"
-                  {...register("first_name", {
-                    required: "First name is required",
+                  {...register('first_name', {
+                    required: 'First name is required',
                   })}
                 />
                 {errors.firstName && (
@@ -76,8 +75,8 @@ const AddTeamMember = () => {
                 <input
                   className="input-field px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                   placeholder="Last"
-                  {...register("last_name", {
-                    required: "Last name is required",
+                  {...register('last_name', {
+                    required: 'Last name is required',
                   })}
                 />
                 {errors.lastName && (
@@ -94,7 +93,7 @@ const AddTeamMember = () => {
                 className="input-field px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="example@email.com"
                 type="text"
-                {...register("email", { required: "Email is required" })}
+                {...register('email', { required: 'Email is required' })}
               />
               {errors.email && (
                 <span className="error-text">{errors.email.message}</span>
@@ -108,12 +107,12 @@ const AddTeamMember = () => {
               <input
                 className="input-field px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="000-000-0000"
-                {...register("business_id", {
-                  required: "Business ID is required",
+                {...register('business_id', {
+                  required: 'Business ID is required',
                 })}
               />
-              {errors.businessid && (
-                <span className="error-text">{errors.businessid.message}</span>
+              {errors.business_id && (
+                <span className="error-text">{errors.business_id.message}</span>
               )}
             </div>
 
@@ -124,10 +123,10 @@ const AddTeamMember = () => {
               <div className="relative">
                 <input
                   className="input-field pr-10 px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                  type={showPassword ? "text" : "password"}
+                  type={showPassword ? 'text' : 'password'}
                   placeholder="Password"
-                  {...register("password", {
-                    required: "Password is required",
+                  {...register('password', {
+                    required: 'Password is required',
                   })}
                 />
                 <button
@@ -154,12 +153,12 @@ const AddTeamMember = () => {
               <div className="relative">
                 <input
                   className="input-field pr-10 px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                  type={showConfirmPassword ? "text" : "password"}
+                  type={showConfirmPassword ? 'text' : 'password'}
                   placeholder="Confirm Password"
-                  {...register("password_confirmation", {
-                    required: "Confirm Password is required",
+                  {...register('password_confirmation', {
+                    required: 'Confirm Password is required',
                     validate: (value) =>
-                      value === watch("password") || "Passwords do not match",
+                      value === watch('password') || 'Passwords do not match',
                   })}
                 />
                 <button
@@ -185,7 +184,7 @@ const AddTeamMember = () => {
               <input
                 className="request-btn approve cursor-pointer"
                 type="submit"
-                value={registerAgent.isLoading ? "Adding..." : "Add"}
+                value={registerAgent.isLoading ? 'Adding...' : 'Add'}
                 disabled={registerAgent.isLoading}
               />
               <button

@@ -20,7 +20,7 @@ import HoaDocument from '@/pages/HoaDocument';
 import Login from '@/pages/Login';
 import ManageTeam from '@/pages/ManageTeam';
 import MemberProfile from '@/pages/MemberProfile';
-import MyAgentExpense from '@/pages/MyAgentExpense';
+import MyAgentEarnings from '@/pages/MyAgentEarnings';
 import MyAI from '@/pages/MyAI';
 import MyBusinessExpense from '@/pages/MyBusinessExpense';
 import MyClassroom from '@/pages/MyClassroom';
@@ -139,10 +139,10 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: 'finances/my-agent-expenses',
+            path: 'finances/my-agent-earnings',
             element: (
-              <PageTitle title="My Agent Expenses">
-                <MyAgentExpense />
+              <PageTitle title="My Agent Earnings">
+                <MyAgentEarnings />
               </PageTitle>
             ),
           },

@@ -1,20 +1,20 @@
-import Dropdown from "@/components/Dropdown";
-import MyAgentTable from "@/components/my-agent-table/MyAgentTable";
-import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
-import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
-import SearchIconSvg from "@/components/svgs/SearchIconSvg";
-import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
-import { Link } from "react-router-dom";
+import Dropdown from '@/components/Dropdown';
+import MyAgentTable from '@/components/my-agent-table/MyAgentTable';
+import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
+import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
+import SearchIconSvg from '@/components/svgs/SearchIconSvg';
+import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
+import { Link } from 'react-router-dom';
 
-const MyAgentExpense = () => {
+const MyAgentEarnings = () => {
   const heightoptions = [
-    { value: "highestsales", label: "Time Range: YTD 2024" },
-    { value: "quater", label: "Quater" },
-    { value: "year", label: "Yearly" },
+    { value: 'highestsales', label: 'Time Range: YTD 2024' },
+    { value: 'quater', label: 'Quater' },
+    { value: 'year', label: 'Yearly' },
   ];
 
   const handleSelect = (option) => {
-    // console.log('Selected option:', option);
+    console.table('Selected option:', option);
   };
 
   return (
@@ -24,7 +24,7 @@ const MyAgentExpense = () => {
           <Link to="/my-systems/finances">
             <ArrowLeftSvg />
           </Link>
-          <h2 className="section-title">MyAgent Expenses</h2>
+          <h2 className="section-title">MyAgent Earnings</h2>
         </div>
         <div className="flex items-center gap-2.5">
           <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
@@ -62,4 +62,4 @@ const MyAgentExpense = () => {
   );
 };
 
-export default MyAgentExpense;
+export default MyAgentEarnings;

@@ -228,7 +228,7 @@ export const useGetAgents = () => {
     },
   });
 
-  const agents = result?.data?.data;
+  const agents = result?.data?.data || [];
   return { ...result, agents };
 };
 
@@ -246,8 +246,9 @@ export const useGetSalesTrack = ({ per_page = 25, page = 1 }) => {
   });
 
   const salesTrack = result?.data?.data || [];
+  const current_page = result?.data?.current_page || 1;
 
-  return { ...result, salesTrack };
+  return { ...result, salesTrack, current_page };
 };
 
 export const useStoreSalesTrack = () => {

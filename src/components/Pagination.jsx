@@ -1,11 +1,10 @@
-import React from "react";
-
 const Pagination = ({
   currentPage,
   totalItems,
   itemsPerPage,
   onPageChange,
 }) => {
+  console.log({ currentPage, totalItems, itemsPerPage });
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const visiblePages = 5;
 
@@ -13,10 +12,14 @@ const Pagination = ({
     const startPage = Math.max(currentPage - Math.floor(visiblePages / 2), 1);
     const endPage = Math.min(startPage + visiblePages - 1, totalPages);
 
+    console.log({ totalPages });
+
     const pages = [];
     for (let i = startPage; i <= endPage; i++) {
       pages.push(i);
     }
+
+    console.log({ pages });
 
     return pages;
   };
@@ -32,7 +35,7 @@ const Pagination = ({
       {/* Pagination Info */}
       <p className="text-secondary text-xs font-medium leading-[21px] tracking-[-0.12px]">
         Showing <span>{(currentPage - 1) * itemsPerPage + 1}</span>–
-        <span>{Math.min(currentPage * itemsPerPage, totalItems)}</span> of{" "}
+        <span>{Math.min(currentPage * itemsPerPage, totalItems)}</span> of{' '}
         <span>{totalItems}</span> Results
       </p>
 
@@ -42,7 +45,7 @@ const Pagination = ({
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           className={`flex items-center justify-center w-[25px] h-[25px] rounded-full border border-secondPrimary bg-gradient-to-r from-secondPrimary to-[#1a1a1a] duration-300 active:scale-95 ${
-            currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
+            currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''
           }`}
           disabled={currentPage === 1}
         >
@@ -66,7 +69,7 @@ const Pagination = ({
             key={page}
             onClick={() => handlePageChange(page)}
             className={`pagination-index ${
-              currentPage === page ? "active" : ""
+              currentPage === page ? 'active' : ''
             }`}
           >
             {page}
@@ -77,7 +80,7 @@ const Pagination = ({
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           className={`flex items-center justify-center w-[25px] h-[25px] rounded-full border border-secondPrimary bg-gradient-to-r from-secondPrimary to-[#1a1a1a] duration-300 active:scale-95 ${
-            currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
+            currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''
           }`}
           disabled={currentPage === totalPages}
         >

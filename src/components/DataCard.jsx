@@ -30,8 +30,8 @@ const DataCard = ({ data }) => {
       navigate(`/my-systems/finances/my-business-expenses`, {
         state: { from: location.pathname },
       });
-    } else if (title === 'My Agent Expenses') {
-      navigate(`/my-systems/finances/my-agent-expenses`);
+    } else if (title === 'My Agent Earnings') {
+      navigate(`/my-systems/finances/my-agent-earnings`);
     } else if (title === 'Vendor List') {
       navigate(`/my-systems/vendor-list`);
     } else if (title === 'Bright Home Inspections') {
@@ -56,7 +56,7 @@ const DataCard = ({ data }) => {
         title == 'Access Instruction' ||
         title == 'My Listing Expenses' ||
         title == 'My Business Expenses' ||
-        title == 'My Agent Expenses' ||
+        title == 'My Agent Earnings' ||
         title == 'My P&L' ||
         title == 'Bright Home Inspections'
           ? 'button'

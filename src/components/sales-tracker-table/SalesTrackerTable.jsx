@@ -131,10 +131,23 @@ export default function SalesTrackerTable() {
   const [perPage] = useState(25);
   const [page] = useState(1);
 
-  const { salesTrack } = useGetSalesTrack({
+  const {
+    salesTrack,
+    // current_page
+  } = useGetSalesTrack({
     per_page: perPage,
     page,
   });
 
-  return <Table columnDef={columnDef} data={salesTrack} />;
+  return (
+    <>
+      <Table columnDef={columnDef} data={salesTrack} />
+      {/* <Pagination
+        currentPage={current_page}
+        totalItems={salesTrack?.length}
+        itemsPerPage={perPage}
+        onPageChange={(page) => setPage(page)}
+      /> */}
+    </>
+  );
 }

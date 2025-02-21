@@ -1,19 +1,19 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useAxiosSecure } from "./useAxios";
-import { useAuth } from "./useAuth";
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useAuth } from './useAuth';
+import { useAxiosSecure } from './useAxios';
 
 export const useGetAgents = () => {
   const axiosPrivate = useAxiosSecure();
 
   const result = useQuery({
-    queryKey: ["agents"],
+    queryKey: ['agents_admin'],
     queryFn: async () => {
       try {
-        const response = await axiosPrivate.get("/api/v1/admin/agent");
+        const response = await axiosPrivate.get('/api/v1/admin/agent');
         return response.data;
       } catch (error) {
         throw new Error(
-          error.response?.data?.message || "Failed to fetch agents"
+          error.response?.data?.message || 'Failed to fetch agents'
         );
       }
     },
@@ -30,11 +30,11 @@ export const useRegisterAgent = () => {
   return useMutation({
     mutationFn: async ({ formData }) => {
       const response = await axiosPrivate.post(
-        "/api/v1/auth/register-agent",
+        '/api/v1/auth/register-agent',
         formData,
         {
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${auth?.token}`,
           },
         }
@@ -44,11 +44,11 @@ export const useRegisterAgent = () => {
 
     onSuccess: (data) => {
       if (data?.success) {
-        queryClient.invalidateQueries(["agents"]);
+        queryClient.invalidateQueries(['agents_admin']);
       }
     },
     onError: (error) => {
-      alert(error?.response?.data?.message || "Something went wrong");
+      alert(error?.response?.data?.message || 'Something went wrong');
     },
   });
 };

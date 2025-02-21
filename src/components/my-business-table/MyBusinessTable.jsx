@@ -57,7 +57,7 @@ const columnDef = [
   {
     key: 'expense_sub_category_id',
     header: 'Subcategory',
-    width: 125,
+    width: 200,
     defaultValue: '',
     cell: (row) => {
       return <SubCategoryCell row={row} />;
