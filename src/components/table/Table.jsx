@@ -25,6 +25,7 @@ const Table = ({ columnDef = [], data = [] }) => {
       setNewRow({ ...newRow, [field]: e.target.value });
     }
   };
+  
 
   const handleAddExpense = () => {
     setShowDynamicRow(true);
