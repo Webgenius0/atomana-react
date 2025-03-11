@@ -42,11 +42,11 @@ export const useGetSystemsData = (type) => {
       type: 'New Contract',
       title: 'New Contract Information Form',
     },
-    {
-      id: 'D790',
-      type: 'New Contract',
-      title: "What To Do Once You're Under Contract",
-    },
+    // {
+    //   id: 'D790',
+    //   type: 'New Contract',
+    //   title: "What To Do Once You're Under Contract",
+    // },
     // {
     //   id: 'E987',
     //   type: 'Team',

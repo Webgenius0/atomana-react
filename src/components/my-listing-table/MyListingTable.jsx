@@ -4,14 +4,12 @@ import { useState } from 'react';
 import AmountCell from './AmountCell';
 import CategoryCell from './CategoryCell';
 import CategoryInput from './CategoryInput';
-import ExpenseTypeCell from './ExpenseTypeCell';
 import PaymentMethodCell from './PaymentMethodCell';
 import PaymentMethodInput from './PaymentMethodInput';
 import ReceiptCell from './ReceiptCell';
 import SubCategoryCell from './SubCategoryCell';
 import SubCategoryInput from './SubCategoryInput';
 import Table from './Table';
-import TypeInput from './TypeInput';
 import VendorCell from './VendorCell';
 import VendorInput from './VendorInput';
 
@@ -31,17 +29,17 @@ const columnDef = [
       );
     },
   },
-  {
-    key: 'expense_type_id',
-    header: 'Type',
-    defaultValue: '',
-    cell: (row) => {
-      return <ExpenseTypeCell row={row} />;
-    },
-    input: (value, onChange) => {
-      return <TypeInput value={value} onChange={onChange} />;
-    },
-  },
+  //   {
+  //     key: 'expense_type_id',
+  //     header: 'Type',
+  //     defaultValue: '',
+  //     cell: (row) => {
+  //       return <ExpenseTypeCell row={row} />;
+  //     },
+  //     input: (value, onChange) => {
+  //       return <TypeInput value={value} onChange={onChange} />;
+  //     },
+  //   },
   {
     key: 'expense_category_id',
     header: 'Category',
