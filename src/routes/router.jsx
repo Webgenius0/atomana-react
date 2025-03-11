@@ -36,7 +36,6 @@ import NewListingInformationForm from '@/pages/NewListingInformationForm';
 import OpenHouseForm from '@/pages/OpenHouseForm';
 import OpenHouseFormDetails from '@/pages/OpenHouseFormDetails';
 import OpenHouses from '@/pages/OpenHouses';
-import OurMission from '@/pages/OurMission';
 import Profile from '@/pages/Profile';
 import ResetPassword from '@/pages/ResetPassword';
 import SalesTracker from '@/pages/SalesTracker';
@@ -186,14 +185,14 @@ const router = createBrowserRouter([
               </PageTitle>
             ),
           },
-          {
-            path: 'team/our-mission',
-            element: (
-              <PageTitle title="Our Mission">
-                <OurMission />
-              </PageTitle>
-            ),
-          },
+          //   {
+          //     path: 'team/our-mission',
+          //     element: (
+          //       <PageTitle title="Our Mission">
+          //         <OurMission />
+          //       </PageTitle>
+          //     ),
+          //   },
           {
             path: 'team/hoa',
             element: (
