@@ -120,7 +120,7 @@ function NewListingInformationForm() {
           </div>
           <div className="flex flex-col gap-2 w-full">
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-              Property Address & Subdivision Name
+              Property Address
             </label>
             <input
               type="text"

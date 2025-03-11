@@ -16,7 +16,6 @@ import EditTeamMember from '@/pages/EditTeamMember';
 import ErrorPage from '@/pages/ErrorPage';
 import Finances from '@/pages/Finances';
 import ForgetPassword from '@/pages/ForgetPassword';
-import HoaDocument from '@/pages/HoaDocument';
 import Login from '@/pages/Login';
 import ManageTeam from '@/pages/ManageTeam';
 import MemberProfile from '@/pages/MemberProfile';
@@ -36,7 +35,6 @@ import NewListingInformationForm from '@/pages/NewListingInformationForm';
 import OpenHouseForm from '@/pages/OpenHouseForm';
 import OpenHouseFormDetails from '@/pages/OpenHouseFormDetails';
 import OpenHouses from '@/pages/OpenHouses';
-import OurMission from '@/pages/OurMission';
 import Profile from '@/pages/Profile';
 import ResetPassword from '@/pages/ResetPassword';
 import SalesTracker from '@/pages/SalesTracker';
@@ -186,22 +184,22 @@ const router = createBrowserRouter([
               </PageTitle>
             ),
           },
-          {
-            path: 'team/our-mission',
-            element: (
-              <PageTitle title="Our Mission">
-                <OurMission />
-              </PageTitle>
-            ),
-          },
-          {
-            path: 'team/hoa',
-            element: (
-              <PageTitle title="Hoa Community Documents">
-                <HoaDocument />
-              </PageTitle>
-            ),
-          },
+          //   {
+          //     path: 'team/our-mission',
+          //     element: (
+          //       <PageTitle title="Our Mission">
+          //         <OurMission />
+          //       </PageTitle>
+          //     ),
+          //   },
+          //   {
+          //     path: 'team/hoa',
+          //     element: (
+          //       <PageTitle title="Hoa Community Documents">
+          //         <HoaDocument />
+          //       </PageTitle>
+          //     ),
+          //   },
           {
             path: 'team/access',
             element: (

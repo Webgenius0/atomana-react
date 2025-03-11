@@ -14,9 +14,11 @@ const DataCard = ({ data }) => {
       navigate(`/my-systems/open-house/open-house-form`, {
         state: { from: location.pathname },
       });
-    } else if (title === 'HOA Community Docs') {
-      navigate(`/my-systems/team/hoa`);
-    } else if (title === 'Access Instruction') {
+    }
+    // else if (title === 'HOA Community Docs') {
+    //   navigate(`/my-systems/team/hoa`);
+    // }
+    else if (title === 'Access Instruction') {
       navigate(`/my-systems/team/access`);
     } else if (title === 'Sales Tracker') {
       navigate(`/my-systems/team/sales-tracker`);
@@ -50,7 +52,7 @@ const DataCard = ({ data }) => {
       role={
         title == 'Our Mission' ||
         title == 'Open House Request Form' ||
-        title === 'HOA Community Docs' ||
+        // title === 'HOA Community Docs' ||
         title === 'Vendor List' ||
         title == 'New Listing Information Form' ||
         title == 'Access Instruction' ||
