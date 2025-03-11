@@ -67,11 +67,11 @@ export const useGetSystemsData = (type) => {
       type: 'Expenses',
       title: 'My P&L',
     },
-    {
-      id: 'E990',
-      type: 'Team',
-      title: 'HOA Community Docs',
-    },
+    // {
+    //   id: 'E990',
+    //   type: 'Team',
+    //   title: 'HOA Community Docs',
+    // },
     {
       id: 'E992',
       type: 'Team',

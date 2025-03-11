@@ -16,7 +16,6 @@ import EditTeamMember from '@/pages/EditTeamMember';
 import ErrorPage from '@/pages/ErrorPage';
 import Finances from '@/pages/Finances';
 import ForgetPassword from '@/pages/ForgetPassword';
-import HoaDocument from '@/pages/HoaDocument';
 import Login from '@/pages/Login';
 import ManageTeam from '@/pages/ManageTeam';
 import MemberProfile from '@/pages/MemberProfile';
@@ -193,14 +192,14 @@ const router = createBrowserRouter([
           //       </PageTitle>
           //     ),
           //   },
-          {
-            path: 'team/hoa',
-            element: (
-              <PageTitle title="Hoa Community Documents">
-                <HoaDocument />
-              </PageTitle>
-            ),
-          },
+          //   {
+          //     path: 'team/hoa',
+          //     element: (
+          //       <PageTitle title="Hoa Community Documents">
+          //         <HoaDocument />
+          //       </PageTitle>
+          //     ),
+          //   },
           {
             path: 'team/access',
             element: (
