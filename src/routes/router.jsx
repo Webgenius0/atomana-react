@@ -25,6 +25,7 @@ import MyBusinessExpense from '@/pages/MyBusinessExpense';
 import MyClassroom from '@/pages/MyClassroom';
 import MyEssentials from '@/pages/MyEssentials';
 import MyListingExpense from '@/pages/MyListingExpense';
+import MyListingExpense2 from '@/pages/MyListingExpense2';
 import Mypl from '@/pages/Mypl';
 import MyPR from '@/pages/MyPR';
 import MySystems from '@/pages/MySystems';
@@ -125,6 +126,14 @@ const router = createBrowserRouter([
             element: (
               <PageTitle title="My Listing Expenses">
                 <MyListingExpense />
+              </PageTitle>
+            ),
+          },
+          {
+            path: 'finances/my-listing2',
+            element: (
+              <PageTitle title="My Listing Expenses">
+                <MyListingExpense2 />
               </PageTitle>
             ),
           },
