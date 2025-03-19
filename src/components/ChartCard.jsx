@@ -1,7 +1,16 @@
+import { cn } from '@/lib/utils';
 import BarCharts from './BarChart';
 import Dropdown from './Dropdown';
 
-const ChartCard = ({ data, xKey, yKey, yDomain, total, title }) => {
+const ChartCard = ({
+  data,
+  xKey,
+  yKey,
+  yDomain,
+  total,
+  title,
+  percent = 0,
+}) => {
   const options = [
     { value: 'This Month', label: ' This Month' },
     { value: 'This Year', label: 'This Year' },
@@ -18,10 +27,19 @@ const ChartCard = ({ data, xKey, yKey, yDomain, total, title }) => {
           {/* Large Number */}
           <div className="flex flex-col gap-1">
             <h2 className="text-light text-lg md:text-xl lg:text-2xl">
-              $17,182,291.21
+              ${total || '17,182,291.21'}
             </h2>
-            <span className="text-[#9AE4A7] text-sm leading-5 tracking-[0.25px]">
-              +11% of target
+            <span
+              className={cn(
+                'text-[#9AE4A7] text-sm leading-5 tracking-[0.25px]',
+                {
+                  'text-red-400': percent < 0,
+                }
+              )}
+            >
+              {percent >= 0
+                ? `+${percent}% of target`
+                : `-${percent}% of target`}
             </span>
           </div>
 

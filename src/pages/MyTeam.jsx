@@ -2,7 +2,9 @@ import ChartCard from '@/components/ChartCard';
 import DataCard from '@/components/DataCard';
 import Dropdown from '@/components/Dropdown';
 import ProgressBar from '@/components/ProgressBar';
+import { useAxiosSecure } from '@/hooks/useAxios';
 import { useGetSystemsData } from '@/hooks/useGetSystemsData';
+import { useQuery } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
@@ -47,14 +49,6 @@ const MyTeam = () => {
     { value: 'year', label: 'Yearly' },
   ];
   const chartData = [
-    {
-      id: 1,
-      data: [{ name: 'January', value: 200 }],
-      xKey: 'name',
-      yKey: 'value',
-      title: 'Current Sales Volume',
-      yDomain: [0, 400],
-    },
     {
       id: 2,
       data: [{ name: 'Q1', amount: 100000 }],
@@ -158,6 +152,50 @@ const MyTeam = () => {
     };
   }, [navigate]);
 
+  //   {
+  //     id: 1,
+  //     data: [{ name: 'January', value: 200 }],
+  //     xKey: 'name',
+  //     yKey: 'value',
+  //     title: 'Current Sales Volume',
+  //     yDomain: [0, 400],
+  //   },
+
+  const axiosSecure = useAxiosSecure();
+
+  const { data: currentSales, isLoading: isMonthlySalesLoading } = useQuery({
+    queryKey: ['current-sales-monthly'],
+    queryFn: async () => {
+      const response = await axiosSecure.get(
+        '/api/v1/statistic/current-sales/monthly'
+      );
+      return response.data;
+    },
+  });
+
+  const target = Number(currentSales?.data?.target.replace(/,/g, '')) || 0;
+  const targetFilled =
+    Number(currentSales?.data?.target_fill.replace(/,/g, '')) || 0;
+
+  const percent = Number(((targetFilled / target) * 100).toFixed(2));
+
+  const currentSalesMonthlyData = {
+    data: [
+      {
+        name: 'March',
+        value: Number(currentSales?.data?.target_fill.replace(/,/g, '')) || 0,
+      },
+    ],
+    xKey: 'name',
+    yKey: 'value',
+    title: 'Current Sales Volume',
+    yDomain: [0, target],
+    total: targetFilled,
+    percent,
+  };
+
+  console.log(currentSalesMonthlyData);
+
   return (
     <>
       <div className="my-container">
@@ -166,6 +204,10 @@ const MyTeam = () => {
             <h1 className="section-title">MyData</h1>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            {!isMonthlySalesLoading && (
+              <ChartCard {...currentSalesMonthlyData} />
+            )}
+
             {chartData.map((chart) => (
               <ChartCard
                 key={chart.id}
