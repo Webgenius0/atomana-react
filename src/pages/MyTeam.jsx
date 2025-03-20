@@ -2,9 +2,13 @@ import ChartCard from '@/components/ChartCard';
 import DataCard from '@/components/DataCard';
 import Dropdown from '@/components/Dropdown';
 import ProgressBar from '@/components/ProgressBar';
-import { useAxiosSecure } from '@/hooks/useAxios';
+import {
+  useGetCurrentSalesVolume,
+  useGetExpenses,
+  useGetNetProfit,
+  useGetUnitsSold,
+} from '@/hooks/charts.hook';
 import { useGetSystemsData } from '@/hooks/useGetSystemsData';
-import { useQuery } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
@@ -39,40 +43,14 @@ const MyTeam = () => {
     },
   ];
   const options = [
-    { value: 'month', label: 'This Month' },
-    { value: 'quater', label: 'Quater' },
-    { value: 'year', label: 'Yearly' },
+    { value: 'monthly', label: 'This Month' },
+    { value: 'quarterly', label: 'This Quarter' },
+    { value: 'yearly', label: 'This Year' },
   ];
   const heightOptions = [
     { value: 'highestsales', label: 'sort By: Highest sales' },
     { value: 'quater', label: 'Quater' },
     { value: 'year', label: 'Yearly' },
-  ];
-  const chartData = [
-    {
-      id: 2,
-      data: [{ name: 'Q1', amount: 100000 }],
-      xKey: 'name',
-      yKey: 'amount',
-      title: 'Units Sold',
-      yDomain: [0, 1000000],
-    },
-    {
-      id: 3,
-      data: [{ name: 'Item A', sales: 30000 }],
-      xKey: 'name',
-      yKey: 'sales',
-      title: 'Expenses',
-      yDomain: [0, 200000],
-    },
-    {
-      id: 4,
-      data: [{ name: 'John', salary: 300 }],
-      xKey: 'name',
-      yKey: 'salary',
-      title: 'Gross Profit',
-      yDomain: [0, 400],
-    },
   ];
 
   const agentLeaderBoardData = [
@@ -161,40 +139,11 @@ const MyTeam = () => {
   //     yDomain: [0, 400],
   //   },
 
-  const axiosSecure = useAxiosSecure();
-
-  const { data: currentSales, isLoading: isMonthlySalesLoading } = useQuery({
-    queryKey: ['current-sales-monthly'],
-    queryFn: async () => {
-      const response = await axiosSecure.get(
-        '/api/v1/statistic/current-sales/monthly'
-      );
-      return response.data;
-    },
-  });
-
-  const target = Number(currentSales?.data?.target.replace(/,/g, '')) || 0;
-  const targetFilled =
-    Number(currentSales?.data?.target_fill.replace(/,/g, '')) || 0;
-
-  const percent = Number(((targetFilled / target) * 100).toFixed(2));
-
-  const currentSalesMonthlyData = {
-    data: [
-      {
-        name: 'March',
-        value: Number(currentSales?.data?.target_fill.replace(/,/g, '')) || 0,
-      },
-    ],
-    xKey: 'name',
-    yKey: 'value',
-    title: 'Current Sales Volume',
-    yDomain: [0, target],
-    total: targetFilled,
-    percent,
-  };
-
-  console.log(currentSalesMonthlyData);
+  const { currentSalesData, setTimeRange: setSalesTimeRange } =
+    useGetCurrentSalesVolume();
+  const { unitsSoldData, setTimeRange: setUnitsTimeRange } = useGetUnitsSold();
+  const { expensesData, setTimeRange: setExpenseTimeRange } = useGetExpenses();
+  const { netProfitData, setTimeRange: setProfitTimeRange } = useGetNetProfit();
 
   return (
     <>
@@ -204,20 +153,26 @@ const MyTeam = () => {
             <h1 className="section-title">MyData</h1>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {!isMonthlySalesLoading && (
-              <ChartCard {...currentSalesMonthlyData} />
-            )}
-
-            {chartData.map((chart) => (
-              <ChartCard
-                key={chart.id}
-                data={chart.data}
-                xKey={chart.xKey}
-                yKey={chart.yKey}
-                yDomain={chart.yDomain}
-                title={chart.title}
-              />
-            ))}
+            <ChartCard
+              {...currentSalesData}
+              options={options}
+              onSelect={setSalesTimeRange}
+            />
+            <ChartCard
+              {...unitsSoldData}
+              options={options}
+              onSelect={setUnitsTimeRange}
+            />
+            <ChartCard
+              {...expensesData}
+              options={options}
+              onSelect={setExpenseTimeRange}
+            />
+            <ChartCard
+              {...netProfitData}
+              options={options}
+              onSelect={setProfitTimeRange}
+            />
           </div>
           <div
             ref={agentRef}

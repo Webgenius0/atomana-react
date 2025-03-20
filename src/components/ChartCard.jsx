@@ -10,16 +10,9 @@ const ChartCard = ({
   total,
   title,
   percent = 0,
+  options = [],
+  onSelect,
 }) => {
-  const options = [
-    { value: 'This Month', label: ' This Month' },
-    { value: 'This Year', label: 'This Year' },
-    { value: 'option3', label: 'Option 3' },
-  ];
-  const handleSelect = (option) => {
-    console.table({ option });
-  };
-
   return (
     <>
       <div className="w-full rounded-lg shadow bg-[#242424] p-4 md:p-6">
@@ -27,7 +20,7 @@ const ChartCard = ({
           {/* Large Number */}
           <div className="flex flex-col gap-1">
             <h2 className="text-light text-lg md:text-xl lg:text-2xl">
-              ${total || '17,182,291.21'}
+              ${total || '0.00'}
             </h2>
             <span
               className={cn(
@@ -37,15 +30,15 @@ const ChartCard = ({
                 }
               )}
             >
-              {percent >= 0
-                ? `+${percent}% of target`
-                : `-${percent}% of target`}
+              {percent < 0
+                ? `-${percent || 0}% of target`
+                : `+${percent || 0}% of target`}
             </span>
           </div>
 
           {/* Dropdown */}
           <div>
-            <Dropdown options={options} onSelect={handleSelect} />
+            <Dropdown options={options} onSelect={onSelect} />
           </div>
         </div>
 
