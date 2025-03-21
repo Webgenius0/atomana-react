@@ -8,6 +8,7 @@ import {
   useGetNetProfit,
   useGetUnitsSold,
 } from '@/hooks/charts.hook';
+import { useGetLeaderboardData } from '@/hooks/leaderboard.hook';
 import { useGetSystemsData } from '@/hooks/useGetSystemsData';
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -42,71 +43,17 @@ const MyTeam = () => {
       subTitle: 'We own our problems and work towards solutions',
     },
   ];
-  const options = [
+
+  const filterOptions = [
     { value: 'monthly', label: 'This Month' },
     { value: 'quarterly', label: 'This Quarter' },
     { value: 'yearly', label: 'This Year' },
   ];
-  const heightOptions = [
-    { value: 'highestsales', label: 'sort By: Highest sales' },
-    { value: 'quater', label: 'Quater' },
-    { value: 'year', label: 'Yearly' },
-  ];
 
-  const agentLeaderBoardData = [
-    {
-      name: 'James L.',
-      amount: '264,054',
-      sales: 12,
-      salesGoal: 25,
-    },
-    {
-      name: 'Sasha B.',
-      amount: '251,839',
-      sales: 10,
-      salesGoal: 25,
-    },
-    {
-      name: 'Russel M.',
-      amount: '204,576',
-      sales: 10,
-      salesGoal: 30,
-    },
-    {
-      name: 'Kim H.',
-      amount: '202,843',
-      sales: 9,
-      salesGoal: 40,
-    },
-    {
-      name: 'Ralph D.',
-      amount: '200,003',
-      sales: 9,
-      salesGoal: 42,
-    },
-    {
-      name: 'Irwin K.',
-      amount: '199,398',
-      sales: 8,
-      salesGoal: 40,
-    },
-    {
-      name: 'Sasha M.',
-      amount: '199,192',
-      sales: 8,
-      salesGoal: 40,
-    },
-    {
-      name: 'Sasha N.',
-      amount: '198,278',
-      sales: 1,
-      salesGoal: 5,
-    },
+  const sortingOptions = [
+    { value: 'highest-avg-sales', label: 'Sort By: Highest Average Sales' },
+    { value: 'highest-sold-volume', label: 'Sort By: Highest Sold Volume' },
   ];
-
-  const handleSelect = (option) => {
-    // console.log("Selected option:", option);
-  };
 
   const agentRef = useRef();
   const dropdownRef = useRef();
@@ -130,20 +77,14 @@ const MyTeam = () => {
     };
   }, [navigate]);
 
-  //   {
-  //     id: 1,
-  //     data: [{ name: 'January', value: 200 }],
-  //     xKey: 'name',
-  //     yKey: 'value',
-  //     title: 'Current Sales Volume',
-  //     yDomain: [0, 400],
-  //   },
-
   const { currentSalesData, setTimeRange: setSalesTimeRange } =
     useGetCurrentSalesVolume();
   const { unitsSoldData, setTimeRange: setUnitsTimeRange } = useGetUnitsSold();
   const { expensesData, setTimeRange: setExpenseTimeRange } = useGetExpenses();
   const { netProfitData, setTimeRange: setProfitTimeRange } = useGetNetProfit();
+
+  const { leaderboardData, isLoading, handleSorting, handleFiltering } =
+    useGetLeaderboardData();
 
   return (
     <>
@@ -155,22 +96,22 @@ const MyTeam = () => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             <ChartCard
               {...currentSalesData}
-              options={options}
+              options={filterOptions}
               onSelect={setSalesTimeRange}
             />
             <ChartCard
               {...unitsSoldData}
-              options={options}
+              options={filterOptions}
               onSelect={setUnitsTimeRange}
             />
             <ChartCard
               {...expensesData}
-              options={options}
+              options={filterOptions}
               onSelect={setExpenseTimeRange}
             />
             <ChartCard
               {...netProfitData}
-              options={options}
+              options={filterOptions}
               onSelect={setProfitTimeRange}
             />
           </div>
@@ -181,28 +122,32 @@ const MyTeam = () => {
             <div className="flex justify-between gap-1 gap-y-3 flex-wrap">
               <h1 className="section-title">Agent Leaderboard</h1>
               <div ref={dropdownRef} className="flex gap-2">
-                <Dropdown options={heightOptions} onSelect={handleSelect} />
-                <Dropdown options={options} onSelect={handleSelect} />
+                <Dropdown options={sortingOptions} onSelect={handleSorting} />
+                <Dropdown options={filterOptions} onSelect={handleFiltering} />
               </div>
             </div>
             <div className="grid md:grid-cols-2 gap-y-4 md:gap-y-6 gap-12 w-full mt-5">
-              {agentLeaderBoardData?.map((agent, index) => (
-                <div key={index} className="w-full">
-                  <div className="flex items-center justify-between mb-2.5 gap-x-2 flex-wrap">
-                    <p className="text-sm leading-5 tracking-[0.25px] text-[#ffffff99]">
-                      {agent?.name}
-                    </p>
-                    <p className="text-sm leading-5 tracking-[0.25px] text-[#ffffff99]">
-                      ${agent?.amount} ({agent?.sales} sales)
-                    </p>
-                  </div>
+              {isLoading ? (
+                <p>Loading...</p>
+              ) : (
+                leaderboardData?.map((agent, index) => (
+                  <div key={index} className="w-full">
+                    <div className="flex items-center justify-between mb-2.5 gap-x-2 flex-wrap">
+                      <p className="text-sm leading-5 tracking-[0.25px] text-[#ffffff99]">
+                        {agent?.name}
+                      </p>
+                      <p className="text-sm leading-5 tracking-[0.25px] text-[#ffffff99]">
+                        ${agent?.amount} ({agent?.sales} sales)
+                      </p>
+                    </div>
 
-                  <ProgressBar
-                    currentValue={agent?.sales}
-                    goalValue={agent?.salesGoal}
-                  />
-                </div>
-              ))}
+                    <ProgressBar
+                      currentValue={agent?.sales}
+                      goalValue={agent?.salesGoal}
+                    />
+                  </div>
+                ))
+              )}
             </div>
           </div>
           <div className="mt-6">
