@@ -1,14 +1,25 @@
+import Modal from '@/components/shared/modal';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import FacebookSvg from '@/components/svgs/FacebookSvg';
 import InstaSvg from '@/components/svgs/InstaSvg';
 import XSvg from '@/components/svgs/XSvg';
 import { STATUS } from '@/constants';
-import { useGetProfile } from '@/hooks/profile.hook';
+import { useGetProfile, usePostProfile } from '@/hooks/profile.hook';
 import { format } from 'date-fns';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const AccountInformation = () => {
   const { profile } = useGetProfile();
+  console.log(profile?.bio)
+ 
+  const {mutate:editProfile, modal, setModal, isPending} = usePostProfile();
+
+  const handleCloseModal = () =>{
+    setModal(null)
+  }
+
+  
 
   return (
     <div className="my-container">
@@ -67,12 +78,12 @@ const AccountInformation = () => {
                 Home address
               </p>
               <p className="text-sm font-medium leading-5 text-light">
-                {profile?.address || 'N/A'}
+                {profile?.address}
               </p>
             </div>
 
             <Link
-              to=""
+              onClick={() =>setModal('address')}
               className="text-xs md:text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
             >
               EDIT
@@ -194,13 +205,15 @@ const AccountInformation = () => {
                 {profile?.bio || 'N/A'}
               </p>
             </div>
-
             <Link
-              to=""
+              onClick={() => setModal('bio')}
               className="text-xs md:text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
             >
               EDIT
             </Link>
+            {
+              modal && <Modal name={modal} onClose={handleCloseModal} profileInfo={profile} editProfile={editProfile} isPending={isPending}/>
+            }
           </div>
         </div>
       </div>
