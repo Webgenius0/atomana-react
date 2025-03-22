@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useAxiosSecure } from "./useAxios";
 
 export const useOpenHouse = () => {
