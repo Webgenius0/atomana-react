@@ -10,6 +10,7 @@ import SubCategoryCell from './cells/SubCategoryCell';
 import CategoryInput from './inputs/CategoryInput';
 import CommonInput from './inputs/CommonInput';
 import DateInput from './inputs/DateInput';
+import DescriptionInput from './inputs/DescriptionInput';
 import SubcategoryInput from './inputs/SubcategoryInput';
 
 export const columns = [
@@ -59,7 +60,7 @@ export const columns = [
     header: 'Description',
     cell: DescriptionCell,
     size: 200,
-    footer: CommonInput,
+    footer: DescriptionInput,
   },
   {
     accessorKey: 'amount',
