@@ -12,6 +12,7 @@ import CategoryInput from './inputs/CategoryInput';
 import CommonInput from './inputs/CommonInput';
 import DateInput from './inputs/DateInput';
 import DescriptionInput from './inputs/DescriptionInput';
+import OwnerInput from './inputs/OwnerInput';
 import PaymentMethodInput from './inputs/PaymentMethodInput';
 import ReceiptInput from './inputs/ReceiptInput';
 import SubcategoryInput from './inputs/SubcategoryInput';
@@ -99,7 +100,7 @@ export const columns = [
     header: 'Owner',
     cell: CommonCell,
     size: 110,
-    footer: CommonInput,
+    footer: OwnerInput,
   },
   {
     accessorKey: 'reimbursable',
