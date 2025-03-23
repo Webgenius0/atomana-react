@@ -9,12 +9,14 @@ import ReimbursableCell from './cells/ReimbursableCell';
 import SubCategoryCell from './cells/SubCategoryCell';
 import AmountInput from './inputs/AmountInput';
 import CategoryInput from './inputs/CategoryInput';
-import CommonInput from './inputs/CommonInput';
 import DateInput from './inputs/DateInput';
 import DescriptionInput from './inputs/DescriptionInput';
+import ListingInput from './inputs/ListingInput';
+import NotesInput from './inputs/NotesInput';
 import OwnerInput from './inputs/OwnerInput';
 import PaymentMethodInput from './inputs/PaymentMethodInput';
 import ReceiptInput from './inputs/ReceiptInput';
+import ReimbursableInput from './inputs/ReimbursableInput';
 import SubcategoryInput from './inputs/SubcategoryInput';
 import VendorInput from './inputs/VendorInput';
 
@@ -107,20 +109,20 @@ export const columns = [
     header: 'Reimbursable',
     cell: ReimbursableCell,
     size: 75,
-    footer: CommonInput,
+    footer: ReimbursableInput,
   },
   {
     accessorKey: 'listing',
     header: 'Listing',
     cell: CommonCell,
     size: 100,
-    footer: CommonInput,
+    footer: ListingInput,
   },
   {
     accessorKey: 'note',
     header: 'Notes',
     cell: NoteCell,
     size: 150,
-    footer: CommonInput,
+    footer: NotesInput,
   },
 ];
