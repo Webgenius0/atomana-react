@@ -20,8 +20,11 @@ export default function SubcategoryInput() {
     (category) => category.id == categoryId
   )?.slug;
 
-  const { expenseSubCategories, isLoading: isSubcategoryLoading } =
-    useGetExpenseSubCategories(categorySlug);
+  const {
+    expenseSubCategories,
+    isLoading: isSubcategoryLoading,
+    isFetching: isSubcategoryFetching,
+  } = useGetExpenseSubCategories(categorySlug);
 
   const expenseSubCategoryOptions = expenseSubCategories?.map((item) => ({
     value: item.name,
@@ -48,7 +51,9 @@ export default function SubcategoryInput() {
                 expenseSubCategories?.find((item) => item.name === value)?.id
               )
             }
-            disabled={isCategoryLoading || isSubcategoryLoading}
+            disabled={
+              isCategoryLoading || isSubcategoryLoading || isSubcategoryFetching
+            }
             options={expenseSubCategoryOptions}
             placeholder="Select Subcategory"
           />

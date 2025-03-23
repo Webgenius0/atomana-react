@@ -8,8 +8,6 @@ export default function CategoryInput() {
   const { expenseCategories, isLoading } = useGetExpenseCategories();
   const form = useFormContext();
 
-  if (isLoading) return null;
-
   const categoryOptions = expenseCategories?.map((item) => ({
     value: item.name,
     label: item.name,
@@ -30,6 +28,7 @@ export default function CategoryInput() {
                 expenseCategories?.find((item) => item.name === value).id
               )
             }
+            disabled={isLoading}
             options={categoryOptions}
             placeholder="Select Category"
           />

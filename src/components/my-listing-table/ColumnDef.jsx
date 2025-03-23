@@ -14,6 +14,7 @@ import DateInput from './inputs/DateInput';
 import DescriptionInput from './inputs/DescriptionInput';
 import PaymentMethodInput from './inputs/PaymentMethodInput';
 import SubcategoryInput from './inputs/SubcategoryInput';
+import VendorInput from './inputs/VendorInput';
 
 export const columns = [
   {
@@ -79,11 +80,11 @@ export const columns = [
     footer: PaymentMethodInput,
   },
   {
-    accessorKey: 'payee',
+    accessorKey: 'user_id',
     header: 'Vendor / Payee',
     cell: CommonCell,
     size: 150,
-    footer: CommonInput,
+    footer: VendorInput,
   },
   {
     accessorKey: 'recept',

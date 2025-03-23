@@ -6,8 +6,6 @@ export default function PaymentMethodInput() {
   const { paymentMethods, isLoading } = useGetPaymentMethods();
   const form = useFormContext();
 
-  if (isLoading) return null;
-
   const categoryOptions = paymentMethods?.map((item) => ({
     value: item.name,
     label: item.name,
@@ -25,6 +23,7 @@ export default function PaymentMethodInput() {
               paymentMethods?.find((item) => item.name === value).id
             )
           }
+          disabled={isLoading}
           options={categoryOptions}
           placeholder="Select Payment Method"
         />
