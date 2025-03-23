@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { useAxiosSecure } from './useAxios';
 
 export const useGetMyListingExpenses = ({ per_page = 10, page = 1 }) => {
@@ -243,6 +244,8 @@ export const useGetExpenseCategories = () => {
 
 export const useStoreCategory = () => {
   const [open, setOpen] = useState(false);
+  const [name, setName] = useState('');
+  const [nameError, setNameError] = useState('');
   const axiosPrivate = useAxiosSecure();
   const queryClient = useQueryClient();
 
@@ -257,21 +260,70 @@ export const useStoreCategory = () => {
     onSuccess: (data) => {
       if (data?.success) {
         queryClient.invalidateQueries(['expense_categories']);
+        setNameError('');
+        setName('');
         setOpen(false);
       }
     },
     onError: (error) => {
       queryClient.invalidateQueries(['expense_categories']);
       setOpen(false);
-      alert(
-        Object.entries(error?.response?.data?.error)
-          .map(([, value]) => value[0])
-          .join(`\n`)
-      );
+      setNameError('');
+      setName('');
+      toast.error(error?.response?.data?.message);
     },
   });
 
-  return { open, setOpen, ...result };
+  return { open, setOpen, name, setName, nameError, setNameError, ...result };
+};
+
+export const useStoreSubCategory = () => {
+  const [open, setOpen] = useState(false);
+  const [name, setName] = useState('');
+  const [categoryId, setCategoryId] = useState('');
+  const [nameError, setNameError] = useState('');
+  const [categoryError, setCategoryError] = useState('');
+  const axiosPrivate = useAxiosSecure();
+  const queryClient = useQueryClient();
+
+  const result = useMutation({
+    mutationFn: async (payload) => {
+      const response = await axiosPrivate.post(
+        `/api/v1/expense/sub-category/store`,
+        payload
+      );
+      return response.data;
+    },
+    onSuccess: (data) => {
+      if (data?.success) {
+        queryClient.invalidateQueries(['expense_categories']);
+        setNameError('');
+        setName('');
+        setOpen(false);
+      }
+    },
+    onError: (error) => {
+      queryClient.invalidateQueries(['expense_categories']);
+      setOpen(false);
+      setNameError('');
+      setName('');
+      toast.error(error?.response?.data?.message);
+    },
+  });
+
+  return {
+    open,
+    setOpen,
+    name,
+    setName,
+    nameError,
+    setNameError,
+    categoryId,
+    setCategoryId,
+    categoryError,
+    setCategoryError,
+    ...result,
+  };
 };
 
 export const useGetExpenseSubCategories = (categorySlug) => {

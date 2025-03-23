@@ -12,12 +12,9 @@ import {
   useStoreCategory,
 } from '@/hooks/expense.hook';
 import { Plus } from 'lucide-react';
-import { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
 export default function CategoryInput() {
-  const [name, setName] = useState('');
-  const [error, setError] = useState('');
   const form = useFormContext();
   const { expenseCategories, isLoading } = useGetExpenseCategories();
   const {
@@ -25,6 +22,10 @@ export default function CategoryInput() {
     open,
     setOpen,
     isPending,
+    name,
+    setName,
+    nameError,
+    setNameError,
   } = useStoreCategory();
 
   const categoryOptions = expenseCategories?.map((item) => ({
@@ -33,10 +34,10 @@ export default function CategoryInput() {
   }));
 
   const handleSubmit = () => {
-    setError('');
+    setNameError('');
 
     if (!name.trim()) {
-      return setError('Name is required');
+      return setNameError('Name is required');
     }
 
     storeCategory({ name });
@@ -87,7 +88,7 @@ export default function CategoryInput() {
               value={name}
               onChange={handleChange}
             />
-            <p className="text-red-400">{error}</p>
+            <p className="text-red-400">{nameError}</p>
           </div>
 
           <div className="flex justify-end">
