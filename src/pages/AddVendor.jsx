@@ -1,6 +1,7 @@
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import DropdownIconSvg from '@/components/svgs/DropdownIconSvg';
 import FileSvg from '@/components/svgs/FileSvg';
+import { useCreateVendor, useGetVendorcategory } from '@/hooks/vendor.hook';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
@@ -10,9 +11,25 @@ function AddVendor() {
   const navigate = useNavigate();
   const [fileName, setFileName] = useState('Vendor_Logo.png');
   const [isOpen, setIsOpen] = useState(false);
+  const { categories, isLoading } = useGetVendorcategory();
+  const { mutate, isLoading: isSubmitting } = useCreateVendor();
 
   const onSubmit = (data) => {
-    navigate('/my-systems/vendor-list');
+    const payload = {
+      name: data.name,
+      vendor_category_id: data.category,
+      website: data.website,
+      email: data.email,
+      phone: data.phone,
+      about: data.about,
+      additional_note: 'Some default note',
+    };
+
+    mutate(payload, {
+      onSuccess: () => {
+        navigate(-1);
+      },
+    });
   };
 
   const handleFileChange = (e) => {
@@ -39,7 +56,6 @@ function AddVendor() {
             onSubmit={handleSubmit(onSubmit)}
             className="max-w-[670px] mx-auto flex flex-col gap-4"
           >
-            {/* Vendor Name */}
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium text-white">
                 Vendor Name
@@ -47,24 +63,34 @@ function AddVendor() {
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark text-light w-full outline-none"
                 placeholder="Enter vendor name"
-                {...register('name')}
+                {...register('name', { required: true })}
               />
             </div>
 
-            {/* Vendor Category */}
             <div className="flex flex-col gap-2 relative w-full">
               <label className="text-sm font-medium text-white">
                 Vendor Category
               </label>
               <select
-                {...register('category')}
+                {...register('category', { required: true })}
                 onClick={() => setIsOpen(!isOpen)}
                 className="appearance-none px-4 py-3 outline-none rounded-[10px] border border-[#d8dfeb] bg-dark text-white w-full"
               >
-                <option value="Utilities">Utilities</option>
-                <option value="Pest Control">Pest Control</option>
-                <option value="Insurance">Insurance</option>
-                <option value="Rental Management">Rental Management</option>
+                {isLoading ? (
+                  <option value="" disabled>
+                    Loading...
+                  </option>
+                ) : categories && categories.length > 0 ? (
+                  categories.map((category) => (
+                    <option key={category.id} value={category.id}>
+                      {category.name}
+                    </option>
+                  ))
+                ) : (
+                  <option value="" disabled>
+                    No categories available
+                  </option>
+                )}
               </select>
               <div
                 className={`absolute top-1/2 right-3 transform ${
@@ -75,7 +101,6 @@ function AddVendor() {
               </div>
             </div>
 
-            {/* Website */}
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium text-light">
                 Vendor Website
@@ -87,7 +112,6 @@ function AddVendor() {
               />
             </div>
 
-            {/* Email */}
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium text-light">Email</label>
               <input
@@ -97,7 +121,6 @@ function AddVendor() {
               />
             </div>
 
-            {/* Phone */}
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium text-light">
                 Vendor Phone
@@ -109,7 +132,6 @@ function AddVendor() {
               />
             </div>
 
-            {/* About Vendor */}
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium text-light">
                 About the Vendor
@@ -121,7 +143,6 @@ function AddVendor() {
               />
             </div>
 
-            {/* File Upload */}
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium text-white">
                 Vendor Image or Logo
@@ -141,10 +162,13 @@ function AddVendor() {
               </label>
             </div>
 
-            {/* Buttons */}
             <div className="flex items-center gap-4 justify-between">
-              <button type="submit" className="request-btn approve">
-                Add Vendor
+              <button
+                type="submit"
+                className="request-btn approve"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Adding...' : 'Add Vendor'}
               </button>
               <button
                 type="button"

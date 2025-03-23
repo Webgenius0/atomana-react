@@ -1,16 +1,19 @@
 import React, { useState, useRef, useEffect } from "react";
 import ClockSvg from "./svgs/ClockSvg";
 
-const TimeRangePicker = () => {
+const TimeRangePicker = ({ startTime, endTime, onTimeRangeChange }) => {
   const [showPicker, setShowPicker] = useState(false);
-  const [startTime, setStartTime] = useState("");
-  const [endTime, setEndTime] = useState("");
+  const [localStartTime, setLocalStartTime] = useState(startTime || "");
+  const [localEndTime, setLocalEndTime] = useState(endTime || "");
   const pickerRef = useRef(null);
 
-  // Toggle visibility of the time picker
-  const togglePicker = () => {
-    setShowPicker((prev) => !prev);
-  };
+  useEffect(() => {
+    if (onTimeRangeChange) {
+      onTimeRangeChange({ startTime: localStartTime, endTime: localEndTime });
+    }
+  }, [localStartTime, localEndTime, onTimeRangeChange]);
+
+  const togglePicker = () => setShowPicker((prev) => !prev);
 
   // Handle outside click to close the picker
   useEffect(() => {
@@ -35,16 +38,15 @@ const TimeRangePicker = () => {
         className="flex items-center justify-between px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark w-full gap-2.5 cursor-pointer"
         onClick={togglePicker}
       >
-        {startTime && endTime ? (
+        {localStartTime && localEndTime ? (
           <span className="text-light text-sm leading-[21px] tracking-[-0.14px] ">
-            {startTime} - {endTime}
+            {localStartTime} - {localEndTime}
           </span>
         ) : (
           <span className="text-secondary text-sm leading-[21px] tracking-[-0.14px]">
             Select time range
           </span>
         )}
-
         <ClockSvg />
       </div>
 
@@ -60,8 +62,8 @@ const TimeRangePicker = () => {
               <label className="text-sm text-white mb-2">Start Time</label>
               <input
                 type="time"
-                value={startTime}
-                onChange={(e) => setStartTime(e.target.value)}
+                value={localStartTime}
+                onChange={(e) => setLocalStartTime(e.target.value)}
                 className="px-3 py-2 rounded border border-[#d8dfeb] bg-[#333] text-light text-sm"
               />
             </div>
@@ -71,24 +73,30 @@ const TimeRangePicker = () => {
               <label className="text-sm text-white mb-2">End Time</label>
               <input
                 type="time"
-                value={endTime}
-                onChange={(e) => setEndTime(e.target.value)}
+                value={localEndTime}
+                onChange={(e) => setLocalEndTime(e.target.value)}
                 className="px-3 py-2 rounded border border-[#d8dfeb] bg-[#333] text-light text-sm"
               />
             </div>
 
             {/* Validation Message */}
-            {startTime && endTime && startTime >= endTime && (
-              <p className="text-xs text-red-500">
-                Start time must be earlier than end time.
-              </p>
-            )}
+            {localStartTime &&
+              localEndTime &&
+              localStartTime >= localEndTime && (
+                <p className="text-xs text-red-500">
+                  Start time must be earlier than end time.
+                </p>
+              )}
 
             {/* Confirm Button */}
             <button
               className="w-full text-sm px-4 py-2 mt-1 text-light bg-gradient-to-r from-[#242424]  rounded to-[#009696]"
               onClick={handleConfirm}
-              disabled={startTime >= endTime || !startTime || !endTime}
+              disabled={
+                localStartTime >= localEndTime ||
+                !localStartTime ||
+                !localEndTime
+              }
             >
               Confirm
             </button>

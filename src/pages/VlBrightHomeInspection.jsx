@@ -2,10 +2,23 @@ import SearchIconSvg from "@/components/svgs/SearchIconSvg";
 import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
 import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
 import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import person from "../assets/images/person.png";
+import { useAxiosSecure } from "@/hooks/useAxios";
+import { useQuery } from "@tanstack/react-query";
 
 const VlBrightHomeInspection = () => {
+  const { slug } = useParams();
+  const axiosPrivate = useAxiosSecure();
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["vendor", slug],
+    queryFn: async () => {
+      const response = await axiosPrivate.get(`/api/v1/vendor/single/${slug}`);
+      return response.data.data;
+    },
+  });
+
   return (
     <>
       <div className="pt-6 md:pt-4 lg:pt-4 pb-3">
@@ -16,6 +29,8 @@ const VlBrightHomeInspection = () => {
           >
             <ArrowLeftSvg />
             <h2 className="section-title">Bright Home Inspections</h2>
+            <h1>{slug} Details</h1>
+            <h2 className="text-2xl font-bold">{data?.name}</h2>
           </Link>
 
           <div className="flex items-center gap-2.5">

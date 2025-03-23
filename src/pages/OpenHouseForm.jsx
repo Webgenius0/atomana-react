@@ -4,8 +4,9 @@ import CalenderSvg from '@/components/svgs/CalenderSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
 import TimeRangePicker from '@/components/TimeRangePicker';
+import { useOpenHouse } from '@/hooks/open-house.hook';
 import { Controller, useForm } from 'react-hook-form';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const OpenHouseForm = () => {
   const {
@@ -14,14 +15,53 @@ const OpenHouseForm = () => {
     reset,
     control,
     formState: { errors },
-  } = useForm({ expirationDate: null });
-  const navigate = useNavigate();
+    setValue,
+    getValues,
+  } = useForm({
+    expirationDate: null,
+    timeRange: { startTime: '', endTime: '' },
+  });
+
   const location = useLocation();
 
-  const onSubmit = (data) => {
-    navigate(`/my-systems/open-house/open-house-form-details`);
+  const { mutate, isLoading } = useOpenHouse();
+
+  const handleTimeRangeChange = (newTimeRange) => {
+    setValue('timeRange', newTimeRange);
   };
 
+  const onSubmit = (data) => {
+    const { expirationDate, timeRange, email, answer, phone, signs } = data;
+
+    const payload = {
+      email: email,
+      property_id: answer,
+      business_id: answer,
+      date: expirationDate,
+      start_time: timeRange?.startTime || '',
+      end_time: timeRange?.endTime || '',
+      wavy_man: phone === 'yes',
+      sign_number: parseInt(signs, 10) || 0,
+    };
+    console.log('Payload:', payload);
+    mutate(payload, {
+      onSuccess: () => {
+        reset({
+          email: '',
+          property_id: '',
+          business_id: '',
+          date: '',
+          start_time: '',
+          end_time: '',
+          wavy_man: '',
+          sign_number: 0,
+        });
+
+        // Optional: Navigate after resetting
+        // navigate(`/my-systems/open-house/open-house-form-details`);
+      },
+    });
+  };
   const handleResetForm = (e) => {
     e.preventDefault();
     reset();
@@ -109,7 +149,11 @@ const OpenHouseForm = () => {
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
               What time frame do you want to hold it?
             </label>
-            <TimeRangePicker />
+            <TimeRangePicker
+              startTime={getValues('timeRange.startTime')}
+              endTime={getValues('timeRange.endTime')}
+              onTimeRangeChange={handleTimeRangeChange}
+            />
           </div>
           <div className="flex flex-col gap-2 w-full">
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
