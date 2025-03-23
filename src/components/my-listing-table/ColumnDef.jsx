@@ -12,6 +12,7 @@ import CategoryInput from './inputs/CategoryInput';
 import CommonInput from './inputs/CommonInput';
 import DateInput from './inputs/DateInput';
 import DescriptionInput from './inputs/DescriptionInput';
+import PaymentMethodInput from './inputs/PaymentMethodInput';
 import SubcategoryInput from './inputs/SubcategoryInput';
 
 export const columns = [
@@ -75,7 +76,7 @@ export const columns = [
     header: 'Payment Method',
     cell: PaymentMethodCell,
     size: 100,
-    footer: CommonInput,
+    footer: PaymentMethodInput,
   },
   {
     accessorKey: 'payee',

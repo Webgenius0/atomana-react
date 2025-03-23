@@ -23,11 +23,11 @@ export default function CategoryInput() {
         render={({ field }) => (
           <Select
             value={
-              expenseCategories.find((item) => item.id === field.value)?.name
+              expenseCategories?.find((item) => item.id === field.value)?.name
             }
             setValue={(value) =>
               field.onChange(
-                expenseCategories.find((item) => item.name === value).id
+                expenseCategories?.find((item) => item.name === value).id
               )
             }
             options={categoryOptions}
