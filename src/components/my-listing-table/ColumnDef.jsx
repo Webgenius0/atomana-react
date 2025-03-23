@@ -13,6 +13,7 @@ import CommonInput from './inputs/CommonInput';
 import DateInput from './inputs/DateInput';
 import DescriptionInput from './inputs/DescriptionInput';
 import PaymentMethodInput from './inputs/PaymentMethodInput';
+import ReceiptInput from './inputs/ReceiptInput';
 import SubcategoryInput from './inputs/SubcategoryInput';
 import VendorInput from './inputs/VendorInput';
 
@@ -90,8 +91,8 @@ export const columns = [
     accessorKey: 'recept',
     header: 'Receipt',
     cell: ReceiptCell,
-    size: 125,
-    footer: CommonInput,
+    size: 150,
+    footer: ReceiptInput,
   },
   {
     accessorKey: 'owner',
