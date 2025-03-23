@@ -12,7 +12,6 @@ function AddVendor() {
   const [isOpen, setIsOpen] = useState(false);
 
   const onSubmit = (data) => {
-    // console.log("Form Data:", { ...data, fileName });
     navigate('/my-systems/vendor-list');
   };
 

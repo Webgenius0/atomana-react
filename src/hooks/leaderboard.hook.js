@@ -26,6 +26,7 @@ export const useGetLeaderboardData = () => {
   });
 
   const leaderboardData = data?.data?.map((item) => ({
+    user_id: item.user_id,
     name: item.name,
     amount: item.avg_purchase_price,
     sales: item.total_sales,

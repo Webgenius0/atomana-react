@@ -1,4 +1,5 @@
 import { useGetMyListingExpenses } from '@/hooks/expense.hook';
+import { cn } from '@/lib/utils';
 import {
   flexRender,
   getCoreRowModel,
@@ -6,6 +7,7 @@ import {
 } from '@tanstack/react-table';
 import { format } from 'date-fns';
 import { useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import AmountCell from './AmountCell';
 import CategoryCell from './CategoryCell';
 import CategoryInput from './CategoryInput';
@@ -363,65 +365,147 @@ export default function MyListingExpenseTable() {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  console.log(table.getHeaderGroups());
+  const [showInputs, setShowInputs] = useState(false);
+
+  console.log({ table: table.getFooterGroups() });
+
+  const form = useForm({
+    defaultValues: {
+      expense_category_id: '',
+    },
+  });
+
+  const onSubmit = (data) => {
+    console.log({ form: data });
+  };
 
   return (
     <div>
       <Table columnDef={columnDef} data={myListingExpenses} />
 
-      <div className="mt-12  overflow-x-auto">
-        <table className="border-collapse font-Roboto text-[10px] text-center tracking-[0.25px] font-normal rounded-2xl overflow-x-auto">
-          <thead className="text-white/60 rounded-2xl">
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <th
-                      key={header.id}
-                      className="border border-[#5E5E5E] px-[10px] py-[6.5px]"
-                    >
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </th>
-                  );
-                })}
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <tr key={row.id} data-state={row.getIsSelected() && 'selected'}>
-                  {row.getVisibleCells().map((cell) => (
-                    <td
-                      key={cell.id}
-                      className={'border border-[#5E5E5E] text-white'}
-                      style={{
-                        minWidth: `${cell.column.getSize()}px`,
-                      }}
-                    >
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </td>
-                  ))}
+      <FormProvider {...form}>
+        <form
+          className="mt-12 overflow-x-auto"
+          onSubmit={form.handleSubmit(onSubmit)}
+        >
+          <table className="border-collapse font-Roboto text-[10px] text-center tracking-[0.25px] font-normal rounded-2xl overflow-x-auto">
+            <thead className="text-white/60 rounded-2xl">
+              {table.getHeaderGroups().map((headerGroup) => (
+                <tr key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => {
+                    return (
+                      <th
+                        key={header.id}
+                        className="border border-[#5E5E5E] px-[10px] py-[6.5px]"
+                      >
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                      </th>
+                    );
+                  })}
                 </tr>
-              ))
-            ) : (
+              ))}
+            </thead>
+            <tbody>
+              {table.getRowModel().rows?.length ? (
+                table.getRowModel().rows.map((row) => (
+                  <tr
+                    key={row.id}
+                    data-state={row.getIsSelected() && 'selected'}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <td
+                        key={cell.id}
+                        className={'border border-[#5E5E5E] text-white'}
+                        style={{
+                          minWidth: `${cell.column.getSize()}px`,
+                        }}
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={columns.length} className="h-24 text-center">
+                    No results.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+            <tfoot>
+              {showInputs &&
+                table.getFooterGroups().map((footerGroup) => (
+                  <tr key={footerGroup.id}>
+                    {footerGroup.headers.map((header) => (
+                      <th
+                        key={header.id}
+                        colSpan={header.colSpan}
+                        className="text-center text-white/60 border border-[#5E5E5E] px-[10px] py-[6.5px]"
+                      >
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.footer,
+                              header.getContext()
+                            )}
+                      </th>
+                    ))}
+                  </tr>
+                ))}
               <tr>
-                <td colSpan={columns.length} className="h-24 text-center">
-                  No results.
-                </td>
+                <td className="text-center text-white/60 border border-[#5E5E5E] px-[10px] py-[6.5px]"></td>
+                {!showInputs && (
+                  <td
+                    className="text-white/60 border border-[#5E5E5E] px-3 py-2 text-left cursor-pointer"
+                    colSpan="100%"
+                    onClick={() => setShowInputs(true)}
+                  >
+                    + Add an Expense
+                  </td>
+                )}
+                {showInputs && (
+                  <td
+                    colSpan={13}
+                    className="cursor-pointer px-4 py-2 border border-[#5E5E5E] text-[11px] font-Roboto text-[#ffffff4d]"
+                  >
+                    <div className="flex items-center space-x-4">
+                      <button
+                        className={cn(
+                          'px-3 py-2 bg-green-600 hover:bg-green-700 border border-green-600 rounded-lg text-white text-xs font-medium font-Roboto transition duration-200 ease-in-out shadow-md'
+                          //   { 'opacity-60': isPending }
+                        )}
+                        // onClick={handleConfirmExpense}
+                        // disabled={isPending}
+                      >
+                        Confirm
+                      </button>
+                      <button
+                        className={cn(
+                          'px-3 py-2 bg-red-600 hover:bg-red-700 border border-red-600 rounded-lg text-white text-xs font-medium font-Roboto transition duration-200 ease-in-out shadow-md'
+                          //   { 'opacity-60': isPending }
+                        )}
+                        onClick={() => setShowInputs(false)}
+                        // disabled={isPending}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </td>
+                )}
               </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+            </tfoot>
+          </table>
+        </form>
+      </FormProvider>
     </div>
   );
 }

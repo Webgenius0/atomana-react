@@ -1,17 +1,16 @@
-import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
-import PlusSvg from "@/components/svgs/PlusSvg";
-import SearchGraySvg from "@/components/svgs/SearchGraySvg";
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import PhoneSvg from "@/components/svgs/PhoneSvg";
-import MessageSvg from "@/components/svgs/MessageSvg";
-import MailSvg from "@/components/svgs/MailSvg";
-import { useGetAgents } from "@/hooks/agent.hook";
+import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
+import MailSvg from '@/components/svgs/MailSvg';
+import MessageSvg from '@/components/svgs/MessageSvg';
+import PhoneSvg from '@/components/svgs/PhoneSvg';
+import PlusSvg from '@/components/svgs/PlusSvg';
+import SearchGraySvg from '@/components/svgs/SearchGraySvg';
+import { useGetAgents } from '@/hooks/agent.hook';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const ManageTeam = () => {
   const { agents, isLoading, isError, error } = useGetAgents();
-  console.log(agents);
-  const [searchMember, setSearchMember] = useState("");
+  const [searchMember, setSearchMember] = useState('');
 
   const handleSearch = (e) => {
     setSearchMember(e.target.value);
@@ -19,7 +18,7 @@ const ManageTeam = () => {
 
   // Ensure agents is an array before filtering
   const filteredAgents = (agents?.data || []).filter((agent) => {
-    const searchTerms = searchMember.toLowerCase().split(" ");
+    const searchTerms = searchMember.toLowerCase().split(' ');
     return searchTerms.every(
       (term) =>
         agent.first_name.toLowerCase().includes(term) ||

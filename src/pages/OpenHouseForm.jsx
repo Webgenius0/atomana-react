@@ -19,7 +19,6 @@ const OpenHouseForm = () => {
   const location = useLocation();
 
   const onSubmit = (data) => {
-    // console.log("open house form data: ", data)
     navigate(`/my-systems/open-house/open-house-form-details`);
   };
 

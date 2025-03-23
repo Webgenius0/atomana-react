@@ -76,7 +76,6 @@ const MyClassroom = () => {
       try {
         const response = await axios.get('/my_classroom.json');
         setData(response.data);
-        // console.log(response.data);
       } catch (error) {
         console.error('Error Fetching Json: ', error);
       }

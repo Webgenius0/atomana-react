@@ -4,7 +4,6 @@ import {
 } from '@/hooks/expense.hook';
 
 export default function SubCategoryCell({ row, getValue }) {
-  console.log({ row, value: getValue() });
   const categoryId = row.original.expense_category_id;
   const { expenseCategories } = useGetExpenseCategories();
 

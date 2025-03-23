@@ -128,7 +128,7 @@ const MyTeam = () => {
             </div>
             <div className="grid md:grid-cols-2 gap-y-4 md:gap-y-6 gap-12 w-full mt-5">
               {isLoading ? (
-                <p>Loading...</p>
+                <p className="text-white">Loading...</p>
               ) : (
                 leaderboardData?.map((agent, index) => (
                   <div key={index} className="w-full">

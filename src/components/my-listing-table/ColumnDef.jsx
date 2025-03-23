@@ -7,6 +7,9 @@ import PaymentMethodCell from './cells/PaymentMethodCell';
 import ReceiptCell from './cells/ReceiptCell';
 import ReimbursableCell from './cells/ReimbursableCell';
 import SubCategoryCell from './cells/SubCategoryCell';
+import CategoryInput from './inputs/CategoryInput';
+import CommonInput from './inputs/CommonInput';
+import DateInput from './inputs/DateInput';
 
 export const columns = [
   {
@@ -34,71 +37,83 @@ export const columns = [
     header: 'Date',
     cell: CommonCell,
     size: 75,
+    footer: DateInput,
   },
   {
     accessorKey: 'expense_category_id',
     header: 'Category',
     cell: CategoryCell,
     size: 135,
+    footer: CategoryInput,
   },
   {
     accessorKey: 'expense_sub_category_id',
     header: 'Subcategory',
     cell: SubCategoryCell,
     size: 125,
+    footer: CommonInput,
   },
   {
     accessorKey: 'description',
     header: 'Description',
     cell: DescriptionCell,
     size: 200,
+    footer: CommonInput,
   },
   {
     accessorKey: 'amount',
     header: 'Amount',
     cell: CurrencyCell,
     size: 75,
+    footer: CommonInput,
   },
   {
     accessorKey: 'payment_method_id',
     header: 'Payment Method',
     cell: PaymentMethodCell,
     size: 100,
+    footer: CommonInput,
   },
   {
     accessorKey: 'payee',
     header: 'Vendor / Payee',
     cell: CommonCell,
     size: 150,
+    footer: CommonInput,
   },
   {
     accessorKey: 'recept',
     header: 'Receipt',
     cell: ReceiptCell,
     size: 125,
+    footer: CommonInput,
   },
   {
     accessorKey: 'owner',
     header: 'Owner',
     cell: CommonCell,
     size: 110,
+    footer: CommonInput,
   },
   {
     accessorKey: 'reimbursable',
     header: 'Reimbursable',
     cell: ReimbursableCell,
     size: 75,
+    footer: CommonInput,
   },
   {
     accessorKey: 'listing',
     header: 'Listing',
     cell: CommonCell,
     size: 100,
+    footer: CommonInput,
   },
   {
     accessorKey: 'note',
     header: 'Notes',
     cell: NoteCell,
     size: 150,
+    footer: CommonInput,
   },
 ];

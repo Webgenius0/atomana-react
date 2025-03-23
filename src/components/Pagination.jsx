@@ -4,7 +4,6 @@ const Pagination = ({
   itemsPerPage,
   onPageChange,
 }) => {
-  console.log({ currentPage, totalItems, itemsPerPage });
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const visiblePages = 5;
 
@@ -12,14 +11,10 @@ const Pagination = ({
     const startPage = Math.max(currentPage - Math.floor(visiblePages / 2), 1);
     const endPage = Math.min(startPage + visiblePages - 1, totalPages);
 
-    console.log({ totalPages });
-
     const pages = [];
     for (let i = startPage; i <= endPage; i++) {
       pages.push(i);
     }
-
-    console.log({ pages });
 
     return pages;
   };

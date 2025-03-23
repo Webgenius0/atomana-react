@@ -137,12 +137,9 @@ const Mypl = () => {
   ];
 
   const handleChange = (value) => {
-    // console.log("Selected Value:", value);
     setSelectedValue(value);
   };
-  const handleSelect = (option) => {
-    // console.log("Selected option:", option);
-  };
+  const handleSelect = (option) => {};
 
   return (
     <div>
