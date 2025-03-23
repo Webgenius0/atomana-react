@@ -84,7 +84,7 @@ export const columns = [
     footer: PaymentMethodInput,
   },
   {
-    accessorKey: 'user_id',
+    accessorKey: 'payee',
     header: 'Vendor / Payee',
     cell: CommonCell,
     size: 150,
@@ -98,7 +98,7 @@ export const columns = [
     footer: ReceiptInput,
   },
   {
-    accessorKey: 'owner',
+    accessorKey: 'user_id',
     header: 'Owner',
     cell: CommonCell,
     size: 110,

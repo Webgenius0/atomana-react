@@ -1,14 +1,14 @@
-import MyListingTable from '@/components/my-listing-table/MyListingTable';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
+import MyListingExpenseTable from '@/components/tables/MyListingExpenseTable';
 import TabStepper from '@/components/TabStepper';
 import { Link, useLocation } from 'react-router-dom';
 
 const MyListingExpense = () => {
   const tabs = [
-    { label: 'Forms', path: '/forms' },
-    { label: 'Charts', path: '/charts' },
+    { label: 'Forms', path: '/my-systems/finances/my-listing' },
+    { label: 'Charts', path: '/my-systems/finances/my-listing/charts' },
   ];
   const location = useLocation();
   return (
@@ -35,7 +35,7 @@ const MyListingExpense = () => {
         <TabStepper tabs={tabs} />
       </div>
 
-      <MyListingTable />
+      <MyListingExpenseTable />
     </>
   );
 };

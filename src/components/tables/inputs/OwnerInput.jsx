@@ -2,7 +2,7 @@ import { Select } from '@/components/ui/select';
 import { useGetAgents } from '@/hooks/expense.hook';
 import { Controller, useFormContext } from 'react-hook-form';
 
-export default function VendorInput() {
+export default function OwnerInput() {
   const { agents, isLoading } = useGetAgents();
   const form = useFormContext();
 
@@ -32,7 +32,7 @@ export default function VendorInput() {
             }
             disabled={isLoading}
             options={categoryOptions}
-            placeholder="Select Vendor/Payee"
+            placeholder="Select Owner"
           />
         );
       }}

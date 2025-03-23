@@ -8,8 +8,6 @@ export default function ReceiptInput() {
   const [name, extension] = value?.[0]?.name?.split?.('.') || [];
   const receiptName = `${name?.slice(0, 8)}...${extension}`;
 
-  console.log({ receipt: value });
-
   return (
     <label className="flex items-center gap-1 py-2 px-2.5 font-Roboto text-[11px] text-light border border-light bg-transparent tracking-[0.25px] rounded cursor-pointer">
       <svg
