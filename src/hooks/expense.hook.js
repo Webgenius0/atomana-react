@@ -241,6 +241,39 @@ export const useGetExpenseCategories = () => {
   return { ...result, expenseCategories };
 };
 
+export const useStoreCategory = () => {
+  const [open, setOpen] = useState(false);
+  const axiosPrivate = useAxiosSecure();
+  const queryClient = useQueryClient();
+
+  const result = useMutation({
+    mutationFn: async (payload) => {
+      const response = await axiosPrivate.post(
+        `/api/v1/expense/category/store`,
+        payload
+      );
+      return response.data;
+    },
+    onSuccess: (data) => {
+      if (data?.success) {
+        queryClient.invalidateQueries(['expense_categories']);
+        setOpen(false);
+      }
+    },
+    onError: (error) => {
+      queryClient.invalidateQueries(['expense_categories']);
+      setOpen(false);
+      alert(
+        Object.entries(error?.response?.data?.error)
+          .map(([, value]) => value[0])
+          .join(`\n`)
+      );
+    },
+  });
+
+  return { open, setOpen, ...result };
+};
+
 export const useGetExpenseSubCategories = (categorySlug) => {
   const axiosPrivate = useAxiosSecure();
 

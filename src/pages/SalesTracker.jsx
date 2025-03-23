@@ -1,7 +1,7 @@
+import SalesTrackerTable from '@/components/sales-tracker-table/SalesTrackerTable';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
-import SalesTrackerTable from '@/components/tables/SalesTrackerTable';
 import TabStepper from '@/components/TabStepper';
 import { Link, useLocation } from 'react-router-dom';
 
