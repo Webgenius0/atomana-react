@@ -7,6 +7,7 @@ import PaymentMethodCell from './cells/PaymentMethodCell';
 import ReceiptCell from './cells/ReceiptCell';
 import ReimbursableCell from './cells/ReimbursableCell';
 import SubCategoryCell from './cells/SubCategoryCell';
+import AmountInput from './inputs/AmountInput';
 import CategoryInput from './inputs/CategoryInput';
 import CommonInput from './inputs/CommonInput';
 import DateInput from './inputs/DateInput';
@@ -66,8 +67,8 @@ export const columns = [
     accessorKey: 'amount',
     header: 'Amount',
     cell: CurrencyCell,
-    size: 75,
-    footer: CommonInput,
+    size: 100,
+    footer: AmountInput,
   },
   {
     accessorKey: 'payment_method_id',
