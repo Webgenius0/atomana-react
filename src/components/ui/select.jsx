@@ -20,11 +20,12 @@ import {
 import { cn } from '@/lib/utils';
 
 export function Select({
-  options,
+  options = [],
   placeholder,
   value = '',
   setValue,
   className,
+  disabled,
 }) {
   const [open, setOpen] = React.useState(false);
 
@@ -35,6 +36,7 @@ export function Select({
           variant="outline"
           role="combobox"
           aria-expanded={open}
+          disabled={disabled}
           className={cn('w-[200px] justify-between border-white/60', className)}
         >
           {value

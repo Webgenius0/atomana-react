@@ -1,37 +1,56 @@
 import { Button } from '@/components/ui/button';
 import { Select } from '@/components/ui/select';
-import { useGetExpenseCategories } from '@/hooks/expense.hook';
+import {
+  useGetExpenseCategories,
+  useGetExpenseSubCategories,
+} from '@/hooks/expense.hook';
 import { Plus } from 'lucide-react';
+import { useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
 export default function SubcategoryInput() {
-  const { expenseCategories, isLoading } = useGetExpenseCategories();
   const form = useFormContext();
 
-  if (isLoading) return null;
+  const categoryId = form.watch('expense_category_id');
 
-  const categoryOptions = expenseCategories?.map((item) => ({
+  const { expenseCategories, isLoading: isCategoryLoading } =
+    useGetExpenseCategories();
+
+  const categorySlug = expenseCategories?.find(
+    (category) => category.id == categoryId
+  )?.slug;
+
+  const { expenseSubCategories, isLoading: isSubcategoryLoading } =
+    useGetExpenseSubCategories(categorySlug);
+
+  const expenseSubCategoryOptions = expenseSubCategories?.map((item) => ({
     value: item.name,
     label: item.name,
   }));
 
+  useEffect(() => {
+    form.setValue('expense_sub_category_id', undefined);
+  }, [categoryId]);
+
   return (
     <div className="flex items-center gap-2">
       <Controller
-        name="expense_category_id"
+        name="expense_sub_category_id"
         control={form.control}
         render={({ field }) => (
           <Select
             value={
-              expenseCategories.find((item) => item.id === field.value)?.name
+              expenseSubCategories?.find((item) => item.id === field.value)
+                ?.name
             }
             setValue={(value) =>
               field.onChange(
-                expenseCategories.find((item) => item.name === value).id
+                expenseSubCategories?.find((item) => item.name === value)?.id
               )
             }
-            options={categoryOptions}
-            placeholder="Select Category"
+            disabled={isCategoryLoading || isSubcategoryLoading}
+            options={expenseSubCategoryOptions}
+            placeholder="Select Subcategory"
           />
         )}
       />
