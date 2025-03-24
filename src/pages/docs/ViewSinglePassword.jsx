@@ -1,17 +1,21 @@
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
-import { useGetSingleNote } from '@/hooks/docs.hook';
+import { useGetSinglePassword } from '@/hooks/docs.hook';
 import { format } from 'date-fns';
 import DOMPurify from 'dompurify';
+import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
-export default function ViewSingleNote() {
+export default function ViewSinglePassword() {
+  const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const { slug } = useParams();
-  const { note, isLoading } = useGetSingleNote(slug);
+  const { passwordDetails, isLoading } = useGetSinglePassword(slug);
 
-  const notes = note?.notes ? DOMPurify.sanitize(note.notes) : '';
+  const notes = passwordDetails?.notes
+    ? DOMPurify.sanitize(passwordDetails.notes)
+    : '';
 
   console.log(notes);
 
@@ -45,7 +49,7 @@ export default function ViewSingleNote() {
         <Link to="/my-systems/team/docs/password-list">
           <ArrowLeftSvg />
         </Link>
-        <h2 className="section-title">{note?.title}</h2>
+        <h2 className="section-title">{passwordDetails?.title}</h2>
         <div className="flex items-center gap-2.5 ml-auto">
           <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
             <PersonPlusSvg />
@@ -55,19 +59,60 @@ export default function ViewSingleNote() {
           </button>
         </div>
       </div>
-
       <div className="px-5 py-[25px] overflow-y-auto scrollbar-none text-center flex-1 w-full">
         <div className="flex flex-col items-start gap-4 text-left p-6 rounded-lg w-full">
-          <h2 className="text-xl font-bold text-white">{note?.title}</h2>
-          {note?.updated_at && (
+          <h2 className="text-xl font-bold text-white">
+            {passwordDetails?.title}
+          </h2>
+          {passwordDetails?.updated_at && (
             <p className="text-sm text-[#ffffff80]">
-              Time: {format(note?.updated_at, 'p')}
+              Time: {format(passwordDetails?.updated_at, 'p')}
             </p>
           )}
-          <div
-            className="rich-text !text-white/80"
-            dangerouslySetInnerHTML={{ __html: notes }}
-          />
+
+          <div className="mt-1 border-b border-white/30 w-full py-3 space-y-3">
+            <h3 className="text-sm font-bold text-white">Website</h3>
+            <p className="text-sm text-[#ffffff80]">
+              {passwordDetails?.website}
+            </p>
+          </div>
+
+          <div className="mt-1 border-b border-white/30 w-full py-3 space-y-3">
+            <h3 className="text-sm font-bold text-white">Username</h3>
+            <p className="text-sm text-[#ffffff80]">
+              {passwordDetails?.user_name}
+            </p>
+          </div>
+
+          <div className="mt-1 border-b border-white/30 w-full py-3 space-y-3">
+            <h3 className="text-sm font-bold text-white">Password</h3>
+            <div className="flex justify-between items-center">
+              <input
+                type={show ? 'text' : 'password'}
+                value={passwordDetails?.password}
+                className="text-sm text-[#ffffff80] bg-transparent border-none outline-none"
+              />
+              <button
+                onClick={() => setShow((show) => !show)}
+                className="text-xs md:text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
+              >
+                {show ? 'Hide' : 'Show'}
+              </button>
+            </div>
+          </div>
+
+          <div className="mt-1 border-b border-white/30 w-full py-3 space-y-3">
+            <h3 className="text-sm font-bold text-white">Email</h3>
+            <p className="text-sm text-[#ffffff80]">{passwordDetails?.email}</p>
+          </div>
+
+          <div className="mt-1 border-b border-white/30 w-full py-3 space-y-3">
+            <h3 className="text-sm font-bold text-white">Notes</h3>
+            <div
+              className="rich-text !text-white/80"
+              dangerouslySetInnerHTML={{ __html: notes }}
+            />
+          </div>
 
           <button
             onClick={() => navigate('/my-systems/team/docs/shared-notes')}

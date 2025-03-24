@@ -12,11 +12,13 @@ import BlogCourseDetails from '@/pages/BlogCourseDetails';
 import BusinessInformation from '@/pages/BusinessInformation';
 import Courses from '@/pages/Courses';
 import CreateCourse from '@/pages/CreateCourse';
+import AddPassword from '@/pages/docs/AddPassword';
 import CreateNote from '@/pages/docs/CreateNote';
 import DocsLayout from '@/pages/docs/DocsLayout';
 import PasswordListHome from '@/pages/docs/PasswordListHome';
 import SharedNotesHome from '@/pages/docs/SharedNotesHome';
 import ViewSingleNote from '@/pages/docs/ViewSingleNote';
+import ViewSinglePassword from '@/pages/docs/ViewSinglePassword';
 import EditTeamMember from '@/pages/EditTeamMember';
 import ErrorPage from '@/pages/ErrorPage';
 import Finances from '@/pages/Finances';
@@ -347,6 +349,22 @@ const router = createBrowserRouter([
             element: (
               <PageTitle title="Password List">
                 <PasswordListHome />
+              </PageTitle>
+            ),
+          },
+          {
+            path: 'password-list/:slug',
+            element: (
+              <PageTitle title="Password List">
+                <ViewSinglePassword />
+              </PageTitle>
+            ),
+          },
+          {
+            path: 'password-list/add-password',
+            element: (
+              <PageTitle title="Add Password">
+                <AddPassword />
               </PageTitle>
             ),
           },

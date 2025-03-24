@@ -19,6 +19,18 @@ const noteSchema = z.object({
   ),
 });
 
+const passwordSchema = z.object({
+  title: z.string().min(1, 'Title is required'),
+  website: z.string().min(1, 'Website is required'),
+  user_name: z.string().min(1, 'Username is required'),
+  email: z
+    .string()
+    .min(1, 'Email is required')
+    .email({ message: 'Invalid Email' }),
+  password: z.string().min(1, 'Password is required'),
+  notes: z.string().optional(),
+});
+
 export const useGetNotes = () => {
   const axiosPrivate = useAxiosSecure();
 
@@ -74,6 +86,68 @@ export const useCreateNote = () => {
       if (data?.success) {
         form.reset();
         queryClient.invalidateQueries(['notes']);
+      }
+    },
+  });
+
+  return { ...result, form };
+};
+
+export const useGetPasswordList = () => {
+  const axiosPrivate = useAxiosSecure();
+
+  const result = useQuery({
+    queryKey: ['password-list'],
+    queryFn: async () => {
+      const response = await axiosPrivate.get(`/api/v1/password-list`);
+      return response.data;
+    },
+  });
+
+  return {
+    ...result,
+    passwordList: result?.data?.data,
+  };
+};
+
+export const useGetSinglePassword = (slug) => {
+  const axiosPrivate = useAxiosSecure();
+
+  const result = useQuery({
+    queryKey: ['password', slug],
+    queryFn: async () => {
+      const response = await axiosPrivate.get(
+        `/api/v1/password-list/single/${slug}`
+      );
+      return response.data;
+    },
+  });
+
+  return {
+    ...result,
+    passwordDetails: result?.data?.data,
+  };
+};
+
+export const useAddPassword = () => {
+  const axiosPrivate = useAxiosSecure();
+  const form = useForm({
+    resolver: zodResolver(passwordSchema),
+  });
+  const queryClient = useQueryClient();
+
+  const result = useMutation({
+    mutationFn: async (payload) => {
+      const response = await axiosPrivate.post(
+        `/api/v1/password-list/store`,
+        payload
+      );
+      return response.data;
+    },
+    onSuccess: (data) => {
+      if (data?.success) {
+        form.reset();
+        queryClient.invalidateQueries(['password-list']);
       }
     },
   });
