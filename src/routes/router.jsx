@@ -32,6 +32,7 @@ import MyTeam from '@/pages/MyTeam';
 import NewContract from '@/pages/NewContract';
 import NewListing from '@/pages/NewListing';
 import NewListingInformationForm from '@/pages/NewListingInformationForm';
+import OpenHouseFeedbackForm from '@/pages/OpenHouseFeedbackForm';
 import OpenHouseForm from '@/pages/OpenHouseForm';
 import OpenHouseFormDetails from '@/pages/OpenHouseFormDetails';
 import OpenHouses from '@/pages/OpenHouses';
@@ -42,6 +43,7 @@ import SharedNote from '@/pages/SharedNote';
 import SignUp from '@/pages/SignUp';
 import Team from '@/pages/Team';
 import UpdateLesson from '@/pages/UpdateLesson';
+import VendorCategoryDetails from '@/pages/VendorCategoryDetails';
 import VendorList from '@/pages/VendorList';
 import VerifyForgetPasswordOTP from '@/pages/VerifyForgetPasswordOTP';
 import VerifyOTP from '@/pages/VerifyOTP';
@@ -101,6 +103,14 @@ const router = createBrowserRouter([
             element: (
               <PageTitle title="Open House Form">
                 <OpenHouseForm />
+              </PageTitle>
+            ),
+          },
+          {
+            path: 'open-house/open-house-feedback-form',
+            element: (
+              <PageTitle title="Open House Feedback Form">
+                <OpenHouseFeedbackForm />
               </PageTitle>
             ),
           },
@@ -273,10 +283,18 @@ const router = createBrowserRouter([
                 ),
               },
               {
-                path: 'description',
+                path: ':slug',
                 element: (
                   <PageTitle title="Bright Home Inspections">
                     <VlBrightHomeInspection />
+                  </PageTitle>
+                ),
+              },
+              {
+                path: ':categorySlug',
+                element: (
+                  <PageTitle title="Vendor Category Details">
+                    <VendorCategoryDetails />
                   </PageTitle>
                 ),
               },

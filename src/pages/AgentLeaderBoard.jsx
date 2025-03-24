@@ -17,8 +17,13 @@ function AgentLeaderBoard() {
     { value: 'highest-sold-volume', label: 'Sort By: Highest Sold Volume' },
   ];
 
-  const { leaderboardData, isLoading, handleSorting, handleFiltering } =
-    useGetLeaderboardData();
+  const {
+    leaderboardData,
+    isLoading,
+    filters,
+    handleSorting,
+    handleFiltering,
+  } = useGetLeaderboardData();
 
   return (
     <div className="my-container">
@@ -45,7 +50,7 @@ function AgentLeaderBoard() {
         {/* sub container table */}
         <div className="relative grid md:grid-cols-1 gap-y-4 md:gap-y-6 gap-12 w-full mt-5">
           {isLoading ? (
-            <p>Loading...</p>
+            <p className="text-white">Loading...</p>
           ) : (
             leaderboardData?.map((agent, index) => {
               return (
@@ -71,7 +76,12 @@ function AgentLeaderBoard() {
 
                   {/* Adjusted Modal */}
                   <div className="md:max-w-[60%] w-full absolute top-[110%] left-0 z-40 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-500">
-                    <AgentLeaderModal name={agent?.name} />
+                    <AgentLeaderModal
+                      name={agent?.name}
+                      rank={index + 1}
+                      id={agent.user_id}
+                      filters={filters}
+                    />
                   </div>
                 </div>
               );

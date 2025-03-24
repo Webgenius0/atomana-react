@@ -1,3 +1,4 @@
+import { useGetAgentData } from '@/hooks/leaderboard.hook';
 import { useState } from 'react';
 import calenderSvg from '../assets/images/calender.svg';
 import AverageListSvg from './svgs/AverageListSvg';
@@ -6,11 +7,14 @@ import Hash from './svgs/Hash';
 import PendingSales from './svgs/PendingSales';
 import ProfileSvg from './svgs/ProfileSvg';
 
-function AgentLeaderModal({ name, id }) {
+function AgentLeaderModal({ name, rank, id, filters }) {
   const [isClicked, setIsClicked] = useState(false);
   const handleClicked = () => {
     setIsClicked(!isClicked);
   };
+
+  const { agentData } = useGetAgentData(id, filters);
+
   return (
     <div
       className={`md:min-w-[700px] md:max-w-[750px] w-[100%] mx-auto sm:mx-0 bg-[#4A4A4A] md:p-6 sm:p-4 p-2 rounded-xl text-white z-40 ${
@@ -36,7 +40,7 @@ function AgentLeaderModal({ name, id }) {
           </div>
           <div className="bg-[#CCCCCC] text-white sm:p-3 p-2 flex items-center justify-center flex-1 rounded-[100px]">
             <p className="font-Inter text-xs font-medium leading-[18px] tracking-[-0.12px]">
-              1
+              {rank}
             </p>
           </div>
         </div>
@@ -49,7 +53,7 @@ function AgentLeaderModal({ name, id }) {
           </div>
           <div className="bg-[#CCCCCC] text-white sm:p-3 p-2 flex items-center justify-center flex-1 rounded-[100px]">
             <p className="font-Inter text-xs font-medium leading-[18px] tracking-[-0.12px]">
-              $1,200,000
+              ${agentData?.avg_sales}
             </p>
           </div>
         </div>
@@ -62,7 +66,7 @@ function AgentLeaderModal({ name, id }) {
           </div>
           <div className="bg-[#CCCCCC] text-white sm:p-3 p-2 flex items-center justify-center flex-1 rounded-[100px]">
             <p className="font-Inter text-xs font-medium leading-[18px] tracking-[-0.12px]">
-              $24,000,000
+              ${agentData?.volume_ales}
             </p>
           </div>
         </div>
@@ -75,7 +79,7 @@ function AgentLeaderModal({ name, id }) {
           </div>
           <div className="bg-[#CCCCCC] text-white sm:p-3 p-2 flex items-center justify-center flex-1 rounded-[100px]">
             <p className="font-Inter text-xs font-medium leading-[18px] tracking-[-0.12px]">
-              $4,500,000
+              ${agentData?.pending_volume_ales}
             </p>
           </div>
         </div>
@@ -88,7 +92,7 @@ function AgentLeaderModal({ name, id }) {
           </div>
           <div className="bg-[#CCCCCC] text-white sm:p-3 p-2 flex items-center justify-center flex-1 rounded-[100px]">
             <p className="font-Inter text-xs font-medium leading-[18px] tracking-[-0.12px]">
-              $3,000,000
+              ${agentData?.active_volume_ales}
             </p>
           </div>
         </div>
@@ -101,7 +105,7 @@ function AgentLeaderModal({ name, id }) {
           </div>
           <div className="bg-[#CCCCCC] text-white sm:p-3 p-2 flex items-center justify-center flex-1 rounded-[100px]">
             <p className="font-Inter text-xs font-medium leading-[18px] tracking-[-0.12px]">
-              $1,350,000
+              ${agentData?.avg_lisging}
             </p>
           </div>
         </div>

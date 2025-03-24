@@ -16,11 +16,8 @@ const EditTeamMember = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    // console.log(data);
     navigate('/profile/member-profile');
   };
-
-  //   console.log(watch("example"));
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];

@@ -25,7 +25,8 @@ export const useGetLeaderboardData = () => {
     },
   });
 
-  const leaderboardData = data?.data?.map((item) => ({
+  const leaderboardData = data?.data?.list?.map((item) => ({
+    user_id: item.user_id,
     name: item.name,
     amount: item.avg_purchase_price,
     sales: item.total_sales,
@@ -40,5 +41,30 @@ export const useGetLeaderboardData = () => {
     setFilters(option);
   };
 
-  return { leaderboardData, isLoading, handleSorting, handleFiltering };
+  return {
+    leaderboardData,
+    isLoading,
+    sorting,
+    handleSorting,
+    filters,
+    handleFiltering,
+  };
+};
+
+export const useGetAgentData = (id, filters) => {
+  const axiosSecure = useAxiosSecure();
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['agent-data', id, filters.value],
+    queryFn: async () => {
+      const response = await axiosSecure.get(
+        `/api/v1/statistic/agent-data/${id}/${filters.value}`
+      );
+      return response.data;
+    },
+  });
+
+  const agentData = data?.data;
+
+  return { agentData, isLoading };
 };

@@ -14,6 +14,10 @@ const DataCard = ({ data }) => {
       navigate(`/my-systems/open-house/open-house-form`, {
         state: { from: location.pathname },
       });
+    } else if (title === 'Open House Feedback Form') {
+      navigate(`/my-systems/open-house/open-house-feedback-form`, {
+        state: { from: location.pathname },
+      });
     }
     // else if (title === 'HOA Community Docs') {
     //   navigate(`/my-systems/team/hoa`);

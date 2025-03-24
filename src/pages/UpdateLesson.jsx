@@ -23,7 +23,6 @@ function UpdateLesson() {
       setImage(dataFind.image || null);
       setVideo(dataFind.video || null);
     } else {
-      // console.log("Data not found", id);
     }
   }, [id, lessonData, setValue]);
 
@@ -53,7 +52,6 @@ function UpdateLesson() {
     setLessonData((prevData) =>
       prevData.map((lesson) => (lesson.title === id ? updatedLesson : lesson))
     );
-    // console.log("Updated Lesson:", updatedLesson);
     navigate('/my-classroom/create-course/');
   };
 

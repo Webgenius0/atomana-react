@@ -21,12 +21,9 @@ const AddTeamMember = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { agents, isLoading, isError, error } = useGetAgents();
-  console.log('Agents:', agents);
 
   const onSubmit = (data) => {
-    console.log(data);
     const formData = data;
-    console.log(formData);
     registerAgent.mutate(
       { formData },
       {

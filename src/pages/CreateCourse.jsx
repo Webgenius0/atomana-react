@@ -31,7 +31,6 @@ const CreateCourse = () => {
     };
     setCourseData((prev) => [...prev, newData]);
     // navigate("/my-classroom/create-course/");
-    // console.log(newData)
     reset();
   };
 
@@ -59,7 +58,6 @@ const CreateCourse = () => {
   //   allCourses.push(emptyCourse)
   //   localStorage.setItem('course', JSON.stringify(allCourses));
 
-  //   console.log('new courses array added to localStorage');
   // },[])
 
   return (
