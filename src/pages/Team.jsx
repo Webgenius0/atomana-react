@@ -1,19 +1,16 @@
-import DataCard from "@/components/DataCard";
-import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
-import { useGetSystemsData } from "@/hooks/useGetSystemsData";
-import { Link } from "react-router-dom";
+import DataCard from '@/components/DataCard';
+import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
+import { useGetSystemsData } from '@/hooks/useGetSystemsData';
+import { Link } from 'react-router-dom';
 
 const Team = () => {
-  const data = useGetSystemsData("team");
+  const data = useGetSystemsData('team');
 
   return (
     <>
       <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5">
-        <Link
-          to="/my-systems/"
-        >
+        <Link to="/my-systems/">
           <ArrowLeftSvg />
-
         </Link>
         <h2 className="section-title">Team</h2>
       </div>
@@ -25,7 +22,7 @@ const Team = () => {
                 Status: <span className="text-light">{item.status}</span>
               </p>
               <p className="text-secondary text-xs font-medium leading-[21px] tracking-[-0.12px]">
-                Last Activity:{" "}
+                Last Activity:{' '}
                 <span className="text-light">{item.lastActivity}</span>
               </p>
             </div>

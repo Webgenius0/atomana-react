@@ -1,17 +1,16 @@
 import logo from '@/assets/images/my-ai-logo.png';
-import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import CrossSvg from '@/components/svgs/CrossSvg';
-import DocumentSvg from '@/components/svgs/DocumentSvg';
-import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import PlusSvg from '@/components/svgs/PlusSvg';
 import SearchGraySvg from '@/components/svgs/SearchGraySvg';
 import SettingSvg from '@/components/svgs/SettingSvg';
-import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
+import { useGetNotes } from '@/hooks/docs.hook';
+import { format } from 'date-fns';
+import DOMPurify from 'dompurify';
 import { useEffect, useRef, useState } from 'react';
-import { FiChevronDown, FiChevronUp, FiFolder } from 'react-icons/fi';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { stripHtml } from 'string-strip-html';
 
-const SharedNote = () => {
+const DocsLayout = () => {
   const [hideSidebar, setHideSidebar] = useState(false);
   const [searchMember, setSearchMember] = useState('');
   const [selectedNote, setSelectedNote] = useState(null);
@@ -19,6 +18,7 @@ const SharedNote = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const contentRef = useRef(null);
 
   // setActiveTab based on the location
 
@@ -37,6 +37,9 @@ const SharedNote = () => {
   const toggleDropdown = (index) => {
     setActiveDropdown((prevIndex) => (prevIndex === index ? null : index));
   };
+
+  const { notes } = useGetNotes();
+  console.log({ notes });
 
   const dropdownData = {
     notes: [
@@ -205,69 +208,54 @@ const SharedNote = () => {
               </label>
 
               {/* Create New Note */}
-              <div className="flex items-center gap-[30px] mt-[25px]">
-                <h3 className="text-xs font-bold tracking-[-0.24px] text-[#ffffff80]">
+              <Link
+                to={`/my-systems/team/docs/shared-notes/${
+                  activeTab === 'notes' ? 'create-note' : 'create-password'
+                }`}
+                className="flex items-center gap-[30px] mt-[25px]"
+              >
+                <span className="text-xs font-bold tracking-[-0.24px] text-[#ffffff80]">
                   {activeTab === 'notes'
                     ? 'Create new note'
                     : 'Add new password'}
-                </h3>
+                </span>
                 <button className="w-8 h-8 rounded-full flex items-center justify-center border border-[#4D4D4D] bg-[#242424] shadow-[0px_0px_0px_1px_#000]">
                   <PlusSvg />
                 </button>
-              </div>
+              </Link>
 
               <div className="mt-6">
-                {dropdownData[activeTab].map((category, index) => {
-                  const contentRef = useRef(null);
+                {notes?.map((item) => {
+                  const notes = item?.notes
+                    ? DOMPurify.sanitize(stripHtml(item?.notes).result)
+                    : '';
+
+                  console.log({ notes });
 
                   return (
-                    <div key={index} className="mb-4">
-                      {/* Dropdown Header */}
-                      <button
-                        onClick={() => toggleDropdown(index)}
-                        className="flex items-center justify-between w-full text-light text-sm font-medium py-2 px-4 rounded-md border-b border-secondPrimary transition"
-                      >
-                        <div className="flex items-center gap-2">
-                          {activeDropdown === index ? (
-                            <FiChevronUp className="w-4 h-4 text-secondary" />
-                          ) : (
-                            <FiChevronDown className="w-4 h-4 text-secondary" />
-                          )}
-                          <FiFolder className="w-5 h-5 text-secondary" />
-                          <span>{category.title}</span>
-                        </div>
-                      </button>
-
-                      <div
-                        ref={contentRef}
-                        style={{
-                          maxHeight:
-                            activeDropdown === index
-                              ? `${contentRef.current.scrollHeight}px`
-                              : '0px',
-                          opacity: activeDropdown === index ? 1 : 0,
-                        }}
-                        className="overflow-hidden transition-all duration-500 ease-in-out border-b border-secondPrimary rounded-md"
-                      >
-                        {category.items.map((item, itemIndex) => (
-                          <div
-                            key={itemIndex}
-                            className="p-4 border-b border-secondPrimary cursor-pointer hover:bg-[#2c2c2c] transition"
-                            onClick={() => setSelectedNote(item)}
-                          >
-                            <div className="flex items-center justify-between">
-                              <h4 className="text-xs text-[#ffffff80] font-semibold">
-                                {item.header}
-                              </h4>
-                              <p className="text-white text-xs">{item.time}</p>
-                            </div>
-                            <p className="text-sm text-light mt-1">
-                              {item.description}
-                            </p>
-                          </div>
-                        ))}
+                    <Link
+                      key={item?.slug}
+                      to={`/my-systems/team/docs/shared-notes/${item.slug}`}
+                      className="block p-4 border-b border-secondPrimary cursor-pointer hover:bg-[#2c2c2c] transition"
+                    >
+                      <div className="flex items-center justify-between">
+                        <h4 className="text-xs text-[#ffffff80] font-semibold">
+                          {item?.title}
+                        </h4>
+                        <p className="text-white text-xs">
+                          {format(item?.updated_at, 'p')}
+                        </p>
                       </div>
-                    </div>
+                      <p
+                        className="text-sm !text-light mt-1"
+                        dangerouslySetInnerHTML={{
+                          __html:
+                            notes?.length > 100
+                              ? `${notes.slice(0, 100)}...`
+                              : notes,
+                        }}
+                      />
+                    </Link>
                   );
                 })}
               </div>
@@ -282,103 +270,7 @@ const SharedNote = () => {
             ></div>
           )}
           <main className="flex-1 flex flex-col items-center justify-start min-h-screen bg-[#1c1c1c]">
-            {selectedNote && (
-              <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-full px-5 py-[25px]">
-                <Link to="/my-systems/team/docs/shared-notes">
-                  <ArrowLeftSvg />
-                </Link>
-                <h2 className="section-title">{selectedNote.header}</h2>
-                <div className="flex items-center gap-2.5 ml-auto">
-                  <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
-                    <PersonPlusSvg />
-                  </button>
-                  <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
-                    <ThreeDotsSvg />
-                  </button>
-                </div>
-              </div>
-            )}
-
-            <div className="px-5 py-[25px] overflow-y-auto scrollbar-none text-center flex-1 w-full">
-              {selectedNote ? (
-                <div className="flex flex-col items-start gap-4 text-left p-6 rounded-lg w-full">
-                  <h2 className="text-xl font-bold text-white">
-                    {selectedNote.header}
-                  </h2>
-                  <p className="text-sm text-[#ffffff80]">
-                    Time: {selectedNote.time}
-                  </p>
-                  <p className="text-sm text-light">
-                    {selectedNote.description}
-                  </p>
-                  {selectedNote && activeTab === 'passwords' && (
-                    <>
-                      <div className="mt-4 border-b w-full">
-                        <h3 className="text-sm font-bold text-white">
-                          Website
-                        </h3>
-                        <p className="text-sm text-[#ffffff80]">
-                          {selectedNote.website}
-                        </p>
-                      </div>
-
-                      <div className="mt-4 border-b w-full">
-                        <h3 className="text-sm font-bold text-white">
-                          Username
-                        </h3>
-                        <p className="text-sm text-[#ffffff80]">
-                          {selectedNote.username}
-                        </p>
-                      </div>
-
-                      <div className="mt-4 border-b w-full">
-                        <h3 className="text-sm font-bold text-white">
-                          Password
-                        </h3>
-                        <p className="text-sm text-[#ffffff80]">
-                          {selectedNote.password}
-                        </p>
-                      </div>
-
-                      <div className="mt-4 border-b w-full">
-                        <h3 className="text-sm font-bold text-white">Email</h3>
-                        <p className="text-sm text-[#ffffff80]">
-                          {selectedNote.email}
-                        </p>
-                      </div>
-
-                      <div className="mt-4">
-                        <h3 className="text-sm font-bold text-white">Notes</h3>
-                        <p className="text-sm text-[#ffffff80]">
-                          {selectedNote.notes}
-                        </p>
-                      </div>
-                    </>
-                  )}
-                  <button
-                    onClick={() => setSelectedNote(null)}
-                    className="mt-4 px-4 py-2 bg-secondPrimary text-white rounded-md hover:bg-opacity-80 transition"
-                  >
-                    Back to {activeTab === 'notes' ? 'Notes' : 'Passwords'}
-                  </button>
-                </div>
-              ) : (
-                <div className="flex flex-col items-center justify-center min-h-screen">
-                  <button className="w-12 h-12 rounded-full flex items-center justify-center border border-[#4D4D4D] bg-[#1d9aaa] shadow-[0px_0px_0px_1px_#000]">
-                    <DocumentSvg />
-                  </button>
-                  <h2 className="font-bold text-lg tracking-[-0.24px] text-[#ffffff80]">
-                    Select a {activeTab === 'notes' ? 'note' : 'password'} or
-                    create a new one
-                  </h2>
-                  <p className="text-sm text-[#ffffff80] max-w-lg">
-                    Select a {activeTab === 'notes' ? 'note' : 'password'} and
-                    pick up right where you left off or create a new{' '}
-                    {activeTab === 'notes' ? 'note' : 'password'}.
-                  </p>
-                </div>
-              )}
-            </div>
+            <Outlet />
           </main>
         </div>
       </div>
@@ -386,4 +278,4 @@ const SharedNote = () => {
   );
 };
 
-export default SharedNote;
+export default DocsLayout;
