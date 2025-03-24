@@ -32,6 +32,7 @@ import MyTeam from '@/pages/MyTeam';
 import NewContract from '@/pages/NewContract';
 import NewListing from '@/pages/NewListing';
 import NewListingInformationForm from '@/pages/NewListingInformationForm';
+import OpenHouseFeedbackForm from '@/pages/OpenHouseFeedbackForm';
 import OpenHouseForm from '@/pages/OpenHouseForm';
 import OpenHouseFormDetails from '@/pages/OpenHouseFormDetails';
 import OpenHouses from '@/pages/OpenHouses';
@@ -102,6 +103,14 @@ const router = createBrowserRouter([
             element: (
               <PageTitle title="Open House Form">
                 <OpenHouseForm />
+              </PageTitle>
+            ),
+          },
+          {
+            path: 'open-house/open-house-feedback-form',
+            element: (
+              <PageTitle title="Open House Feedback Form">
+                <OpenHouseFeedbackForm />
               </PageTitle>
             ),
           },
