@@ -1,12 +1,13 @@
 import { useFormContext } from 'react-hook-form';
 
-export default function VendorInput() {
+export default function ReferralFeeInput() {
   const form = useFormContext();
   return (
     <input
-      {...form.register('payee')}
+      {...form.register('referral_fee_pct')}
+      type="number"
       className="bg-transparent w-full text-white px-3 py-2 border border-white rounded-md"
-      placeholder="Vendor / Payee"
+      placeholder="Enter Referral Fee"
     />
   );
 }
