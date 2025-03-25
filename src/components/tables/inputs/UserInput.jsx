@@ -2,7 +2,7 @@ import { Select } from '@/components/ui/select';
 import { useGetAgents } from '@/hooks/expense.hook';
 import { Controller, useFormContext } from 'react-hook-form';
 
-export default function OwnerInput() {
+export default function UserInput() {
   const { agents, isLoading } = useGetAgents();
   const form = useFormContext();
 

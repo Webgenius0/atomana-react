@@ -77,7 +77,7 @@ export const useGetSalesTrack = ({ per_page = 10, page = 1 }) => {
     },
   });
 
-  const salesTrack = result?.data?.data || [];
+  const salesTrack = result?.data?.data?.data || [];
   const current_page = result?.data?.current_page || 1;
 
   return { ...result, salesTrack, current_page };
