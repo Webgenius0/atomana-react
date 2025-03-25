@@ -7,7 +7,7 @@ import {
 import { FormProvider } from 'react-hook-form';
 
 export default function DataTable({
-  form,
+  form = {},
   onSubmit,
   columns,
   data = [],
@@ -27,7 +27,7 @@ export default function DataTable({
     <FormProvider {...form}>
       <form
         className="mt-12 overflow-x-auto"
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form?.handleSubmit?.(onSubmit)}
       >
         <table className="border-collapse font-Roboto text-[10px] text-center tracking-[0.25px] font-normal rounded-2xl overflow-x-auto min-w-full">
           {/* Header */}
@@ -108,7 +108,7 @@ export default function DataTable({
           </tbody>
 
           {/* Footer (Inputs) */}
-          {!isLoading && (
+          {!isLoading && onSubmit && (
             <tfoot>
               {showInputs &&
                 table.getFooterGroups().map((footerGroup) => (
