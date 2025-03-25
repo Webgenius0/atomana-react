@@ -2,105 +2,57 @@ import ProfileAvatar from '@/assets/images/bot.png';
 import logo from '@/assets/images/my-ai-logo.png';
 import CrossSvg from '@/components/svgs/CrossSvg';
 import PlusSvg from '@/components/svgs/PlusSvg';
-import TextEffect from '@/components/TextEffect';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import {
+  useCreateNewChat,
+  useGetChatHistory,
+  useGetSingleConversation,
+  useSendMessageToConversation,
+} from '@/hooks/my-pr.hook';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const MyPR = () => {
+  const messageInputRef = useRef(null);
   const [hideSidebar, setHideSidebar] = useState(false);
-  const [queriesData, setQueriesData] = useState([]);
-  const [chatHistories, setChatHistories] = useState([]);
   const [activeChatId, setActiveChatId] = useState(null);
-  const [message, setMessage] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [currentMessage, setCurrentMessage] = useState('');
 
-  // Fetch the data from the JSON file
-  useEffect(() => {
-    const fetchQueries = async () => {
-      try {
-        const response = await axios.get('queries.json');
-        const initialChat = {
-          id: 1,
-          title: 'Welcome Chat',
-          messages: [
-            {
-              sender: 'bot',
-              message: "Hi, I'm Maria. How can I assist you today?",
-            },
-          ],
-        };
-        setQueriesData(response.data);
-        setChatHistories([initialChat]);
-        setActiveChatId(1);
-      } catch (error) {
-        console.error('Error fetching chat data', error);
-      }
-    };
+  const { chatHistory } = useGetChatHistory();
+  const {
+    conversation,
+    isLoading: isConversationLoading,
+    isFetching: isConversationFetching,
+  } = useGetSingleConversation(activeChatId);
+  const {
+    mutate: sendMessage,
+    message,
+    setMessage,
+    isPending: isMessageSending,
+    isSuccess: isMessageSentSuccess,
+    containerRef,
+    scrollToBottom,
+  } = useSendMessageToConversation(activeChatId);
 
-    fetchQueries();
-  }, []);
+  const {
+    mutate: createNewChat,
+    isPending: isNewChatCreating,
+    isSuccess: isNewChatSuccess,
+    newChat,
+  } = useCreateNewChat();
 
   const handleSendMessage = () => {
     if (message.trim() === '') return;
-
-    // Send user message
-    setChatHistories((prev) =>
-      prev.map((chat) =>
-        chat.id === activeChatId
-          ? {
-            ...chat,
-            messages: [...chat.messages, { sender: 'user', message }],
-          }
-          : chat
-      )
-    );
-
-    // Trigger loading and simulate bot response after a delay
-    setLoading(true);
-    setTimeout(() => {
-      const botResponse = getBotResponse(message);
-      setChatHistories((prev) =>
-        prev.map((chat) =>
-          chat.id === activeChatId
-            ? {
-              ...chat,
-              messages: [
-                ...chat.messages,
-                { sender: 'bot', message: botResponse },
-              ],
-            }
-            : chat
-        )
-      );
-      setLoading(false);
-    }, 1000);
-
-    setMessage(''); // Clear the input field
+    setCurrentMessage(message);
+    if (activeChatId) {
+      sendMessage({ message });
+    } else {
+      createNewChat({ message });
+    }
+    setMessage('');
   };
 
-  const getBotResponse = (userQuery) => {
-    // Check if the user query matches a predefined question
-    const matchedQuery = queriesData.find((query) =>
-      userQuery.toLowerCase().includes(query.question.toLowerCase())
-    );
+  console.log({ conversation });
 
-    return matchedQuery
-      ? matchedQuery.answer
-      : "Sorry, I didn't understand that.";
-  };
-
-  const handleNewChat = () => {
-    const newChat = {
-      id: chatHistories.length + 1,
-      title: `New Chat ${chatHistories.length + 1}`,
-      messages: [{ sender: 'bot', message: 'Hi, how can I assist you today?' }],
-    };
-    setChatHistories((prev) => [newChat, ...prev]);
-    setActiveChatId(newChat.id);
-  };
-
-  const activeChat = chatHistories.find((chat) => chat.id === activeChatId);
   useEffect(() => {
     if (!hideSidebar) {
       document.body.style.overflow = 'hidden';
@@ -111,6 +63,29 @@ const MyPR = () => {
     // reset body overflow on unmount
     return () => (document.body.style.overflow = 'auto');
   }, [hideSidebar]);
+
+  useEffect(() => {
+    scrollToBottom();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [conversation, isMessageSending, isConversationFetching]);
+
+  useEffect(() => {
+    if (!isMessageSending && isMessageSending) {
+      setCurrentMessage('');
+    }
+  }, [isMessageSending, isMessageSentSuccess]);
+
+  useEffect(() => {
+    if (newChat?.id && !isNewChatCreating && isNewChatSuccess) {
+      setActiveChatId(newChat.id);
+    }
+  }, [newChat, isNewChatCreating, isNewChatSuccess]);
+
+  useEffect(() => {
+    if (!isConversationLoading) {
+      setCurrentMessage('');
+    }
+  }, [isConversationLoading]);
 
   return (
     <section>
@@ -128,6 +103,7 @@ const MyPR = () => {
               MyOps AI
             </span>
           </div>
+
           <button
             onClick={() => setHideSidebar(!hideSidebar)}
             className="w-8 h-8 lg:w-10 lg:h-10 rounded-full flex items-center justify-center border border-secondPrimary bg-gradient-to-r from-secondPrimary to-[#1a1a1a] duration-300 active:scale-95"
@@ -141,8 +117,9 @@ const MyPR = () => {
         <div className="flex w-full h-full items-start">
           {/* Sidebar */}
           <aside
-            className={`fixed top-0 ${hideSidebar ? '-left-full' : 'left-0'
-              } duration-500 w-[300px] md:w-[250px] lg:w-[300px] h-full bg-[#1c1c1c] py-4 lg:py-[25px] px-6 lg:px-[50px] ease-in-out md:relative md:top-auto md:left-auto border-r border-secondPrimary z-[1000]`}
+            className={`fixed top-0 ${
+              hideSidebar ? '-left-full' : 'left-0'
+            } duration-500 w-[300px] md:w-[250px] lg:w-[300px] h-full bg-[#1c1c1c] py-4 lg:py-[25px] px-6 lg:px-[50px] ease-in-out md:relative md:top-auto md:left-auto border-r border-secondPrimary z-[1000]`}
           >
             <div className="sidebar-content">
               {/* Header */}
@@ -163,7 +140,11 @@ const MyPR = () => {
                   Chat History
                 </h2>
                 <button
-                  onClick={handleNewChat}
+                  onClick={() => {
+                    setActiveChatId(null);
+                    setCurrentMessage('');
+                    messageInputRef.current.focus();
+                  }}
                   className="w-8 h-8 rounded-full flex items-center justify-center border border-[#4D4D4D] bg-[#242424] shadow-[0px_0px_0px_1px_#000]"
                 >
                   <PlusSvg />
@@ -175,14 +156,18 @@ const MyPR = () => {
                     All Chats
                   </h3>
                   <ul className="flex flex-col gap-2.5">
-                    {chatHistories.map((chat) => (
+                    {chatHistory?.map((chat) => (
                       <li
                         key={chat.id}
-                        onClick={() => setActiveChatId(chat.id)}
-                        className={`text-light text-sm tracking-[-0.28px] cursor-pointer duration-300 ${activeChatId === chat.id ? 'font-bold' : ''
-                          }`}
+                        onClick={() => {
+                          setActiveChatId(chat.id);
+                          setCurrentMessage('');
+                        }}
+                        className={`text-light text-sm tracking-[-0.28px] cursor-pointer duration-300 ${
+                          activeChatId === chat.id ? 'font-bold' : ''
+                        }`}
                       >
-                        {chat.title}
+                        {chat.name}
                       </li>
                     ))}
                   </ul>
@@ -202,10 +187,44 @@ const MyPR = () => {
           {/* Main Chat */}
           <main className="flex-1 flex flex-col justify-between h-full">
             {/* Chat messages */}
-            <div className="px-5 py-[25px] overflow-y-auto scrollbar-none flex-1">
-              {activeChat?.messages.map((chat, index) => (
+            <div
+              className="relative px-5 py-[25px] overflow-y-auto scrollbar-none flex-1 scroll-smooth"
+              ref={containerRef}
+            >
+              {conversation?.map((chat, index) => (
                 <div key={index} className="mb-3">
-                  {chat.sender === 'bot' ? (
+                  <div className="flex items-end justify-end gap-3">
+                    <p className="text-[13px] text-sm px-5 sm:px-6 py-2.5 sm:py-3 bg-[#242424] text-light rounded-[10px] max-w-[80%] lg:max-w-[600px]">
+                      {chat.message}
+                    </p>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <img
+                      src={ProfileAvatar}
+                      alt="bot profile"
+                      className="w-7 h-7 rounded-full"
+                    />
+
+                    <p className="text-[13px] sm:text-sm text-light rounded-lg max-w-[80%] lg:max-w-[580px]">
+                      {chat.response}
+                    </p>
+                  </div>
+                </div>
+              ))}
+
+              {(isConversationLoading ||
+                isMessageSending ||
+                isConversationFetching ||
+                isNewChatCreating) &&
+                currentMessage && (
+                  <div className="mb-3">
+                    <div className="flex items-end justify-end gap-3">
+                      <p className="text-[13px] text-sm px-5 sm:px-6 py-2.5 sm:py-3 bg-[#242424] text-light rounded-[10px] max-w-[80%] lg:max-w-[600px]">
+                        {currentMessage}
+                      </p>
+                    </div>
+
                     <div className="flex items-start gap-3">
                       <img
                         src={ProfileAvatar}
@@ -213,35 +232,24 @@ const MyPR = () => {
                         className="w-7 h-7 rounded-full"
                       />
 
-                      {/* Conditional rendering for bot loading */}
-                      {loading && activeChat.messages.length === 1 ? (
-                        <div className="flex items-center gap-2">
-                          <span className="w-[2px] h-[2px] bg-gray-400 rounded-full animate-pulse"></span>
-                          <span className="w-[2px] h-[2px] bg-gray-400 rounded-full animate-pulse delay-150"></span>
-                          <span className="w-[2px] h-[2px] bg-gray-400 rounded-full animate-pulse delay-300"></span>
+                      <div className="bg-primary/20 rounded-2xl p-4">
+                        <div className="flex items-center space-x-3">
+                          <div className="dot w-2.5 h-2.5 rounded-full bg-primary/80 shadow-lg"></div>
+                          <div className="dot w-2.5 h-2.5 rounded-full bg-primary/80 shadow-lg"></div>
+                          <div className="dot w-2.5 h-2.5 rounded-full bg-primary/80 shadow-lg"></div>
                         </div>
-                      ) : (
-                        <p className="text-[13px] sm:text-sm text-light rounded-lg max-w-[80%] lg:max-w-[580px]">
-                          <TextEffect text={chat.message} />
-                        </p>
-                      )}
+                      </div>
                     </div>
-                  ) : (
-                    <div className="flex items-end justify-end gap-3">
-                      <p className="text-[13px] text-sm px-5 sm:px-6 py-2.5 sm:py-3 bg-[#242424] text-light rounded-[10px] max-w-[80%] lg:max-w-[600px]">
-                        {chat.message}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              ))}
+                  </div>
+                )}
             </div>
 
             {/* Message input */}
             <div className="flex items-center border-t border-secondPrimary px-6 lg:px-[50px] py-4 lg:py-[25px]">
               <label className="rounded-[10px] bg-[#242424] w-full flex items-center overflow-hidden pr-2.5 pl-5">
                 <input
-                  type="text"
+                  ref={messageInputRef}
+                  autoComplete="off"
                   placeholder="Message Maria"
                   className="w-full py-4 border-none focus:outline-none text-[#b1b1b1] text-sm leading-5 tracking-[-0.6px] bg-inherit placeholder:text-[#555]"
                   id="chatInput"
@@ -252,6 +260,7 @@ const MyPR = () => {
                 <button
                   className="w-8 h-8 rounded-full flex items-center justify-center border border-[#024040] bg-gradient-to-r from-black via-black to-[#024040] shadow-[0_0_0_1px_black]"
                   onClick={handleSendMessage}
+                  disabled={isMessageSending}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
