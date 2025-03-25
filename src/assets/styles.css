@@ -26,6 +26,60 @@ input[type='number']::-webkit-outer-spin-button {
   margin: 0;
 }
 
+.rich-text {
+  all: revert;
+}
+
+.rich-text * {
+  all: revert;
+  font-family: 'Inter', sans-serif;
+  color: white !important;
+  opacity: 0.8;
+  margin: 0;
+}
+
+.rich-text h1 {
+  font-size: 20px;
+}
+
+.rich-text h2 {
+  font-size: 18px;
+}
+
+.rich-text h3 {
+  font-size: 16px;
+}
+
+/* Waving Dots for AI chatbot */
+@keyframes bounce-wave {
+  0%,
+  100% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(-12px);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+.dot {
+  animation: bounce-wave 1s infinite;
+  background: linear-gradient(to bottom, #024040, #024040);
+}
+
+.dot:nth-child(1) {
+  animation-delay: -0.3s;
+}
+
+.dot:nth-child(2) {
+  animation-delay: -0.15s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0s;
+}
+
 .my-container {
   max-width: 1440px;
   margin: 0 auto;

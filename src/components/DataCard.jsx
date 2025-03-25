@@ -26,6 +26,10 @@ const DataCard = ({ data }) => {
       navigate(`/my-systems/team/access`);
     } else if (title === 'Sales Tracker') {
       navigate(`/my-systems/team/sales-tracker`);
+    } else if (title === 'Shared Notes') {
+      navigate(`/my-systems/team/docs/shared-notes`);
+    } else if (title === 'Password List') {
+      navigate(`/my-systems/team/docs/password-list`);
     } else if (title === 'My Listing Expenses') {
       navigate(`/my-systems/finances/my-listing`, {
         state: { from: location.pathname },

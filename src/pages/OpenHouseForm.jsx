@@ -43,18 +43,16 @@ const OpenHouseForm = () => {
       wavy_man: phone === 'yes',
       sign_number: parseInt(signs, 10) || 0,
     };
-    console.log('Payload:', payload);
+
     mutate(payload, {
       onSuccess: () => {
         reset({
           email: '',
-          property_id: '',
-          business_id: '',
-          date: '',
-          start_time: '',
-          end_time: '',
-          wavy_man: '',
-          sign_number: 0,
+          answer: '',
+          expirationDate: '',
+          phone: '',
+          signs: '',
+          timeRange: { startTime: '', endTime: '' },
         });
 
         // Optional: Navigate after resetting
@@ -62,6 +60,9 @@ const OpenHouseForm = () => {
       },
     });
   };
+
+  console.log({ values: getValues() });
+
   const handleResetForm = (e) => {
     e.preventDefault();
     reset();

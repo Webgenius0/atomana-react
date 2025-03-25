@@ -37,7 +37,10 @@ export function Select({
           role="combobox"
           aria-expanded={open}
           disabled={disabled}
-          className={cn('w-[200px] justify-between border-white/60', className)}
+          className={cn(
+            'w-[200px] justify-between border-white bg-transparent',
+            className
+          )}
         >
           {value
             ? options.find((option) => option.value === value)?.label

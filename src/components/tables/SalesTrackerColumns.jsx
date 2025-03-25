@@ -1,5 +1,17 @@
 import CommonCell from './cells/CommonCell';
-import DateInput from './inputs/DateInput';
+import CurrencyCell from './cells/CurrencyCell';
+import NoteCell from './cells/NoteCell';
+import BuyerSellerInput from './inputs/BuyerSellerInput';
+import ClosingDateInput from './inputs/ClosingDateInput';
+import CommissionOnSaleInput from './inputs/CommissionOnSaleInput';
+import DateUnderContractInput from './inputs/DateUnderContractInput';
+import NotesInput from './inputs/NotesInput';
+import OwnerInput from './inputs/OwnerInput';
+import PriceInput from './inputs/PriceInput';
+import PropertyInput from './inputs/PropertyInput';
+import PurchasePriceInput from './inputs/PurchasePriceInput';
+import ReferralFeeInput from './inputs/ReferralFeeInput';
+import StatusInput from './inputs/StatusInput';
 
 export const columns = [
   {
@@ -23,19 +35,90 @@ export const columns = [
     size: 10,
   },
   {
-    accessorKey: 'date',
-    header: 'Date',
+    accessorKey: 'user_id',
+    header: 'Agent',
     cell: CommonCell,
-    size: 75,
-    footer: DateInput,
+    size: 110,
+    footer: OwnerInput,
+  },
+  {
+    accessorKey: 'property_id',
+    header: 'Property Address',
+    cell: CommonCell,
+    size: 135,
+    footer: PropertyInput,
+  },
+  {
+    accessorKey: 'price',
+    header: 'Price',
+    cell: CurrencyCell,
+    size: 125,
+    footer: PriceInput,
+  },
+  {
+    accessorKey: 'status',
+    header: 'Status',
+    cell: CommonCell,
+    size: 125,
+    footer: StatusInput,
+  },
+  {
+    accessorKey: 'date_under_contract',
+    header: 'Date Under Contract',
+    cell: CommonCell,
+    size: 160,
+    footer: DateUnderContractInput,
+  },
+  {
+    accessorKey: 'closing_date',
+    header: 'Closing Date',
+    cell: CommonCell,
+    size: 125,
+    footer: ClosingDateInput,
+  },
+  {
+    accessorKey: 'purchase_price',
+    header: 'Purchase Price',
+    cell: CurrencyCell,
+    size: 125,
+    footer: PurchasePriceInput,
+  },
+  {
+    accessorKey: 'referral_fee_pct',
+    header: 'Referral Fee',
+    cell: CurrencyCell,
+    size: 125,
+    footer: ReferralFeeInput,
+  },
+  {
+    accessorKey: 'buyer_seller',
+    header: 'Buyer Seller',
+    cell: CommonCell,
+    size: 125,
+    footer: BuyerSellerInput,
+  },
+  {
+    accessorKey: 'commission_on_sale',
+    header: 'Commission On Sale',
+    cell: CommonCell,
+    size: 125,
+    footer: CommissionOnSaleInput,
+  },
+  {
+    accessorKey: 'note',
+    header: 'Note',
+    cell: NoteCell,
+    size: 125,
+    footer: NotesInput,
   },
   //   {
-  //     accessorKey: 'expense_category_id',
-  //     header: 'Category',
-  //     cell: CategoryCell,
-  //     size: 135,
-  //     footer: CategoryInput,
+  //     accessorKey: 'date',
+  //     header: 'Date',
+  //     cell: CommonCell,
+  //     size: 75,
+  //     footer: DateInput,
   //   },
+
   //   {
   //     accessorKey: 'expense_sub_category_id',
   //     header: 'Subcategory',
@@ -78,13 +161,7 @@ export const columns = [
   //     size: 150,
   //     footer: ReceiptInput,
   //   },
-  //   {
-  //     accessorKey: 'user_id',
-  //     header: 'Owner',
-  //     cell: CommonCell,
-  //     size: 110,
-  //     footer: OwnerInput,
-  //   },
+
   //   {
   //     accessorKey: 'reimbursable',
   //     header: 'Reimbursable',

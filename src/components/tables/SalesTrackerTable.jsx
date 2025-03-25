@@ -23,12 +23,28 @@ export default function SalesTrackerTable() {
     mutate({ ...data, recept: data.recept[0] });
   };
 
+  const data = [
+    {
+      user_id: 'Hubert Lindgren',
+      property_id: 1,
+      price: 500,
+      status: 'active',
+      date_under_contract: '2025-06-05',
+      closing_date: '2025-06-05',
+      purchase_price: 59.5,
+      referral_fee_pct: 6.32,
+      buyer_seller: 'hlksd',
+      commission_on_sale: 5,
+      note: 'w2ewlrj',
+    },
+  ];
+
   return (
     <div>
       <DataTable
         form={form}
         onSubmit={onSubmit}
-        // data={salesTrack}
+        data={data}
         columns={columns}
         // isLoading={isLoading}
         isPending={isPending}

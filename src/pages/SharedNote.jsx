@@ -1,22 +1,34 @@
-import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import logo from "@/assets/images/my-ai-logo.png";
-import CrossSvg from "@/components/svgs/CrossSvg";
-import DocumentSvg from "@/components/svgs/DocumentSvg";
-import PlusSvg from "@/components/svgs/PlusSvg";
-import SearchGraySvg from "@/components/svgs/SearchGraySvg";
-import SettingSvg from "@/components/svgs/SettingSvg";
-import { FiFolder, FiChevronDown, FiChevronUp } from "react-icons/fi";
-import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
-import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
-import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
+import logo from '@/assets/images/my-ai-logo.png';
+import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
+import CrossSvg from '@/components/svgs/CrossSvg';
+import DocumentSvg from '@/components/svgs/DocumentSvg';
+import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
+import PlusSvg from '@/components/svgs/PlusSvg';
+import SearchGraySvg from '@/components/svgs/SearchGraySvg';
+import SettingSvg from '@/components/svgs/SettingSvg';
+import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
+import { useEffect, useRef, useState } from 'react';
+import { FiChevronDown, FiChevronUp, FiFolder } from 'react-icons/fi';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const SharedNote = () => {
   const [hideSidebar, setHideSidebar] = useState(false);
-  const [searchMember, setSearchMember] = useState("");
+  const [searchMember, setSearchMember] = useState('');
   const [selectedNote, setSelectedNote] = useState(null);
-  const [activeTab, setActiveTab] = useState("notes");
+  const [activeTab, setActiveTab] = useState('notes');
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  // setActiveTab based on the location
+
+  useEffect(() => {
+    if (pathname === '/my-systems/team/docs/shared-notes') {
+      setActiveTab('notes');
+    } else if (pathname === '/my-systems/team/docs/password-list') {
+      setActiveTab('passwords');
+    }
+  }, [pathname]);
 
   const handleSearch = (e) => {
     setSearchMember(e.target.value);
@@ -29,84 +41,84 @@ const SharedNote = () => {
   const dropdownData = {
     notes: [
       {
-        title: "Client Interactions",
+        title: 'Client Interactions',
         items: [
           {
-            header: "Client Follow-up - Sarah Lopez",
-            time: "4:59pm",
-            description: "Project Kickoff",
+            header: 'Client Follow-up - Sarah Lopez',
+            time: '4:59pm',
+            description: 'Project Kickoff',
           },
           {
-            header: "Initial Consultation - Michael Tran",
-            time: "3:58pm",
-            description: "Budget Planning",
+            header: 'Initial Consultation - Michael Tran',
+            time: '3:58pm',
+            description: 'Budget Planning',
           },
         ],
       },
       {
-        title: "Property Showings",
+        title: 'Property Showings',
         items: [
           {
-            header: "Weekly Standup",
-            time: "10:00am",
-            description: "Discuss sprint progress",
+            header: 'Weekly Standup',
+            time: '10:00am',
+            description: 'Discuss sprint progress',
           },
           {
-            header: "Project Review - Alpha Team",
-            time: "1:30pm",
-            description: "Review milestones",
+            header: 'Project Review - Alpha Team',
+            time: '1:30pm',
+            description: 'Review milestones',
           },
         ],
       },
     ],
     passwords: [
       {
-        title: "Email Accounts",
+        title: 'Email Accounts',
         items: [
           {
-            header: "Gmail - john.doe@gmail.com",
-            time: "Last updated: 01/01/25",
-            description: "********",
-            website: "www.gmail.com",
-            username: "john.doe",
-            password: "********",
-            email: "john.doe@gmail.com",
-            notes: "Use for work-related communication.",
+            header: 'Gmail - john.doe@gmail.com',
+            time: 'Last updated: 01/01/25',
+            description: '********',
+            website: 'www.gmail.com',
+            username: 'john.doe',
+            password: '********',
+            email: 'john.doe@gmail.com',
+            notes: 'Use for work-related communication.',
           },
           {
-            header: "Outlook - john.doe@outlook.com",
-            time: "Last updated: 12/15/24",
-            description: "********",
-            website: "www.outlook.com",
-            username: "john.doe",
-            password: "********",
-            email: "john.doe@outlook.com",
-            notes: "Personal email account.",
+            header: 'Outlook - john.doe@outlook.com',
+            time: 'Last updated: 12/15/24',
+            description: '********',
+            website: 'www.outlook.com',
+            username: 'john.doe',
+            password: '********',
+            email: 'john.doe@outlook.com',
+            notes: 'Personal email account.',
           },
         ],
       },
       {
-        title: "Social Media",
+        title: 'Social Media',
         items: [
           {
-            header: "Twitter - @johndoe",
-            time: "Last updated: 11/20/24",
-            description: "********",
-            website: "www.twitter.com",
-            username: "@johndoe",
-            password: "********",
-            email: "johndoe@twitter.com",
-            notes: "For social updates and engagement.",
+            header: 'Twitter - @johndoe',
+            time: 'Last updated: 11/20/24',
+            description: '********',
+            website: 'www.twitter.com',
+            username: '@johndoe',
+            password: '********',
+            email: 'johndoe@twitter.com',
+            notes: 'For social updates and engagement.',
           },
           {
-            header: "Instagram - @johndoe",
-            time: "Last updated: 10/05/24",
-            description: "********",
-            website: "www.instagram.com",
-            username: "@johndoe",
-            password: "********",
-            email: "johndoe@instagram.com",
-            notes: "Instagram account for photography.",
+            header: 'Instagram - @johndoe',
+            time: 'Last updated: 10/05/24',
+            description: '********',
+            website: 'www.instagram.com',
+            username: '@johndoe',
+            password: '********',
+            email: 'johndoe@instagram.com',
+            notes: 'Instagram account for photography.',
           },
         ],
       },
@@ -144,28 +156,32 @@ const SharedNote = () => {
           {/* Sidebar */}
           <aside
             className={`fixed top-0 ${
-              hideSidebar ? "-left-full" : "left-0"
+              hideSidebar ? '-left-full' : 'left-0'
             } duration-500 w-[300px] md:w-[250px] lg:w-[500px] h-full bg-[#1c1c1c] py-4 lg:py-[25px] px-6 lg:px-[50px] ease-in-out md:relative md:top-auto md:left-auto border-r border-secondPrimary z-[1000]`}
           >
             <div className="sidebar-content">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-5">
                   <button
-                    onClick={() => setActiveTab("notes")}
+                    onClick={() =>
+                      navigate('/my-systems/team/docs/shared-notes')
+                    }
                     className={`text-sm font-medium px-4 py-2 rounded-md ${
-                      activeTab === "notes"
-                        ? "bg-secondPrimary text-white"
-                        : "text-light"
+                      activeTab === 'notes'
+                        ? 'bg-secondPrimary text-white'
+                        : 'text-light'
                     }`}
                   >
                     Shared Notes
                   </button>
                   <button
-                    onClick={() => setActiveTab("passwords")}
+                    onClick={() =>
+                      navigate('/my-systems/team/docs/password-list')
+                    }
                     className={`text-sm font-medium px-4 py-2 rounded-md ${
-                      activeTab === "passwords"
-                        ? "bg-secondPrimary text-white"
-                        : "text-light"
+                      activeTab === 'passwords'
+                        ? 'bg-secondPrimary text-white'
+                        : 'text-light'
                     }`}
                   >
                     Password List
@@ -191,9 +207,9 @@ const SharedNote = () => {
               {/* Create New Note */}
               <div className="flex items-center gap-[30px] mt-[25px]">
                 <h3 className="text-xs font-bold tracking-[-0.24px] text-[#ffffff80]">
-                  {activeTab === "notes"
-                    ? "Create new note"
-                    : "Add new password"}
+                  {activeTab === 'notes'
+                    ? 'Create new note'
+                    : 'Add new password'}
                 </h3>
                 <button className="w-8 h-8 rounded-full flex items-center justify-center border border-[#4D4D4D] bg-[#242424] shadow-[0px_0px_0px_1px_#000]">
                   <PlusSvg />
@@ -228,7 +244,7 @@ const SharedNote = () => {
                           maxHeight:
                             activeDropdown === index
                               ? `${contentRef.current.scrollHeight}px`
-                              : "0px",
+                              : '0px',
                           opacity: activeDropdown === index ? 1 : 0,
                         }}
                         className="overflow-hidden transition-all duration-500 ease-in-out border-b border-secondPrimary rounded-md"
@@ -268,7 +284,7 @@ const SharedNote = () => {
           <main className="flex-1 flex flex-col items-center justify-start min-h-screen bg-[#1c1c1c]">
             {selectedNote && (
               <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-full px-5 py-[25px]">
-                <Link to={`${location.state?.from || "/my-systems/finances"}`}>
+                <Link to="/my-systems/team/docs/shared-notes">
                   <ArrowLeftSvg />
                 </Link>
                 <h2 className="section-title">{selectedNote.header}</h2>
@@ -295,7 +311,7 @@ const SharedNote = () => {
                   <p className="text-sm text-light">
                     {selectedNote.description}
                   </p>
-                  {selectedNote && activeTab === "passwords" && (
+                  {selectedNote && activeTab === 'passwords' && (
                     <>
                       <div className="mt-4 border-b w-full">
                         <h3 className="text-sm font-bold text-white">
@@ -343,7 +359,7 @@ const SharedNote = () => {
                     onClick={() => setSelectedNote(null)}
                     className="mt-4 px-4 py-2 bg-secondPrimary text-white rounded-md hover:bg-opacity-80 transition"
                   >
-                    Back to {activeTab === "notes" ? "Notes" : "Passwords"}
+                    Back to {activeTab === 'notes' ? 'Notes' : 'Passwords'}
                   </button>
                 </div>
               ) : (
@@ -352,13 +368,13 @@ const SharedNote = () => {
                     <DocumentSvg />
                   </button>
                   <h2 className="font-bold text-lg tracking-[-0.24px] text-[#ffffff80]">
-                    Select a {activeTab === "notes" ? "note" : "password"} or
+                    Select a {activeTab === 'notes' ? 'note' : 'password'} or
                     create a new one
                   </h2>
                   <p className="text-sm text-[#ffffff80] max-w-lg">
-                    Select a {activeTab === "notes" ? "note" : "password"} and
-                    pick up right where you left off or create a new{" "}
-                    {activeTab === "notes" ? "note" : "password"}.
+                    Select a {activeTab === 'notes' ? 'note' : 'password'} and
+                    pick up right where you left off or create a new{' '}
+                    {activeTab === 'notes' ? 'note' : 'password'}.
                   </p>
                 </div>
               )}

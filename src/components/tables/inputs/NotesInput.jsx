@@ -5,7 +5,7 @@ export default function NotesInput() {
   return (
     <input
       {...form.register('note')}
-      className="bg-transparent w-full text-white px-3 py-2 border border-white/60 rounded-md"
+      className="bg-transparent w-full text-white px-3 py-2 border border-white rounded-md"
       placeholder="Enter Notes"
     />
   );

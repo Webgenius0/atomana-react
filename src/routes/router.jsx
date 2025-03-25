@@ -12,6 +12,13 @@ import BlogCourseDetails from '@/pages/BlogCourseDetails';
 import BusinessInformation from '@/pages/BusinessInformation';
 import Courses from '@/pages/Courses';
 import CreateCourse from '@/pages/CreateCourse';
+import AddPassword from '@/pages/docs/AddPassword';
+import CreateNote from '@/pages/docs/CreateNote';
+import DocsLayout from '@/pages/docs/DocsLayout';
+import PasswordListHome from '@/pages/docs/PasswordListHome';
+import SharedNotesHome from '@/pages/docs/SharedNotesHome';
+import ViewSingleNote from '@/pages/docs/ViewSingleNote';
+import ViewSinglePassword from '@/pages/docs/ViewSinglePassword';
 import EditTeamMember from '@/pages/EditTeamMember';
 import ErrorPage from '@/pages/ErrorPage';
 import Finances from '@/pages/Finances';
@@ -39,7 +46,6 @@ import OpenHouses from '@/pages/OpenHouses';
 import Profile from '@/pages/Profile';
 import ResetPassword from '@/pages/ResetPassword';
 import SalesTracker from '@/pages/SalesTracker';
-import SharedNote from '@/pages/SharedNote';
 import SignUp from '@/pages/SignUp';
 import Team from '@/pages/Team';
 import UpdateLesson from '@/pages/UpdateLesson';
@@ -311,12 +317,58 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/my-sharednote',
-        element: (
-          <PageTitle title="SharedNote">
-            <SharedNote />
-          </PageTitle>
-        ),
+        path: '/my-systems/team/docs/',
+        element: <DocsLayout />,
+        children: [
+          {
+            path: 'shared-notes',
+            element: (
+              <PageTitle title="Shared Notes">
+                <SharedNotesHome />
+              </PageTitle>
+            ),
+          },
+          {
+            path: 'shared-notes/:slug',
+            element: (
+              <PageTitle title="Shared Notes">
+                <ViewSingleNote />
+              </PageTitle>
+            ),
+          },
+          {
+            path: 'shared-notes/create-note',
+            element: (
+              <PageTitle title="Create Note">
+                <CreateNote />
+              </PageTitle>
+            ),
+          },
+          {
+            path: 'password-list',
+            element: (
+              <PageTitle title="Password List">
+                <PasswordListHome />
+              </PageTitle>
+            ),
+          },
+          {
+            path: 'password-list/:slug',
+            element: (
+              <PageTitle title="Password List">
+                <ViewSinglePassword />
+              </PageTitle>
+            ),
+          },
+          {
+            path: 'password-list/add-password',
+            element: (
+              <PageTitle title="Add Password">
+                <AddPassword />
+              </PageTitle>
+            ),
+          },
+        ],
       },
       {
         path: '/my-classroom',

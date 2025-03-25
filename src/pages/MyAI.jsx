@@ -2,7 +2,11 @@ import ProfileAvatar from '@/assets/images/bot.png';
 import logo from '@/assets/images/my-ai-logo.png';
 import CrossSvg from '@/components/svgs/CrossSvg';
 import PlusSvg from '@/components/svgs/PlusSvg';
-import TextEffect from '@/components/TextEffect';
+import {
+  useGetChatHistory,
+  useGetSingleConversation,
+  useSendMessageToConversation,
+} from '@/hooks/my-ai.hook';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -12,8 +16,19 @@ const MyAI = () => {
   const [queriesData, setQueriesData] = useState([]);
   const [chatHistories, setChatHistories] = useState([]);
   const [activeChatId, setActiveChatId] = useState(null);
-  const [message, setMessage] = useState('');
-  const [loading, setLoading] = useState(false);
+
+  const { chatHistory = [] } = useGetChatHistory();
+  const { conversation = [], isLoading: isConversationLoading } =
+    useGetSingleConversation(activeChatId);
+
+  const {
+    mutate: sendMessage,
+    message,
+    setMessage,
+    isPending: isMessageSending,
+    containerRef,
+    scrollToBottom,
+  } = useSendMessageToConversation(activeChatId);
 
   // Fetch the data from the JSON file
   useEffect(() => {
@@ -43,51 +58,14 @@ const MyAI = () => {
 
   const handleSendMessage = () => {
     if (message.trim() === '') return;
-
-    // Send user message
-    setChatHistories((prev) =>
-      prev.map((chat) =>
-        chat.id === activeChatId
-          ? {
-            ...chat,
-            messages: [...chat.messages, { sender: 'user', message }],
-          }
-          : chat
-      )
-    );
-
-    // Trigger loading and simulate bot response after a delay
-    setLoading(true);
-    setTimeout(() => {
-      const botResponse = getBotResponse(message);
-      setChatHistories((prev) =>
-        prev.map((chat) =>
-          chat.id === activeChatId
-            ? {
-              ...chat,
-              messages: [
-                ...chat.messages,
-                { sender: 'bot', message: botResponse },
-              ],
-            }
-            : chat
-        )
-      );
-      setLoading(false);
-    }, 1000);
-
-    setMessage(''); // Clear the input field
-  };
-
-  const getBotResponse = (userQuery) => {
-    // Check if the user query matches a predefined question
-    const matchedQuery = queriesData.find((query) =>
-      userQuery.toLowerCase().includes(query.question.toLowerCase())
-    );
-
-    return matchedQuery
-      ? matchedQuery.answer
-      : "Sorry, I didn't understand that.";
+    scrollToBottom();
+    conversation.push({
+      id: conversation[conversation.length - 1].id + 1,
+      isLoading: true,
+      message,
+    });
+    setMessage('');
+    sendMessage({ message });
   };
 
   const handleNewChat = () => {
@@ -97,10 +75,13 @@ const MyAI = () => {
       messages: [{ sender: 'bot', message: 'Hi, how can I assist you today?' }],
     };
     setChatHistories((prev) => [newChat, ...prev]);
-    setActiveChatId(newChat.id);
+    setActiveChatId(null);
+    conversation.push({
+      id: 1,
+      message: 'Hi, how can I assist you today?',
+    });
   };
 
-  const activeChat = chatHistories.find((chat) => chat.id === activeChatId);
   useEffect(() => {
     if (!hideSidebar) {
       document.body.style.overflow = 'hidden';
@@ -142,8 +123,9 @@ const MyAI = () => {
         <div className="flex w-full h-full items-start">
           {/* Sidebar */}
           <aside
-            className={`fixed top-0 ${hideSidebar ? '-left-full' : 'left-0'
-              } duration-500 w-[300px] md:w-[250px] lg:w-[300px] h-full bg-[#1c1c1c] py-4 lg:py-[25px] px-6 lg:px-[50px] ease-in-out md:relative md:top-auto md:left-auto border-r border-secondPrimary z-[1000]`}
+            className={`fixed top-0 ${
+              hideSidebar ? '-left-full' : 'left-0'
+            } duration-500 w-[300px] md:w-[250px] lg:w-[300px] h-full bg-[#1c1c1c] py-4 lg:py-[25px] px-6 lg:px-[50px] ease-in-out md:relative md:top-auto md:left-auto border-r border-secondPrimary z-[1000]`}
           >
             <div className="sidebar-content">
               {/* Header */}
@@ -176,14 +158,15 @@ const MyAI = () => {
                     All Chats
                   </h3>
                   <ul className="flex flex-col gap-2.5">
-                    {chatHistories.map((chat) => (
+                    {chatHistory?.map((chat) => (
                       <li
                         key={chat.id}
                         onClick={() => setActiveChatId(chat.id)}
-                        className={`text-light text-sm tracking-[-0.28px] cursor-pointer duration-300 ${activeChatId === chat.id ? 'font-bold' : ''
-                          }`}
+                        className={`text-light text-sm tracking-[-0.28px] cursor-pointer duration-300 ${
+                          activeChatId === chat.id ? 'font-bold' : ''
+                        }`}
                       >
-                        {chat.title}
+                        {chat.name}
                       </li>
                     ))}
                   </ul>
@@ -203,37 +186,40 @@ const MyAI = () => {
           {/* Main Chat */}
           <main className="flex-1 flex flex-col justify-between h-full">
             {/* Chat messages */}
-            <div className="px-5 py-[25px] overflow-y-auto scrollbar-none flex-1">
-              {activeChat?.messages.map((chat, index) => (
+            <div
+              className="relative px-5 py-[25px] overflow-y-auto scrollbar-none flex-1 scroll-smooth"
+              ref={containerRef}
+            >
+              {conversation?.map((chat, index) => (
                 <div key={index} className="mb-3">
-                  {chat.sender === 'bot' ? (
-                    <div className="flex items-start gap-3">
-                      <img
-                        src={ProfileAvatar}
-                        alt="bot profile"
-                        className="w-7 h-7 rounded-full"
-                      />
+                  <div className="flex items-end justify-end gap-3">
+                    <p className="text-[13px] text-sm px-5 sm:px-6 py-2.5 sm:py-3 bg-[#242424] text-light rounded-[10px] max-w-[80%] lg:max-w-[600px]">
+                      {chat.message}
+                    </p>
+                  </div>
 
-                      {/* Conditional rendering for bot loading */}
-                      {loading && activeChat.messages.length === 1 ? (
-                        <div className="flex items-center gap-2">
-                          <span className="w-[2px] h-[2px] bg-gray-400 rounded-full animate-pulse"></span>
-                          <span className="w-[2px] h-[2px] bg-gray-400 rounded-full animate-pulse delay-150"></span>
-                          <span className="w-[2px] h-[2px] bg-gray-400 rounded-full animate-pulse delay-300"></span>
+                  <div className="flex items-start gap-3">
+                    <img
+                      src={ProfileAvatar}
+                      alt="bot profile"
+                      className="w-7 h-7 rounded-full"
+                    />
+
+                    {/* Conditional rendering for bot loading */}
+                    {isConversationLoading || chat?.isLoading ? (
+                      <div className="bg-primary/20 rounded-2xl p-4">
+                        <div className="flex items-center space-x-3">
+                          <div className="dot w-2.5 h-2.5 rounded-full bg-primary/80 shadow-lg"></div>
+                          <div className="dot w-2.5 h-2.5 rounded-full bg-primary/80 shadow-lg"></div>
+                          <div className="dot w-2.5 h-2.5 rounded-full bg-primary/80 shadow-lg"></div>
                         </div>
-                      ) : (
-                        <p className="text-[13px] sm:text-sm text-light rounded-lg max-w-[80%] lg:max-w-[580px]">
-                          <TextEffect text={chat.message} />
-                        </p>
-                      )}
-                    </div>
-                  ) : (
-                    <div className="flex items-end justify-end gap-3">
-                      <p className="text-[13px] text-sm px-5 sm:px-6 py-2.5 sm:py-3 bg-[#242424] text-light rounded-[10px] max-w-[80%] lg:max-w-[600px]">
-                        {chat.message}
+                      </div>
+                    ) : (
+                      <p className="text-[13px] sm:text-sm text-light rounded-lg max-w-[80%] lg:max-w-[580px]">
+                        {chat.response}
                       </p>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
@@ -253,6 +239,7 @@ const MyAI = () => {
                 <button
                   className="w-8 h-8 rounded-full flex items-center justify-center border border-[#024040] bg-gradient-to-r from-black via-black to-[#024040] shadow-[0_0_0_1px_black]"
                   onClick={handleSendMessage}
+                  disabled={isMessageSending}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
