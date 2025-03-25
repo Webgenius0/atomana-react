@@ -46,25 +46,22 @@ export const useGetMyBusinessExpenses = ({ per_page = 10, page = 1 }) => {
   return { ...result, myBusinessExpenses };
 };
 
-export const useGetMyAgentExpenses = ({ per_page = 10, page = 1 }) => {
+export const useGetAgentEarnings = ({ per_page = 10, page = 1 }) => {
   const axiosPrivate = useAxiosSecure();
 
   const result = useQuery({
-    queryKey: ['agent_expense'],
+    queryKey: ['agent_earning'],
     queryFn: async () => {
-      const response = await axiosPrivate.get(
-        `/api/v1/expense/my-agent-earnings`,
-        {
-          params: { per_page, page },
-        }
-      );
+      const response = await axiosPrivate.get(`/api/v1/agent-earning`, {
+        params: { per_page, page },
+      });
       return response.data;
     },
   });
 
-  const myAgentExpenses = result?.data?.data?.data || [];
+  const agentEarnings = result?.data?.data?.data || [];
 
-  return { ...result, myAgentExpenses };
+  return { ...result, agentEarnings };
 };
 
 export const useGetSalesTrack = ({ per_page = 10, page = 1 }) => {
@@ -149,36 +146,6 @@ export const useStoreMyBusinessExpenses = () => {
   });
 
   return { showInputs, setShowInputs, form, ...result };
-};
-
-export const useStoreMyAgentExpenses = () => {
-  const axiosPrivate = useAxiosSecure();
-  const queryClient = useQueryClient();
-
-  const result = useMutation({
-    mutationFn: async (payload) => {
-      const response = await axiosPrivate.post(
-        `/api/v1/expense/store/my-agent-earnings`,
-        payload,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      );
-      return response.data;
-    },
-    onSuccess: (data) => {
-      if (data?.success) {
-        queryClient.invalidateQueries(['agent_expense']);
-      }
-    },
-    onError: (error) => {
-      alert(error?.response?.data?.message);
-    },
-  });
-
-  return result;
 };
 
 export const useStoreSalesTrack = () => {

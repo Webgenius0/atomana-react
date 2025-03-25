@@ -1,4 +1,4 @@
-import { useGetMyAgentExpenses } from '@/hooks/expense.hook';
+import { useGetAgentEarnings } from '@/hooks/expense.hook';
 import { format } from 'date-fns';
 import { useState } from 'react';
 import AmountCell from './AmountCell';
@@ -261,7 +261,7 @@ export default function MyAgentTable() {
   const [perPage] = useState(25);
   const [page] = useState(1);
 
-  const { myAgentExpenses } = useGetMyAgentExpenses({
+  const { myAgentExpenses } = useGetAgentEarnings({
     per_page: perPage,
     page,
   });

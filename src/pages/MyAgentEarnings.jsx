@@ -1,9 +1,9 @@
 import Dropdown from '@/components/Dropdown';
-import MyAgentTable from '@/components/my-agent-table/MyAgentTable';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import SearchIconSvg from '@/components/svgs/SearchIconSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
+import AgentEarningTable from '@/components/tables/AgentEarningsTable';
 import { Link } from 'react-router-dom';
 
 const MyAgentEarnings = () => {
@@ -57,7 +57,7 @@ const MyAgentEarnings = () => {
         </div>
       </div>
 
-      <MyAgentTable />
+      <AgentEarningTable />
     </>
   );
 };
