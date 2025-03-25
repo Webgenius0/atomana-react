@@ -168,11 +168,7 @@ export const useStoreSalesTrack = () => {
       }
     },
     onError: (error) => {
-      alert(
-        Object.entries(error?.response?.data?.error)
-          .map(([, value]) => value[0])
-          .join(`\n`)
-      );
+      alert(error?.response?.data?.message);
     },
   });
 

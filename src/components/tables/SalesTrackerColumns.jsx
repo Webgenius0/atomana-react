@@ -8,6 +8,7 @@ import ClosingDateInput from './inputs/ClosingDateInput';
 import CommissionOnSaleInput from './inputs/CommissionOnSaleInput';
 import DateUnderContractInput from './inputs/DateUnderContractInput';
 import NotesInput from './inputs/NotesInput';
+import OverrideSplitInput from './inputs/OverrideSplitInput';
 import PriceInput from './inputs/PriceInput';
 import PropertyInput from './inputs/PropertyInput';
 import PurchasePriceInput from './inputs/PurchasePriceInput';
@@ -75,7 +76,7 @@ export const columns = [
     accessorKey: 'closing_date',
     header: 'Closing Date',
     cell: CommonCell,
-    size: 125,
+    size: 160,
     footer: ClosingDateInput,
   },
   {
@@ -112,6 +113,13 @@ export const columns = [
     cell: NoteCell,
     size: 180,
     footer: NotesInput,
+  },
+  {
+    accessorKey: 'override_split',
+    header: 'Override Split',
+    cell: CommonCell,
+    size: 125,
+    footer: OverrideSplitInput,
   },
   //   {
   //     accessorKey: 'date',

@@ -28,8 +28,8 @@ const CustomDatePicker = ({ value, onChange, className }) => {
         'bg-inherit focus:outline-none py-3 w-full placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px]',
         className
       )}
-      placeholderText="DD/MM/YYYY"
-      dateFormat="dd/MM/yyyy"
+      placeholderText="MM/DD/YYYY"
+      dateFormat="MM/dd/yyyy"
     />
   );
 };
