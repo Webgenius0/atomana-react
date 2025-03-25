@@ -1,17 +1,16 @@
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import DropdownIconSvg from '@/components/svgs/DropdownIconSvg';
 import FileSvg from '@/components/svgs/FileSvg';
-import { useCreateVendor, useGetVendorcategory } from '@/hooks/vendor.hook';
+import { useCreateVendor, useGetVendorCategories } from '@/hooks/vendor.hook';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function AddVendor() {
   const { register, handleSubmit, reset } = useForm();
-  const navigate = useNavigate();
   const [fileName, setFileName] = useState('Vendor_Logo.png');
   const [isOpen, setIsOpen] = useState(false);
-  const { categories, isLoading } = useGetVendorcategory();
+  const { categories, isLoading } = useGetVendorCategories();
   const { mutate, isLoading: isSubmitting } = useCreateVendor();
 
   const onSubmit = (data) => {
@@ -25,11 +24,7 @@ function AddVendor() {
       additional_note: 'Some default note',
     };
 
-    mutate(payload, {
-      onSuccess: () => {
-        navigate(-1);
-      },
-    });
+    mutate(payload);
   };
 
   const handleFileChange = (e) => {
