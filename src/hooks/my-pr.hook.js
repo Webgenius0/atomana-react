@@ -6,9 +6,9 @@ export const useGetChatHistory = () => {
   const axiosPrivate = useAxiosSecure();
 
   const result = useQuery({
-    queryKey: ['chat-history-ai'],
+    queryKey: ['chat-history-pr'],
     queryFn: async () => {
-      const response = await axiosPrivate.get(`/api/v1/my-ai/chat`);
+      const response = await axiosPrivate.get(`/api/v1/my-pr/chat`);
       return response.data;
     },
   });
@@ -23,9 +23,9 @@ export const useGetSingleConversation = (id) => {
   const axiosPrivate = useAxiosSecure();
 
   const result = useQuery({
-    queryKey: ['chat-ai', id],
+    queryKey: ['chat-pr', id],
     queryFn: async () => {
-      const response = await axiosPrivate.get(`/api/v1/my-ai/chat/${id}`);
+      const response = await axiosPrivate.get(`/api/v1/my-pr/chat/${id}`);
       return response.data;
     },
     enabled: !!id,
@@ -44,13 +44,13 @@ export const useCreateNewChat = () => {
 
   const result = useMutation({
     mutationFn: async (payload) => {
-      const response = await axiosPrivate.post(`/api/v1/my-ai/chat`, payload);
+      const response = await axiosPrivate.post(`/api/v1/my-pr/chat`, payload);
       return response.data;
     },
 
     onSuccess: (data) => {
       if (data?.success) {
-        queryClient.invalidateQueries(['chat-history-ai']);
+        queryClient.invalidateQueries(['chat-history-pr']);
       }
     },
   });
@@ -80,7 +80,7 @@ export const useSendMessageToConversation = (id) => {
   const result = useMutation({
     mutationFn: async (payload) => {
       const response = await axiosPrivate.post(
-        `/api/v1/my-ai/chat/${id}`,
+        `/api/v1/my-pr/chat/${id}`,
         payload
       );
       return response.data;
@@ -88,7 +88,7 @@ export const useSendMessageToConversation = (id) => {
 
     onSuccess: (data) => {
       if (data?.success) {
-        queryClient.invalidateQueries(['chat-ai', id]);
+        queryClient.invalidateQueries(['chat-pr', id]);
         setMessage('');
         scrollToBottom();
       }
