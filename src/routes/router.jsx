@@ -49,16 +49,13 @@ import SalesTracker from '@/pages/SalesTracker';
 import SignUp from '@/pages/SignUp';
 import Team from '@/pages/Team';
 import UpdateLesson from '@/pages/UpdateLesson';
+import VendorCategories from '@/pages/VendorCategories';
 import VendorCategoryDetails from '@/pages/VendorCategoryDetails';
+import VendorDetails from '@/pages/VendorDetails';
 import VendorList from '@/pages/VendorList';
 import VerifyForgetPasswordOTP from '@/pages/VerifyForgetPasswordOTP';
 import VerifyOTP from '@/pages/VerifyOTP';
 import VideoCourseDetails from '@/pages/VideoCourseDetails';
-import VlBrightHomeInspection from '@/pages/VlBrightHomeInspection';
-import VlInsurance from '@/pages/VlInsurance';
-import VlPestControl from '@/pages/VlPestControl';
-import VlRentalManagement from '@/pages/VlRentalManagement';
-import VlUtilities from '@/pages/VlUtilities';
 import { createBrowserRouter } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 
@@ -243,40 +240,16 @@ const router = createBrowserRouter([
               {
                 index: true,
                 element: (
+                  <PageTitle title="Vendor List Categories">
+                    <VendorCategories />
+                  </PageTitle>
+                ),
+              },
+              {
+                path: ':slug',
+                element: (
                   <PageTitle title="Vendor List">
                     <VendorList />
-                  </PageTitle>
-                ),
-              },
-              {
-                path: 'utilities',
-                element: (
-                  <PageTitle title="Vendor List Utilities">
-                    <VlUtilities />
-                  </PageTitle>
-                ),
-              },
-              {
-                path: 'pest-control',
-                element: (
-                  <PageTitle title="Vendor List Utilities">
-                    <VlPestControl />
-                  </PageTitle>
-                ),
-              },
-              {
-                path: 'rental-management',
-                element: (
-                  <PageTitle title="Vendor List Utilities">
-                    <VlRentalManagement />
-                  </PageTitle>
-                ),
-              },
-              {
-                path: 'insurance',
-                element: (
-                  <PageTitle title="Vendor List Utilities">
-                    <VlInsurance />
                   </PageTitle>
                 ),
               },
@@ -289,10 +262,10 @@ const router = createBrowserRouter([
                 ),
               },
               {
-                path: ':slug',
+                path: ':categorySlug/:vendorSlug',
                 element: (
-                  <PageTitle title="Bright Home Inspections">
-                    <VlBrightHomeInspection />
+                  <PageTitle title="Vendor Details">
+                    <VendorDetails />
                   </PageTitle>
                 ),
               },

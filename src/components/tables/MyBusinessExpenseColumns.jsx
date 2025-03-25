@@ -13,11 +13,11 @@ import DateInput from './inputs/DateInput';
 import DescriptionInput from './inputs/DescriptionInput';
 import ListingInput from './inputs/ListingInput';
 import NotesInput from './inputs/NotesInput';
-import OwnerInput from './inputs/OwnerInput';
 import PaymentMethodInput from './inputs/PaymentMethodInput';
 import ReceiptInput from './inputs/ReceiptInput';
 import ReimbursableInput from './inputs/ReimbursableInput';
 import SubcategoryInput from './inputs/SubcategoryInput';
+import UserInput from './inputs/UserInput';
 import VendorInput from './inputs/VendorInput';
 
 export const columns = [
@@ -102,7 +102,7 @@ export const columns = [
     header: 'Owner',
     cell: CommonCell,
     size: 110,
-    footer: OwnerInput,
+    footer: UserInput,
   },
   {
     accessorKey: 'reimbursable',

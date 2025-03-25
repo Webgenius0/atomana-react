@@ -4,12 +4,12 @@ import BuyerSellerInput from './inputs/BuyerSellerInput';
 import ClosingDateInput from './inputs/ClosingDateInput';
 import CommissionOnSaleInput from './inputs/CommissionOnSaleInput';
 import DateUnderContractInput from './inputs/DateUnderContractInput';
-import OwnerInput from './inputs/OwnerInput';
 import PriceInput from './inputs/PriceInput';
 import PropertyInput from './inputs/PropertyInput';
 import PurchasePriceInput from './inputs/PurchasePriceInput';
 import ReferralFeeInput from './inputs/ReferralFeeInput';
 import StatusInput from './inputs/StatusInput';
+import UserInput from './inputs/UserInput';
 
 export const columns = [
   {
@@ -37,14 +37,14 @@ export const columns = [
     header: 'Agent Name',
     cell: CommonCell,
     size: 110,
-    footer: OwnerInput,
+    footer: UserInput,
   },
   {
     accessorKey: 'sales_closed',
     header: '# of Sales Closed (YTD)',
     cell: CommonCell,
     size: 110,
-    footer: OwnerInput,
+    footer: UserInput,
   },
   {
     accessorKey: 'dollars_on_closed_deals_ytd',

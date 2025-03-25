@@ -42,9 +42,11 @@ export function Select({
             className
           )}
         >
-          {value
-            ? options.find((option) => option.value === value)?.label
-            : placeholder || 'Select option...'}
+          <span className="truncate">
+            {value
+              ? options.find((option) => option.value === value)?.label
+              : placeholder || 'Select option...'}
+          </span>
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -54,7 +56,7 @@ export function Select({
             placeholder={placeholder || 'Search option...'}
             className="h-9"
           />
-          <CommandList>
+          <CommandList className="scrollbar-none">
             <CommandEmpty>No option found.</CommandEmpty>
             <CommandGroup>
               {options.map((option) => (
