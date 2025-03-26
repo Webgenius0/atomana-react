@@ -1,4 +1,5 @@
 import { useGetSalesTrack, useStoreSalesTrack } from '@/hooks/expense.hook';
+import { format } from 'date-fns';
 import { useState } from 'react';
 import DataTable from './DataTable';
 import { columns } from './SalesTrackerColumns';
@@ -22,8 +23,19 @@ export default function SalesTrackerTable() {
 
   // Form instance
   const onSubmit = (data) => {
-    mutate({ ...data, recept: data.recept[0] });
+    new Date().toLocaleDateString;
+    console.log({
+      original: data?.date_under_contract,
+      formatted: format(data.date_under_contract, 'yyyy-MM-dd'),
+    });
+    mutate({
+      ...data,
+      date_under_contract: format(data.date_under_contract, 'yyyy-MM-dd'),
+      closing_date: format(data.closing_date, 'yyyy-MM-dd'),
+    });
   };
+
+  //   console.log({ error: form.formState.errors });
 
   return (
     <div>
