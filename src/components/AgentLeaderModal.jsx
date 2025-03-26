@@ -48,7 +48,7 @@ function AgentLeaderModal({ name, rank, id, filters }) {
           <div className="flex items-center gap-2 flex-1">
             <DollarSvg />
             <p className="text-[#CCCCCC] sm:text-sm text-xs">
-              Average sales price
+              Average Sales Price
             </p>
           </div>
           <div className="bg-[#CCCCCC] text-white sm:p-3 p-2 flex items-center justify-center flex-1 rounded-[100px]">
@@ -61,7 +61,7 @@ function AgentLeaderModal({ name, rank, id, filters }) {
           <div className="flex items-center gap-2 flex-1">
             <img src={calenderSvg} alt="" />
             <p className="text-[#CCCCCC] sm:text-sm text-xs">
-              Volume sold to date
+              Volume Sold to Date
             </p>
           </div>
           <div className="bg-[#CCCCCC] text-white sm:p-3 p-2 flex items-center justify-center flex-1 rounded-[100px]">
@@ -74,7 +74,7 @@ function AgentLeaderModal({ name, rank, id, filters }) {
           <div className="flex items-center sm:gap-2 gap-1 flex-1">
             <PendingSales />
             <p className="text-[#CCCCCC] sm:text-sm text-xs">
-              Pending slaes to volume
+              Pending Sales Volume
             </p>
           </div>
           <div className="bg-[#CCCCCC] text-white sm:p-3 p-2 flex items-center justify-center flex-1 rounded-[100px]">
@@ -87,7 +87,7 @@ function AgentLeaderModal({ name, rank, id, filters }) {
           <div className="flex items-center gap-2 flex-1">
             <ProfileSvg />
             <p className="text-[#CCCCCC] sm:text-sm text-xs">
-              Agent active listing volume
+              Agent Active Listing Volume
             </p>
           </div>
           <div className="bg-[#CCCCCC] text-white sm:p-3 p-2 flex items-center justify-center flex-1 rounded-[100px]">
@@ -100,7 +100,7 @@ function AgentLeaderModal({ name, rank, id, filters }) {
           <div className="flex items-center gap-2 flex-1">
             <AverageListSvg />
             <p className="text-[#CCCCCC] sm:text-sm text-xs">
-              Average list price
+              Average List Price
             </p>
           </div>
           <div className="bg-[#CCCCCC] text-white sm:p-3 p-2 flex items-center justify-center flex-1 rounded-[100px]">

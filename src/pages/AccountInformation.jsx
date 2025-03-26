@@ -6,20 +6,17 @@ import XSvg from '@/components/svgs/XSvg';
 import { STATUS } from '@/constants';
 import { useGetProfile, usePostProfile } from '@/hooks/profile.hook';
 import { format } from 'date-fns';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const AccountInformation = () => {
   const { profile } = useGetProfile();
-  console.log(profile?.bio)
- 
-  const {mutate:editProfile, modal, setModal, isPending} = usePostProfile();
+  console.log(profile?.bio);
 
-  const handleCloseModal = () =>{
-    setModal(null)
-  }
+  const { mutate: editProfile, modal, setModal, isPending } = usePostProfile();
 
-  
+  const handleCloseModal = () => {
+    setModal(null);
+  };
 
   return (
     <div className="my-container">
@@ -82,12 +79,12 @@ const AccountInformation = () => {
               </p>
             </div>
 
-            <Link
-              onClick={() =>setModal('address')}
+            <button
+              onClick={() => setModal('address')}
               className="text-xs md:text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
             >
               EDIT
-            </Link>
+            </button>
           </div>
           <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
             <div className="space-y-[2px]">
@@ -99,12 +96,12 @@ const AccountInformation = () => {
               </p>
             </div>
 
-            <Link
-              to=""
+            <button
+              onClick={() => setModal('email')}
               className="text-xs md:text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
             >
               MANAGE
-            </Link>
+            </button>
           </div>
           <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
             <div className="space-y-[2px]">
@@ -116,12 +113,12 @@ const AccountInformation = () => {
               </p>
             </div>
 
-            <Link
-              to=""
+            <button
+              onClick={() => setModal('phone')}
               className="text-xs md:text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
             >
               MANAGE
-            </Link>
+            </button>
           </div>
           <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
             <div className="space-y-[2px]">
@@ -135,12 +132,12 @@ const AccountInformation = () => {
               </p>
             </div>
 
-            <Link
-              to=""
+            <button
+              onClick={() => setModal('date_of_birth')}
               className="text-xs md:text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
             >
               MANAGE
-            </Link>
+            </button>
           </div>
           <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
             <div className="space-y-[2px]">
@@ -152,12 +149,12 @@ const AccountInformation = () => {
               </p>
             </div>
 
-            <Link
-              to=""
+            <button
+              onClick={() => setModal('address')}
               className="text-xs md:text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
             >
               EDIT
-            </Link>
+            </button>
           </div>
           <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
             <div className="space-y-[2px]">
@@ -189,12 +186,12 @@ const AccountInformation = () => {
               </div>
             </div>
 
-            <Link
-              to=""
+            <button
+              onClick={() => setModal('social')}
               className="text-xs md:text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
             >
               EDIT
-            </Link>
+            </button>
           </div>
           <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
             <div className="space-y-[2px]">
@@ -211,9 +208,15 @@ const AccountInformation = () => {
             >
               EDIT
             </Link>
-            {
-              modal && <Modal name={modal} onClose={handleCloseModal} profileInfo={profile} editProfile={editProfile} isPending={isPending}/>
-            }
+            {modal && (
+              <Modal
+                name={modal}
+                onClose={handleCloseModal}
+                profileInfo={profile}
+                editProfile={editProfile}
+                isPending={isPending}
+              />
+            )}
           </div>
         </div>
       </div>
