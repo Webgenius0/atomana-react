@@ -1,12 +1,14 @@
-import CustomDatePicker from '@/components/CustomDatePicker';
-import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
-import CalenderSvg from '@/components/svgs/CalenderSvg';
-import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
-import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
-import TimeRangePicker from '@/components/TimeRangePicker';
-import { useOpenHouse } from '@/hooks/open-house.hook';
-import { Controller, useForm } from 'react-hook-form';
-import { Link, useLocation } from 'react-router-dom';
+import CustomDatePicker from "@/components/CustomDatePicker";
+import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
+import CalenderSvg from "@/components/svgs/CalenderSvg";
+import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
+import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
+import TimeRangePicker from "@/components/TimeRangePicker";
+import { Select } from "@/components/ui/select";
+
+import { useOpenHouse, usePropertyDropdown } from "@/hooks/open-house.hook";
+import { Controller, useForm } from "react-hook-form";
+import { Link, useLocation } from "react-router-dom";
 
 const OpenHouseForm = () => {
   const {
@@ -19,41 +21,45 @@ const OpenHouseForm = () => {
     getValues,
   } = useForm({
     expirationDate: null,
-    timeRange: { startTime: '', endTime: '' },
+    timeRange: { startTime: "", endTime: "" },
   });
 
   const location = useLocation();
 
   const { mutate, isLoading } = useOpenHouse();
 
+  const { data: properties, isLoading: propertiesLoading } =
+    usePropertyDropdown();
+  console.log(properties);
   const handleTimeRangeChange = (newTimeRange) => {
-    setValue('timeRange', newTimeRange);
+    setValue("timeRange", newTimeRange);
   };
 
   const onSubmit = (data) => {
-    const { expirationDate, timeRange, email, answer, phone, signs } = data;
+    const { expirationDate, timeRange, email, property_id, phone, signs } =
+      data;
 
     const payload = {
       email: email,
-      property_id: answer,
-      business_id: answer,
+      property_id: parseInt(data.property_id, 10) || null,
+      business_id: parseInt(data.property_id, 10) || null,
       date: expirationDate,
-      start_time: timeRange?.startTime || '',
-      end_time: timeRange?.endTime || '',
-      wavy_man: phone === 'yes',
+      start_time: timeRange?.startTime || "",
+      end_time: timeRange?.endTime || "",
+      wavy_man: phone === "yes",
       sign_number: parseInt(signs, 10) || 0,
     };
-    console.log('Payload:', payload);
+    console.log("Payload:", payload);
     mutate(payload, {
       onSuccess: () => {
         reset({
-          email: '',
-          property_id: '',
-          business_id: '',
-          date: '',
-          start_time: '',
-          end_time: '',
-          wavy_man: '',
+          email: "",
+          property_id: "",
+          business_id: "",
+          date: "",
+          start_time: "",
+          end_time: "",
+          wavy_man: "",
           sign_number: 0,
         });
 
@@ -73,7 +79,7 @@ const OpenHouseForm = () => {
         <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5">
           <Link
             to={`${
-              location.state?.from || '/my-systems/open-house/open-house-form'
+              location.state?.from || "/my-systems/open-house/open-house-form"
             }`}
           >
             <ArrowLeftSvg />
@@ -110,7 +116,7 @@ const OpenHouseForm = () => {
               type="email"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="youremail@spearsgroup.com"
-              {...register('email')}
+              {...register("email")}
             />
           </div>
           <div className="flex flex-col gap-2 w-full">
@@ -119,11 +125,24 @@ const OpenHouseForm = () => {
               reference the active listings sheet for a full breakdown of
               properties available. *Availability subject to rental schedule*
             </label>
-            <input
-              type="text"
-              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-              placeholder="Type your answer here"
-              {...register('answer')}
+
+            <Controller
+              name="property_id"
+              control={control}
+              render={({ field }) => (
+                <select
+                  {...field}
+                  className="w-full px-4 py-2 rounded-lg border bg-transparent text-gray-500 border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  disabled={propertiesLoading}
+                >
+                  <option value="">Select a property</option>
+                  {properties?.data?.map((property) => (
+                    <option key={property.id} value={property.id}>
+                      {property.address}
+                    </option>
+                  ))}
+                </select>
+              )}
             />
           </div>
           <div className="flex flex-col gap-2 w-full">
@@ -150,8 +169,8 @@ const OpenHouseForm = () => {
               What time frame do you want to hold it?
             </label>
             <TimeRangePicker
-              startTime={getValues('timeRange.startTime')}
-              endTime={getValues('timeRange.endTime')}
+              startTime={getValues("timeRange.startTime")}
+              endTime={getValues("timeRange.endTime")}
               onTimeRangeChange={handleTimeRangeChange}
             />
           </div>
@@ -162,7 +181,7 @@ const OpenHouseForm = () => {
             <input
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="000-000-0000"
-              {...register('phone')}
+              {...register("phone")}
             />
           </div>
           <div className="flex flex-col gap-2 w-full">
@@ -172,7 +191,7 @@ const OpenHouseForm = () => {
             <input
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="0"
-              {...register('signs')}
+              {...register("signs")}
             />
           </div>
         </form>
