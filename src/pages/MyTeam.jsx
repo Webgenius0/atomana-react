@@ -1,58 +1,59 @@
-import ChartCard from '@/components/ChartCard';
-import DataCard from '@/components/DataCard';
-import Dropdown from '@/components/Dropdown';
-import ProgressBar from '@/components/ProgressBar';
+import ChartCard from "@/components/ChartCard";
+import DataCard from "@/components/DataCard";
+import Dropdown from "@/components/Dropdown";
+import ProgressBar from "@/components/ProgressBar";
 import {
   useGetCurrentSalesVolume,
   useGetExpenses,
   useGetNetProfit,
   useGetUnitsSold,
-} from '@/hooks/charts.hook';
-import { useGetLeaderboardData } from '@/hooks/leaderboard.hook';
-import { useGetSystemsData } from '@/hooks/useGetSystemsData';
-import { useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../App.css';
+} from "@/hooks/charts.hook";
+import { useGetLeaderboardData } from "@/hooks/leaderboard.hook";
+import { useGetSystemsData } from "@/hooks/useGetSystemsData";
+import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import "../App.css";
+import LeaderboardSkeleton from "@/components/LeaderboardSkeleton";
 
 const MyTeam = () => {
   const data = useGetSystemsData();
 
   const ourMission = [
     {
-      title: 'To Create Lifelong Relationships and Raving Fans',
-      subTitle: '',
+      title: "To Create Lifelong Relationships and Raving Fans",
+      subTitle: "",
     },
     {
-      title: 'Excellence',
-      subTitle: 'Consistent execution, Do things the right way consistently',
+      title: "Excellence",
+      subTitle: "Consistent execution, Do things the right way consistently",
     },
     {
-      title: 'Relentless',
-      subTitle: 'Persist without exception',
+      title: "Relentless",
+      subTitle: "Persist without exception",
     },
     {
-      title: 'Adaptive',
-      subTitle: 'Today’s market isn’t yesterday’s market',
+      title: "Adaptive",
+      subTitle: "Today’s market isn’t yesterday’s market",
     },
     {
-      title: 'Collaborate',
-      subTitle: 'Get to solutions together ',
+      title: "Collaborate",
+      subTitle: "Get to solutions together ",
     },
     {
-      title: 'Extreme Ownership',
-      subTitle: 'We own our problems and work towards solutions',
+      title: "Extreme Ownership",
+      subTitle: "We own our problems and work towards solutions",
     },
   ];
 
   const filterOptions = [
-    { value: 'monthly', label: 'This Month' },
-    { value: 'quarterly', label: 'This Quarter' },
-    { value: 'yearly', label: 'This Year' },
+    { value: "monthly", label: "This Month" },
+    { value: "quarterly", label: "This Quarter" },
+    { value: "yearly", label: "This Year" },
   ];
 
   const sortingOptions = [
-    { value: 'highest-avg-sales', label: 'Sort By: Highest Average Sales' },
-    { value: 'highest-sold-volume', label: 'Sort By: Highest Sold Volume' },
+    { value: "highest-avg-sales", label: "Sort By: Highest Average Sales" },
+    { value: "highest-sold-volume", label: "Sort By: Highest Sold Volume" },
   ];
 
   const agentRef = useRef();
@@ -66,14 +67,14 @@ const MyTeam = () => {
         agentRef.current.contains(e.target) &&
         (!dropdownRef.current || !dropdownRef.current.contains(e.target))
       ) {
-        navigate('/agent-leaderboard');
+        navigate("/agent-leaderboard");
       }
     };
 
-    document.addEventListener('mousedown', handlePageRedirect);
+    document.addEventListener("mousedown", handlePageRedirect);
 
     return () => {
-      document.removeEventListener('mousedown', handlePageRedirect);
+      document.removeEventListener("mousedown", handlePageRedirect);
     };
   }, [navigate]);
 
@@ -128,7 +129,13 @@ const MyTeam = () => {
             </div>
             <div className="grid md:grid-cols-2 gap-y-4 md:gap-y-6 gap-12 w-full mt-5">
               {isLoading ? (
-                <p className="text-white">Loading...</p>
+                <LeaderboardSkeleton />
+              ) : leaderboardData?.length === 0 ? (
+                <div className="flex items-center justify-center w-full h-full">
+                  <p className="text-sm text-[#ffffff99] font-medium">
+                    No data available
+                  </p>
+                </div>
               ) : (
                 leaderboardData?.map((agent, index) => (
                   <div key={index} className="w-full">
