@@ -4,11 +4,18 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { addressSchema } from '@/schema/profile-update.schema';
 
+const label = {
+  address: 'Home Address',
+  email: 'Update Email',
+  bio: 'About',
+  phone: 'Update Phone Number',
+  birthday: 'Update Birthday',
+}
 
 
-function Modal({ name, onClose, profileInfo, editProfile, isPending }) {
+
+function Modal({ modal, onClose, profileInfo, editProfile, isPending }) {
   // Dynamic schema based on the field name
-
   const {
     register,
     handleSubmit,
@@ -16,14 +23,18 @@ function Modal({ name, onClose, profileInfo, editProfile, isPending }) {
   } = useForm({
     resolver: zodResolver(addressSchema),
     defaultValues: {
-      name: profileInfo?.name,
+      address: profileInfo?.address || '',
+      email: profileInfo?.email || '',
+      phone: profileInfo?.phone || '',
+      date_of_birth: profileInfo?.date_of_birth || '',
+      bio: profileInfo?.bio || '',
     },
   });
-
+console.log(errors)
   // Handle form submission
   const onSubmit = (data) => {
     console.log('Form Data:', data);
-    editProfile({ newAddress: data, field: name });
+    editProfile({ newAddress: data, field: modal });
   };
 
   return (
@@ -38,18 +49,17 @@ function Modal({ name, onClose, profileInfo, editProfile, isPending }) {
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6 p-8">
           <div className="flex flex-col justify-center gap-3">
             <label htmlFor="address" className="text-start font-bold leading-5 text-base text-[#ffffffcc]">
-              {name === 'address' ? 'Home Address' : name === 'bio' ? 'About' : 'Update  Field'}
+              {label[modal] || 'Update  Field'}
             </label>
             <input
               type="text"
-              id={name}
-              name={name}
-              defaultValue={profileInfo?.name}
+              id={modal}
+              name={modal}
               className="px-4 py-3 outline-none bg-transparent border border-secondPrimary rounded text-sm font-medium leading-5 text-light"
-              {...register(name)}
+              {...register(modal)}
             />
-            {errors.address && (
-              <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+            {errors[modal] && (
+              <p className="text-red-500 text-sm mt-1">{errors[modal]?.message}</p>
             )}
           </div>
           <button className="flex items-center sm:justify-end justify-center gap-4 sm:w-unset w-full">

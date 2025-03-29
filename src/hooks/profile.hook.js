@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useAxiosSecure } from './useAxios';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 export const useGetProfile = () => {
   const axiosPrivate = useAxiosSecure();
@@ -25,8 +26,9 @@ export const usePostProfile = () =>{
 
   const { mutate, isPending } = useMutation({
     mutationFn: async ({ newAddress, field }) =>{
-      console.log(newAddress);
-      console.log(field);
+      console.log(`API Call: /api/v1/profile/${field}`);
+      console.log(field)
+      console.log(newAddress)
       const res = await axiosPrivate.put(`/api/v1/profile/${field}`,newAddress);
       return res?.data;
     },
