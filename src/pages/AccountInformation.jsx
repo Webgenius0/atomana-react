@@ -6,12 +6,11 @@ import XSvg from '@/components/svgs/XSvg';
 import { STATUS } from '@/constants';
 import { useGetProfile, usePostProfile } from '@/hooks/profile.hook';
 import { format } from 'date-fns';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const AccountInformation = () => {
   const { profile } = useGetProfile();
-  console.log(profile?.bio)
+  console.log(profile)
  
   const {mutate:editProfile, modal, setModal, isPending} = usePostProfile();
 
@@ -19,7 +18,7 @@ const AccountInformation = () => {
     setModal(null)
   }
 
-  
+  console.log(isPending)
 
   return (
     <div className="my-container">
@@ -100,7 +99,7 @@ const AccountInformation = () => {
             </div>
 
             <Link
-              to=""
+              onClick={()=>setModal('email')}
               className="text-xs md:text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
             >
               MANAGE
@@ -117,7 +116,7 @@ const AccountInformation = () => {
             </div>
 
             <Link
-              to=""
+               onClick={() =>setModal('phone')}
               className="text-xs md:text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
             >
               MANAGE
@@ -129,14 +128,14 @@ const AccountInformation = () => {
                 Birthday
               </p>
               <p className="text-sm font-medium leading-5 text-light">
-                {profile?.date_of_birth
-                  ? format(profile?.date_of_birth, 'P')
-                  : 'N/A'}
-              </p>
+  {profile?.date_of_birth
+    ? format(new Date(String(profile?.date_of_birth)), 'MM/dd/yyyy')
+    : 'N/A'}
+</p>
             </div>
 
             <Link
-              to=""
+               onClick={() =>setModal('birthday')}
               className="text-xs md:text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
             >
               MANAGE
@@ -206,13 +205,13 @@ const AccountInformation = () => {
               </p>
             </div>
             <Link
-              onClick={() => setModal('bio')}
+              onClick={() => setModal('about')}
               className="text-xs md:text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
             >
               EDIT
             </Link>
             {
-              modal && <Modal name={modal} onClose={handleCloseModal} profileInfo={profile} editProfile={editProfile} isPending={isPending}/>
+              modal && <Modal modal={modal} onClose={handleCloseModal} profileInfo={profile} editProfile={editProfile} isPending={isPending}/>
             }
           </div>
         </div>
