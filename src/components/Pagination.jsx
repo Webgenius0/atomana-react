@@ -3,6 +3,7 @@ const Pagination = ({
   totalItems,
   itemsPerPage,
   onPageChange,
+  isLoading,
 }) => {
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const visiblePages = 5;
@@ -24,6 +25,8 @@ const Pagination = ({
       onPageChange(page);
     }
   };
+
+  if (isLoading) return <PaginationSkeleton />;
 
   return (
     <div className="flex items-center flex-wrap gap-y-4 gap-3.5 py-[15px]">
@@ -98,3 +101,29 @@ const Pagination = ({
 };
 
 export default Pagination;
+
+const PaginationSkeleton = () => {
+  return (
+    <div className="flex items-center flex-wrap gap-y-4 gap-3.5 py-[15px] animate-pulse">
+      {/* Pagination Info Skeleton */}
+      <div className="h-[21px] w-[200px] bg-[#5E5E5E] rounded-full" />
+
+      {/* Pagination Controls Skeleton */}
+      <div className="flex items-center gap-2.5">
+        {/* Previous Button Skeleton */}
+        <div className="w-[25px] h-[25px] rounded-full bg-[#5E5E5E]" />
+
+        {/* Page Numbers Skeleton */}
+        {[...Array(5)].map((_, index) => (
+          <div
+            key={index}
+            className="w-[25px] h-[25px] rounded-full bg-[#5E5E5E]"
+          />
+        ))}
+
+        {/* Next Button Skeleton */}
+        <div className="w-[25px] h-[25px] rounded-full bg-[#5E5E5E]" />
+      </div>
+    </div>
+  );
+};
