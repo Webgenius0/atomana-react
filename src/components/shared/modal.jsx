@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
-import { IoClose } from 'react-icons/io5';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { addressSchema } from '@/schema/profile-update.schema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { IoClose } from 'react-icons/io5';
 
 const label = {
   address: 'Home Address',
@@ -10,9 +9,7 @@ const label = {
   bio: 'About',
   phone: 'Update Phone Number',
   birthday: 'Update Birthday',
-}
-
-
+};
 
 function Modal({ modal, onClose, profileInfo, editProfile, isPending }) {
   // Dynamic schema based on the field name
@@ -30,7 +27,7 @@ function Modal({ modal, onClose, profileInfo, editProfile, isPending }) {
       bio: profileInfo?.bio || '',
     },
   });
-console.log(errors)
+  console.log(errors);
   // Handle form submission
   const onSubmit = (data) => {
     console.log('Form Data:', data);
@@ -46,9 +43,15 @@ console.log(errors)
         >
           <IoClose size={24} />
         </button>
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6 p-8">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-6 p-8"
+        >
           <div className="flex flex-col justify-center gap-3">
-            <label htmlFor="address" className="text-start font-bold leading-5 text-base text-[#ffffffcc]">
+            <label
+              htmlFor="address"
+              className="text-start font-bold leading-5 text-base text-[#ffffffcc]"
+            >
               {label[modal] || 'Update  Field'}
             </label>
             <input
@@ -59,7 +62,9 @@ console.log(errors)
               {...register(modal)}
             />
             {errors[modal] && (
-              <p className="text-red-500 text-sm mt-1">{errors[modal]?.message}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors[modal]?.message}
+              </p>
             )}
           </div>
           <button className="flex items-center sm:justify-end justify-center gap-4 sm:w-unset w-full">
@@ -67,7 +72,7 @@ console.log(errors)
               className="request-btn approve cursor-pointer bg-gray-300"
               type="submit"
               disabled={isPending}
-              value={isPending ? "Updating..." : "Update"}
+              value={isPending ? 'Updating...' : 'Update'}
             />
           </button>
         </form>
