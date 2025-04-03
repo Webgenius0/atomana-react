@@ -1,5 +1,5 @@
-import DataCard from "@/components/DataCard";
-import { useGetVendorListData } from "@/hooks/useVendorListData";
+import DataCard from '@/components/DataCard';
+import { useGetVendorListData } from '@/hooks/useVendorListData';
 
 const VlAll = () => {
   const { data } = useGetVendorListData();
@@ -13,7 +13,7 @@ const VlAll = () => {
               Status: <span className="text-light">{item.status}</span>
             </p>
             <p className="text-secondary text-xs font-medium leading-[21px] tracking-[-0.12px]">
-              Last Activity:{" "}
+              Last Activity:{' '}
               <span className="text-light">{item.lastActivity}</span>
             </p>
           </div>

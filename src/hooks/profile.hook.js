@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useAxiosSecure } from './useAxios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { useAxiosSecure } from './useAxios';
 
 export const useGetProfile = () => {
   const axiosPrivate = useAxiosSecure();
@@ -18,28 +18,26 @@ export const useGetProfile = () => {
   return { ...result, profile };
 };
 
-export const usePostProfile = () =>{
-  const [modal, setModal] = useState(null);
+export const useEditProfile = () => {
+  const [open, setOpen] = useState(false);
 
   const axiosPrivate = useAxiosSecure();
   const queryClient = useQueryClient();
 
   const { mutate, isPending } = useMutation({
-    mutationFn: async ({ newAddress, field }) =>{
-      console.log(`API Call: /api/v1/profile/${field}`);
-      console.log(field)
-      console.log(newAddress)
-      const res = await axiosPrivate.put(`/api/v1/profile/${field}`,newAddress);
+    mutationFn: async ({ data, field }) => {
+      const res = await axiosPrivate.put(`/api/v1/profile/${field}`, data);
       return res?.data;
     },
-    onSuccess: (data) =>{
-      console.log({test: data})
-      setModal(null);
-      queryClient.invalidateQueries(['profile'])
+    onSuccess: (data) => {
+      if (data?.success) {
+        setOpen(false);
+        queryClient.invalidateQueries(['profile']);
+      }
     },
-    onError: (error) =>{
-      toast.error(error.response.data?.message || 'Failed to update address.')
+    onError: (error) => {
+      toast.error(error.response.data?.message || 'Failed to update address.');
     },
   });
-  return { mutate , modal, setModal, isPending};
-}
+  return { mutate, isPending, open, setOpen };
+};
