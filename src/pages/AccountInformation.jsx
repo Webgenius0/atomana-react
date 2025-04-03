@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom';
 
 const AccountInformation = () => {
   const { profile } = useGetProfile();
-  console.log(profile?.bio);
 
   const { mutate: editProfile, modal, setModal, isPending } = usePostProfile();
 
