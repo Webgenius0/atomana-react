@@ -4,16 +4,16 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useAxiosSecure } from './useAxios';
 
-export const useGetMyListingExpenses = ({ per_page = 10, page = 1 }) => {
+export const useGetMyListingExpenses = ({ perPage = 10, currentPage = 1 }) => {
   const axiosPrivate = useAxiosSecure();
 
   const result = useQuery({
-    queryKey: ['listing_expense'],
+    queryKey: ['listing_expense', perPage, currentPage],
     queryFn: async () => {
       const response = await axiosPrivate.get(
         `/api/v1/expense/my-expense-list`,
         {
-          params: { per_page, page },
+          params: { per_page: perPage, page: currentPage },
         }
       );
       return response.data;
@@ -21,20 +21,29 @@ export const useGetMyListingExpenses = ({ per_page = 10, page = 1 }) => {
   });
 
   const myListingExpenses = result?.data?.data?.data || [];
+  const current_page = result?.data?.data?.current_page;
+  const totalItems = result?.data?.data?.total;
+  const per_page = result?.data?.data?.per_page;
 
-  return { ...result, myListingExpenses };
+  return {
+    ...result,
+    myListingExpenses,
+    current_page,
+    totalItems,
+    per_page,
+  };
 };
 
-export const useGetMyBusinessExpenses = ({ per_page = 10, page = 1 }) => {
+export const useGetMyBusinessExpenses = ({ perPage = 10, currentPage = 1 }) => {
   const axiosPrivate = useAxiosSecure();
 
   const result = useQuery({
-    queryKey: ['business_expense'],
+    queryKey: ['business_expense', perPage, currentPage],
     queryFn: async () => {
       const response = await axiosPrivate.get(
         `/api/v1/expense/my-business-expenses`,
         {
-          params: { per_page, page },
+          params: { per_page: perPage, page: currentPage },
         }
       );
       return response.data;
@@ -42,45 +51,53 @@ export const useGetMyBusinessExpenses = ({ per_page = 10, page = 1 }) => {
   });
 
   const myBusinessExpenses = result?.data?.data?.data || [];
+  const current_page = result?.data?.data?.current_page;
+  const totalItems = result?.data?.data?.total;
+  const per_page = result?.data?.data?.per_page;
 
-  return { ...result, myBusinessExpenses };
+  return { ...result, myBusinessExpenses, current_page, totalItems, per_page };
 };
 
-export const useGetAgentEarnings = ({ per_page = 10, page = 1 }) => {
+export const useGetAgentEarnings = ({ perPage = 10, currentPage = 1 }) => {
   const axiosPrivate = useAxiosSecure();
 
   const result = useQuery({
-    queryKey: ['agent_earning'],
+    queryKey: ['agent_earning', perPage, currentPage],
     queryFn: async () => {
       const response = await axiosPrivate.get(`/api/v1/agent-earning`, {
-        params: { per_page, page },
+        params: { per_page: perPage, page: currentPage },
       });
       return response.data;
     },
   });
 
   const agentEarnings = result?.data?.data?.data || [];
+  const current_page = result?.data?.data?.current_page;
+  const totalItems = result?.data?.data?.total;
+  const per_page = result?.data?.data?.per_page;
 
-  return { ...result, agentEarnings };
+  return { ...result, agentEarnings, current_page, totalItems, per_page };
 };
 
-export const useGetSalesTrack = ({ per_page = 10, page = 1 }) => {
+export const useGetSalesTrack = ({ perPage = 10, currentPage = 1 }) => {
   const axiosPrivate = useAxiosSecure();
 
   const result = useQuery({
-    queryKey: ['sales_track'],
+    queryKey: ['sales_track', perPage, currentPage],
     queryFn: async () => {
       const response = await axiosPrivate.get(`/api/v1/sales-track`, {
-        params: { per_page, page },
+        params: { per_page: perPage, page: currentPage },
       });
       return response.data;
     },
   });
 
   const salesTrack = result?.data?.data?.data || [];
-  const current_page = result?.data?.current_page || 1;
+  const current_page = result?.data?.data?.current_page;
+  const totalItems = result?.data?.data?.total;
+  const per_page = result?.data?.data?.per_page;
 
-  return { ...result, salesTrack, current_page };
+  return { ...result, salesTrack, current_page, totalItems, per_page };
 };
 
 export const useStoreMyListingExpenses = () => {

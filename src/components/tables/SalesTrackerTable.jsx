@@ -1,21 +1,20 @@
 import { useGetSalesTrack, useStoreSalesTrack } from '@/hooks/expense.hook';
 import { format } from 'date-fns';
 import { useState } from 'react';
+import Pagination from '../Pagination';
 import DataTable from './DataTable';
 import { columns } from './SalesTrackerColumns';
 
 export default function SalesTrackerTable() {
   // Pagination states
   const [perPage] = useState(10);
-  const [page] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
   //   Fetch table data
-  const { salesTrack, isLoading } = useGetSalesTrack({
-    per_page: perPage,
-    page,
+  const { salesTrack, totalItems, isLoading, isFetching } = useGetSalesTrack({
+    perPage,
+    currentPage,
   });
-
-  console.log(salesTrack);
 
   // Store new row
   const { mutate, showInputs, setShowInputs, isPending, form } =
@@ -49,6 +48,13 @@ export default function SalesTrackerTable() {
         showInputs={showInputs}
         setShowInputs={setShowInputs}
         perPage={perPage}
+      />
+      <Pagination
+        currentPage={currentPage}
+        totalItems={totalItems}
+        itemsPerPage={perPage}
+        onPageChange={setCurrentPage}
+        isLoading={isLoading || isFetching}
       />
     </div>
   );

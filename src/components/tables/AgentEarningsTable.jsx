@@ -1,18 +1,20 @@
 import { useGetAgentEarnings } from '@/hooks/expense.hook';
 import { useState } from 'react';
+import Pagination from '../Pagination';
 import { columns } from './AgentEarningsColumns';
 import DataTable from './DataTable';
 
 export default function AgentEarningTable() {
   // Pagination states
   const [perPage] = useState(10);
-  const [page] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  //   Fetch table data
-  const { agentEarnings, isLoading } = useGetAgentEarnings({
-    per_page: perPage,
-    page,
-  });
+  // Fetch table data
+  const { agentEarnings, totalItems, isLoading, isFetching } =
+    useGetAgentEarnings({
+      perPage,
+      currentPage,
+    });
 
   return (
     <div>
@@ -21,6 +23,13 @@ export default function AgentEarningTable() {
         columns={columns}
         isLoading={isLoading}
         perPage={perPage}
+      />
+      <Pagination
+        currentPage={currentPage}
+        totalItems={totalItems}
+        itemsPerPage={perPage}
+        onPageChange={setCurrentPage}
+        isLoading={isLoading || isFetching}
       />
     </div>
   );
