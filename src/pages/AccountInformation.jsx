@@ -11,13 +11,10 @@ import { Link } from 'react-router-dom';
 const AccountInformation = () => {
   const { profile } = useGetProfile();
   console.log(profile)
- 
-  const {mutate:editProfile, modal, setModal, isPending} = usePostProfile();
-
-  const handleCloseModal = () =>{
+  const { mutate: editProfile, modal, setModal, isPending } = usePostProfile();
+  const handleCloseModal = () => {
     setModal(null)
   }
-
   console.log(isPending)
 
   return (
@@ -82,7 +79,7 @@ const AccountInformation = () => {
             </div>
 
             <Link
-              onClick={() =>setModal('address')}
+              onClick={() => setModal('address')}
               className="text-xs md:text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
             >
               EDIT
@@ -99,7 +96,7 @@ const AccountInformation = () => {
             </div>
 
             <Link
-              onClick={()=>setModal('email')}
+              onClick={() => setModal('email')}
               className="text-xs md:text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
             >
               MANAGE
@@ -116,7 +113,7 @@ const AccountInformation = () => {
             </div>
 
             <Link
-               onClick={() =>setModal('phone')}
+              onClick={() => setModal('phone')}
               className="text-xs md:text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
             >
               MANAGE
@@ -128,14 +125,14 @@ const AccountInformation = () => {
                 Birthday
               </p>
               <p className="text-sm font-medium leading-5 text-light">
-  {profile?.date_of_birth
-    ? format(new Date(String(profile?.date_of_birth)), 'MM/dd/yyyy')
-    : 'N/A'}
-</p>
+                {profile?.date_of_birth
+                  ? format(new Date(String(profile?.date_of_birth)), 'MM/dd/yyyy')
+                  : 'N/A'}
+              </p>
             </div>
 
             <Link
-               onClick={() =>setModal('birthday')}
+              onClick={() => setModal('birthday')}
               className="text-xs md:text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
             >
               MANAGE
@@ -211,7 +208,7 @@ const AccountInformation = () => {
               EDIT
             </Link>
             {
-              modal && <Modal modal={modal} onClose={handleCloseModal} profileInfo={profile} editProfile={editProfile} isPending={isPending}/>
+              modal && <Modal modal={modal} onClose={handleCloseModal} profileInfo={profile} editProfile={editProfile} isPending={isPending} />
             }
           </div>
         </div>
