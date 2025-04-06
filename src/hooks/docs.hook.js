@@ -1,7 +1,9 @@
+import errorResponse from '@/lib/errorResponse';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import DOMPurify from 'dompurify';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { stripHtml } from 'string-strip-html';
 import { z } from 'zod';
 import { useAxiosSecure } from './useAxios';
@@ -21,7 +23,10 @@ const noteSchema = z.object({
 
 const passwordSchema = z.object({
   title: z.string().min(1, 'Title is required'),
-  website: z.string().min(1, 'Website is required'),
+  website: z
+    .string()
+    .min(1, 'Website is required')
+    .url('The website field must be a valid URL.'),
   user_name: z.string().min(1, 'Username is required'),
   email: z
     .string()
@@ -148,6 +153,19 @@ export const useAddPassword = () => {
       if (data?.success) {
         form.reset();
         queryClient.invalidateQueries(['password-list']);
+      }
+    },
+    onError: (error) => {
+      console.log({ error });
+      const response = errorResponse(error, (fields) => {
+        Object.entries(fields).forEach(([field, messages]) => {
+          form.setError(field, {
+            message: messages?.[0],
+          });
+        });
+      });
+      if (response) {
+        toast.error(response);
       }
     },
   });
