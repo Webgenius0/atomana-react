@@ -95,23 +95,6 @@ const AccountInformation = () => {
             )}
           </div>
 
-          {/* Home Address */}
-          <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
-            <div className="space-y-[2px]">
-              <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
-                Home address
-              </p>
-              {isLoading ? (
-                <div className="h-5 bg-gray-800 rounded animate-pulse w-36" />
-              ) : (
-                <p className="text-sm font-medium leading-5 text-light">
-                  {profile?.address || 'N/A'}
-                </p>
-              )}
-            </div>
-            <EditHomeAddress />
-          </div>
-
           {/* Email */}
           <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
             <div className="space-y-[2px]">
@@ -127,6 +110,23 @@ const AccountInformation = () => {
               )}
             </div>
             {/* <EditEmail /> */}
+          </div>
+
+          {/* Home Address */}
+          <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
+            <div className="space-y-[2px]">
+              <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
+                Home address
+              </p>
+              {isLoading ? (
+                <div className="h-5 bg-gray-800 rounded animate-pulse w-36" />
+              ) : (
+                <p className="text-sm font-medium leading-5 text-light">
+                  {profile?.address || 'N/A'}
+                </p>
+              )}
+            </div>
+            <EditHomeAddress />
           </div>
 
           {/* Phone */}
