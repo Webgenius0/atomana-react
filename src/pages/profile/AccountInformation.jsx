@@ -1,10 +1,8 @@
 import EditBio from '@/components/profile/account-information/EditBio';
 import EditBirthDay from '@/components/profile/account-information/EditBirthDay';
-import EditEmail from '@/components/profile/account-information/EditEmail';
 import EditHomeAddress from '@/components/profile/account-information/EditHomeAddress';
 import EditPhone from '@/components/profile/account-information/EditPhone';
 import EditSocialMedia from '@/components/profile/account-information/EditSocialMedia';
-import EditSpearsAddress from '@/components/profile/account-information/EditSpearsAddress';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import FacebookSvg from '@/components/svgs/FacebookSvg';
 import InstaSvg from '@/components/svgs/InstaSvg';
@@ -97,6 +95,23 @@ const AccountInformation = () => {
             )}
           </div>
 
+          {/* Email */}
+          <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
+            <div className="space-y-[2px]">
+              <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
+                Personal email address
+              </p>
+              {isLoading ? (
+                <div className="h-5 bg-gray-800 rounded animate-pulse w-32" />
+              ) : (
+                <p className="text-sm font-medium leading-5 text-light">
+                  {profile?.email}
+                </p>
+              )}
+            </div>
+            {/* <EditEmail /> */}
+          </div>
+
           {/* Home Address */}
           <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
             <div className="space-y-[2px]">
@@ -112,23 +127,6 @@ const AccountInformation = () => {
               )}
             </div>
             <EditHomeAddress />
-          </div>
-
-          {/* Email */}
-          <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
-            <div className="space-y-[2px]">
-              <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
-                Personal email address
-              </p>
-              {isLoading ? (
-                <div className="h-5 bg-gray-800 rounded animate-pulse w-32" />
-              ) : (
-                <p className="text-sm font-medium leading-5 text-light">
-                  {profile?.email}
-                </p>
-              )}
-            </div>
-            <EditEmail />
           </div>
 
           {/* Phone */}
@@ -171,7 +169,7 @@ const AccountInformation = () => {
           </div>
 
           {/* Spears Group anniversary Home address */}
-          <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
+          {/* <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
             <div className="space-y-[2px]">
               <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
                 Spears Group anniversary Home address
@@ -185,7 +183,7 @@ const AccountInformation = () => {
               )}
             </div>
             <EditSpearsAddress />
-          </div>
+          </div> */}
 
           {/* Social Media */}
           <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
