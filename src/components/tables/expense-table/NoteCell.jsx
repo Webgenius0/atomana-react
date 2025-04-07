@@ -1,4 +1,5 @@
-import { CheckIcon, PencilIcon } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { CheckIcon, PencilIcon, XIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -39,14 +40,23 @@ export default function NoteCell({ getValue }) {
           className="bg-transparent w-full text-white px-3 py-2 border border-white focus:rounded-none outline-none"
           placeholder="Enter Notes"
         />
-        <div className="flex gap-2 items-center absolute bottom-full right-0">
-          <button
-            className="text-green-500"
+        <div className="flex items-center absolute bottom-full right-0">
+          <Button
+            size="icon"
+            className="bg-red-500 hover:bg-red-400 opacity-70 hover:opacity-100"
+            onClick={() => setShowInput(false)}
+            type="button"
+          >
+            <XIcon className="size-4" />
+          </Button>
+          <Button
+            size="icon"
+            className="opacity-70 hover:opacity-100"
             onClick={() => setShowInput(true)}
             type="button"
           >
             <CheckIcon className="size-4" />
-          </button>
+          </Button>
         </div>
       </form>
     );
