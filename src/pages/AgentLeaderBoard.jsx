@@ -1,20 +1,21 @@
-import AgentLeaderModal from '@/components/AgentLeaderModal';
-import Dropdown from '@/components/Dropdown';
-import ProgressBar from '@/components/ProgressBar';
-import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
-import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
-import { useGetLeaderboardData } from '@/hooks/leaderboard.hook';
-import { Link } from 'react-router-dom';
+import AgentLeaderModal from "@/components/AgentLeaderModal";
+import Dropdown from "@/components/Dropdown";
+import LeaderboardSkeleton from "@/components/LeaderboardSkeleton";
+import ProgressBar from "@/components/ProgressBar";
+import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
+import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
+import { useGetLeaderboardData } from "@/hooks/leaderboard.hook";
+import { Link } from "react-router-dom";
 
 function AgentLeaderBoard() {
   const filterOptions = [
-    { value: 'monthly', label: 'This Month' },
-    { value: 'quarterly', label: 'This Quarter' },
-    { value: 'yearly', label: 'This Year' },
+    { value: "monthly", label: "This Month" },
+    { value: "quarterly", label: "This Quarter" },
+    { value: "yearly", label: "This Year" },
   ];
   const sortingOptions = [
-    { value: 'highest-avg-sales', label: 'Sort By: Highest Average Sales' },
-    { value: 'highest-sold-volume', label: 'Sort By: Highest Sold Volume' },
+    { value: "highest-avg-sales", label: "Sort By: Highest Average Sales" },
+    { value: "highest-sold-volume", label: "Sort By: Highest Sold Volume" },
   ];
 
   const {
@@ -50,7 +51,7 @@ function AgentLeaderBoard() {
         {/* sub container table */}
         <div className="relative grid md:grid-cols-1 gap-y-4 md:gap-y-6 gap-12 w-full mt-5">
           {isLoading ? (
-            <p className="text-white">Loading...</p>
+            <LeaderboardSkeleton />
           ) : (
             leaderboardData?.map((agent, index) => {
               return (

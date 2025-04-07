@@ -26,10 +26,18 @@ const formSchema = z.object({
     return format(value, 'yyyy-MM-dd');
   }, z.string({ required_error: 'Expiration date is required' }).min(1, 'Expiration date is required')),
   development: z.enum(['1', '0'], {
-    required_error: 'Development is required',
+    required_error: 'This field is required',
   }),
-  co_listing: z.enum(['1', '0'], { required_error: 'Co-listing is required' }),
-  source: z.string().min(1, 'Source is required'),
+  add_to_website: z.enum(['1', '0'], {
+    required_error: 'This field is required',
+  }),
+  is_co_listing: z.enum(['1', '0'], {
+    required_error: 'Co-listing is required',
+  }),
+  co_agent: z.enum(['1', '0'], {
+    required_error: 'This field is required',
+  }),
+  property_source_id: z.string().min(1, 'Source is required'),
 });
 
 function NewListingInformationForm() {
@@ -38,6 +46,7 @@ function NewListingInformationForm() {
     handleSubmit,
     reset,
     control,
+    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -46,8 +55,8 @@ function NewListingInformationForm() {
       price: '',
       expiration_date: '',
       development: '1',
-      co_listing: '0',
-      source: '',
+      is_co_listing: '0',
+      property_source_id: '',
     },
     resolver: zodResolver(formSchema),
   });
@@ -60,8 +69,8 @@ function NewListingInformationForm() {
     isSuccess,
   } = useStoreProperty();
 
-  //   const development = watch('development');
-  //   const co_listing = watch('co_listing');
+  const development = watch('development');
+  const is_co_listing = watch('is_co_listing');
 
   const onSubmit = (data) => {
     storeProperty(data);
@@ -203,27 +212,27 @@ function NewListingInformationForm() {
           </div>
 
           {/* Add to development page (conditional) */}
-          {/* {development === '1'  && (
+          {development === '1' && (
             <div className="flex items-center sm:gap-6 gap-4 sm:ml-12 ml-8">
-              <FormLineSvg />
+              {/* <FormLineSvg /> */}
               <div className="w-full">
                 <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light mb-3">
                   Would you like it added to the development page on the Spears
                   Group website?
                 </p>
                 <Controller
-                  name="addToDevelopmentPage"
+                  name="add_to_website"
                   control={control}
                   render={({ field }) => (
                     <div className="flex space-x-4">
                       <label className="flex items-center gap-2">
-                        <input {...field} type="radio" value="Yes" />
+                        <input {...field} type="radio" value="1" />
                         <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                           Yes
                         </p>
                       </label>
                       <label className="flex items-center gap-2">
-                        <input {...field} type="radio" value="No" />
+                        <input {...field} type="radio" value="0" />
                         <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                           No
                         </p>
@@ -238,7 +247,7 @@ function NewListingInformationForm() {
                 )}
               </div>
             </div>
-          )} */}
+          )}
 
           {/* Is this a co-listing? */}
           <div>
@@ -246,7 +255,7 @@ function NewListingInformationForm() {
               Is this a co-listing?
             </p>
             <Controller
-              name="co_listing"
+              name="is_co_listing"
               control={control}
               render={({ field }) => (
                 <div className="flex space-x-4">
@@ -265,21 +274,21 @@ function NewListingInformationForm() {
                 </div>
               )}
             />
-            {errors?.co_listing && (
+            {errors?.is_co_listing && (
               <p className="text-red-500 text-xs">
-                {errors?.co_listing?.message}
+                {errors?.is_co_listing?.message}
               </p>
             )}
           </div>
           {/* Co-listing details (conditional) */}
-          {/* {co_listing === '1'  && (
+          {is_co_listing === '1' && (
             <div className="flex items-center sm:gap-6 gap-4 sm:ml-12 ml-8">
-              <FormLineSvg />
+              {/* <FormLineSvg /> */}
               <div className="w-full">
                 <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                   <p className="mb-3">Who are you co-listing with?</p>
                   <Controller
-                    name="coListingDetails"
+                    name="co_agent"
                     control={control}
                     render={({ field }) => (
                       <input
@@ -291,25 +300,27 @@ function NewListingInformationForm() {
                     )}
                   />
                 </label>
-                {errors?.email && (
+                {errors?.co_agent && (
                   <p className="text-red-500 text-xs">
-                    {errors?.email?.message}
+                    {errors?.co_agent?.message}
                   </p>
                 )}
               </div>
             </div>
-          )} */}
+          )}
           <div className="flex flex-col gap-2 w-full">
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
               What was the source of this Lead?
             </label>
             <input
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-              placeholder="source"
-              {...register('source')}
+              placeholder="Source"
+              {...register('property_source_id')}
             />
-            {errors?.source && (
-              <p className="text-red-500 text-xs">{errors?.source?.message}</p>
+            {errors?.property_source_id && (
+              <p className="text-red-500 text-xs">
+                {errors?.property_source_id?.message}
+              </p>
             )}
           </div>
         </form>
@@ -338,3 +349,5 @@ function NewListingInformationForm() {
 }
 
 export default NewListingInformationForm;
+
+

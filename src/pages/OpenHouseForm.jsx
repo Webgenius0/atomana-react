@@ -4,7 +4,8 @@ import CalenderSvg from '@/components/svgs/CalenderSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
 import TimeRangePicker from '@/components/TimeRangePicker';
-import { useOpenHouse } from '@/hooks/open-house.hook';
+
+import { useOpenHouse, usePropertyDropdown } from '@/hooks/open-house.hook';
 import { Controller, useForm } from 'react-hook-form';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -26,33 +27,39 @@ const OpenHouseForm = () => {
 
   const { mutate, isLoading } = useOpenHouse();
 
+  const { data: properties, isLoading: propertiesLoading } =
+    usePropertyDropdown();
+  console.log(properties);
   const handleTimeRangeChange = (newTimeRange) => {
     setValue('timeRange', newTimeRange);
   };
 
   const onSubmit = (data) => {
-    const { expirationDate, timeRange, email, answer, phone, signs } = data;
+    const { expirationDate, timeRange, email, property_id, phone, signs } =
+      data;
 
     const payload = {
       email: email,
-      property_id: answer,
-      business_id: answer,
+      property_id: parseInt(data.property_id, 10) || null,
+      business_id: parseInt(data.property_id, 10) || null,
       date: expirationDate,
       start_time: timeRange?.startTime || '',
       end_time: timeRange?.endTime || '',
       wavy_man: phone === 'yes',
       sign_number: parseInt(signs, 10) || 0,
     };
-
+    console.log('Payload:', payload);
     mutate(payload, {
       onSuccess: () => {
         reset({
           email: '',
-          answer: '',
-          expirationDate: '',
-          phone: '',
-          signs: '',
-          timeRange: { startTime: '', endTime: '' },
+          property_id: '',
+          business_id: '',
+          date: '',
+          start_time: '',
+          end_time: '',
+          wavy_man: '',
+          sign_number: 0,
         });
 
         // Optional: Navigate after resetting
@@ -120,11 +127,24 @@ const OpenHouseForm = () => {
               reference the active listings sheet for a full breakdown of
               properties available. *Availability subject to rental schedule*
             </label>
-            <input
-              type="text"
-              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-              placeholder="Type your answer here"
-              {...register('answer')}
+
+            <Controller
+              name="property_id"
+              control={control}
+              render={({ field }) => (
+                <select
+                  {...field}
+                  className="w-full px-4 py-2 rounded-lg border bg-transparent text-gray-500 border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  disabled={propertiesLoading}
+                >
+                  <option value="">Select a property</option>
+                  {properties?.data?.map((property) => (
+                    <option key={property.id} value={property.id}>
+                      {property.address}
+                    </option>
+                  ))}
+                </select>
+              )}
             />
           </div>
           <div className="flex flex-col gap-2 w-full">

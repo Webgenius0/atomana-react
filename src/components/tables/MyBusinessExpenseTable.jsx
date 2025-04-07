@@ -3,19 +3,21 @@ import {
   useStoreMyBusinessExpenses,
 } from '@/hooks/expense.hook';
 import { useState } from 'react';
+import Pagination from '../Pagination';
 import DataTable from './DataTable';
 import { columns } from './MyBusinessExpenseColumns';
 
 export default function MyBusinessExpenseTable() {
   // Pagination states
   const [perPage] = useState(10);
-  const [page] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
   //   Fetch table data
-  const { myBusinessExpenses, isLoading } = useGetMyBusinessExpenses({
-    per_page: perPage,
-    page,
-  });
+  const { myBusinessExpenses, totalItems, isLoading, isFetching } =
+    useGetMyBusinessExpenses({
+      perPage,
+      currentPage,
+    });
 
   // Store new row
   const { mutate, showInputs, setShowInputs, isPending, form } =
@@ -40,6 +42,13 @@ export default function MyBusinessExpenseTable() {
         showInputs={showInputs}
         setShowInputs={setShowInputs}
         perPage={perPage}
+      />
+      <Pagination
+        currentPage={currentPage}
+        totalItems={totalItems}
+        itemsPerPage={perPage}
+        onPageChange={setCurrentPage}
+        isLoading={isLoading || isFetching}
       />
     </div>
   );

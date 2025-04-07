@@ -3,19 +3,21 @@ import {
   useStoreMyListingExpenses,
 } from '@/hooks/expense.hook';
 import { useState } from 'react';
+import Pagination from '../Pagination';
 import DataTable from './DataTable';
 import { columns } from './MyListingExpenseColumns';
 
 export default function MyListingExpenseTable() {
   // Pagination states
   const [perPage] = useState(10);
-  const [page] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
   //   Fetch table data
-  const { myListingExpenses, isLoading } = useGetMyListingExpenses({
-    per_page: perPage,
-    page,
-  });
+  const { myListingExpenses, totalItems, isLoading, isFetching } =
+    useGetMyListingExpenses({
+      perPage,
+      currentPage,
+    });
 
   // Store new row
   const {
@@ -44,6 +46,13 @@ export default function MyListingExpenseTable() {
         showInputs={showInputs}
         setShowInputs={setShowInputs}
         perPage={perPage}
+      />
+      <Pagination
+        currentPage={currentPage}
+        totalItems={totalItems}
+        itemsPerPage={perPage}
+        onPageChange={setCurrentPage}
+        isLoading={isLoading || isFetching}
       />
     </div>
   );
