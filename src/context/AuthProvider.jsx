@@ -6,13 +6,10 @@ const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
   const [auth, setAuth, clearAuth] = useLocalStorage('auth', '');
-  const [userData, setUserData, clearUserData] = useLocalStorage(
-    'userData',
-    ''
-  );
+  const [user, setUser, clearUser] = useLocalStorage('user', '');
   const [emailForOTP, setEmailForOTP] = useState('');
 
-  const isLogged = !!auth && !!auth.token && !!userData && !!userData?.email;
+  const isLogged = !!auth && !!auth.token && !!user && !!user?.email;
 
   // Registration function with OTP email setting
   const signup = async (userData) => {
@@ -84,7 +81,7 @@ const AuthProvider = ({ children }) => {
     }
 
     setAuth({ token: data.data.token });
-    setUserData((prev) => ({ ...prev, user: data?.data?.user }));
+    setUser((prev) => ({ ...prev, user: data?.data?.user }));
 
     if (!data?.data?.verify) {
       setEmailForOTP(credentials.email);
@@ -96,7 +93,7 @@ const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     clearAuth();
-    clearUserData();
+    clearUser();
     await axiosPublic.post(
       '/api/v1/auth/logout',
       {},
@@ -178,7 +175,7 @@ const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        userData,
+        user,
         signup,
         verifyOTP,
         sendOTP,
