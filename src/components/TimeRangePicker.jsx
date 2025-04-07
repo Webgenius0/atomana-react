@@ -60,7 +60,12 @@ const TimeRangePicker = ({ startTime, endTime }) => {
               <label className="text-sm text-white mb-2">Start Time</label>
               <input
                 type="time"
-                className="px-3 py-2 rounded border border-[#d8dfeb] bg-[#333] text-light text-sm"
+                className="px-3 py-2 rounded border border-[#d8dfeb] bg-[#333] text-light text-sm cursor-pointer [&::-webkit-calendar-picker-indicator]:invert-[0.9] 
+             [&::-webkit-calendar-picker-indicator]:brightness-[100]"
+                onClick={(e) => {
+                  e.currentTarget.showPicker();
+                  e.currentTarget.focus();
+                }}
                 {...register(startTime)}
               />
             </div>
@@ -70,7 +75,12 @@ const TimeRangePicker = ({ startTime, endTime }) => {
               <label className="text-sm text-white mb-2">End Time</label>
               <input
                 type="time"
-                className="px-3 py-2 rounded border border-[#d8dfeb] bg-[#333] text-light text-sm"
+                className="px-3 py-2 rounded border border-[#d8dfeb] bg-[#333] text-light text-sm cursor-pointer [&::-webkit-calendar-picker-indicator]:invert-[0.9] 
+             [&::-webkit-calendar-picker-indicator]:brightness-[100]"
+                onClick={(e) => {
+                  e.currentTarget.showPicker();
+                  e.currentTarget.focus();
+                }}
                 {...register(endTime)}
               />
             </div>
@@ -78,7 +88,7 @@ const TimeRangePicker = ({ startTime, endTime }) => {
             {/* Validation Message */}
             {startTimeValue &&
               endTimeValue &&
-              (startTimeValue >= endTimeValue) && (
+              startTimeValue >= endTimeValue && (
                 <p className="text-xs text-red-500">
                   Start time must be earlier than end time.
                 </p>
