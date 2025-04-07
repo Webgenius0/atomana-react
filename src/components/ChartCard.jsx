@@ -44,7 +44,7 @@ const ChartCard = ({
 
         <div className="mt-7">
           <BarCharts data={data} xKey={xKey} yKey={yKey} yDomain={yDomain} />
-          <p className="text-sm text-[#ffffff99] mt-4 text-center">{title}</p>
+          <p className="text-lg text-[#ffffff99] mt-4 text-center">{title}</p>
         </div>
       </div>
     </>

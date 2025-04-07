@@ -1,17 +1,15 @@
-import React, { useState, useRef, useEffect } from "react";
-import ClockSvg from "./svgs/ClockSvg";
+import { useEffect, useRef, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
+import ClockSvg from './svgs/ClockSvg';
 
-const TimeRangePicker = ({ startTime, endTime, onTimeRangeChange }) => {
+const TimeRangePicker = ({ startTime, endTime }) => {
+  const { register, watch } = useFormContext();
+
+  const startTimeValue = watch(startTime);
+  const endTimeValue = watch(endTime);
+
   const [showPicker, setShowPicker] = useState(false);
-  const [localStartTime, setLocalStartTime] = useState(startTime || "");
-  const [localEndTime, setLocalEndTime] = useState(endTime || "");
   const pickerRef = useRef(null);
-
-  useEffect(() => {
-    if (onTimeRangeChange) {
-      onTimeRangeChange({ startTime: localStartTime, endTime: localEndTime });
-    }
-  }, [localStartTime, localEndTime, onTimeRangeChange]);
 
   const togglePicker = () => setShowPicker((prev) => !prev);
 
@@ -22,8 +20,8 @@ const TimeRangePicker = ({ startTime, endTime, onTimeRangeChange }) => {
         setShowPicker(false);
       }
     };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   // Confirm selection and close the picker
@@ -38,9 +36,9 @@ const TimeRangePicker = ({ startTime, endTime, onTimeRangeChange }) => {
         className="flex items-center justify-between px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark w-full gap-2.5 cursor-pointer"
         onClick={togglePicker}
       >
-        {localStartTime && localEndTime ? (
+        {startTimeValue && endTimeValue ? (
           <span className="text-light text-sm leading-[21px] tracking-[-0.14px] ">
-            {localStartTime} - {localEndTime}
+            {startTimeValue} - {endTimeValue}
           </span>
         ) : (
           <span className="text-secondary text-sm leading-[21px] tracking-[-0.14px]">
@@ -62,9 +60,13 @@ const TimeRangePicker = ({ startTime, endTime, onTimeRangeChange }) => {
               <label className="text-sm text-white mb-2">Start Time</label>
               <input
                 type="time"
-                value={localStartTime}
-                onChange={(e) => setLocalStartTime(e.target.value)}
-                className="px-3 py-2 rounded border border-[#d8dfeb] bg-[#333] text-light text-sm"
+                className="px-3 py-2 rounded border border-[#d8dfeb] bg-[#333] text-light text-sm cursor-pointer [&::-webkit-calendar-picker-indicator]:invert-[0.9] 
+             [&::-webkit-calendar-picker-indicator]:brightness-[100]"
+                onClick={(e) => {
+                  e.currentTarget.showPicker();
+                  e.currentTarget.focus();
+                }}
+                {...register(startTime)}
               />
             </div>
 
@@ -73,16 +75,20 @@ const TimeRangePicker = ({ startTime, endTime, onTimeRangeChange }) => {
               <label className="text-sm text-white mb-2">End Time</label>
               <input
                 type="time"
-                value={localEndTime}
-                onChange={(e) => setLocalEndTime(e.target.value)}
-                className="px-3 py-2 rounded border border-[#d8dfeb] bg-[#333] text-light text-sm"
+                className="px-3 py-2 rounded border border-[#d8dfeb] bg-[#333] text-light text-sm cursor-pointer [&::-webkit-calendar-picker-indicator]:invert-[0.9] 
+             [&::-webkit-calendar-picker-indicator]:brightness-[100]"
+                onClick={(e) => {
+                  e.currentTarget.showPicker();
+                  e.currentTarget.focus();
+                }}
+                {...register(endTime)}
               />
             </div>
 
             {/* Validation Message */}
-            {localStartTime &&
-              localEndTime &&
-              localStartTime >= localEndTime && (
+            {startTimeValue &&
+              endTimeValue &&
+              startTimeValue >= endTimeValue && (
                 <p className="text-xs text-red-500">
                   Start time must be earlier than end time.
                 </p>
@@ -93,9 +99,9 @@ const TimeRangePicker = ({ startTime, endTime, onTimeRangeChange }) => {
               className="w-full text-sm px-4 py-2 mt-1 text-light bg-gradient-to-r from-[#242424]  rounded to-[#009696]"
               onClick={handleConfirm}
               disabled={
-                localStartTime >= localEndTime ||
-                !localStartTime ||
-                !localEndTime
+                startTimeValue >= endTimeValue ||
+                !startTimeValue ||
+                !endTimeValue
               }
             >
               Confirm

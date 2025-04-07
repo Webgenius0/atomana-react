@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 
 const Profile = () => {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLogout = async () => {
@@ -66,15 +66,17 @@ const Profile = () => {
               </span>
               <ArrowGreaterSvg />
             </Link>
-            <Link
-              to="/profile/manage-team"
-              className="flex items-center justify-between gap-4 border-b border-secondPrimary py-4 duration-300 hover:opacity-60"
-            >
-              <span className="text-sm font-medium leading-5 text-light">
-                Manage Team and Permissions
-              </span>
-              <ArrowGreaterSvg />
-            </Link>
+            {user?.role === 'Admin' && (
+              <Link
+                to="/profile/manage-team"
+                className="flex items-center justify-between gap-4 border-b border-secondPrimary py-4 duration-300 hover:opacity-60"
+              >
+                <span className="text-sm font-medium leading-5 text-light">
+                  Manage Team and Permissions
+                </span>
+                <ArrowGreaterSvg />
+              </Link>
+            )}
           </div>
           <div>
             <h2 className="section-title mb-5">Financial</h2>
