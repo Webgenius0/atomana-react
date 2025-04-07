@@ -1,67 +1,63 @@
-import CustomDatePicker from '@/components/CustomDatePicker';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
-import CalenderSvg from '@/components/svgs/CalenderSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
-import { useOpenHouse } from '@/hooks/open-house.hook';
-import { Controller, useForm } from 'react-hook-form';
+import { Select } from '@/components/ui/select';
+import {
+  useOpenHouseFeedback,
+  useOpenHouseFeedbackDropdown,
+} from '@/hooks/open-house.hook';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { Link, useLocation } from 'react-router-dom';
 
 const OpenHouseFeedbackForm = () => {
+  const form = useForm({
+    defaultValues: {
+      open_house_id: '',
+      people_count: '',
+      feedback: '',
+      additional_feedback: '',
+    },
+  });
+
   const {
     register,
     handleSubmit,
     reset,
     control,
     formState: { errors },
-    setValue,
     getValues,
-  } = useForm({
-    expirationDate: null,
-    timeRange: { startTime: '', endTime: '' },
-  });
+  } = form;
 
   const location = useLocation();
+  const { mutate, isPending } = useOpenHouseFeedback();
+  const { data: openHouse, isLoading: propertiesLoading } =
+    useOpenHouseFeedbackDropdown();
 
-  const { mutate, isLoading } = useOpenHouse();
-
-  const handleTimeRangeChange = (newTimeRange) => {
-    setValue('timeRange', newTimeRange);
-  };
+  const propertyOptions = openHouse?.data?.map((item) => ({
+    value: item.address,
+    label: item.address,
+  }));
 
   const onSubmit = (data) => {
-    const { expirationDate, timeRange, email, answer, phone, signs } = data;
-
-    const payload = {
-      email: email,
-      property_id: answer,
-      business_id: answer,
-      date: expirationDate,
-      start_time: timeRange?.startTime || '',
-      end_time: timeRange?.endTime || '',
-      wavy_man: phone === 'yes',
-      sign_number: parseInt(signs, 10) || 0,
+    const formData = {
+      open_house_id: data?.open_house_id,
+      people_count: Number(data?.people_count),
+      feedback: data?.feedback,
+      additional_feedback: data?.additional_feedback,
     };
 
-    mutate(payload, {
+    mutate(formData, {
       onSuccess: () => {
-        console.log(payload)
-        reset({
-          email: '',
-          property_id: '',
-          business_id: '',
-          date: '',
-          start_time: '',
-          end_time: '',
-          wavy_man: '',
-          sign_number: 0,
-        });
-
-        // Optional: Navigate after resetting
-        // navigate(`/my-systems/open-house/open-house-form-details`);
+        toast.success(data?.message || "Feedback Submitted Successfully")
+        reset();
+      },
+      onError: (error) => {
+       toast.error(error?.response?.data?.message || 'Failed to Form Submission');
       },
     });
   };
+  console.log({ values: getValues() });
   const handleResetForm = (e) => {
     e.preventDefault();
     reset();
@@ -91,140 +87,123 @@ const OpenHouseFeedbackForm = () => {
       </div>
 
       <div className="max-w-[670px] w-full mx-auto mt-4">
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="max-w-[670px] mx-start flex flex-col gap-[15px]"
-        >
-          {/* <div className="flex flex-col gap-2">
-            <h2 className="section-title">Spears Group Open House Request</h2>
-            <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-              The principal address is the address in Massachusetts where
-              business records will be maintained.
-            </p>
-          </div> */}
-          <div className="flex flex-col gap-2 w-full">
-            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-              Email
-            </label>
-            <input
-              type="email"
-              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-              placeholder="youremail@spearsgroup.com"
-              {...register('email')}
-            />
-          </div>
-          <div className="flex flex-col gap-2 w-full">
-            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-              Property Address of Open House
-            </label>
-            <input
-              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-              placeholder="Enter Property Address of Open House"
-              {...register('property_address')}
-            />
-          </div>
-          {/* <div className="flex flex-col gap-2 w-full">
-            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-              What property do you want to hold an open house at? Please
-              reference the active listings sheet for a full breakdown of
-              properties available. *Availability subject to rental schedule*
-            </label>
-            <input
-              type="text"
-              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-              placeholder="Type your answer here"
-              {...register('answer')}
-            />
-          </div> */}
-          <div className="flex flex-col gap-2 w-full">
-            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-              Date Held
-            </label>
-
-            <label className="flex items-center px-4 rounded-[10px] border border-[#d8dfeb] bg-dark w-full gap-2.5">
+        <FormProvider {...form}>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="max-w-[670px] mx-start flex flex-col gap-[15px]"
+          >
+            {/* Property Selection */}
+            <div className="flex flex-col gap-2 w-full">
+              <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+                What property do you want to hold an open house at?
+              </label>
               <Controller
-                name="date_held"
+                name="open_house_id"
                 control={control}
-                render={({ field }) => (
-                  <CustomDatePicker
-                    value={field.value}
-                    onChange={field.onChange}
-                  />
-                )}
+                rules={{ required: 'Property selection is required' }}
+                render={({ field }) => {
+                  return (
+                    <Select
+                      className="!px-4 !py-6 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+                      value={
+                        openHouse?.data?.find((item) => item.id === field.value)
+                          ?.address
+                      }
+                      setValue={(value) =>
+                        field.onChange(
+                          openHouse?.data?.find(
+                            (item) => item.address === value
+                          )?.id
+                        )
+                      }
+                      disabled={propertiesLoading}
+                      options={propertyOptions}
+                      placeholder="Select Property Address"
+                    />
+                  );
+                }}
               />
-              <CalenderSvg />
-            </label>
-          </div>
-          {/* <div className="flex flex-col gap-2 w-full">
-            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-              What time frame do you want to hold it?
-            </label>
-            <TimeRangePicker
-              startTime={getValues('timeRange.startTime')}
-              endTime={getValues('timeRange.endTime')}
-              onTimeRangeChange={handleTimeRangeChange}
-            />
-          </div> */}
-          <div className="flex flex-col gap-2 w-full">
-            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-              How Many People Came?
-            </label>
-            <input
-              type="number"
-              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-              placeholder="Enter How Many People Came Here"
-              {...register('people')}
-            />
-          </div>
-          <div className="flex flex-col gap-2 w-full">
-            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-              Feedback on Attendees
-            </label>
-            <textarea
-              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-              placeholder="Enter Feedback on Attendees"
-              {...register('attendees_feedback')}
-            />
-          </div>
-          <div className="flex flex-col gap-2 w-full">
-            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-              Additional Comments / Questions
-            </label>
-            <textarea
-              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-              placeholder="Enter Additional Comments / Questions"
-              {...register('additional_comments')}
-            />
-          </div>
-          {/* <div className="flex flex-col gap-2 w-full">
-            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-              How many open house signs do you need?
-            </label>
-            <input
-              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-              placeholder="0"
-              {...register('signs')}
-            />
-          </div> */}
-        </form>
-        <form action="" onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex sm:flex-row flex-col items-center gap-4 justify-between mt-4 md:mt-6">
-            <div className="flex items-center sm:justify-start justify-center gap-4 sm:w-unset w-full">
-              <input
-                className="request-btn approve cursor-pointer"
-                type="submit"
-                value="Add"
-              />
+              {errors?.open_house_id?.message && (
+                <p className="text-red-500 mt-2">
+                  {errors?.open_house_id?.message}
+                </p>
+              )}
             </div>
 
-            <button
-              onClick={handleResetForm}
-              className="request-btn text-light"
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
+            {/* People Count */}
+            <div className="flex flex-col gap-2 w-full">
+              <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+                How Many People Came?
+              </label>
+              <input
+                type="number"
+                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+                placeholder="Enter How Many People Came Here"
+                {...register('people_count', {
+                  required: 'People count is required',
+                  min: { value: 0, message: 'Must be positive number' },
+                })}
+              />
+              {errors?.people_count?.message && (
+                <p className="text-red-500 mt-2">
+                  {errors?.people_count?.message}
+                </p>
+              )}
+            </div>
+
+            {/* Feedback */}
+            <div className="flex flex-col gap-2 w-full">
+              <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+                Feedback
+              </label>
+              <textarea
+                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+                placeholder="Enter Feedback on Attendees"
+                {...register('feedback', {
+                  required: 'Feedback is required',
+                })}
+              />
+              {errors?.feedback?.message && (
+                <p className="text-red-500 mt-2">{errors?.feedback?.message}</p>
+              )}
+            </div>
+
+            {/* Additional Feedback */}
+            <div className="flex flex-col gap-2 w-full">
+              <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+                Additional Feedback
+              </label>
+              <textarea
+                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+                placeholder="Enter Additional Feedback"
+                {...register('additional_feedback')}
+              />
+              {errors?.additional_feedback?.message && (
+                <p className="text-red-500 mt-2">
+                  {errors?.additional_feedback?.message}
+                </p>
+              )}
+            </div>
+
+            {/* Form Actions */}
+            <div className="flex sm:flex-row flex-col items-center gap-4 justify-between mt-4 md:mt-6">
+              <div className="flex items-center sm:justify-start justify-center gap-4 sm:w-unset w-full">
+                <button className="request-btn approve" disabled={isPending}>
+                  {isPending ? 'Adding...' : 'Add'}
+                </button>
+              </div>
+
+              <button
+                onClick={handleResetForm}
+                disabled={isPending}
+                className="request-btn text-light"
+                type="button"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </FormProvider>
       </div>
     </>
   );
