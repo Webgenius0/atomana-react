@@ -1,3 +1,4 @@
+import AgentSkeleton from '@/components/profile/manage-team/AgentSkeleton';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import MailSvg from '@/components/svgs/MailSvg';
 import MessageSvg from '@/components/svgs/MessageSvg';
@@ -8,7 +9,7 @@ import { useGetAgents } from '@/hooks/agent.hook';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const ManageTeam = () => {
+export default function ManageTeam() {
   const [searchMember, setSearchMember] = useState('');
   const [page, setPage] = useState(1); // Track pagination
 
@@ -65,7 +66,9 @@ const ManageTeam = () => {
         {/* Agents List */}
         <div className="mt-4 md:mt-[25px]">
           {isLoading ? (
-            <p className="text-light text-sm">Loading agents...</p>
+            Array.from({ length: 10 }).map((_, index) => (
+              <AgentSkeleton key={index} />
+            ))
           ) : isError ? (
             <p className="text-red-500 text-sm">Error: {error.message}</p>
           ) : filteredAgents.length === 0 ? (
@@ -159,6 +162,4 @@ const ManageTeam = () => {
       </div>
     </div>
   );
-};
-
-export default ManageTeam;
+}
