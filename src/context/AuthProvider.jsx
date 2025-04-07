@@ -81,7 +81,7 @@ const AuthProvider = ({ children }) => {
     }
 
     setAuth({ token: data.data.token });
-    setUser((prev) => ({ ...prev, user: data?.data?.user }));
+    setUser(data?.data?.user);
 
     if (!data?.data?.verify) {
       setEmailForOTP(credentials.email);
