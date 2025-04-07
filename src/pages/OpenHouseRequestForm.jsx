@@ -8,11 +8,15 @@ import TimeRangePicker from '@/components/TimeRangePicker';
 import { useOpenHouse, usePropertyDropdown } from '@/hooks/open-house.hook';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { Link, useLocation } from 'react-router-dom';
+import { Select } from '@/components/ui/select';
+import toast from 'react-hot-toast';
 
 export default function OpenHouseRequestForm() {
   const form = useForm({
     defaultValues: {
       property_id: '',
+      email: "demo@example.com",
+      wavy_man: '1',
       date: '',
       start_time: '',
       end_time: '',
@@ -31,14 +35,19 @@ export default function OpenHouseRequestForm() {
 
   const location = useLocation();
 
-  const { mutate: storeOpenHouse, isLoading } = useOpenHouse();
+  const { mutate: storeOpenHouse, isPending } = useOpenHouse();
 
   const { data: properties, isLoading: propertiesLoading } =
     usePropertyDropdown();
+  const propertyOptions = properties?.data?.map((item) => ({
+    value: item.address,
+    label: item.address,
+  }));
 
   const onSubmit = (data) => {
     storeOpenHouse(data, {
       onSuccess: () => {
+        toast.success(data?.message || 'Form Submitted Successfully');
         reset();
 
         // Optional: Navigate after resetting
@@ -51,13 +60,7 @@ export default function OpenHouseRequestForm() {
 
   const handleResetForm = () => {
     // e.preventDefault();
-    reset({
-      property_id: '',
-      date: '',
-      start_time: '',
-      end_time: '',
-      sign_number: '',
-    });
+    reset();
   };
 
   return (
@@ -90,13 +93,13 @@ export default function OpenHouseRequestForm() {
             className="max-w-[670px] mx-start flex flex-col gap-[15px]"
           >
             <div className="flex flex-col gap-2">
-              <h2 className="section-title">Spears Group Open House Request</h2>
-              <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+              <h2 className="section-title">Open House Request Form</h2>
+              {/* <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                 The principal address is the address in Massachusetts where
                 business records will be maintained.
-              </p>
+              </p> */}
             </div>
-            <div className="flex flex-col gap-2 w-full">
+            {/* <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                 Email
               </label>
@@ -106,35 +109,35 @@ export default function OpenHouseRequestForm() {
                 placeholder="youremail@spearsgroup.com"
                 {...register('email')}
               />
-            </div>
+            </div> */}
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-                What property do you want to hold an open house at? Please
-                reference the active listings sheet for a full breakdown of
-                properties available. *Availability subject to rental schedule*
+                What property do you want to hold an open house at?
               </label>
 
               <Controller
-                name="property_id"
-                control={control}
-                render={({ field }) => (
-                  <select
-                    {...field}
-                    className="w-full px-4 py-2 rounded-lg border bg-transparent text-gray-500 border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    disabled={propertiesLoading}
-                  >
-                    <option value="">Select a property</option>
-                    {properties?.data?.map((property) => (
-                      <option key={property.id} value={property.id}>
-                        {property.address}
-                      </option>
-                    ))}
-                  </select>
-                )}
-              />
+                    name="property_id"
+                    control={control}
+                    render={({ field }) => {
+                      return (
+                        <Select
+                         className="!px-4 !py-6 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+                          value={properties?.data?.find((item) => item.id === field.value)?.address}
+                          setValue={(value) =>
+                            field.onChange(
+                              properties?.data?.find((item) => item.address === value)?.id
+                            )
+                          }
+                          disabled={propertiesLoading}
+                          options={propertyOptions}
+                          placeholder="Select Property Address"
+                        />
+                      );
+                    }}
+                  />
 
               {errors?.property_id?.message && (
-                <p className="text-red-500 mt-1">
+                <p className="text-red-500 mt-2">
                   {errors?.property_id?.message}
                 </p>
               )}
@@ -157,6 +160,11 @@ export default function OpenHouseRequestForm() {
                 />
                 <CalenderSvg />
               </label>
+              {errors?.date?.message && (
+                <p className="text-red-500 mt-2">
+                  {errors?.date?.message}
+                </p>
+              )}
             </div>
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
@@ -164,7 +172,7 @@ export default function OpenHouseRequestForm() {
               </label>
               <TimeRangePicker startTime="start_time" endTime="end_time" />
             </div>
-            <div className="flex flex-col gap-2 w-full">
+            {/* <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                 Do you want to use the wavy man?
               </label>
@@ -173,7 +181,7 @@ export default function OpenHouseRequestForm() {
                 placeholder="000-000-0000"
                 {...register('phone')}
               />
-            </div>
+            </div> */}
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                 How many open house signs do you need?
@@ -181,18 +189,25 @@ export default function OpenHouseRequestForm() {
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="0"
-                {...register('signs')}
+                type='text'
+                {...register('sign_number')}
               />
+              {errors?.sign_number?.message && (
+                <p className="text-red-500 mt-2">
+                  {errors?.sign_number?.message}
+                </p>
+              )}
             </div>
             <div className="flex sm:flex-row flex-col items-center gap-4 justify-between mt-4 md:mt-6">
               <div className="flex items-center sm:justify-start justify-center gap-4 sm:w-unset w-full">
-                <button className="request-btn approve">
-                  {isLoading ? 'Adding...' : 'Add'}
+                <button className="request-btn approve" disabled={isPending}>
+                  {isPending ? 'Adding...' : 'Add'}
                 </button>
               </div>
 
               <button
                 onClick={handleResetForm}
+                disabled={isPending}
                 className="request-btn text-light"
                 type="button"
               >

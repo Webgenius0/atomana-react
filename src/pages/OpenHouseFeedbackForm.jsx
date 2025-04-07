@@ -45,6 +45,7 @@ const OpenHouseFeedbackForm = () => {
 
     mutate(payload, {
       onSuccess: () => {
+        console.log(payload)
         reset({
           email: '',
           property_id: '',

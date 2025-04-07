@@ -6,7 +6,7 @@ const TimeRangePicker = ({ startTime, endTime }) => {
   const { register, watch } = useFormContext();
 
   const startTimeValue = watch(startTime);
-  const endTimeValue = watch(startTime);
+  const endTimeValue = watch(endTime);
 
   const [showPicker, setShowPicker] = useState(false);
   const pickerRef = useRef(null);
@@ -78,7 +78,7 @@ const TimeRangePicker = ({ startTime, endTime }) => {
             {/* Validation Message */}
             {startTimeValue &&
               endTimeValue &&
-              startTimeValue >= endTimeValue && (
+              (startTimeValue >= endTimeValue) && (
                 <p className="text-xs text-red-500">
                   Start time must be earlier than end time.
                 </p>
