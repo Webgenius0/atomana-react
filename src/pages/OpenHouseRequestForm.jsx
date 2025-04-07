@@ -5,17 +5,17 @@ import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
 import TimeRangePicker from '@/components/TimeRangePicker';
 
+import { Select } from '@/components/ui/select';
 import { useOpenHouse, usePropertyDropdown } from '@/hooks/open-house.hook';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
-import { Link, useLocation } from 'react-router-dom';
-import { Select } from '@/components/ui/select';
 import toast from 'react-hot-toast';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function OpenHouseRequestForm() {
   const form = useForm({
     defaultValues: {
       property_id: '',
-      email: "demo@example.com",
+      email: 'demo@example.com',
       wavy_man: '1',
       date: '',
       start_time: '',
@@ -116,25 +116,31 @@ export default function OpenHouseRequestForm() {
               </label>
 
               <Controller
-                    name="property_id"
-                    control={control}
-                    render={({ field }) => {
-                      return (
-                        <Select
-                         className="!px-4 !py-6 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                          value={properties?.data?.find((item) => item.id === field.value)?.address}
-                          setValue={(value) =>
-                            field.onChange(
-                              properties?.data?.find((item) => item.address === value)?.id
-                            )
-                          }
-                          disabled={propertiesLoading}
-                          options={propertyOptions}
-                          placeholder="Select Property Address"
-                        />
-                      );
-                    }}
-                  />
+                name="property_id"
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <Select
+                      className="!px-4 !py-6 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+                      value={
+                        properties?.data?.find(
+                          (item) => item.id === field.value
+                        )?.address
+                      }
+                      setValue={(value) =>
+                        field.onChange(
+                          properties?.data?.find(
+                            (item) => item.address === value
+                          )?.id
+                        )
+                      }
+                      disabled={propertiesLoading}
+                      options={propertyOptions}
+                      placeholder="Select Property Address"
+                    />
+                  );
+                }}
+              />
 
               {errors?.property_id?.message && (
                 <p className="text-red-500 mt-2">
@@ -161,9 +167,7 @@ export default function OpenHouseRequestForm() {
                 <CalenderSvg />
               </label>
               {errors?.date?.message && (
-                <p className="text-red-500 mt-2">
-                  {errors?.date?.message}
-                </p>
+                <p className="text-red-500 mt-2">{errors?.date?.message}</p>
               )}
             </div>
             <div className="flex flex-col gap-2 w-full">
@@ -189,7 +193,7 @@ export default function OpenHouseRequestForm() {
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="0"
-                type='text'
+                type="text"
                 {...register('sign_number')}
               />
               {errors?.sign_number?.message && (
