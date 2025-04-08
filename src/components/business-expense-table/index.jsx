@@ -1,11 +1,11 @@
+import Pagination from '@/components/Pagination';
+import DataTable from '@/components/table/DataTable';
 import {
   useGetMyBusinessExpenses,
   useStoreMyBusinessExpenses,
 } from '@/hooks/expense.hook';
 import { useState } from 'react';
-import Pagination from '../Pagination';
-import DataTable from './DataTable';
-import { columns } from './MyBusinessExpenseColumns';
+import { columns } from './ColumnDefs';
 
 export default function MyBusinessExpenseTable() {
   // Pagination states
@@ -13,7 +13,7 @@ export default function MyBusinessExpenseTable() {
   const [currentPage, setCurrentPage] = useState(1);
 
   //   Fetch table data
-  const { myBusinessExpenses, totalItems, isLoading, isFetching } =
+  const { myBusinessExpenses, totalItems, isLoading } =
     useGetMyBusinessExpenses({
       perPage,
       currentPage,
@@ -23,11 +23,9 @@ export default function MyBusinessExpenseTable() {
   const { mutate, showInputs, setShowInputs, isPending, form } =
     useStoreMyBusinessExpenses();
 
-  console.log(showInputs);
-
   // Form instance
   const onSubmit = (data) => {
-    mutate({ ...data, recept: data.recept[0] });
+    if (showInputs) mutate({ ...data, recept: data.recept[0] });
   };
 
   return (
@@ -48,7 +46,7 @@ export default function MyBusinessExpenseTable() {
         totalItems={totalItems}
         itemsPerPage={perPage}
         onPageChange={setCurrentPage}
-        isLoading={isLoading || isFetching}
+        isLoading={isLoading}
       />
     </div>
   );

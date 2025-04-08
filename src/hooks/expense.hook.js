@@ -353,3 +353,34 @@ export const useGetAgents = () => {
   const agents = result?.data?.data || [];
   return { ...result, agents };
 };
+
+export const useUpdateExpenseNote = (id) => {
+  const [showInput, setShowInput] = useState(false);
+  const axiosPrivate = useAxiosSecure();
+  const queryClient = useQueryClient();
+
+  const result = useMutation({
+    mutationFn: async (payload) => {
+      const response = await axiosPrivate.put(
+        `/api/v1/expense/update/note/${id}`,
+        payload
+      );
+      return response.data;
+    },
+    onSuccess: async (data) => {
+      if (data?.success) {
+        await queryClient.invalidateQueries(['business_expense']);
+        setShowInput(false);
+      }
+    },
+    onError: (error) => {
+      toast.error(error?.response?.data?.message);
+    },
+  });
+
+  return {
+    ...result,
+    showInput,
+    setShowInput,
+  };
+};

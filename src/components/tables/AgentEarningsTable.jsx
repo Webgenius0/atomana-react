@@ -1,8 +1,8 @@
 import { useGetAgentEarnings } from '@/hooks/expense.hook';
 import { useState } from 'react';
 import Pagination from '../Pagination';
+import DataTable from '../table/DataTable';
 import { columns } from './AgentEarningsColumns';
-import DataTable from './DataTable';
 
 export default function AgentEarningTable() {
   // Pagination states

@@ -1,7 +1,7 @@
+import MyBusinessExpenseTable from '@/components/business-expense-table';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
-import MyBusinessExpenseTable from '@/components/tables/MyBusinessExpenseTable';
 import TabStepper from '@/components/TabStepper';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -13,6 +13,7 @@ const MyBusinessExpense = () => {
       path: '/my-systems/finances/my-business-expenses/charts',
     },
   ];
+
   const location = useLocation();
 
   return (
