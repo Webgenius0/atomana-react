@@ -40,15 +40,12 @@ export default function NewCategoryDialog() {
           <Plus />
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] exclude">
-        <DialogHeader className="mb-2 exclude">
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader className="mb-2">
           <DialogTitle>New Category</DialogTitle>
         </DialogHeader>
 
-        <div
-          className="flex flex-col gap-3 w-full mb-3"
-          onClick={(e) => e.stopPropagation()}
-        >
+        <div className="flex flex-col gap-3 w-full mb-3">
           <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
             Category Name
           </label>

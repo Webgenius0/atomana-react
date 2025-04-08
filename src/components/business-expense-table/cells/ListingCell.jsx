@@ -1,7 +1,8 @@
+import { useDataTable } from '@/components/table/DataTableContext';
 import { Button } from '@/components/ui/button';
 import { useUpdateBusinessExpense } from '@/hooks/expense.hook';
+import { useQueryClient } from '@tanstack/react-query';
 import { CheckIcon, PencilIcon, XIcon } from 'lucide-react';
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 export default function ListingCell({ getValue, row, column }) {
@@ -9,8 +10,9 @@ export default function ListingCell({ getValue, row, column }) {
   const columnId = column?.id;
   const value = getValue();
 
-  const { mutate, showInput, setShowInput, isPending } =
-    useUpdateBusinessExpense(rowId, columnId);
+  const [editableCell, setEditableCell] = useDataTable();
+  const { mutate, isPending } = useUpdateBusinessExpense(rowId, columnId);
+  const queryClient = useQueryClient();
 
   const form = useForm({
     defaultValues: {
@@ -18,20 +20,21 @@ export default function ListingCell({ getValue, row, column }) {
     },
   });
 
-  // handle hide input field on outside click
-  useEffect(() => {
-    const hideInput = () => {
-      if (!isPending) setShowInput(false);
-    };
+  const onSubmit = (data) => {
+    mutate(data, {
+      onSuccess: (data) => {
+        if (data?.success) {
+          queryClient.invalidateQueries(['business_expense']);
+          setEditableCell(null);
+        }
+      },
+    });
+  };
 
-    document.body.addEventListener('click', hideInput);
-    return () => document.body.removeEventListener('click', hideInput);
-  }, [isPending]);
-
-  // Render input conditionally
-  if (showInput) {
+  // Editable Cell
+  if (editableCell === `${columnId}-${rowId}`) {
     return (
-      <div className="relative" onClick={(e) => e.stopPropagation()}>
+      <div className="relative">
         <input
           autoFocus
           {...form.register(columnId)}
@@ -41,7 +44,7 @@ export default function ListingCell({ getValue, row, column }) {
           onKeyDown={(e) => {
             e.stopPropagation();
             if (e.key === 'Enter') {
-              form.handleSubmit(mutate)();
+              form.handleSubmit(onSubmit)();
             }
           }}
         />
@@ -49,7 +52,7 @@ export default function ListingCell({ getValue, row, column }) {
           <Button
             size="icon"
             className="bg-red-500 hover:bg-red-400 opacity-70 hover:opacity-100"
-            onClick={() => setShowInput(false)}
+            onClick={() => setEditableCell(null)}
             type="button"
             disabled={isPending}
           >
@@ -58,7 +61,7 @@ export default function ListingCell({ getValue, row, column }) {
           <Button
             size="icon"
             className="opacity-70 hover:opacity-100"
-            onClick={form.handleSubmit(mutate)}
+            onClick={form.handleSubmit(onSubmit)}
             type="button"
             disabled={isPending}
           >
@@ -69,22 +72,22 @@ export default function ListingCell({ getValue, row, column }) {
     );
   }
 
-  // Table Cell
+  // View Only Cell
   return (
     <div
       className="px-[10px] py-[6.5px] relative group"
       title={value}
-      onDoubleClick={() => setShowInput(true)}
+      onClick={() => setEditableCell(null)}
+      onDoubleClick={() => setEditableCell(`${columnId}-${rowId}`)}
     >
       {value || '-'}
 
       <button
         className="hidden group-hover:flex absolute top-1/2 right-2 -translate-y-1/2 text-white/60 hover:text-white"
         type="button"
-        onClick={() => {
-          setTimeout(() => {
-            setShowInput(true);
-          }, 0);
+        onClick={(e) => {
+          e.stopPropagation();
+          setEditableCell(`${columnId}-${rowId}`);
         }}
       >
         <PencilIcon className="size-4" />
