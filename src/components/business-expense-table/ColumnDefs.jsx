@@ -1,6 +1,6 @@
+import AmountCell from './cells/AmountCell';
 import CategoryCell from './cells/CategoryCell';
 import CommonCell from './cells/CommonCell';
-import CurrencyCell from './cells/CurrencyCell';
 import DescriptionCell from './cells/DescriptionCell';
 import ListingCell from './cells/ListingCell';
 import NoteCell from './cells/NoteCell';
@@ -74,7 +74,7 @@ export const columns = [
   {
     accessorKey: 'amount',
     header: 'Amount',
-    cell: CurrencyCell,
+    cell: AmountCell,
     size: 100,
     footer: AmountInput,
   },
