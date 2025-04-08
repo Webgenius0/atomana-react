@@ -54,7 +54,7 @@ export function Select({
         <Command className="bg-[#151515] text-light">
           <CommandInput
             placeholder={placeholder || 'Search option...'}
-            className="h-9"
+            className="h-9 exclude"
           />
           <CommandList className="scrollbar-none">
             <CommandEmpty>No option found.</CommandEmpty>
@@ -67,7 +67,7 @@ export function Select({
                     setValue(currentValue === value ? '' : currentValue);
                     setOpen(false);
                   }}
-                  className="hover:bg-secondPrimary/50"
+                  className="hover:bg-secondPrimary/50 exclude"
                 >
                   {option.label}
                   <Check
