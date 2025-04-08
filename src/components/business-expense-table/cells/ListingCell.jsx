@@ -4,7 +4,7 @@ import { CheckIcon, PencilIcon, XIcon } from 'lucide-react';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
-export default function NoteCell({ getValue, row, column }) {
+export default function ListingCell({ getValue, row, column }) {
   const rowId = row?.original?.id;
   const columnId = column?.id;
   const value = getValue();
@@ -36,7 +36,7 @@ export default function NoteCell({ getValue, row, column }) {
           autoFocus
           {...form.register(columnId)}
           className="bg-transparent w-full text-white px-3 py-2 border border-white focus:rounded-none outline-none"
-          placeholder="Enter Notes"
+          placeholder="Enter Listing"
           disabled={isPending}
           onKeyDown={(e) => {
             e.stopPropagation();
@@ -76,7 +76,7 @@ export default function NoteCell({ getValue, row, column }) {
       title={value}
       onDoubleClick={() => setShowInput(true)}
     >
-      {value?.length > 10 ? `${value?.slice(0, 22)}...` : value ? value : '-'}
+      {value || '-'}
 
       <button
         className="hidden group-hover:flex absolute top-1/2 right-2 -translate-y-1/2 text-white/60 hover:text-white"

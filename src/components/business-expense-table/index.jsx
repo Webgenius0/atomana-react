@@ -12,7 +12,7 @@ export default function MyBusinessExpenseTable() {
   const [perPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
 
-  //   Fetch table data
+  // Fetch table data
   const { myBusinessExpenses, totalItems, isLoading } =
     useGetMyBusinessExpenses({
       perPage,

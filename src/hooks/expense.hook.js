@@ -354,7 +354,7 @@ export const useGetAgents = () => {
   return { ...result, agents };
 };
 
-export const useUpdateExpenseNote = (id) => {
+export const useUpdateBusinessExpense = (rowId, columnId) => {
   const [showInput, setShowInput] = useState(false);
   const axiosPrivate = useAxiosSecure();
   const queryClient = useQueryClient();
@@ -362,7 +362,7 @@ export const useUpdateExpenseNote = (id) => {
   const result = useMutation({
     mutationFn: async (payload) => {
       const response = await axiosPrivate.put(
-        `/api/v1/expense/update/note/${id}`,
+        `/api/v1/expense/update/${columnId}/${rowId}`,
         payload
       );
       return response.data;
