@@ -6,7 +6,7 @@ export default function DescriptionInput() {
     <input
       {...form.register('description')}
       className="bg-transparent w-full text-white px-3 py-2 border border-white rounded-md"
-      placeholder="Enter description"
+      placeholder="Enter Description"
     />
   );
 }

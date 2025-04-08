@@ -76,7 +76,7 @@ export default function NoteCell({ getValue, row, column }) {
       title={value}
       onDoubleClick={() => setShowInput(true)}
     >
-      {value?.length > 10 ? `${value?.slice(0, 22)}...` : value ? value : '-'}
+      {value?.length > 22 ? `${value?.slice(0, 22)}...` : value ? value : '-'}
 
       <button
         className="hidden group-hover:flex absolute top-1/2 right-2 -translate-y-1/2 text-white/60 hover:text-white"
