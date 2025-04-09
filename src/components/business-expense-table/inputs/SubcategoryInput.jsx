@@ -1,20 +1,11 @@
-import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
 import { Select } from '@/components/ui/select';
 import {
   useGetExpenseCategories,
   useGetExpenseSubCategories,
-  useStoreSubCategory,
 } from '@/hooks/expense.hook';
-import { Plus } from 'lucide-react';
 import { useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
+import NewSubcategoryDialog from '../dialogs/NewSubcategoryDialog';
 
 export default function SubcategoryInput() {
   const form = useFormContext();
@@ -27,31 +18,11 @@ export default function SubcategoryInput() {
     (category) => category.id == expense_category_id
   )?.slug;
 
-  const categoryOptions = expenseCategories?.map((item) => ({
-    value: item.name,
-    label: item.name,
-  }));
-
   const {
     expenseSubCategories,
     isLoading: isSubcategoryLoading,
     isFetching: isSubcategoryFetching,
   } = useGetExpenseSubCategories(categorySlug);
-
-  const {
-    mutate: storeCategory,
-    open,
-    setOpen,
-    isPending,
-    name,
-    setName,
-    categoryId,
-    setCategoryId,
-    nameError,
-    setNameError,
-    categoryError,
-    setCategoryError,
-  } = useStoreSubCategory();
 
   const expenseSubCategoryOptions = expenseSubCategories?.map((item) => ({
     value: item.name,
@@ -60,26 +31,8 @@ export default function SubcategoryInput() {
 
   useEffect(() => {
     form.setValue('expense_sub_category_id', undefined);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [expense_category_id]);
-
-  const handleSubmit = () => {
-    setCategoryError('');
-    setNameError('');
-
-    if (name.trim() && categoryId) {
-      storeCategory({ name, expense_category_id: categoryId });
-    } else {
-      if (!categoryId) {
-        setCategoryError('Category is required');
-      }
-
-      if (!name.trim()) {
-        setNameError('Name is required');
-      }
-    }
-  };
-
-  const handleChange = (e) => setName(e.target.value);
 
   return (
     <div className="flex items-center gap-2">
@@ -105,58 +58,7 @@ export default function SubcategoryInput() {
           />
         )}
       />
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>
-          <Button size="icon" variant="ghost" type="button">
-            <Plus />
-          </Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader className="mb-2">
-            <DialogTitle>New Subcategory</DialogTitle>
-          </DialogHeader>
-
-          <div className="flex flex-col gap-3 w-full mb-3">
-            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-              Category
-            </label>
-            <Select
-              value={
-                expenseCategories?.find((item) => item.id === categoryId)?.name
-              }
-              setValue={(value) =>
-                setCategoryId(
-                  expenseCategories?.find((item) => item.name === value)?.id
-                )
-              }
-              disabled={isCategoryLoading}
-              options={categoryOptions}
-              placeholder="Select Category"
-              className="h-12 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-            />
-            <p className="text-red-400">{categoryError}</p>
-          </div>
-
-          <div className="flex flex-col gap-3 w-full mb-3">
-            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-              Subcategory Name
-            </label>
-            <input
-              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-              placeholder="Subcategory Name"
-              value={name}
-              onChange={handleChange}
-            />
-            <p className="text-red-400">{nameError}</p>
-          </div>
-
-          <div className="flex justify-end">
-            <Button type="button" onClick={handleSubmit} disabled={isPending}>
-              Save
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <NewSubcategoryDialog />
     </div>
   );
 }
