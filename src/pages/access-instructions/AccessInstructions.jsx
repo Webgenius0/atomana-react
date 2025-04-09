@@ -1,4 +1,4 @@
-import MyBusinessExpenseTable from '@/components/business-expense-table';
+import AccessInstructionList from '@/components/access-instruction-list';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import PlusSvg from '@/components/svgs/PlusSvg';
 import { Link, useLocation } from 'react-router-dom';
@@ -47,7 +47,7 @@ const AccessInstructions = () => {
         <TabStepper tabs={tabs} />
       </div> */}
 
-      <MyBusinessExpenseTable />
+      <AccessInstructionList />
     </>
   );
 };
