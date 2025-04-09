@@ -109,7 +109,7 @@ export default function ViewSinglePassword() {
           <div className="mt-1 border-b border-white/30 w-full py-3 space-y-3">
             <h3 className="text-sm font-bold text-white">Notes</h3>
             <div
-              className="rich-text !text-white/80"
+              className="rich-text"
               dangerouslySetInnerHTML={{ __html: notes }}
             />
           </div>

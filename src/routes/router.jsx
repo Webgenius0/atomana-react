@@ -232,7 +232,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: 'team/access-instructions/view',
+            path: 'team/access-instructions/:id',
             element: (
               <PageTitle title="View Access Instruction">
                 <ViewAccessInstruction />

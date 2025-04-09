@@ -1,14 +1,30 @@
+import AccessInstructionSkeleton from '@/components/access-instruction/AccessInstructionSkeleton';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
-import { Link } from 'react-router-dom';
+import { useGetSingleAccessInstruction } from '@/hooks/access-instructions.hook';
+import { formatCurrency } from '@/lib/utils/formatCurrency';
+import DOMPurify from 'dompurify';
+import { Link, useParams } from 'react-router-dom';
 
 const ViewAccessInstruction = () => {
+  const { id } = useParams();
+
+  const { accessInstruction, isLoading } = useGetSingleAccessInstruction(id);
+
+  const notes = accessInstruction?.notes
+    ? DOMPurify.sanitize(accessInstruction?.notes)
+    : '';
+
+  if (isLoading) {
+    return <AccessInstructionSkeleton />;
+  }
+
   return (
     <>
       <div className="flex items-center gap-4 justify-between">
         <div>
           <Link
-            to="/my-systems/team"
+            to="/my-systems/team/access-instructions"
             className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5"
           >
             <ArrowLeftSvg />
@@ -16,7 +32,7 @@ const ViewAccessInstruction = () => {
           <div>
             <h2 className="section-title">Access Instructions</h2>
             <p className="text-sm text-[#009696] leading-[21px] tracking-[-0.14px]">
-              11234 Maple Street, San Francisco, CA 94117
+              {accessInstruction?.address}
             </p>
           </div>
         </div>
@@ -34,7 +50,7 @@ const ViewAccessInstruction = () => {
               Address
             </p>
             <p className="text-sm font-normal leading-5 text-[#009696]">
-              1234 Maple Street, San Francisco, CA 94117
+              {accessInstruction?.address}
             </p>
           </div>
 
@@ -44,7 +60,7 @@ const ViewAccessInstruction = () => {
               Property Type
             </p>
             <p className="text-sm font-normal leading-5 text-[#009696]">
-              Apartment
+              {accessInstruction?.property_type}
             </p>
           </div>
 
@@ -54,7 +70,7 @@ const ViewAccessInstruction = () => {
               Price
             </p>
             <p className="text-sm font-normal leading-5 text-[#009696]">
-              $1,200,000
+              {formatCurrency(accessInstruction?.price)}
             </p>
           </div>
 
@@ -62,7 +78,7 @@ const ViewAccessInstruction = () => {
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold leading-5 text-sm text-[#ffffffcc]">Size</p>
             <p className="text-sm font-normal leading-5 text-[#009696]">
-              1,500 sq ft
+              {accessInstruction?.size} sq ft
             </p>
           </div>
         </div>
@@ -71,34 +87,33 @@ const ViewAccessInstruction = () => {
       <div className="mt-[25px]">
         <h2 className="section-title">Access Instructions</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 md:gap-12 md:mt-4">
-          {/* Address */}
+          {/* Key Access Code */}
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
               Key Access Code
             </p>
             <p className="text-sm font-normal leading-5 text-[#ffffffcc]">
-              1234 Maple Street, San Francisco, CA 94117
+              {accessInstruction?.key_access_code}
             </p>
           </div>
 
-          {/* Property Type */}
+          {/* Lockbox Location */}
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
               Lockbox Location
             </p>
             <p className="text-sm font-normal leading-5 text-[#ffffffcc]">
-              Lockbox is located on the front door handle.
+              {accessInstruction?.lockbox_location}
             </p>
           </div>
 
-          {/* Price */}
+          {/* Key Pickup Instructions */}
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
               Key Pickup Instructions (if applicable):
             </p>
             <p className="text-sm font-normal leading-5 text-[#ffffffcc]">
-              Keys can also be picked up from the listing office at 456 Realty
-              Lane, Suite 101, between 9 AM - 5 PM.
+              {accessInstruction?.key_pickup_instructions}
             </p>
           </div>
         </div>
@@ -107,24 +122,23 @@ const ViewAccessInstruction = () => {
       <div className="mt-[25px]">
         <h2 className="section-title">Gated Community Instructions</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 md:gap-12 md:mt-4">
-          {/* Address */}
+          {/* Gate Code */}
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
-              Gate Codee
+              Gate Code
             </p>
             <p className="text-sm font-normal leading-5 text-[#ffffffcc]">
-              1234 Maple Street, San Francisco, CA 94117
+              {accessInstruction?.gate_code}
             </p>
           </div>
 
-          {/* Property Type */}
+          {/* Gate Access Location */}
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
               Gate Access Location
             </p>
             <p className="text-sm font-normal leading-5 text-[#ffffffcc]">
-              Main gate entrance on Oakwood Drive. Use the keypad located on the
-              left side of the gate.
+              {accessInstruction?.gate_access_location}
             </p>
           </div>
         </div>
@@ -132,14 +146,13 @@ const ViewAccessInstruction = () => {
       <div className="mt-[25px]">
         <h2 className="section-title">Parking</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 md:gap-12 md:mt-4">
-          {/* Address */}
+          {/* Visitor Parking */}
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
               Visitor Parking
             </p>
             <p className="text-sm font-normal leading-5 text-[#ffffffcc]">
-              Designated visitor parking spots are available to the right of the
-              main entrance.
+              {accessInstruction?.visitor_parking}
             </p>
           </div>
         </div>
@@ -147,19 +160,16 @@ const ViewAccessInstruction = () => {
       <div className="mt-[25px]">
         <h2 className="section-title">Additional Notes</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 md:gap-4 md:mt-4">
-          {/* Address */}
+          {/* Notes */}
           <div className="space-y-[2px]  py-4">
             <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
               Notes
             </p>
 
-            <ul className="list-disc list-inside text-sm font-normal leading-5 text-[#ffffffcc]  ">
-              <li className="indent-3">
-                {' '}
-                Designated visitor parking spots are available to the right of
-                the main entrance.
-              </li>
-            </ul>
+            <div
+              className="rich-text"
+              dangerouslySetInnerHTML={{ __html: notes }}
+            />
           </div>
         </div>
       </div>

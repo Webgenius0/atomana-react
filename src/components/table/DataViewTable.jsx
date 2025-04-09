@@ -3,6 +3,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table';
+import { useNavigate } from 'react-router-dom';
 import { DataTableProvider } from './DataTableContext';
 
 export default function DataViewTable({
@@ -16,6 +17,8 @@ export default function DataViewTable({
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
+  const navigate = useNavigate();
 
   return (
     <DataTableProvider>
@@ -49,7 +52,16 @@ export default function DataViewTable({
           <tbody>
             {table.getRowModel().rows?.length > 0 &&
               table.getRowModel().rows.map((row) => (
-                <tr key={row.id} data-state={row.getIsSelected() && 'selected'}>
+                <tr
+                  key={row.id}
+                  data-state={row.getIsSelected() && 'selected'}
+                  className={`${row?.original?.path && 'cursor-pointer'}`}
+                  onClick={() => {
+                    if (row?.original?.path) {
+                      navigate(row?.original?.path);
+                    }
+                  }}
+                >
                   {row.getVisibleCells().map((cell) => (
                     <td
                       key={cell.id}
