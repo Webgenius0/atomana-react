@@ -2,7 +2,9 @@ import PageTitle from '@/components/PageTitle';
 import MainLayout from '@/layouts/MainLayout';
 import MySystemsLayout from '@/layouts/MySystemsLayout';
 import VendorListLayout from '@/layouts/VendorListLayout';
-import AccessInstraction from '@/pages/AccessInstraction';
+import AccessInstructions from '@/pages/access-instructions/AccessInstructions';
+import AddAccessInstruction from '@/pages/access-instructions/AddAccessInstruction';
+import ViewAccessInstruction from '@/pages/access-instructions/ViewAccessInstruction';
 import AddLessons from '@/pages/AddLessons';
 import AddVendor from '@/pages/AddVendor';
 import AgentLeaderBoard from '@/pages/AgentLeaderBoard';
@@ -214,10 +216,26 @@ const router = createBrowserRouter([
           //     ),
           //   },
           {
-            path: 'team/access',
+            path: 'team/access-instructions',
             element: (
-              <PageTitle title="Access Instruction">
-                <AccessInstraction />
+              <PageTitle title="Access Instructions">
+                <AccessInstructions />
+              </PageTitle>
+            ),
+          },
+          {
+            path: 'team/access-instructions/add',
+            element: (
+              <PageTitle title="Add Access Instruction">
+                <AddAccessInstruction />
+              </PageTitle>
+            ),
+          },
+          {
+            path: 'team/access-instructions/view',
+            element: (
+              <PageTitle title="View Access Instruction">
+                <ViewAccessInstruction />
               </PageTitle>
             ),
           },

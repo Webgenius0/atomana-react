@@ -22,8 +22,8 @@ const DataCard = ({ data }) => {
     // else if (title === 'HOA Community Docs') {
     //   navigate(`/my-systems/team/hoa`);
     // }
-    else if (title === 'Access Instruction') {
-      navigate(`/my-systems/team/access`);
+    else if (title === 'Access Instructions') {
+      navigate(`/my-systems/team/access-instructions`);
     } else if (title === 'Sales Tracker') {
       navigate(`/my-systems/team/sales-tracker`);
     } else if (title === 'Shared Notes') {
