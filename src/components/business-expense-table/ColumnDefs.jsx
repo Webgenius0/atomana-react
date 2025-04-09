@@ -7,7 +7,7 @@ import NoteCell from './cells/NoteCell';
 import PaymentMethodCell from './cells/PaymentMethodCell';
 import ReceiptCell from './cells/ReceiptCell';
 import ReimbursableCell from './cells/ReimbursableCell';
-import SubCategoryCell from './cells/SubCategoryCell';
+import SubCategoryCell from './cells/SubCell';
 import VendorCell from './cells/VendorCell';
 import AmountInput from './inputs/AmountInput';
 import CategoryInput from './inputs/CategoryInput';

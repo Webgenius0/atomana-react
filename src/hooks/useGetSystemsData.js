@@ -80,7 +80,7 @@ export const useGetSystemsData = (type) => {
     {
       id: 'E992',
       type: 'Team',
-      title: 'Access Instruction',
+      title: 'Access Instructions',
     },
     {
       id: 'B944',

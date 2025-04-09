@@ -1,9 +1,8 @@
-import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
-import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
-import React from "react";
-import { Link } from "react-router-dom";
+import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
+import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
+import { Link } from 'react-router-dom';
 
-const AccessInstraction = () => {
+const ViewAccessInstruction = () => {
   return (
     <>
       <div className="flex items-center gap-4 justify-between">
@@ -156,7 +155,7 @@ const AccessInstraction = () => {
 
             <ul className="list-disc list-inside text-sm font-normal leading-5 text-[#ffffffcc]  ">
               <li className="indent-3">
-                {" "}
+                {' '}
                 Designated visitor parking spots are available to the right of
                 the main entrance.
               </li>
@@ -168,4 +167,4 @@ const AccessInstraction = () => {
   );
 };
 
-export default AccessInstraction;
+export default ViewAccessInstruction;
