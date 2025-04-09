@@ -1,16 +1,10 @@
+import FormTextEditor from '@/components/form/FormTextEditor';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
-import { Button } from '@/components/ui/button';
 import { Select } from '@/components/ui/select';
 import { useOpenHouse, usePropertyDropdown } from '@/hooks/open-house.hook';
-import { PlusIcon, Trash2Icon } from 'lucide-react';
-import {
-  Controller,
-  FormProvider,
-  useFieldArray,
-  useForm,
-} from 'react-hook-form';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -27,7 +21,7 @@ export default function AddAccessInstruction() {
       gate_code: '',
       gate_access_location: '',
       visitor_parking: '',
-      notes: [{ note: '' }],
+      notes: '',
     },
   });
 
@@ -39,13 +33,11 @@ export default function AddAccessInstruction() {
     formState: { errors },
   } = form;
 
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: 'notes',
-    rules: { minLength: 1 },
-  });
-
-  console.log({ fields });
+  //   const { fields, append, remove } = useFieldArray({
+  //     control,
+  //     name: 'notes',
+  //     rules: { minLength: 1 },
+  //   });
 
   const location = useLocation();
 
@@ -73,7 +65,7 @@ export default function AddAccessInstruction() {
 
   return (
     <>
-      <div className="flex items-center gap-4 justify-between py-5 sticky top-[75px] sm:top-[144px] bg-dark">
+      <div className="flex items-center gap-4 justify-between py-5 sticky top-[75px] md:top-[144px] bg-dark">
         <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit">
           <Link
             to={`${
@@ -290,8 +282,9 @@ export default function AddAccessInstruction() {
             </div>
 
             <h2 className="section-title mt-4">Additional Notes</h2>
+            <FormTextEditor name="notes" label="Notes" />
             {/* Notes */}
-            {fields.map((field, index) => (
+            {/* {fields.map((field, index) => (
               <div className="flex flex-col gap-2 w-full" key={field.id}>
                 <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                   Note {index + 1}
@@ -317,9 +310,9 @@ export default function AddAccessInstruction() {
                   <p className="text-red-500 mt-2">{errors?.notes?.message}</p>
                 )}
               </div>
-            ))}
+            ))} */}
 
-            <div className="flex justify-end">
+            {/* <div className="flex justify-end">
               <Button
                 variant="ghost"
                 className="text-white"
@@ -329,7 +322,7 @@ export default function AddAccessInstruction() {
                 <PlusIcon />
                 Add Note
               </Button>
-            </div>
+            </div> */}
 
             {/* Actions */}
             <div className="flex sm:flex-row flex-col items-center gap-4 justify-between mt-4">

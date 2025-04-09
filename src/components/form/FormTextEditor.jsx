@@ -9,8 +9,6 @@ const FormTextEditor = ({ name, label }) => {
     formState: { errors },
   } = useFormContext();
 
-  console.log({ errors });
-
   return (
     <div>
       <div className="flex flex-col gap-2">
