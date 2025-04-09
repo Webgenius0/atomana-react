@@ -7,7 +7,7 @@ import NoteCell from './cells/NoteCell';
 import PaymentMethodCell from './cells/PaymentMethodCell';
 import ReceiptCell from './cells/ReceiptCell';
 import ReimbursableCell from './cells/ReimbursableCell';
-import SubcategoryCell from './cells/SubcategoryCell';
+import SubCategoryCell from './cells/SubCategoryCell';
 import VendorCell from './cells/VendorCell';
 import AmountInput from './inputs/AmountInput';
 import CategoryInput from './inputs/CategoryInput';
@@ -60,7 +60,7 @@ export const columns = [
   {
     accessorKey: 'expense_sub_category_id',
     header: 'Subcategory',
-    cell: SubcategoryCell,
+    cell: SubCategoryCell,
     size: 125,
     footer: SubcategoryInput,
   },

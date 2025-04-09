@@ -11,7 +11,7 @@ import { CheckIcon, PencilIcon, XIcon } from 'lucide-react';
 import { Controller, useForm } from 'react-hook-form';
 import NewSubcategoryDialog from '../dialogs/NewSubcategoryDialog';
 
-export default function SubcategoryCell({ row, getValue, column }) {
+export default function SubCategoryCell({ row, getValue, column }) {
   const rowId = row?.original?.id;
   const columnId = column?.id;
   const subCategoryId = getValue();
