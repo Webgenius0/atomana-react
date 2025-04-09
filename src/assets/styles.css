@@ -33,8 +33,7 @@ input[type='number']::-webkit-outer-spin-button {
 .rich-text * {
   all: revert;
   font-family: 'Inter', sans-serif;
-  color: white !important;
-  opacity: 0.8;
+  color: #ffffffcc;
   margin: 0;
 }
 

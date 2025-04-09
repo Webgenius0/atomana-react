@@ -5,6 +5,7 @@ import { useAxiosSecure } from './useAxios';
 
 const accessInstructionData = [
   {
+    id: 1,
     address: '1234 Maple Street, San Francisco, CA 94117',
     property_type: 'Apartment',
     price: 1200000,
@@ -18,11 +19,42 @@ const accessInstructionData = [
       'Main gate entrance on Oakwood Drive. Use the keypad located on the left side of the gate.',
     visitor_parking:
       'Designated visitor parking spots are available to the right of the main entrance.',
-    notes:
-      'Designated visitor parking spots are available to the right of the main entrance.',
-    path: '/my-systems/team/access-instructions/view',
+    notes: `<ul>
+        <li>Designated visitor parking spots are available to the right of the main entrance.</li>
+        <li>Designated visitor parking spots are available to the right of the main entrance.</li>
+      </ul>`,
   },
 ];
+
+export const useGetSingleAccessInstruction = (id) => {
+  //   const axiosPrivate = useAxiosSecure();
+
+  const result = useQuery({
+    queryKey: ['access-instruction', id],
+    queryFn: async () => {
+      //   const response = await axiosPrivate.get(`/api/v1/access-instructions/${id}`);
+      //   return response.data;
+
+      // fake delay
+      await new Promise((resolve) => setTimeout(() => resolve(true), 2000));
+
+      return {
+        success: true,
+        message: 'Access Instruction retrieved Successfully',
+        data: accessInstructionData[0],
+      };
+    },
+  });
+
+  //   const accessInstructions = result?.data?.data?.data || accessInstructionData;
+
+  const accessInstruction = result?.data?.data;
+
+  return {
+    ...result,
+    accessInstruction,
+  };
+};
 
 export const useGetAccessInstructions = ({ perPage = 10, currentPage = 1 }) => {
   const axiosPrivate = useAxiosSecure();
@@ -39,7 +71,11 @@ export const useGetAccessInstructions = ({ perPage = 10, currentPage = 1 }) => {
 
   //   const accessInstructions = result?.data?.data?.data || accessInstructionData;
 
-  const accessInstructions = accessInstructionData;
+  const accessInstructions = accessInstructionData?.map((item) => ({
+    ...item,
+    path: `/my-systems/team/access-instructions/${item.id}`,
+  }));
+
   const isLoading = false;
   const current_page = result?.data?.data?.current_page;
   const totalItems = result?.data?.data?.total || 50;

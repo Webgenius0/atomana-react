@@ -13,8 +13,6 @@ export default function ViewSingleNote() {
 
   const notes = note?.notes ? DOMPurify.sanitize(note.notes) : '';
 
-  console.log(notes);
-
   if (isLoading) {
     return (
       <div className="px-5 py-[25px] overflow-y-auto w-full">
@@ -65,7 +63,7 @@ export default function ViewSingleNote() {
             </p>
           )}
           <div
-            className="rich-text !text-white/80"
+            className="rich-text"
             dangerouslySetInnerHTML={{ __html: notes }}
           />
 

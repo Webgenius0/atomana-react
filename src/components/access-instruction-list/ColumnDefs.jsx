@@ -1,5 +1,6 @@
 import CommonCell from './cells/CommonCell';
 import CurrencyCell from './cells/CurrencyCell';
+import NoteCell from './cells/NoteCell';
 
 export const columns = [
   {
@@ -85,7 +86,7 @@ export const columns = [
   {
     accessorKey: 'notes',
     header: 'Notes',
-    cell: CommonCell,
+    cell: NoteCell,
     size: 180,
   },
 ];
