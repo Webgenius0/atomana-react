@@ -2,7 +2,7 @@ import { useGetSalesTrack, useStoreSalesTrack } from '@/hooks/expense.hook';
 import { format } from 'date-fns';
 import { useState } from 'react';
 import Pagination from '../Pagination';
-import DataTable from './DataTable';
+import DataTable from '../table/DataTable';
 import { columns } from './SalesTrackerColumns';
 
 export default function SalesTrackerTable() {

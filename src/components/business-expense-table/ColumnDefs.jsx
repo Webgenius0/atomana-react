@@ -1,12 +1,14 @@
+import AmountCell from './cells/AmountCell';
 import CategoryCell from './cells/CategoryCell';
 import CommonCell from './cells/CommonCell';
-import CurrencyCell from './cells/CurrencyCell';
 import DescriptionCell from './cells/DescriptionCell';
+import ListingCell from './cells/ListingCell';
+import NoteCell from './cells/NoteCell';
 import PaymentMethodCell from './cells/PaymentMethodCell';
 import ReceiptCell from './cells/ReceiptCell';
 import ReimbursableCell from './cells/ReimbursableCell';
 import SubCategoryCell from './cells/SubCategoryCell';
-import NoteCell from './expense-table/NoteCell';
+import VendorCell from './cells/VendorCell';
 import AmountInput from './inputs/AmountInput';
 import CategoryInput from './inputs/CategoryInput';
 import DateInput from './inputs/DateInput';
@@ -72,7 +74,7 @@ export const columns = [
   {
     accessorKey: 'amount',
     header: 'Amount',
-    cell: CurrencyCell,
+    cell: AmountCell,
     size: 100,
     footer: AmountInput,
   },
@@ -86,7 +88,7 @@ export const columns = [
   {
     accessorKey: 'payee',
     header: 'Vendor / Payee',
-    cell: CommonCell,
+    cell: VendorCell,
     size: 150,
     footer: VendorInput,
   },
@@ -114,7 +116,7 @@ export const columns = [
   {
     accessorKey: 'listing',
     header: 'Listing',
-    cell: CommonCell,
+    cell: ListingCell,
     size: 100,
     footer: ListingInput,
   },

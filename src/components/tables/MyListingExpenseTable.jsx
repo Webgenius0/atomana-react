@@ -4,7 +4,7 @@ import {
 } from '@/hooks/expense.hook';
 import { useState } from 'react';
 import Pagination from '../Pagination';
-import DataTable from './DataTable';
+import DataTable from '../table/DataTable';
 import { columns } from './MyListingExpenseColumns';
 
 export default function MyListingExpenseTable() {
