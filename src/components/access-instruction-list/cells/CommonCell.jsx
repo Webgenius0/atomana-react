@@ -1,7 +1,14 @@
-export default function CommonCell({ getValue }) {
+export default function CommonCell({ getValue, cell }) {
+  const value = getValue();
   return (
-    <div className="px-[10px] py-[6.5px] first-letter:uppercase">
-      {getValue() || '-'}
+    <div
+      title={value}
+      className="px-[10px] py-[6.5px] first-letter:uppercase truncate"
+      style={{
+        width: `${cell.column.getSize()}px`,
+      }}
+    >
+      {value || '-'}
     </div>
   );
 }

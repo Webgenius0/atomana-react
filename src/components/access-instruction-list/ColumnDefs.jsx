@@ -1,7 +1,5 @@
 import CommonCell from './cells/CommonCell';
 import CurrencyCell from './cells/CurrencyCell';
-import NoteCell from './cells/NoteCell';
-import PropertyAddressCell from './cells/PropertyAddressCell';
 
 export const columns = [
   {
@@ -27,7 +25,7 @@ export const columns = [
   {
     accessorKey: 'address',
     header: 'Property Address',
-    cell: PropertyAddressCell,
+    cell: CommonCell,
     size: 180,
   },
   {
@@ -87,7 +85,7 @@ export const columns = [
   {
     accessorKey: 'notes',
     header: 'Notes',
-    cell: NoteCell,
+    cell: CommonCell,
     size: 180,
   },
 ];

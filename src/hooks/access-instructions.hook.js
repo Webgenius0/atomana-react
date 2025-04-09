@@ -5,17 +5,21 @@ import { useAxiosSecure } from './useAxios';
 
 const accessInstructionData = [
   {
-    address: 'Address',
+    address: '1234 Maple Street, San Francisco, CA 94117',
     property_type: 'Apartment',
-    price: 500,
-    size: 1200,
-    key_access_code: 'Key Access Code',
-    lockbox_location: 'Lockbox Location',
-    key_pickup_instructions: 'Key Pickup Instruction',
-    gate_code: 'Gate Code',
-    gate_access_location: 'Gate Access Location',
-    visitor_parking: 'Visitor Parking',
-    notes: 'Notes',
+    price: 1200000,
+    size: 1500,
+    key_access_code: '1234 Maple Street, San Francisco, CA 94117',
+    lockbox_location: 'Lockbox is located on the front door handle.',
+    key_pickup_instructions:
+      'Keys can also be picked up from the listing office at 456 Realty Lane, Suite 101, between 9 AM - 5 PM.',
+    gate_code: '1234 Maple Street, San Francisco, CA 94117',
+    gate_access_location:
+      'Main gate entrance on Oakwood Drive. Use the keypad located on the left side of the gate.',
+    visitor_parking:
+      'Designated visitor parking spots are available to the right of the main entrance.',
+    notes:
+      'Designated visitor parking spots are available to the right of the main entrance.',
   },
 ];
 
