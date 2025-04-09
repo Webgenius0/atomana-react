@@ -20,6 +20,7 @@ const accessInstructionData = [
       'Designated visitor parking spots are available to the right of the main entrance.',
     notes:
       'Designated visitor parking spots are available to the right of the main entrance.',
+    path: '/my-systems/team/access-instructions/view',
   },
 ];
 
