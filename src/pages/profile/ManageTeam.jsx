@@ -104,7 +104,7 @@ export default function ManageTeam() {
                   <MessageSvg />
                   <MailSvg />
                   <Link
-                    to="/profile/edit-team-member"
+                    to={`/profile/edit-team-member/${agent.handle}`}
                     className="text-xs md:text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
                   >
                     EDIT
