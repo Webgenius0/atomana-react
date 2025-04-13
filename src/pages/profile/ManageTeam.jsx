@@ -6,6 +6,7 @@ import PhoneSvg from '@/components/svgs/PhoneSvg';
 import PlusSvg from '@/components/svgs/PlusSvg';
 import SearchGraySvg from '@/components/svgs/SearchGraySvg';
 import { useGetAgents } from '@/hooks/agent.hook';
+import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -22,6 +23,7 @@ export default function ManageTeam() {
 
   const filteredAgents = agents.filter((agent) => {
     const searchTerms = searchMember.toLowerCase().split(' ');
+
     return searchTerms.every(
       (term) =>
         agent.first_name.toLowerCase().includes(term) ||
@@ -72,7 +74,9 @@ export default function ManageTeam() {
           ) : isError ? (
             <p className="text-red-500 text-sm">Error: {error.message}</p>
           ) : filteredAgents.length === 0 ? (
-            <p className="text-light text-sm">No members found</p>
+            <p className="text-light/70 text-2xl text-center py-20">
+              No members found
+            </p>
           ) : (
             filteredAgents.map((agent) => (
               <div
@@ -112,53 +116,63 @@ export default function ManageTeam() {
         </div>
 
         {/* Pagination Controls */}
-        {/* Pagination Controls */}
-        <div className="mt-8 flex justify-center items-center gap-2">
-          <button
-            className={`px-4 py-2 text-sm font-medium rounded-lg transition-all 
-      ${
-        currentPage === 1
-          ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
-          : 'bg-[#009696] text-white hover:bg-[#007f7f] active:scale-95'
-      }`}
-            onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-            disabled={currentPage === 1}
-          >
-            ⬅ Previous
-          </button>
+        {agents?.length > 0 && (
+          <div className="mt-8 flex justify-center items-center gap-2">
+            <button
+              className={cn(
+                'px-4 py-2 text-sm font-medium rounded-lg transition-all',
+                {
+                  'bg-gray-700 text-gray-400 cursor-not-allowed':
+                    currentPage === 1,
+                  'bg-[#009696] text-white hover:bg-[#007f7f] active:scale-95':
+                    currentPage !== 1,
+                }
+              )}
+              onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+            >
+              ⬅ Previous
+            </button>
 
-          <div className="flex items-center gap-2">
-            {Array.from({ length: totalPages }, (_, index) => index + 1).map(
-              (pageNumber) => (
-                <button
-                  key={pageNumber}
-                  className={`px-3 py-2 text-sm font-semibold rounded-lg transition-all
-          ${
-            pageNumber === currentPage
-              ? 'bg-[#009696] text-white'
-              : 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white'
-          }`}
-                  onClick={() => setPage(pageNumber)}
-                >
-                  {pageNumber}
-                </button>
-              )
-            )}
+            <div className="flex items-center gap-2">
+              {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+                (pageNumber) => (
+                  <button
+                    key={pageNumber}
+                    className={cn(
+                      'px-3 py-2 text-sm font-semibold rounded-lg transition-all',
+                      {
+                        'bg-[#009696] text-white': pageNumber === currentPage,
+                        'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white':
+                          pageNumber !== currentPage,
+                      }
+                    )}
+                    onClick={() => setPage(pageNumber)}
+                  >
+                    {pageNumber}
+                  </button>
+                )
+              )}
+            </div>
+
+            <button
+              className={cn(
+                'px-4 py-2 text-sm font-medium rounded-lg transition-all',
+
+                {
+                  'bg-gray-700 text-gray-400 cursor-not-allowed':
+                    currentPage === totalPages,
+                  'bg-[#009696] text-white hover:bg-[#007f7f] active:scale-95':
+                    currentPage !== totalPages,
+                }
+              )}
+              onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
+              disabled={currentPage === totalPages}
+            >
+              Next ➡
+            </button>
           </div>
-
-          <button
-            className={`px-4 py-2 text-sm font-medium rounded-lg transition-all 
-      ${
-        currentPage === totalPages
-          ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
-          : 'bg-[#009696] text-white hover:bg-[#007f7f] active:scale-95'
-      }`}
-            onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
-            disabled={currentPage === totalPages}
-          >
-            Next ➡
-          </button>
-        </div>
+        )}
       </div>
     </div>
   );
