@@ -4,6 +4,7 @@ import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
 import { useGetSingleNote } from '@/hooks/docs.hook';
 import { format } from 'date-fns';
 import DOMPurify from 'dompurify';
+import { EditIcon } from 'lucide-react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
 export default function ViewSingleNote() {
@@ -45,9 +46,17 @@ export default function ViewSingleNote() {
         </Link>
         <h2 className="section-title">{note?.title}</h2>
         <div className="flex items-center gap-2.5 ml-auto">
-          <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
-            <PersonPlusSvg />
+          <button
+            onClick={() =>
+              navigate(`/my-systems/team/docs/shared-notes/edit-note/${slug}`)
+            }
+            className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95"
+          >
+            <EditIcon className="text-white size-4" />
           </button>
+          {/* <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
+            <PersonPlusSvg />
+          </button> */}
           <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
             <ThreeDotsSvg />
           </button>
@@ -63,7 +72,7 @@ export default function ViewSingleNote() {
             </p>
           )}
           <div
-            className="rich-text"
+            className="text-white"
             dangerouslySetInnerHTML={{ __html: notes }}
           />
 

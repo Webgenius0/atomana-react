@@ -1,5 +1,4 @@
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
-import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
 import { useGetSinglePassword } from '@/hooks/docs.hook';
 import { format } from 'date-fns';
@@ -52,12 +51,19 @@ export default function ViewSinglePassword() {
         </Link>
         <h2 className="section-title">{passwordDetails?.title}</h2>
         <div className="flex items-center gap-2.5 ml-auto">
-          <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
+          <button
+            onClick={() =>
+              navigate(
+                `/my-systems/team/docs/password-list/edit-password/${slug}`
+              )
+            }
+            className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95"
+          >
             <EditIcon className="text-white size-4" />
           </button>
-          <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
+          {/* <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
             <PersonPlusSvg />
-          </button>
+          </button> */}
           <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
             <ThreeDotsSvg />
           </button>
