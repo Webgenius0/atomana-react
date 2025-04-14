@@ -96,9 +96,9 @@ export default function PaymentMethodCell({ getValue, row, column }) {
   // View Only Cell
   return (
     <div
-      className="px-[10px] py-[6.5px] relative group"
       onClick={() => setEditableCell(null)}
       onDoubleClick={() => setEditableCell(`${columnId}-${rowId}`)}
+      className="px-[10px] py-[6.5px] relative group"
     >
       {displayedValue || '-'}
       <button
