@@ -5,7 +5,7 @@ import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
 import { useEditPassword, useGetSinglePassword } from '@/hooks/docs.hook';
 import { useEffect } from 'react';
 import { FormProvider } from 'react-hook-form';
-import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 export default function EditPassword() {
   const { slug } = useParams();
