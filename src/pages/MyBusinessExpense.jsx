@@ -1,18 +1,17 @@
-import MyBusinessExpenseTable from '@/components/business-expense-table';
+import MyBusinessExpenseTable from '@/components/business-expense-list';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
-import TabStepper from '@/components/TabStepper';
 import { Link, useLocation } from 'react-router-dom';
 
 const MyBusinessExpense = () => {
-  const tabs = [
-    { label: 'Forms', path: '/my-systems/finances/my-business-expenses' },
-    {
-      label: 'Charts',
-      path: '/my-systems/finances/my-business-expenses/charts',
-    },
-  ];
+  //   const tabs = [
+  //     { label: 'Forms', path: '/my-systems/finances/my-business-expenses' },
+  //     {
+  //       label: 'Charts',
+  //       path: '/my-systems/finances/my-business-expenses/charts',
+  //     },
+  //   ];
 
   const location = useLocation();
 
@@ -36,9 +35,9 @@ const MyBusinessExpense = () => {
         </div>
       </div>
 
-      <div className="mb-5 sm:mb-6">
+      {/* <div className="mb-5 sm:mb-6">
         <TabStepper tabs={tabs} />
-      </div>
+      </div> */}
 
       <MyBusinessExpenseTable />
     </>

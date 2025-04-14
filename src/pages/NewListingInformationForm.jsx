@@ -54,7 +54,7 @@ function NewListingInformationForm() {
       address: '',
       price: '',
       expiration_date: '',
-      development: '1',
+      is_development: '1',
       is_co_listing: '0',
       property_source_id: '',
     },
@@ -69,7 +69,7 @@ function NewListingInformationForm() {
     isSuccess,
   } = useStoreProperty();
 
-  const development = watch('development');
+  const is_development = watch('is_development');
   const is_co_listing = watch('is_co_listing');
 
   const onSubmit = (data) => {
@@ -185,7 +185,7 @@ function NewListingInformationForm() {
               Is this a development?
             </p>
             <Controller
-              name="development"
+              name="is_development"
               control={control}
               render={({ field }) => (
                 <div className="flex space-x-4">
@@ -204,15 +204,15 @@ function NewListingInformationForm() {
                 </div>
               )}
             />
-            {errors?.development && (
+            {errors?.is_development && (
               <p className="text-red-500 text-xs">
-                {errors?.development?.message}
+                {errors?.is_development?.message}
               </p>
             )}
           </div>
 
           {/* Add to development page (conditional) */}
-          {development === '1' && (
+          {is_development === '1' && (
             <div className="flex items-center sm:gap-6 gap-4 sm:ml-12 ml-8">
               {/* <FormLineSvg /> */}
               <div className="w-full">
@@ -349,5 +349,3 @@ function NewListingInformationForm() {
 }
 
 export default NewListingInformationForm;
-
-

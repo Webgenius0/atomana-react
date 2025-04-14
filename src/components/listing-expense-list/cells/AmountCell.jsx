@@ -1,38 +1,25 @@
 import { useDataTable } from '@/components/table/DataTableContext';
 import { Button } from '@/components/ui/button';
-import { Select } from '@/components/ui/select';
 import { useUpdateBusinessExpense } from '@/hooks/expense.hook';
-import { useGetPaymentMethods } from '@/hooks/payment.hook';
+import { formatCurrency } from '@/lib/utils/formatCurrency';
 import { useQueryClient } from '@tanstack/react-query';
 import { CheckIcon, PencilIcon, XIcon } from 'lucide-react';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
-export default function PaymentMethodCell({ getValue, row, column }) {
+export default function AmountCell({ getValue, row, column }) {
   const rowId = row?.original?.id;
   const columnId = column?.id;
   const value = getValue();
 
   const [editableCell, setEditableCell] = useDataTable();
-  const { paymentMethods, isLoading } = useGetPaymentMethods();
+  const { mutate, isPending } = useUpdateBusinessExpense(rowId, columnId);
   const queryClient = useQueryClient();
-  const { mutate, isPending } = useUpdateBusinessExpense(
-    rowId,
-    'payment-method'
-  );
+
   const form = useForm({
     defaultValues: {
-      [columnId]: value,
+      [columnId]: getValue(),
     },
   });
-
-  const displayedValue = paymentMethods?.find(
-    (method) => method.id === value
-  )?.name;
-
-  const categoryOptions = paymentMethods?.map((item) => ({
-    value: item.name,
-    label: item.name,
-  }));
 
   const onSubmit = (data) => {
     mutate(data, {
@@ -48,27 +35,21 @@ export default function PaymentMethodCell({ getValue, row, column }) {
   // Editable Cell
   if (editableCell === `${columnId}-${rowId}`) {
     return (
-      <div className="flex items-center gap-2 relative">
-        <Controller
-          name="payment_method_id"
-          control={form.control}
-          render={({ field }) => (
-            <Select
-              value={
-                paymentMethods?.find((item) => item.id === field.value)?.name
-              }
-              setValue={(value) =>
-                field.onChange(
-                  paymentMethods?.find((item) => item.name === value).id
-                )
-              }
-              disabled={isLoading}
-              options={categoryOptions}
-              placeholder="Select Payment Method"
-            />
-          )}
+      <div className="relative">
+        <input
+          type="number"
+          autoFocus
+          {...form.register(columnId)}
+          className="bg-transparent w-full text-white px-3 py-2 border border-white focus:rounded-none outline-none"
+          placeholder="Enter Amount"
+          disabled={isPending}
+          onKeyDown={(e) => {
+            e.stopPropagation();
+            if (e.key === 'Enter') {
+              form.handleSubmit(onSubmit)();
+            }
+          }}
         />
-
         <div className="flex items-center absolute bottom-full right-0">
           <Button
             size="icon"
@@ -94,14 +75,15 @@ export default function PaymentMethodCell({ getValue, row, column }) {
   }
 
   // View Only Cell
-
   return (
     <div
       className="px-[10px] py-[6.5px] relative group"
+      title={value}
       onClick={() => setEditableCell(null)}
       onDoubleClick={() => setEditableCell(`${columnId}-${rowId}`)}
     >
-      {displayedValue || '-'}
+      {value ? formatCurrency(value) : '-'}
+
       <button
         className="hidden group-hover:flex absolute top-1/2 right-2 -translate-y-1/2 text-white/60 hover:text-white"
         type="button"

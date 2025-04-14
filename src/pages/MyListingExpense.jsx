@@ -1,16 +1,17 @@
+import MyListingExpenseTable from '@/components/listing-expense-list';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
-import MyListingExpenseTable from '@/components/tables/MyListingExpenseTable';
-import TabStepper from '@/components/TabStepper';
 import { Link, useLocation } from 'react-router-dom';
 
 const MyListingExpense = () => {
-  const tabs = [
-    { label: 'Forms', path: '/my-systems/finances/my-listing' },
-    { label: 'Charts', path: '/my-systems/finances/my-listing/charts' },
-  ];
+  //   const tabs = [
+  //     { label: 'Forms', path: '/my-systems/finances/my-listing' },
+  //     { label: 'Charts', path: '/my-systems/finances/my-listing/charts' },
+  //   ];
+
   const location = useLocation();
+
   return (
     <>
       <div className="flex items-center gap-4 justify-between">
@@ -31,9 +32,9 @@ const MyListingExpense = () => {
         </div>
       </div>
 
-      <div className="mb-5 sm:mb-6">
+      {/* <div className="mb-5 sm:mb-6">
         <TabStepper tabs={tabs} />
-      </div>
+      </div> */}
 
       <MyListingExpenseTable />
     </>

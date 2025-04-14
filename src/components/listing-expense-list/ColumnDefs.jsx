@@ -1,4 +1,4 @@
-import AmountCell from './cells/AmountCell'; 
+import AmountCell from './cells/AmountCell';
 import CategoryCell from './cells/CategoryCell';
 import CommonCell from './cells/CommonCell';
 import DescriptionCell from './cells/DescriptionCell';
@@ -8,6 +8,7 @@ import PaymentMethodCell from './cells/PaymentMethodCell';
 import ReceiptCell from './cells/ReceiptCell';
 import ReimbursableCell from './cells/ReimbursableCell';
 import SubCategoryCell from './cells/SubCategoryCell';
+import UserCell from './cells/UserCell';
 import VendorCell from './cells/VendorCell';
 import AmountInput from './inputs/AmountInput';
 import CategoryInput from './inputs/CategoryInput';
@@ -102,7 +103,7 @@ export const columns = [
   {
     accessorKey: 'user_id',
     header: 'Owner',
-    cell: CommonCell,
+    cell: UserCell,
     size: 110,
     footer: UserInput,
   },
