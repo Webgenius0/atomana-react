@@ -156,7 +156,6 @@ export const useAddPassword = () => {
       }
     },
     onError: (error) => {
-      console.log({ error });
       const response = errorResponse(error, (fields) => {
         Object.entries(fields).forEach(([field, messages]) => {
           form.setError(field, {

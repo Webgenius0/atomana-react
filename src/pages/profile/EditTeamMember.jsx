@@ -5,11 +5,19 @@ import FileSvg from '@/components/svgs/FileSvg';
 import { useGetSingleAgent, useUpdateSingleAgent } from '@/hooks/agent.hook';
 import { format } from 'date-fns';
 import { useEffect } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import { Link, useParams } from 'react-router-dom';
 
 const EditTeamMember = () => {
   const { slug } = useParams();
+
+  const { agent } = useGetSingleAgent(slug);
+  const {
+    mutate: editAgent,
+    isPending: isAgentEditPending,
+    form,
+  } = useUpdateSingleAgent(slug);
+
   const {
     register,
     handleSubmit,
@@ -17,11 +25,7 @@ const EditTeamMember = () => {
     control,
     watch,
     formState: { errors },
-  } = useForm();
-
-  const { agent } = useGetSingleAgent(slug);
-  const { mutate: editAgent, isPending: isAgentEditPending } =
-    useUpdateSingleAgent(slug);
+  } = form;
 
   useEffect(() => {
     if (agent) {
@@ -121,7 +125,7 @@ const EditTeamMember = () => {
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="0"
-                type="number"
+                // type="number"
                 {...register('phone')}
               />
               {errors?.phone?.message && (
@@ -188,6 +192,7 @@ const EditTeamMember = () => {
                 <input
                   id="aggrement"
                   type="file"
+                  accept="image/*"
                   className="hidden"
                   {...register('aggrement')}
                 />

@@ -1,4 +1,8 @@
+import errorResponse from '@/lib/errorResponse';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { useAxiosSecure } from './useAxios';
 
 export const useGetAgents = (page = 1, perPage = 10) => {
@@ -43,11 +47,13 @@ export const useGetSingleAgent = (slug) => {
 export const useUpdateSingleAgent = (slug) => {
   const axiosPrivate = useAxiosSecure();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const form = useForm();
 
-  return useMutation({
+  const result = useMutation({
     mutationFn: async (data) => {
       const response = await axiosPrivate.post(
-        '/api/v1/auth/register-agent',
+        `/api/v1/admin/agent/${slug}`,
         data
       );
       return response.data;
@@ -56,12 +62,25 @@ export const useUpdateSingleAgent = (slug) => {
     onSuccess: (data) => {
       if (data?.success) {
         queryClient.invalidateQueries(['agent', slug]);
+        toast.success('Successfully Updated!');
+        navigate('/profile/manage-team');
       }
     },
     onError: (error) => {
-      alert(error?.response?.data?.message || 'Something went wrong');
+      const response = errorResponse(error, (fields) => {
+        Object.entries(fields).forEach(([field, messages]) => {
+          form.setError(field, {
+            message: messages?.[0],
+          });
+        });
+      });
+      if (response) {
+        toast.error(response);
+      }
     },
   });
+
+  return { ...result, form };
 };
 
 export const useRegisterAgent = () => {

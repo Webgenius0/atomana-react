@@ -1,4 +1,4 @@
-import AmountCell from './cells/AmountCell';
+import AmountCell from './cells/AmountCell'; 
 import CategoryCell from './cells/CategoryCell';
 import CommonCell from './cells/CommonCell';
 import DescriptionCell from './cells/DescriptionCell';
