@@ -61,6 +61,7 @@ import VerifyOTP from '@/pages/VerifyOTP';
 import VideoCourseDetails from '@/pages/VideoCourseDetails';
 import { createBrowserRouter } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
+import EditNote from '@/pages/docs/EditNote';
 
 const router = createBrowserRouter([
   {
@@ -333,6 +334,14 @@ const router = createBrowserRouter([
             element: (
               <PageTitle title="Create Note">
                 <CreateNote />
+              </PageTitle>
+            ),
+          },
+          {
+            path: 'shared-notes/edit-note/:slug',
+            element: (
+              <PageTitle title="Edit Note">
+                <EditNote />
               </PageTitle>
             ),
           },
