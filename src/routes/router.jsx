@@ -14,6 +14,7 @@ import CreateCourse from '@/pages/CreateCourse';
 import AddPassword from '@/pages/docs/AddPassword';
 import CreateNote from '@/pages/docs/CreateNote';
 import DocsLayout from '@/pages/docs/DocsLayout';
+import EditPassword from '@/pages/docs/EditPassword';
 import PasswordListHome from '@/pages/docs/PasswordListHome';
 import SharedNotesHome from '@/pages/docs/SharedNotesHome';
 import ViewSingleNote from '@/pages/docs/ViewSingleNote';
@@ -356,6 +357,14 @@ const router = createBrowserRouter([
             element: (
               <PageTitle title="Add Password">
                 <AddPassword />
+              </PageTitle>
+            ),
+          },
+          {
+            path: 'password-list/edit-password/:slug',
+            element: (
+              <PageTitle title="Edit Password">
+                <EditPassword />
               </PageTitle>
             ),
           },
