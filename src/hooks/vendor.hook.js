@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useAxiosSecure } from './useAxios';
 
@@ -19,6 +20,41 @@ export const useGetVendorCategories = () => {
 
   console.log({ categories });
   return { ...result, categories };
+};
+
+export const useCreateVendorCategories = () => {
+  const [open, setOpen] = useState(false);
+  const queryClient = useQueryClient();
+  const axiosPrivate = useAxiosSecure();
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: async (formData) => {
+      const res = await axiosPrivate.post(
+        `/api/v1/vendor-category/store`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      return res.data;
+    },
+    onSuccess: (data) => {
+      if (data?.success) {
+        toast.success(data.message || 'Category Created Successfully.');
+        setOpen(false);
+        queryClient.invalidateQueries(['categories']);
+      }
+    },
+    onError: (error) => {
+      toast.error(
+        error?.response?.data?.message || 'Failed to Create Category'
+      );
+    },
+  });
+
+  return { mutate, isPending, open, setOpen };
 };
 
 export const useCreateVendor = () => {
