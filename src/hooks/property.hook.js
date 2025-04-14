@@ -40,3 +40,35 @@ export const useStoreProperty = () => {
 
   return result;
 };
+
+// new listing source dropdown hook
+export const useSourceDropdown = () => {
+  const axiosPrivate = useAxiosSecure();
+
+  const result = useQuery({
+    queryKey: ['sources'],
+    queryFn: async () => {
+      const response = await axiosPrivate.get('/api/v1/property/source');
+      return response.data;
+    },
+  });
+
+  const propertyid = result?.data?.data;
+  return { ...result, propertyid, isLoading: result.isLoading };
+};
+
+// new listing form co-listing dropdown hook
+export const useCoListingDropdown = () => {
+  const axiosPrivate = useAxiosSecure();
+
+  const result = useQuery({
+    queryKey: ['co-listing'],
+    queryFn: async () => {
+      const response = await axiosPrivate.get('/api/v1/user/agent/co-list');
+      return response.data;
+    },
+  });
+
+  const coListingAgents = result?.data?.data;
+  return { ...result, coListingAgents, isLoading: result.isLoading };
+};

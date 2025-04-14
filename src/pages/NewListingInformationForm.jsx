@@ -3,7 +3,12 @@ import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import CalenderSvg from '@/components/svgs/CalenderSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
-import { useStoreProperty } from '@/hooks/property.hook';
+import { Select } from '@/components/ui/select';
+import {
+  useCoListingDropdown,
+  useSourceDropdown,
+  useStoreProperty,
+} from '@/hooks/property.hook';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { format } from 'date-fns';
 import { useEffect } from 'react';
@@ -60,7 +65,9 @@ function NewListingInformationForm() {
     },
     resolver: zodResolver(formSchema),
   });
-
+  const is_development = watch('is_development');
+  const is_co_listing = watch('is_co_listing');
+  const { coListingAgents, isLoading } = useCoListingDropdown();
   const location = useLocation();
   const {
     mutate: storeProperty,
@@ -68,9 +75,17 @@ function NewListingInformationForm() {
     isPending,
     isSuccess,
   } = useStoreProperty();
+  const categoryOptions = coListingAgents?.map((item) => ({
+    value: `${item.first_name} ${item.last_name}`,
+    label: `${item.first_name} ${item.last_name}`,
+  }));
 
-  const is_development = watch('is_development');
-  const is_co_listing = watch('is_co_listing');
+  const { data: sources, isLoading: isSourcesLoading } = useSourceDropdown();
+
+  const sourceOptions = sources?.data?.map((item) => ({
+    value: item.name,
+    label: item.name,
+  }));
 
   const onSubmit = (data) => {
     storeProperty(data);
@@ -287,7 +302,7 @@ function NewListingInformationForm() {
               <div className="w-full">
                 <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                   <p className="mb-3">Who are you co-listing with?</p>
-                  <Controller
+                  {/* <Controller
                     name="co_agent"
                     control={control}
                     render={({ field }) => (
@@ -298,6 +313,36 @@ function NewListingInformationForm() {
                         className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full outline-none"
                       />
                     )}
+                  /> */}
+                  <Controller
+                    name="co_agent"
+                    control={control}
+                    render={({ field }) => {
+                      const currentValue = coListingAgents?.find(
+                        (item) => item.id === field.value
+                      );
+                      return (
+                        <Select
+                          className={`w-full`}
+                          value={
+                            currentValue &&
+                            `${currentValue?.first_name} ${currentValue?.last_name}`
+                          }
+                          setValue={(value) =>
+                            field.onChange(
+                              coListingAgents?.find(
+                                (item) =>
+                                  `${item.first_name} ${item.last_name}` ===
+                                  value
+                              ).id
+                            )
+                          }
+                          disabled={isLoading}
+                          options={categoryOptions}
+                          placeholder="Select Agent"
+                        />
+                      );
+                    }}
                   />
                 </label>
                 {errors?.co_agent && (
@@ -312,10 +357,33 @@ function NewListingInformationForm() {
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
               What was the source of this Lead?
             </label>
-            <input
+            {/* <input
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="Source"
               {...register('property_source_id')}
+            /> */}
+            <Controller
+              name="property_source_id"
+              control={control}
+              render={({ field }) => {
+                return (
+                  <Select
+                    className="!px-4 !py-6 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+                    value={
+                      sources?.data?.find((item) => item.id === field.value)
+                        ?.name
+                    }
+                    setValue={(value) =>
+                      field.onChange(
+                        sources?.data?.find((item) => item.name === value)?.id
+                      )
+                    }
+                    disabled={isSourcesLoading}
+                    options={sourceOptions}
+                    placeholder="Source"
+                  />
+                );
+              }}
             />
             {errors?.property_source_id && (
               <p className="text-red-500 text-xs">
