@@ -2,24 +2,26 @@ import FormTextEditor from '@/components/form/FormTextEditor';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
-import { useAddPassword, useGetSinglePassword } from '@/hooks/docs.hook';
+import { useEditPassword, useGetSinglePassword } from '@/hooks/docs.hook';
 import { useEffect } from 'react';
 import { FormProvider } from 'react-hook-form';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 export default function EditPassword() {
   const { slug } = useParams();
   const location = useLocation();
+  const navigate = useNavigate()
   const { passwordDetails } = useGetSinglePassword(slug);
-  const { mutate: addPassword, isPending, form } = useAddPassword();
+  const { mutate: editPassword, isPending, form } = useEditPassword(slug);
 
   const onSubmit = (data) => {
-    addPassword(data);
+    editPassword(data);
   };
 
   const handleResetForm = (e) => {
     e.preventDefault();
     form.reset();
+    navigate(-1);
   };
 
   useEffect(() => {
@@ -31,15 +33,16 @@ export default function EditPassword() {
   return (
     <div className="px-5 py-[25px] overflow-y-auto scrollbar-none w-full">
       <div className="w-full max-w-[670px] mx-auto flex items-center gap-4 justify-between">
-        <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5">
-          <Link
-            to={`${
-              location.state?.from || '/my-systems/team/docs/shared-notes'
-            }`}
+        <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5 cursor-pointer">
+          <div
+            // to={`${
+            //   location.state?.from || '/my-systems/team/docs/shared-notes'
+            // }`}
+            onClick={()=>navigate(-1)}
           >
             <ArrowLeftSvg />
-          </Link>
-          <h2 className="section-title">Add New Password</h2>
+          </div>
+          <h2 className="section-title">Edit Password</h2>
         </div>
         <div className="flex items-center gap-2.5">
           <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
@@ -145,7 +148,7 @@ export default function EditPassword() {
                 <input
                   className="request-btn approve cursor-pointer"
                   type="submit"
-                  value={isPending ? 'Adding...' : 'Add'}
+                  value={isPending ? 'Editing...' : 'Edit'}
                   disabled={isPending}
                 />
               </div>

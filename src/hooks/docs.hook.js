@@ -171,3 +171,33 @@ export const useAddPassword = () => {
 
   return { ...result, form };
 };
+
+export const useEditPassword = (slug) => {
+  console.log(slug);
+  const form = useForm({
+    resolver: zodResolver(passwordSchema),
+  });
+  const axiosPrivate = useAxiosSecure();
+  const queryClient = useQueryClient();
+  const { mutate, isPending } = useMutation({
+    mutationFn: async (data) => {
+      const res = await axiosPrivate.post(
+        `/api/v1/password-list/update/${slug}`,
+        data
+      );
+      return res.data;
+    },
+    onSuccess: (data) => {
+      if (data?.success) {
+        toast.success('Password Update Successfully');
+        queryClient.invalidateQueries(['password-list']);
+      }
+    },
+    onError: (error) => {
+      toast.error(
+        error?.response?.data?.message || 'Failed to Update Password'
+      );
+    },
+  });
+  return { mutate, isPending, form };
+};
