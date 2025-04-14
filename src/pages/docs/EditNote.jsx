@@ -84,7 +84,7 @@ export default function EditNote() {
                 <input
                   className="request-btn approve cursor-pointer"
                   type="submit"
-                  value={isPending ? 'Editing...' : 'Edit'}
+                  value={isPending ? 'Saving...' : 'Save Changes'}
                   disabled={isPending}
                 />
               </div>

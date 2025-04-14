@@ -5,12 +5,12 @@ import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
 import { useEditPassword, useGetSinglePassword } from '@/hooks/docs.hook';
 import { useEffect } from 'react';
 import { FormProvider } from 'react-hook-form';
-import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 export default function EditPassword() {
   const { slug } = useParams();
   const location = useLocation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { passwordDetails } = useGetSinglePassword(slug);
   const { mutate: editPassword, isPending, form } = useEditPassword(slug);
 
@@ -38,7 +38,7 @@ export default function EditPassword() {
             // to={`${
             //   location.state?.from || '/my-systems/team/docs/shared-notes'
             // }`}
-            onClick={()=>navigate(-1)}
+            onClick={() => navigate(-1)}
           >
             <ArrowLeftSvg />
           </div>
@@ -148,7 +148,7 @@ export default function EditPassword() {
                 <input
                   className="request-btn approve cursor-pointer"
                   type="submit"
-                  value={isPending ? 'Editing...' : 'Edit'}
+                  value={isPending ? 'Saving...' : 'Save Changes'}
                   disabled={isPending}
                 />
               </div>
