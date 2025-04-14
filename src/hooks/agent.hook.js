@@ -1,5 +1,4 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useAuth } from './useAuth';
 import { useAxiosSecure } from './useAxios';
 
 export const useGetAgents = (page = 1, perPage = 10) => {
@@ -8,16 +7,10 @@ export const useGetAgents = (page = 1, perPage = 10) => {
   const result = useQuery({
     queryKey: ['agents', page],
     queryFn: async () => {
-      try {
-        const response = await axiosPrivate.get(
-          `/api/v1/admin/agent?page=${page}&per_page=${perPage}`
-        );
-        return response.data;
-      } catch (error) {
-        throw new Error(
-          error.response?.data?.message || 'Failed to fetch agents'
-        );
-      }
+      const response = await axiosPrivate.get(
+        `/api/v1/admin/agent?page=${page}&per_page=${perPage}`
+      );
+      return response.data;
     },
     keepPreviousData: true,
   });
@@ -29,23 +22,57 @@ export const useGetAgents = (page = 1, perPage = 10) => {
     currentPage: result?.data?.data?.current_page || 1,
   };
 };
+export const useGetSingleAgent = (slug) => {
+  const axiosPrivate = useAxiosSecure();
+
+  const result = useQuery({
+    queryKey: ['agent', slug],
+    queryFn: async () => {
+      const response = await axiosPrivate.get(`/api/v1/admin/agent/${slug}`);
+      return response.data;
+    },
+    keepPreviousData: true,
+  });
+
+  return {
+    ...result,
+    agent: result?.data?.data,
+  };
+};
+
+export const useUpdateSingleAgent = (slug) => {
+  const axiosPrivate = useAxiosSecure();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data) => {
+      const response = await axiosPrivate.post(
+        '/api/v1/auth/register-agent',
+        data
+      );
+      return response.data;
+    },
+
+    onSuccess: (data) => {
+      if (data?.success) {
+        queryClient.invalidateQueries(['agent', slug]);
+      }
+    },
+    onError: (error) => {
+      alert(error?.response?.data?.message || 'Something went wrong');
+    },
+  });
+};
 
 export const useRegisterAgent = () => {
   const axiosPrivate = useAxiosSecure();
   const queryClient = useQueryClient();
-  const { auth } = useAuth();
 
   return useMutation({
-    mutationFn: async ({ formData }) => {
+    mutationFn: async (data) => {
       const response = await axiosPrivate.post(
         '/api/v1/auth/register-agent',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${auth?.token}`,
-          },
-        }
+        data
       );
       return response.data;
     },

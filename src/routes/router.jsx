@@ -470,7 +470,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: 'edit-team-member',
+            path: 'edit-team-member/:slug',
             element: (
               <PageTitle title="Edit Team Member">
                 <EditTeamMember />
