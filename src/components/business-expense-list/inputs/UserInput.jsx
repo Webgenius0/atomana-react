@@ -6,7 +6,7 @@ export default function UserInput() {
   const { agents, isLoading } = useGetAgents();
   const form = useFormContext();
 
-  const categoryOptions = agents?.map((item) => ({
+  const agentOptions = agents?.map((item) => ({
     value: `${item.first_name} ${item.last_name}`,
     label: `${item.first_name} ${item.last_name}`,
   }));
@@ -31,7 +31,7 @@ export default function UserInput() {
               )
             }
             disabled={isLoading}
-            options={categoryOptions}
+            options={agentOptions}
             placeholder="Select Owner"
           />
         );

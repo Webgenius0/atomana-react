@@ -14,6 +14,8 @@ import CreateCourse from '@/pages/CreateCourse';
 import AddPassword from '@/pages/docs/AddPassword';
 import CreateNote from '@/pages/docs/CreateNote';
 import DocsLayout from '@/pages/docs/DocsLayout';
+import EditNote from '@/pages/docs/EditNote';
+import EditPassword from '@/pages/docs/EditPassword';
 import PasswordListHome from '@/pages/docs/PasswordListHome';
 import SharedNotesHome from '@/pages/docs/SharedNotesHome';
 import ViewSingleNote from '@/pages/docs/ViewSingleNote';
@@ -21,6 +23,7 @@ import ViewSinglePassword from '@/pages/docs/ViewSinglePassword';
 import ErrorPage from '@/pages/ErrorPage';
 import Finances from '@/pages/Finances';
 import ForgetPassword from '@/pages/ForgetPassword';
+import ViewListingInformation from '@/pages/listing-information/ViewListingInformation';
 import Login from '@/pages/Login';
 import MyAgentEarnings from '@/pages/MyAgentEarnings';
 import MyAI from '@/pages/MyAI';
@@ -172,6 +175,14 @@ const router = createBrowserRouter([
             element: (
               <PageTitle title="New Listing">
                 <NewListing />
+              </PageTitle>
+            ),
+          },
+          {
+            path: 'new-listing/:id',
+            element: (
+              <PageTitle title="New Listing">
+                <ViewListingInformation />
               </PageTitle>
             ),
           },
@@ -336,6 +347,14 @@ const router = createBrowserRouter([
             ),
           },
           {
+            path: 'shared-notes/edit-note/:slug',
+            element: (
+              <PageTitle title="Edit Note">
+                <EditNote />
+              </PageTitle>
+            ),
+          },
+          {
             path: 'password-list',
             element: (
               <PageTitle title="Password List">
@@ -356,6 +375,14 @@ const router = createBrowserRouter([
             element: (
               <PageTitle title="Add Password">
                 <AddPassword />
+              </PageTitle>
+            ),
+          },
+          {
+            path: 'password-list/edit-password/:slug',
+            element: (
+              <PageTitle title="Edit Password">
+                <EditPassword />
               </PageTitle>
             ),
           },
@@ -470,7 +497,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: 'edit-team-member',
+            path: 'edit-team-member/:slug',
             element: (
               <PageTitle title="Edit Team Member">
                 <EditTeamMember />

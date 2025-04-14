@@ -1,10 +1,13 @@
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { useState } from 'react';
 
+import CustomDatePicker from '@/components/CustomDatePicker';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
-import { useGetAgents, useRegisterAgent } from '@/hooks/agent.hook';
+import CalenderSvg from '@/components/svgs/CalenderSvg';
+import { useRegisterAgent } from '@/hooks/agent.hook';
+import { format } from 'date-fns';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const AddTeamMember = () => {
@@ -12,19 +15,21 @@ const AddTeamMember = () => {
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors },
     watch,
   } = useForm();
   const navigate = useNavigate();
-  const registerAgent = useRegisterAgent();
+  const { mutate: registerAgent, isPending: isRegisterPending } =
+    useRegisterAgent();
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const { agents, isLoading, isError, error } = useGetAgents();
+  //   const { agents, isLoading, isError, error } = useGetAgents();
 
   const onSubmit = (data) => {
     const formData = data;
-    registerAgent.mutate(
+    registerAgent(
       { formData },
       {
         onSuccess: () => {
@@ -50,6 +55,7 @@ const AddTeamMember = () => {
             className="max-w-[670px] mx-auto flex flex-col gap-[15px]"
           >
             <div className="flex items-center gap-2.5">
+              {/* First Name */}
               <div className="flex flex-col gap-2 w-full">
                 <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                   First name
@@ -65,6 +71,7 @@ const AddTeamMember = () => {
                   <span className="error-text">{errors.firstName.message}</span>
                 )}
               </div>
+              {/* Last Name */}
               <div className="flex flex-col gap-2 w-full">
                 <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                   Last name
@@ -81,7 +88,7 @@ const AddTeamMember = () => {
                 )}
               </div>
             </div>
-
+            {/* Email */}
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                 Email
@@ -96,7 +103,7 @@ const AddTeamMember = () => {
                 <span className="error-text">{errors.email.message}</span>
               )}
             </div>
-
+            {/* Business ID */}
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                 Business ID
@@ -112,7 +119,49 @@ const AddTeamMember = () => {
                 <span className="error-text">{errors.business_id.message}</span>
               )}
             </div>
+            {/* Contract Year Starts */}
+            <div className="flex flex-col gap-2 w-full">
+              <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+                Contract Year Starts
+              </label>
 
+              <label className="flex items-center px-4 rounded-[10px] border border-[#d8dfeb] bg-dark w-full gap-2.5">
+                <Controller
+                  name="contract_year_start"
+                  control={control}
+                  render={({ field }) => (
+                    <CustomDatePicker
+                      value={field.value}
+                      onChange={(date) => {
+                        field.onChange(format(date, 'yyyy-MM-dd'));
+                      }}
+                    />
+                  )}
+                />
+                <CalenderSvg />
+              </label>
+              {errors?.date?.message && (
+                <p className="text-red-500 mt-2">{errors?.date?.message}</p>
+              )}
+            </div>
+            {/* Total Commission this Contract Year */}
+            <div className="flex flex-col gap-2 w-full">
+              <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+                Total Commission this Contract Year
+              </label>
+              <input
+                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+                placeholder="0"
+                type="number"
+                {...register('total_commission_this_contract_year')}
+              />
+              {errors?.total_commission_this_contract_year?.message && (
+                <p className="text-red-500 mt-2">
+                  {errors?.total_commission_this_contract_year?.message}
+                </p>
+              )}
+            </div>
+            {/* Password */}
             <div className="relative flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                 Password
@@ -142,7 +191,7 @@ const AddTeamMember = () => {
                 <span className="error-text">{errors.password.message}</span>
               )}
             </div>
-
+            {/* Confirm Password */}
             <div className="relative flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                 Confirm Password
@@ -181,8 +230,8 @@ const AddTeamMember = () => {
               <input
                 className="request-btn approve cursor-pointer"
                 type="submit"
-                value={registerAgent.isLoading ? 'Adding...' : 'Add'}
-                disabled={registerAgent.isLoading}
+                value={isRegisterPending ? 'Adding...' : 'Add'}
+                disabled={isRegisterPending}
               />
               <button
                 type="button"
@@ -192,12 +241,6 @@ const AddTeamMember = () => {
                 Cancel
               </button>
             </div>
-
-            {registerAgent.isError && (
-              <p className="error-text text-center">
-                {registerAgent.error?.message}
-              </p>
-            )}
           </form>
         </div>
       </div>

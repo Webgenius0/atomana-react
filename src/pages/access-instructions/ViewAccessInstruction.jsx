@@ -32,7 +32,7 @@ const ViewAccessInstruction = () => {
           <div>
             <h2 className="section-title">Access Instructions</h2>
             <p className="text-sm text-[#009696] leading-[21px] tracking-[-0.14px]">
-              {accessInstruction?.address}
+              {accessInstruction?.address || 'N/A'}
             </p>
           </div>
         </div>
@@ -50,7 +50,7 @@ const ViewAccessInstruction = () => {
               Address
             </p>
             <p className="text-sm font-normal leading-5 text-[#009696]">
-              {accessInstruction?.address}
+              {accessInstruction?.address || 'N/A'}
             </p>
           </div>
 
@@ -60,7 +60,7 @@ const ViewAccessInstruction = () => {
               Property Type
             </p>
             <p className="text-sm font-normal leading-5 text-[#009696]">
-              {accessInstruction?.property_type}
+              {accessInstruction?.property_type || 'N/A'}
             </p>
           </div>
 
@@ -70,7 +70,9 @@ const ViewAccessInstruction = () => {
               Price
             </p>
             <p className="text-sm font-normal leading-5 text-[#009696]">
-              {formatCurrency(accessInstruction?.price)}
+              {accessInstruction?.price
+                ? formatCurrency(accessInstruction?.price)
+                : 'N/A'}
             </p>
           </div>
 
@@ -78,7 +80,10 @@ const ViewAccessInstruction = () => {
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold leading-5 text-sm text-[#ffffffcc]">Size</p>
             <p className="text-sm font-normal leading-5 text-[#009696]">
-              {accessInstruction?.size} sq ft
+              {accessInstruction?.size
+                ? `${accessInstruction?.size} sq ft`
+                : 'N/A'}
+              s
             </p>
           </div>
         </div>
@@ -93,7 +98,7 @@ const ViewAccessInstruction = () => {
               Key Access Code
             </p>
             <p className="text-sm font-normal leading-5 text-[#ffffffcc]">
-              {accessInstruction?.key_access_code}
+              {accessInstruction?.key_access_code || 'N/A'}
             </p>
           </div>
 
@@ -103,7 +108,7 @@ const ViewAccessInstruction = () => {
               Lockbox Location
             </p>
             <p className="text-sm font-normal leading-5 text-[#ffffffcc]">
-              {accessInstruction?.lockbox_location}
+              {accessInstruction?.lockbox_location || 'N/A'}
             </p>
           </div>
 
@@ -113,7 +118,7 @@ const ViewAccessInstruction = () => {
               Key Pickup Instructions (if applicable):
             </p>
             <p className="text-sm font-normal leading-5 text-[#ffffffcc]">
-              {accessInstruction?.key_pickup_instructions}
+              {accessInstruction?.key_pickup_instructions || 'N/A'}
             </p>
           </div>
         </div>
@@ -128,7 +133,7 @@ const ViewAccessInstruction = () => {
               Gate Code
             </p>
             <p className="text-sm font-normal leading-5 text-[#ffffffcc]">
-              {accessInstruction?.gate_code}
+              {accessInstruction?.gate_code || 'N/A'}
             </p>
           </div>
 
@@ -138,7 +143,7 @@ const ViewAccessInstruction = () => {
               Gate Access Location
             </p>
             <p className="text-sm font-normal leading-5 text-[#ffffffcc]">
-              {accessInstruction?.gate_access_location}
+              {accessInstruction?.gate_access_location || 'N/A'}
             </p>
           </div>
         </div>
@@ -152,27 +157,29 @@ const ViewAccessInstruction = () => {
               Visitor Parking
             </p>
             <p className="text-sm font-normal leading-5 text-[#ffffffcc]">
-              {accessInstruction?.visitor_parking}
+              {accessInstruction?.visitor_parking || 'N/A'}
             </p>
           </div>
         </div>
       </div>
-      <div className="mt-[25px]">
-        <h2 className="section-title">Additional Notes</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 md:gap-4 md:mt-4">
-          {/* Notes */}
-          <div className="space-y-[2px]  py-4">
-            <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
-              Notes
-            </p>
+      {notes && (
+        <div className="mt-[25px]">
+          <h2 className="section-title">Additional Notes</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 md:gap-4 md:mt-4">
+            {/* Notes */}
+            <div className="space-y-[2px]  py-4">
+              <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
+                Notes
+              </p>
 
-            <div
-              className="rich-text"
-              dangerouslySetInnerHTML={{ __html: notes }}
-            />
+              <div
+                className="rich-text"
+                dangerouslySetInnerHTML={{ __html: notes }}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 };

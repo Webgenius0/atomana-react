@@ -1,5 +1,6 @@
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import TabCard from '@/components/TabCard';
+import AddVendorList from '@/components/vendor-list/add-vendor-list';
 import { useGetVendorCategories } from '@/hooks/vendor.hook';
 import { Link } from 'react-router-dom';
 
@@ -13,11 +14,16 @@ function VendorCategories() {
   return (
     <div className="mx-auto">
       {/* Back Button & Header */}
-      <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit mb-5 sm:my-5 mr-auto sm:ml-0">
-        <Link to="/my-systems/team/">
-          <ArrowLeftSvg />
-        </Link>
-        <h2 className="section-title">Vendor List</h2>
+      <div className="flex items-center gap-4 justify-between w-full duration-300 hover:opacity-60 mb-5 sm:my-5 mr-auto sm:ml-0">
+        <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5">
+          <Link to="/my-systems/team/">
+            <ArrowLeftSvg />
+          </Link>
+          <h2 className="section-title">Vendor List</h2>
+        </div>
+        <div className="flex items-center gap-2.5">
+          <AddVendorList />
+        </div>
       </div>
 
       {/* Category Cards */}

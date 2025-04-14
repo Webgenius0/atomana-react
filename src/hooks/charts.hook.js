@@ -1,3 +1,4 @@
+import { formatCompactCurrency } from '@/lib/utils/formatCurrency';
 import {
   getCurrentMonth,
   getCurrentQuarter,
@@ -47,7 +48,7 @@ export const useGetCurrentSalesVolume = () => {
     yKey: 'value',
     title: 'Current Sales Volume',
     yDomain: [0, target],
-    total: targetFilled,
+    total: formatCompactCurrency(targetFilled),
     percent,
   };
 
@@ -139,7 +140,7 @@ export const useGetExpenses = () => {
     yKey: 'sales',
     title: 'Expenses',
     yDomain: [0, target],
-    total: expense,
+    total: formatCompactCurrency(expense),
     percent,
   };
 
@@ -185,7 +186,7 @@ export const useGetNetProfit = () => {
     yKey: 'profit',
     title: 'Net Profit',
     yDomain: [0, target],
-    total: profit,
+    total: formatCompactCurrency(profit),
     percent,
   };
 

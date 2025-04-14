@@ -1,6 +1,4 @@
-import CommonCell from './cells/CommonCell';
-import CurrencyCell from './cells/CurrencyCell';
-import NoteCell from './cells/NoteCell';
+import AddressCell from './cells/AddressCell';
 
 export const columns = [
   {
@@ -26,67 +24,66 @@ export const columns = [
   {
     accessorKey: 'address',
     header: 'Property Address',
-    cell: CommonCell,
-    size: 180,
+    cell: AddressCell,
   },
-  {
-    accessorKey: 'property_type',
-    header: 'Property Type',
-    cell: CommonCell,
-    size: 125,
-  },
-  {
-    accessorKey: 'price',
-    header: 'Price',
-    cell: CurrencyCell,
-    size: 125,
-  },
-  {
-    accessorKey: 'size',
-    header: 'Size',
-    cell: CommonCell,
-    size: 125,
-  },
-  {
-    accessorKey: 'key_access_code',
-    header: 'Key Access Code',
-    cell: CommonCell,
-    size: 180,
-  },
-  {
-    accessorKey: 'lockbox_location',
-    header: 'Lockbox Location',
-    cell: CommonCell,
-    size: 180,
-  },
-  {
-    accessorKey: 'key_pickup_instructions',
-    header: 'Key Pickup Instructions',
-    cell: CommonCell,
-    size: 180,
-  },
-  {
-    accessorKey: 'gate_code',
-    header: 'Gate Code',
-    cell: CommonCell,
-    size: 180,
-  },
-  {
-    accessorKey: 'gate_access_location',
-    header: 'Gate Access Location',
-    cell: CommonCell,
-    size: 180,
-  },
-  {
-    accessorKey: 'visitor_parking',
-    header: 'Visitor Parking',
-    cell: CommonCell,
-    size: 180,
-  },
-  {
-    accessorKey: 'notes',
-    header: 'Notes',
-    cell: NoteCell,
-    size: 180,
-  },
+  //   {
+  //     accessorKey: 'property_type',
+  //     header: 'Property Type',
+  //     cell: CommonCell,
+  //     size: 125,
+  //   },
+  //   {
+  //     accessorKey: 'price',
+  //     header: 'Price',
+  //     cell: CurrencyCell,
+  //     size: 125,
+  //   },
+  //   {
+  //     accessorKey: 'size',
+  //     header: 'Size',
+  //     cell: CommonCell,
+  //     size: 125,
+  //   },
+  //   {
+  //     accessorKey: 'key_access_code',
+  //     header: 'Key Access Code',
+  //     cell: CommonCell,
+  //     size: 180,
+  //   },
+  //   {
+  //     accessorKey: 'lockbox_location',
+  //     header: 'Lockbox Location',
+  //     cell: CommonCell,
+  //     size: 180,
+  //   },
+  //   {
+  //     accessorKey: 'key_pickup_instructions',
+  //     header: 'Key Pickup Instructions',
+  //     cell: CommonCell,
+  //     size: 180,
+  //   },
+  //   {
+  //     accessorKey: 'gate_code',
+  //     header: 'Gate Code',
+  //     cell: CommonCell,
+  //     size: 180,
+  //   },
+  //   {
+  //     accessorKey: 'gate_access_location',
+  //     header: 'Gate Access Location',
+  //     cell: CommonCell,
+  //     size: 180,
+  //   },
+  //   {
+  //     accessorKey: 'visitor_parking',
+  //     header: 'Visitor Parking',
+  //     cell: CommonCell,
+  //     size: 180,
+  //   },
+  //   {
+  //     accessorKey: 'notes',
+  //     header: 'Notes',
+  //     cell: NoteCell,
+  //     size: 180,
+  //   },
 ];

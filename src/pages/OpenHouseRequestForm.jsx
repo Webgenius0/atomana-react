@@ -14,7 +14,6 @@ export default function OpenHouseRequestForm() {
   const form = useForm({
     defaultValues: {
       property_id: '',
-      email: 'demo@example.com',
       wavy_man: '1',
       date: '',
       start_time: '',

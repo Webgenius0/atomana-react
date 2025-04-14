@@ -1,37 +1,30 @@
+import Pagination from '@/components/Pagination';
+import DataTable from '@/components/table/DataTable';
 import {
   useGetMyListingExpenses,
   useStoreMyListingExpenses,
 } from '@/hooks/expense.hook';
 import { useState } from 'react';
-import Pagination from '../Pagination';
-import DataTable from '../table/DataTable';
-import { columns } from './MyListingExpenseColumns';
+import { columns } from './ColumnDefs';
 
 export default function MyListingExpenseTable() {
   // Pagination states
   const [perPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
 
-  //   Fetch table data
-  const { myListingExpenses, totalItems, isLoading, isFetching } =
-    useGetMyListingExpenses({
-      perPage,
-      currentPage,
-    });
+  // Fetch table data
+  const { myListingExpenses, totalItems, isLoading } = useGetMyListingExpenses({
+    perPage,
+    currentPage,
+  });
 
   // Store new row
-  const {
-    mutate: storeListingExpense,
-    showInputs,
-    setShowInputs,
-    isPending,
-    form,
-  } = useStoreMyListingExpenses();
+  const { mutate, showInputs, setShowInputs, isPending, form } =
+    useStoreMyListingExpenses();
 
   // Form instance
-
   const onSubmit = (data) => {
-    storeListingExpense({ ...data, recept: data.recept[0] });
+    if (showInputs) mutate({ ...data, recept: data.recept[0] });
   };
 
   return (
@@ -52,7 +45,7 @@ export default function MyListingExpenseTable() {
         totalItems={totalItems}
         itemsPerPage={perPage}
         onPageChange={setCurrentPage}
-        isLoading={isLoading || isFetching}
+        isLoading={isLoading}
       />
     </div>
   );

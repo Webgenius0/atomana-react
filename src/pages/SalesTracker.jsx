@@ -2,14 +2,14 @@ import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
 import SalesTrackerTable from '@/components/tables/SalesTrackerTable';
-import TabStepper from '@/components/TabStepper';
 import { Link, useLocation } from 'react-router-dom';
 
 const SalesTracker = () => {
-  const tabs = [
-    { label: 'Forms', path: '/forms' },
-    { label: 'Charts', path: '/charts' },
-  ];
+  //   const tabs = [
+  //     { label: 'Forms', path: '/forms' },
+  //     { label: 'Charts', path: '/charts' },
+  //   ];
+
   const location = useLocation();
 
   return (
@@ -32,9 +32,9 @@ const SalesTracker = () => {
         </div>
       </div>
 
-      <div className="mb-5 sm:mb-6">
+      {/* <div className="mb-5 sm:mb-6">
         <TabStepper tabs={tabs} />
-      </div>
+      </div> */}
 
       <SalesTrackerTable />
     </>

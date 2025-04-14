@@ -98,6 +98,34 @@ export const useCreateNote = () => {
   return { ...result, form };
 };
 
+export const useEditNote = (slug) => {
+  console.log(slug);
+  const axiosPrivate = useAxiosSecure();
+  const form = useForm({
+    resolver: zodResolver(noteSchema),
+  });
+  const queryClient = useQueryClient();
+  const { mutate, isPending } = useMutation({
+    mutationFn: async (data) => {
+      const res = await axiosPrivate.post(
+        `/api/v1/shared-note/update/${slug}`,
+        data
+      );
+      return res.data;
+    },
+    onSuccess: (data) => {
+      if (data?.success) {
+        toast.success('Note Update Successfully');
+        queryClient.invalidateQueries(['notes']);
+      }
+    },
+    onError: (error) => {
+      toast.error(error?.response?.data?.message || 'Failed to Update Note');
+    },
+  });
+  return { mutate, isPending, form };
+};
+
 export const useGetPasswordList = () => {
   const axiosPrivate = useAxiosSecure();
 
@@ -156,7 +184,6 @@ export const useAddPassword = () => {
       }
     },
     onError: (error) => {
-      console.log({ error });
       const response = errorResponse(error, (fields) => {
         Object.entries(fields).forEach(([field, messages]) => {
           form.setError(field, {
@@ -171,4 +198,34 @@ export const useAddPassword = () => {
   });
 
   return { ...result, form };
+};
+
+export const useEditPassword = (slug) => {
+  console.log(slug);
+  const form = useForm({
+    resolver: zodResolver(passwordSchema),
+  });
+  const axiosPrivate = useAxiosSecure();
+  const queryClient = useQueryClient();
+  const { mutate, isPending } = useMutation({
+    mutationFn: async (data) => {
+      const res = await axiosPrivate.post(
+        `/api/v1/password-list/update/${slug}`,
+        data
+      );
+      return res.data;
+    },
+    onSuccess: (data) => {
+      if (data?.success) {
+        toast.success('Password Update Successfully');
+        queryClient.invalidateQueries(['password-list']);
+      }
+    },
+    onError: (error) => {
+      toast.error(
+        error?.response?.data?.message || 'Failed to Update Password'
+      );
+    },
+  });
+  return { mutate, isPending, form };
 };
