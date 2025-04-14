@@ -1,22 +1,10 @@
-import Dropdown from '@/components/Dropdown';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
-import SearchIconSvg from '@/components/svgs/SearchIconSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
 import AgentEarningTable from '@/components/tables/AgentEarningsTable';
 import { Link } from 'react-router-dom';
 
 const MyAgentEarnings = () => {
-  const heightoptions = [
-    { value: 'highestsales', label: 'Time Range: YTD 2024' },
-    { value: 'quater', label: 'Quater' },
-    { value: 'year', label: 'Yearly' },
-  ];
-
-  const handleSelect = (option) => {
-    console.table('Selected option:', option);
-  };
-
   return (
     <>
       <div className="flex items-center gap-4 justify-between">
@@ -33,27 +21,6 @@ const MyAgentEarnings = () => {
           <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
             <ThreeDotsSvg />
           </button>
-        </div>
-      </div>
-
-      <div className="my-4 sm:my-5 md:my-6">
-        <div className="flex justify-between items-center">
-          {/* Search Input */}
-          <div className="relative w-full max-w-xs">
-            <input
-              type="text"
-              className="border rounded-full bg-transparent pl-10 pr-4 py-1 w-full text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Search expenses"
-            />
-            <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
-              <SearchIconSvg />
-            </div>
-          </div>
-
-          {/* Dropdown */}
-          <div className="ml-4">
-            <Dropdown options={heightoptions} onSelect={handleSelect} />
-          </div>
         </div>
       </div>
 
