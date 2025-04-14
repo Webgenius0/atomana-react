@@ -15,7 +15,11 @@ export default function EditPassword() {
   const { mutate: editPassword, isPending, form } = useEditPassword(slug);
 
   const onSubmit = (data) => {
-    editPassword(data);
+    editPassword(data,{
+        onSuccess: ()=>{
+            navigate(`/my-systems/team/docs/password-list/${slug}`);
+        }
+    });
   };
 
   const handleResetForm = (e) => {

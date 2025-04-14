@@ -15,7 +15,11 @@ export default function EditNote() {
   const { mutate: editNote, isPending, form } = useEditNote(slug);
 
   const onSubmit = (data) => {
-    editNote(data);
+    editNote(data, {
+      onSuccess: () => {
+        navigate(`/my-systems/team/docs/shared-notes/${slug}`);
+      },
+    });
   };
 
   const handleResetForm = (e) => {
