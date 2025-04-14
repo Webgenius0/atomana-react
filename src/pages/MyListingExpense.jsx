@@ -1,7 +1,7 @@
+import MyListingExpenseTable from '@/components/listing-expense-list';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
-import MyListingExpenseTable from '@/components/tables/MyListingExpenseTable';
 import TabStepper from '@/components/TabStepper';
 import { Link, useLocation } from 'react-router-dom';
 
