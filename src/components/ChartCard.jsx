@@ -20,7 +20,7 @@ const ChartCard = ({
           {/* Large Number */}
           <div className="flex flex-col gap-1">
             <h2 className="text-light text-lg md:text-xl lg:text-2xl">
-              ${total || '0.00'}
+              {total}
             </h2>
             <span
               className={cn(
