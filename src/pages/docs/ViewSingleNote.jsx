@@ -1,5 +1,4 @@
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
-import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
 import { useGetSingleNote } from '@/hooks/docs.hook';
 import { format } from 'date-fns';

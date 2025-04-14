@@ -27,22 +27,15 @@ const accessInstructionData = [
 ];
 
 export const useGetSingleAccessInstruction = (id) => {
-  //   const axiosPrivate = useAxiosSecure();
+  const axiosPrivate = useAxiosSecure();
 
   const result = useQuery({
     queryKey: ['access-instruction', id],
     queryFn: async () => {
-      //   const response = await axiosPrivate.get(`/api/v1/access-instructions/${id}`);
-      //   return response.data;
-
-      // fake delay
-      await new Promise((resolve) => setTimeout(() => resolve(true), 2000));
-
-      return {
-        success: true,
-        message: 'Access Instruction retrieved Successfully',
-        data: accessInstructionData[0],
-      };
+      const response = await axiosPrivate.get(
+        `/api/v1/property/access-instruction/${id}`
+      );
+      return response.data;
     },
   });
 
@@ -62,9 +55,12 @@ export const useGetAccessInstructions = ({ perPage = 10, currentPage = 1 }) => {
   const result = useQuery({
     queryKey: ['access-instructions', perPage, currentPage],
     queryFn: async () => {
-      const response = await axiosPrivate.get(`/api/v1/access-instructions`, {
-        params: { per_page: perPage, page: currentPage },
-      });
+      const response = await axiosPrivate.get(
+        `/api/v1/property/access-instruction`,
+        {
+          params: { per_page: perPage, page: currentPage },
+        }
+      );
       return response.data;
     },
   });
