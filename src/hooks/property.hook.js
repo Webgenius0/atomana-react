@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 import { useAxiosSecure } from './useAxios';
 
 export const useGetProperties = () => {
@@ -21,15 +22,13 @@ export const useStoreProperty = () => {
   const queryClient = useQueryClient();
 
   const result = useMutation({
-    mutationFn: async (payload) => {
-      const response = await axiosPrivate.post(
-        `/api/v1/property/store`,
-        payload
-      );
+    mutationFn: async (data) => {
+      const response = await axiosPrivate.post(`/api/v1/property/store`, data);
       return response.data;
     },
     onSuccess: (data) => {
       if (data?.success) {
+        toast.success('Listing Form Created Successfully');
         queryClient.invalidateQueries(['properties']);
       }
     },

@@ -28,21 +28,71 @@ const formSchema = z.object({
     .min(1, 'Price is required')
     .refine((value) => !isNaN(Number(value)), { message: 'Invalid Price' }),
   expiration_date: z.preprocess((value) => {
-    return format(value, 'yyyy-MM-dd');
-  }, z.string({ required_error: 'Expiration date is required' }).min(1, 'Expiration date is required')),
-  development: z.enum(['1', '0'], {
+    if (!value) return null;
+    try {
+      const date = new Date(value);
+      return isNaN(date.getTime()) ? null : format(date, 'yyyy-MM-dd');
+    } catch {
+      return null;
+    }
+  }, z.string({ required_error: 'Expiration date is required' })),
+  is_development: z.enum(['1', '0'], {
+    // Changed from 'development' to match form
     required_error: 'This field is required',
   }),
   add_to_website: z.enum(['1', '0'], {
     required_error: 'This field is required',
   }),
+  commission_rate: z.preprocess(
+    (val) => {
+      if (val === '') return undefined;
+      const num = parseFloat(val);
+      return isNaN(num) ? val : num;
+    },
+    z
+      .number({
+        required_error: 'Commission rate is required',
+        invalid_type_error: 'Must be a valid number',
+      })
+      .min(0, 'Must be positive')
+      .max(100, 'Cannot exceed 100%')
+  ),
   is_co_listing: z.enum(['1', '0'], {
     required_error: 'Co-listing is required',
   }),
-  co_agent: z.enum(['1', '0'], {
-    required_error: 'This field is required',
-  }),
-  property_source_id: z.string().min(1, 'Source is required'),
+  co_agent: z.preprocess((val) => {
+    if (val === '') return undefined;
+    return Number(val);
+  }, z.number().optional()),
+  co_list_percentage: z.preprocess(
+    (val) => {
+      if (val === '') return undefined;
+      const num = parseFloat(val);
+      return isNaN(num) ? val : num;
+    },
+    z
+      .number({
+        required_error: 'Co-listing percentage is required',
+        invalid_type_error: 'Must be a valid number',
+      })
+      .min(0, 'Must be positive')
+      .max(100, 'Cannot exceed 100%')
+  ),
+  property_source_id: z.preprocess(
+    (val) => {
+      if (val === '') return undefined;
+      return Number(val);
+    },
+    z.number({
+      required_error: 'Property Source is required',
+    })
+  ),
+  beds: z.string().min(1, 'Beds is required'),
+  full_baths: z.string().min(1, 'Full baths is required'),
+  half_baths: z.string().min(1, 'Half baths is required'),
+  size: z.string().min(1, 'Size is required'),
+  link: z.string().min(1, 'Link is required'),
+  note: z.string().min(1, 'Note is required'),
 });
 
 function NewListingInformationForm() {
@@ -59,9 +109,17 @@ function NewListingInformationForm() {
       address: '',
       price: '',
       expiration_date: '',
-      is_development: '1',
+      is_development: '0',
+      commission_rate: '',
       is_co_listing: '0',
+      co_list_percentage: '',
       property_source_id: '',
+      beds: '',
+      full_baths: '',
+      half_baths: '',
+      size: '',
+      link: '',
+      note: '',
     },
     resolver: zodResolver(formSchema),
   });
@@ -87,8 +145,17 @@ function NewListingInformationForm() {
     label: item.name,
   }));
 
+  // In your onSubmit function:
   const onSubmit = (data) => {
-    storeProperty(data);
+    console.log(data);
+    storeProperty(
+      { ...data, commission_rate: '1.2', co_list_percentage: '1' },
+      {
+        onSuccess: () => {
+          reset();
+        },
+      }
+    );
   };
 
   const handleResetForm = (e) => {
@@ -225,7 +292,6 @@ function NewListingInformationForm() {
               </p>
             )}
           </div>
-
           {/* Add to development page (conditional) */}
           {is_development === '1' && (
             <div className="flex items-center sm:gap-6 gap-4 sm:ml-12 ml-8">
@@ -264,6 +330,22 @@ function NewListingInformationForm() {
             </div>
           )}
 
+          {/* commission rate field */}
+          <div className="flex flex-col gap-2 w-full">
+            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+              Commission Rate
+            </label>
+            <input
+              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+              placeholder="Type commission rate here"
+              {...register('commission_rate')}
+            />
+            {errors?.commission_rate && (
+              <p className="text-red-500 text-xs">
+                {errors?.commission_rate?.message}
+              </p>
+            )}
+          </div>
           {/* Is this a co-listing? */}
           <div>
             <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
@@ -302,18 +384,6 @@ function NewListingInformationForm() {
               <div className="w-full">
                 <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                   <p className="mb-3">Who are you co-listing with?</p>
-                  {/* <Controller
-                    name="co_agent"
-                    control={control}
-                    render={({ field }) => (
-                      <input
-                        {...field}
-                        type="text"
-                        placeholder="Type the address and subdivision name here"
-                        className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full outline-none"
-                      />
-                    )}
-                  /> */}
                   <Controller
                     name="co_agent"
                     control={control}
@@ -353,15 +423,27 @@ function NewListingInformationForm() {
               </div>
             </div>
           )}
+          {/* co listing percentage field */}
+          <div className="flex flex-col gap-2 w-full">
+            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+              Co Listing Percentage
+            </label>
+            <input
+              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+              placeholder="00 %"
+              {...register('co_list_percentage')}
+            />
+            {errors?.co_list_percentage && (
+              <p className="text-red-500 text-xs">
+                {errors?.co_list_percentage?.message}
+              </p>
+            )}
+          </div>
+          {/* source fo the list */}
           <div className="flex flex-col gap-2 w-full">
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
               What was the source of this Lead?
             </label>
-            {/* <input
-              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-              placeholder="Source"
-              {...register('property_source_id')}
-            /> */}
             <Controller
               name="property_source_id"
               control={control}
@@ -391,16 +473,106 @@ function NewListingInformationForm() {
               </p>
             )}
           </div>
+          {/* beds, full-bath, half-bath, size as sq ft */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+            <div className="flex flex-col gap-2 w-full">
+              <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+                How many beds?
+              </label>
+              <input
+                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+                placeholder="0"
+                {...register('beds')}
+              />
+              {errors?.beds && (
+                <p className="text-red-500 text-xs">{errors?.beds?.message}</p>
+              )}
+            </div>
+            <div className="flex flex-col gap-2 w-full">
+              <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+                Full baths?
+              </label>
+              <input
+                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+                placeholder="0"
+                {...register('full_baths')}
+              />
+              {errors?.full_baths && (
+                <p className="text-red-500 text-xs">
+                  {errors?.full_baths?.message}
+                </p>
+              )}
+            </div>
+            <div className="flex flex-col gap-2 w-full">
+              <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+                Half baths?
+              </label>
+              <input
+                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+                placeholder="0"
+                {...register('half_baths')}
+              />
+              {errors?.half_baths && (
+                <p className="text-red-500 text-xs">
+                  {errors?.half_baths?.message}
+                </p>
+              )}
+            </div>
+            <div className="flex flex-col gap-2 w-full">
+              <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+                Total SQ FT?
+              </label>
+              <input
+                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+                placeholder="0 sq ft"
+                {...register('size')}
+              />
+              {errors?.size && (
+                <p className="text-red-500 text-xs">{errors?.size?.message}</p>
+              )}
+            </div>
+          </div>
+          {/* photos/videos direct link */}
+          <div className="flex flex-col gap-2 w-full">
+            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+              If you have photos/video, provide direct link below
+            </label>
+            <input
+              type="link"
+              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+              placeholder="Link"
+              {...register('link')}
+            />
+            {errors?.link && (
+              <p className="text-red-500 text-xs">{errors?.link?.message}</p>
+            )}
+          </div>
+          {/* additional information */}
+          <div className="flex flex-col gap-2 w-full">
+            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+              Any additional information that I should know about the property?
+            </label>
+            <textarea
+              type="note"
+              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+              placeholder="Type your answer here"
+              {...register('note')}
+            />
+            {errors?.note && (
+              <p className="text-red-500 text-xs">{errors?.note?.message}</p>
+            )}
+          </div>
         </form>
         <form action="" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex  items-center gap-4 justify-between mt-4 md:mt-6">
             <div className="flex items-center  gap-4 sm:w-unset w-full">
-              <input
+              <button
                 className="request-btn approve cursor-pointer"
                 type="submit"
-                value="Submit"
                 disabled={isPending}
-              />
+              >
+                {isPending ? 'Submitting' : 'Submit'}
+              </button>
             </div>
 
             <button
