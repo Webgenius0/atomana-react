@@ -23,6 +23,7 @@ import ViewSinglePassword from '@/pages/docs/ViewSinglePassword';
 import ErrorPage from '@/pages/ErrorPage';
 import Finances from '@/pages/Finances';
 import ForgetPassword from '@/pages/ForgetPassword';
+import ListingInformationList from '@/pages/listing-information/ListingInformationList';
 import ViewListingInformation from '@/pages/listing-information/ViewListingInformation';
 import Login from '@/pages/Login';
 import MyAgentEarnings from '@/pages/MyAgentEarnings';
@@ -184,6 +185,14 @@ const router = createBrowserRouter([
             element: (
               <PageTitle title="New Listing">
                 <NewListing />
+              </PageTitle>
+            ),
+          },
+          {
+            path: 'new-listing/listing-information',
+            element: (
+              <PageTitle title="New Listing Information">
+                <ListingInformationList />
               </PageTitle>
             ),
           },

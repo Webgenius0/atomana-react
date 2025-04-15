@@ -82,7 +82,7 @@ export default function DataViewTable({
               ))}
 
             {isLoading &&
-              [...Array(perPage)].map((_, rowIndex) => (
+              [...Array(perPage || 10)].map((_, rowIndex) => (
                 <tr key={rowIndex}>
                   {table
                     .getHeaderGroups()[0]

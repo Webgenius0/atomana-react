@@ -147,9 +147,6 @@ export const useGetOpenHouses = ({ perPage = 10, currentPage = 1 }) => {
     path: `/my-systems/open-house/${item.id}`,
   }));
 
-  console.log(openHouses);
-
-  const isLoading = false;
   const current_page = result?.data?.data?.current_page;
   const totalItems = result?.data?.data?.total || 50;
   const per_page = result?.data?.data?.per_page;
@@ -160,6 +157,5 @@ export const useGetOpenHouses = ({ perPage = 10, currentPage = 1 }) => {
     current_page,
     totalItems,
     per_page,
-    isLoading,
   };
 };
