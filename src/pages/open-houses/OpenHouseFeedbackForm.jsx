@@ -60,11 +60,7 @@ const OpenHouseFeedbackForm = () => {
     <>
       <div className="flex items-center gap-4 justify-between">
         <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5">
-          <Link
-            to={`${
-              location.state?.from || '/my-systems/open-house/open-house-form'
-            }`}
-          >
+          <Link to={`${location.state?.from || '/my-systems/open-house'}`}>
             <ArrowLeftSvg />
           </Link>
           <h2 className="section-title">Open House Feedback Form</h2>

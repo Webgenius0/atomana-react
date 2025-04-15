@@ -38,10 +38,11 @@ import MyTeam from '@/pages/MyTeam';
 import NewContract from '@/pages/NewContract';
 import NewListing from '@/pages/NewListing';
 import NewListingInformationForm from '@/pages/NewListingInformationForm';
-import OpenHouseFeedbackForm from '@/pages/OpenHouseFeedbackForm';
+import OpenHouseFeedbackForm from '@/pages/open-houses/OpenHouseFeedbackForm';
+import OpenHouseList from '@/pages/open-houses/OpenHouseList';
+import OpenHouseRequestForm from '@/pages/open-houses/OpenHouseRequestForm';
+import OpenHouses from '@/pages/open-houses/OpenHouses';
 import OpenHouseFormDetails from '@/pages/OpenHouseFormDetails';
-import OpenHouseRequestForm from '@/pages/OpenHouseRequestForm';
-import OpenHouses from '@/pages/OpenHouses';
 import AccountInformation from '@/pages/profile/AccountInformation';
 import AddTeamMember from '@/pages/profile/AddTeamMember';
 import BusinessInformation from '@/pages/profile/BusinessInformation';
@@ -103,6 +104,14 @@ const router = createBrowserRouter([
             element: (
               <PageTitle title="Open House">
                 <OpenHouses />
+              </PageTitle>
+            ),
+          },
+          {
+            path: 'open-house/open-house-list',
+            element: (
+              <PageTitle title="Open House List">
+                <OpenHouseList />
               </PageTitle>
             ),
           },

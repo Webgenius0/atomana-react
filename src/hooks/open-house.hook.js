@@ -128,3 +128,38 @@ export const useOpenHouseFeedbackDropdown = () => {
   const propertyid = result?.data?.data;
   return { ...result, propertyid, isLoading: result.isLoading };
 };
+
+export const useGetOpenHouses = ({ perPage = 10, currentPage = 1 }) => {
+  const axiosPrivate = useAxiosSecure();
+
+  const result = useQuery({
+    queryKey: ['open-houses', perPage, currentPage],
+    queryFn: async () => {
+      const response = await axiosPrivate.get(`/api/v1/property`, {
+        params: { per_page: perPage, page: currentPage },
+      });
+      return response.data;
+    },
+  });
+
+  const openHouses = result?.data?.data?.data?.map((item) => ({
+    ...item,
+    path: `/my-systems/open-house/${item.id}`,
+  }));
+
+  console.log(openHouses);
+
+  const isLoading = false;
+  const current_page = result?.data?.data?.current_page;
+  const totalItems = result?.data?.data?.total || 50;
+  const per_page = result?.data?.data?.per_page;
+
+  return {
+    ...result,
+    openHouses,
+    current_page,
+    totalItems,
+    per_page,
+    isLoading,
+  };
+};
