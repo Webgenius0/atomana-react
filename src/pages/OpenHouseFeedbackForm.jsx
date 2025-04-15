@@ -6,20 +6,12 @@ import {
   useOpenHouseFeedback,
   useOpenHouseFeedbackDropdown,
 } from '@/hooks/open-house.hook';
-import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { Controller, FormProvider } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useLocation } from 'react-router-dom';
 
 const OpenHouseFeedbackForm = () => {
-  const form = useForm({
-    defaultValues: {
-      open_house_id: '',
-      people_count: '',
-      feedback: '',
-      additional_feedback: '',
-    },
-  });
-
+  const { mutate, isPending, form } = useOpenHouseFeedback();
   const {
     register,
     handleSubmit,
@@ -30,7 +22,6 @@ const OpenHouseFeedbackForm = () => {
   } = form;
 
   const location = useLocation();
-  const { mutate, isPending } = useOpenHouseFeedback();
   const { data: openHouse, isLoading: propertiesLoading } =
     useOpenHouseFeedbackDropdown();
 
@@ -49,11 +40,13 @@ const OpenHouseFeedbackForm = () => {
 
     mutate(formData, {
       onSuccess: () => {
-        toast.success(data?.message || "Feedback Submitted Successfully")
+        toast.success(data?.message || 'Feedback Submitted Successfully');
         reset();
       },
       onError: (error) => {
-       toast.error(error?.response?.data?.message || 'Failed to Form Submission');
+        toast.error(
+          error?.response?.data?.message || 'Failed to Form Submission'
+        );
       },
     });
   };

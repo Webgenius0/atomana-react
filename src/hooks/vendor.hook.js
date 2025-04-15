@@ -98,6 +98,7 @@ export const useCreateVendor = () => {
   const axiosPrivate = useAxiosSecure();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const form = useForm();
 
   const result = useMutation({
     mutationFn: async (payload) => {
@@ -111,11 +112,20 @@ export const useCreateVendor = () => {
       }
     },
     onError: (error) => {
-      alert(error?.response?.data?.message);
+      const response = errorResponse(error, (fields) => {
+        Object.entries(fields).forEach(([field, messages]) => {
+          form.setError(field, {
+            message: messages?.[0],
+          });
+        });
+      });
+      if (response) {
+        toast.error(response);
+      }
     },
   });
 
-  return result;
+  return { ...result, form };
 };
 
 export const useGetVendorCategoryDetails = (slug) => {
@@ -193,6 +203,18 @@ export const useCreateVendorReview = (slug) => {
         queryClient.invalidateQueries(['vendor', slug]);
         form.reset();
         setOpen(false);
+      }
+    },
+    onError: (error) => {
+      const response = errorResponse(error, (fields) => {
+        Object.entries(fields).forEach(([field, messages]) => {
+          form.setError(field, {
+            message: messages?.[0],
+          });
+        });
+      });
+      if (response) {
+        toast.error(response);
       }
     },
   });

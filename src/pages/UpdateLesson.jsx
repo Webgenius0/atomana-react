@@ -22,7 +22,6 @@ function UpdateLesson() {
       setValue('description', dataFind.description);
       setImage(dataFind.image || null);
       setVideo(dataFind.video || null);
-    } else {
     }
   }, [id, lessonData, setValue]);
 
@@ -126,7 +125,7 @@ function UpdateLesson() {
                 {video && (
                   <img
                     src={video}
-                    controls
+                    // controls
                     className="w-full h-full mt-2 rounded-lg"
                   />
                 )}

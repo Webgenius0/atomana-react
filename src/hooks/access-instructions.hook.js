@@ -1,3 +1,4 @@
+import errorResponse from '@/lib/errorResponse';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -64,10 +65,25 @@ export const useGetAccessInstructions = ({ perPage = 10, currentPage = 1 }) => {
 };
 
 export const useStoreAccessInstruction = () => {
-  const form = useForm();
   const axiosPrivate = useAxiosSecure();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+
+  const form = useForm({
+    defaultValues: {
+      property_id: '',
+      property_type_id: '',
+      price: '',
+      size: '',
+      access_key: '',
+      lock_box_location: '',
+      pickup_instructions: '',
+      gate_code: '',
+      gete_access_location: '',
+      visitor_parking: '',
+      note: '',
+    },
+  });
 
   const result = useMutation({
     mutationFn: async (payload) => {
@@ -85,7 +101,16 @@ export const useStoreAccessInstruction = () => {
       }
     },
     onError: (error) => {
-      toast.error(error?.response?.data?.error);
+      const response = errorResponse(error, (fields) => {
+        Object.entries(fields).forEach(([field, messages]) => {
+          form.setError(field, {
+            message: messages?.[0],
+          });
+        });
+      });
+      if (response) {
+        toast.error(response);
+      }
     },
   });
 

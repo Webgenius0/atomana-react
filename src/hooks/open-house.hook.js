@@ -1,8 +1,21 @@
+import errorResponse from '@/lib/errorResponse';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { useAxiosSecure } from './useAxios';
 
 export const useOpenHouse = () => {
   const axiosPrivate = useAxiosSecure();
+  const form = useForm({
+    defaultValues: {
+      property_id: '',
+      wavy_man: '1',
+      date: '',
+      start_time: '',
+      end_time: '',
+      sign_number: '',
+    },
+  });
 
   const result = useMutation({
     mutationFn: async (payload) => {
@@ -16,15 +29,32 @@ export const useOpenHouse = () => {
       console.log(data);
     },
     onError: (error) => {
-      alert(error?.response?.data?.message);
+      const response = errorResponse(error, (fields) => {
+        Object.entries(fields).forEach(([field, messages]) => {
+          form.setError(field, {
+            message: messages?.[0],
+          });
+        });
+      });
+      if (response) {
+        toast.error(response);
+      }
     },
   });
 
-  return result;
+  return { ...result, form };
 };
 
 export const useOpenHouseFeedback = () => {
   const axiosPrivate = useAxiosSecure();
+  const form = useForm({
+    defaultValues: {
+      open_house_id: '',
+      people_count: '',
+      feedback: '',
+      additional_feedback: '',
+    },
+  });
 
   const result = useMutation({
     mutationFn: async (payload) => {
@@ -38,11 +68,20 @@ export const useOpenHouseFeedback = () => {
       console.log(data);
     },
     onError: (error) => {
-      alert(error?.response?.data?.message);
+      const response = errorResponse(error, (fields) => {
+        Object.entries(fields).forEach(([field, messages]) => {
+          form.setError(field, {
+            message: messages?.[0],
+          });
+        });
+      });
+      if (response) {
+        toast.error(response);
+      }
     },
   });
 
-  return result;
+  return { ...result, form };
 };
 
 export const usePropertyDropdown = () => {

@@ -6,21 +6,12 @@ import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
 import TimeRangePicker from '@/components/TimeRangePicker';
 import { Select } from '@/components/ui/select';
 import { useOpenHouse, usePropertyDropdown } from '@/hooks/open-house.hook';
-import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { Controller, FormProvider } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useLocation } from 'react-router-dom';
 
 export default function OpenHouseRequestForm() {
-  const form = useForm({
-    defaultValues: {
-      property_id: '',
-      wavy_man: '1',
-      date: '',
-      start_time: '',
-      end_time: '',
-      sign_number: '',
-    },
-  });
+  const { mutate: storeOpenHouse, isPending, form } = useOpenHouse();
 
   const {
     register,
@@ -31,8 +22,6 @@ export default function OpenHouseRequestForm() {
   } = form;
 
   const location = useLocation();
-
-  const { mutate: storeOpenHouse, isPending } = useOpenHouse();
 
   const { data: properties, isLoading: isPropertiesLoading } =
     usePropertyDropdown();

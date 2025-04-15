@@ -3,15 +3,14 @@ import DropdownIconSvg from '@/components/svgs/DropdownIconSvg';
 import FileSvg from '@/components/svgs/FileSvg';
 import { useCreateVendor, useGetVendorCategories } from '@/hooks/vendor.hook';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 function AddVendor() {
-  const { register, handleSubmit, reset } = useForm();
   const [fileName, setFileName] = useState('Vendor_Logo.png');
   const [isOpen, setIsOpen] = useState(false);
   const { categories, isLoading } = useGetVendorCategories();
-  const { mutate, isLoading: isSubmitting } = useCreateVendor();
+  const { mutate, isLoading: isSubmitting, form } = useCreateVendor();
+  const { register, handleSubmit, reset } = form;
 
   const onSubmit = (data) => {
     const payload = {

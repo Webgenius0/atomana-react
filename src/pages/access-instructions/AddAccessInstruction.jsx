@@ -8,25 +8,15 @@ import {
   usePropertyDropdown,
   usePropertyTypeDropdown,
 } from '@/hooks/open-house.hook';
-import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { Controller, FormProvider } from 'react-hook-form';
 import { Link, useLocation } from 'react-router-dom';
 
 export default function AddAccessInstruction() {
-  const form = useForm({
-    defaultValues: {
-      property_id: '',
-      property_type_id: '',
-      price: '',
-      size: '',
-      access_key: '',
-      lock_box_location: '',
-      pickup_instructions: '',
-      gate_code: '',
-      gete_access_location: '',
-      visitor_parking: '',
-      note: '',
-    },
-  });
+  const {
+    mutate: storeAccessInstruction,
+    isPending,
+    form,
+  } = useStoreAccessInstruction();
 
   const {
     register,
@@ -37,9 +27,6 @@ export default function AddAccessInstruction() {
   } = form;
 
   const location = useLocation();
-
-  const { mutate: storeAccessInstruction, isPending } =
-    useStoreAccessInstruction();
 
   const { properties, isLoading: isPropertiesLoading } = usePropertyDropdown();
   const { propertyTypes, isLoading: isPropertyTypeLoading } =
