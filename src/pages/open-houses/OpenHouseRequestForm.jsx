@@ -5,7 +5,8 @@ import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
 import TimeRangePicker from '@/components/TimeRangePicker';
 import { Select } from '@/components/ui/select';
-import { useOpenHouse, usePropertyDropdown } from '@/hooks/open-house.hook';
+import { useOpenHouse } from '@/hooks/open-house.hook';
+import { useGetProperties } from '@/hooks/property.hook';
 import { Controller, FormProvider } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useLocation } from 'react-router-dom';
@@ -24,7 +25,7 @@ export default function OpenHouseRequestForm() {
   const location = useLocation();
 
   const { data: properties, isLoading: isPropertiesLoading } =
-    usePropertyDropdown();
+    useGetProperties();
 
   const propertyOptions = properties?.data?.map((item) => ({
     value: item.address,

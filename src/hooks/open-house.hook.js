@@ -135,7 +135,7 @@ export const useGetOpenHouses = ({ perPage = 10, currentPage = 1 }) => {
   const result = useQuery({
     queryKey: ['open-houses', perPage, currentPage],
     queryFn: async () => {
-      const response = await axiosPrivate.get(`/api/v1/property`, {
+      const response = await axiosPrivate.get(`/api/v1/open-house`, {
         params: { per_page: perPage, page: currentPage },
       });
       return response.data;
