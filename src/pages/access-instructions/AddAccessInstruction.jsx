@@ -3,25 +3,28 @@ import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
 import { Select } from '@/components/ui/select';
-import { useOpenHouse, usePropertyDropdown } from '@/hooks/open-house.hook';
+import { useStoreAccessInstruction } from '@/hooks/access-instructions.hook';
+import {
+  usePropertyDropdown,
+  usePropertyTypeDropdown,
+} from '@/hooks/open-house.hook';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
 import { Link, useLocation } from 'react-router-dom';
 
 export default function AddAccessInstruction() {
   const form = useForm({
     defaultValues: {
       property_id: '',
-      property_type: '',
+      property_type_id: '',
       price: '',
       size: '',
-      key_access_code: '',
-      lockbox_location: '',
-      key_pickup_instructions: '',
+      access_key: '',
+      lock_box_location: '',
+      pickup_instructions: '',
       gate_code: '',
-      gate_access_location: '',
+      gete_access_location: '',
       visitor_parking: '',
-      notes: '',
+      note: '',
     },
   });
 
@@ -35,27 +38,22 @@ export default function AddAccessInstruction() {
 
   const location = useLocation();
 
-  const { mutate: storeOpenHouse, isPending } = useOpenHouse();
+  const { mutate: storeAccessInstruction, isPending } =
+    useStoreAccessInstruction();
 
-  const { data: properties, isLoading: isPropertiesLoading } =
-    usePropertyDropdown();
+  const { properties, isLoading: isPropertiesLoading } = usePropertyDropdown();
+  const { propertyTypes, isLoading: isPropertyTypeLoading } =
+    usePropertyTypeDropdown();
 
-  const propertyOptions = properties?.data?.map((item) => ({
+  const propertyOptions = properties?.map((item) => ({
     value: item.address,
     label: item.address,
   }));
 
-  const onSubmit = (data) => {
-    storeOpenHouse(data, {
-      onSuccess: () => {
-        toast.success(data?.message || 'Form Submitted Successfully');
-        reset();
-
-        // Optional: Navigate after resetting
-        // navigate(`/my-systems/open-house/open-house-form-details`);
-      },
-    });
-  };
+  const propertyTypeOptions = propertyTypes?.map((item) => ({
+    value: item.name,
+    label: item.name,
+  }));
 
   return (
     <>
@@ -83,7 +81,7 @@ export default function AddAccessInstruction() {
       <div className="max-w-[670px] w-full mx-auto mt-4 mb-8">
         <FormProvider {...form}>
           <form
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={handleSubmit(storeAccessInstruction)}
             className="max-w-[670px] mx-start flex flex-col gap-[15px]"
           >
             <h2 className="section-title">Property Details</h2>
@@ -101,15 +99,12 @@ export default function AddAccessInstruction() {
                     <Select
                       className="!px-4 !py-6 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                       value={
-                        properties?.data?.find(
-                          (item) => item.id === field.value
-                        )?.address
+                        properties?.find((item) => item.id === field.value)
+                          ?.address
                       }
                       setValue={(value) =>
                         field.onChange(
-                          properties?.data?.find(
-                            (item) => item.address === value
-                          )?.id
+                          properties?.find((item) => item.address === value)?.id
                         )
                       }
                       disabled={isPropertiesLoading}
@@ -131,14 +126,32 @@ export default function AddAccessInstruction() {
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                 Property Type
               </label>
-              <input
-                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                placeholder="Enter Property Type"
-                {...register('property_type')}
+              <Controller
+                name="property_type_id"
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <Select
+                      className="!px-4 !py-6 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+                      value={
+                        propertyTypes?.find((item) => item.id === field.value)
+                          ?.name
+                      }
+                      setValue={(value) =>
+                        field.onChange(
+                          propertyTypes?.find((item) => item.name === value)?.id
+                        )
+                      }
+                      disabled={isPropertyTypeLoading}
+                      options={propertyTypeOptions}
+                      placeholder="Select Property Type"
+                    />
+                  );
+                }}
               />
-              {errors?.property_type?.message && (
+              {errors?.property_type_id?.message && (
                 <p className="text-red-500 mt-2">
-                  {errors?.property_type?.message}
+                  {errors?.property_type_id?.message}
                 </p>
               )}
             </div>
@@ -182,11 +195,11 @@ export default function AddAccessInstruction() {
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="Enter Key Access Code"
-                {...register('key_access_code')}
+                {...register('access_key')}
               />
-              {errors?.key_access_code?.message && (
+              {errors?.access_key?.message && (
                 <p className="text-red-500 mt-2">
-                  {errors?.key_access_code?.message}
+                  {errors?.access_key?.message}
                 </p>
               )}
             </div>
@@ -198,11 +211,11 @@ export default function AddAccessInstruction() {
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="Enter Lockbox Location"
-                {...register('lockbox_location')}
+                {...register('lock_box_location')}
               />
-              {errors?.lockbox_location?.message && (
+              {errors?.lock_box_location?.message && (
                 <p className="text-red-500 mt-2">
-                  {errors?.lockbox_location?.message}
+                  {errors?.lock_box_location?.message}
                 </p>
               )}
             </div>
@@ -214,11 +227,11 @@ export default function AddAccessInstruction() {
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="Enter Key Pickup Instructions"
-                {...register('key_pickup_instructions')}
+                {...register('pickup_instructions')}
               />
-              {errors?.key_pickup_instructions?.message && (
+              {errors?.pickup_instructions?.message && (
                 <p className="text-red-500 mt-2">
-                  {errors?.key_pickup_instructions?.message}
+                  {errors?.pickup_instructions?.message}
                 </p>
               )}
             </div>
@@ -248,11 +261,11 @@ export default function AddAccessInstruction() {
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="Enter Gate Access Location"
-                {...register('gate_access_location')}
+                {...register('gete_access_location')}
               />
-              {errors?.gate_access_location?.message && (
+              {errors?.gete_access_location?.message && (
                 <p className="text-red-500 mt-2">
-                  {errors?.gate_access_location?.message}
+                  {errors?.gete_access_location?.message}
                 </p>
               )}
             </div>
@@ -277,7 +290,7 @@ export default function AddAccessInstruction() {
 
             {/* Additional Notes */}
             <h2 className="section-title mt-4">Additional Notes</h2>
-            <FormTextEditor name="notes" label="Notes" />
+            <FormTextEditor name="note" label="Notes" />
 
             {/* Actions */}
             <div className="flex sm:flex-row flex-col items-center gap-4 justify-between mt-4">

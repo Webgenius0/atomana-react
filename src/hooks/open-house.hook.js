@@ -49,15 +49,30 @@ export const usePropertyDropdown = () => {
   const axiosPrivate = useAxiosSecure();
 
   const result = useQuery({
-    queryKey: ['propertyid'],
+    queryKey: ['properties'],
     queryFn: async () => {
       const response = await axiosPrivate.get('/api/v1/property/dropdown');
       return response.data;
     },
   });
 
-  const propertyid = result?.data?.data;
-  return { ...result, propertyid, isLoading: result.isLoading };
+  const properties = result?.data?.data;
+  return { ...result, properties };
+};
+
+export const usePropertyTypeDropdown = () => {
+  const axiosPrivate = useAxiosSecure();
+
+  const result = useQuery({
+    queryKey: ['property_types'],
+    queryFn: async () => {
+      const response = await axiosPrivate.get('/api/v1/property/type');
+      return response.data;
+    },
+  });
+
+  const propertyTypes = result?.data?.data;
+  return { ...result, propertyTypes };
 };
 
 export const useOpenHouseFeedbackDropdown = () => {

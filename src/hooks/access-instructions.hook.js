@@ -1,30 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { useAxiosSecure } from './useAxios';
-
-const accessInstructionData = [
-  {
-    id: 1,
-    address: '1234 Maple Street, San Francisco, CA 94117',
-    property_type: 'Apartment',
-    price: 1200000,
-    size: 1500,
-    key_access_code: '1234 Maple Street, San Francisco, CA 94117',
-    lockbox_location: 'Lockbox is located on the front door handle.',
-    key_pickup_instructions:
-      'Keys can also be picked up from the listing office at 456 Realty Lane, Suite 101, between 9 AM - 5 PM.',
-    gate_code: '1234 Maple Street, San Francisco, CA 94117',
-    gate_access_location:
-      'Main gate entrance on Oakwood Drive. Use the keypad located on the left side of the gate.',
-    visitor_parking:
-      'Designated visitor parking spots are available to the right of the main entrance.',
-    notes: `<ul>
-        <li>Designated visitor parking spots are available to the right of the main entrance.</li>
-        <li>Designated visitor parking spots are available to the right of the main entrance.</li>
-      </ul>`,
-  },
-];
 
 export const useGetSingleAccessInstruction = (id) => {
   const axiosPrivate = useAxiosSecure();
@@ -65,9 +43,7 @@ export const useGetAccessInstructions = ({ perPage = 10, currentPage = 1 }) => {
     },
   });
 
-  //   const accessInstructions = result?.data?.data?.data || accessInstructionData;
-
-  const accessInstructions = accessInstructionData?.map((item) => ({
+  const accessInstructions = result?.data?.data?.data?.map((item) => ({
     ...item,
     path: `/my-systems/team/access-instructions/${item.id}`,
   }));
@@ -91,11 +67,12 @@ export const useStoreAccessInstruction = () => {
   const form = useForm();
   const axiosPrivate = useAxiosSecure();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const result = useMutation({
     mutationFn: async (payload) => {
       const response = await axiosPrivate.post(
-        `/api/v1/access-instructions`,
+        `/api/v1/property/access-instruction`,
         payload
       );
       return response.data;
@@ -104,10 +81,11 @@ export const useStoreAccessInstruction = () => {
       if (data?.success) {
         queryClient.invalidateQueries(['access-instructions']);
         toast.success(data?.message);
+        navigate('/my-systems/team/access-instructions');
       }
     },
     onError: (error) => {
-      toast.error(error?.response?.data?.message);
+      toast.error(error?.response?.data?.error);
     },
   });
 
