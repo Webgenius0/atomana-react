@@ -12,6 +12,7 @@ export default function UserCell({ getValue, row, column }) {
   const rowId = row?.original?.id;
   const columnId = column?.id;
   const value = getValue();
+  const displayedValue = row.original.owner;
 
   const [editableCell, setEditableCell] = useDataTable();
   const { agents, isLoading } = useGetAgents();
@@ -103,7 +104,7 @@ export default function UserCell({ getValue, row, column }) {
       onClick={() => setEditableCell(null)}
       onDoubleClick={() => setEditableCell(`${columnId}-${rowId}`)}
     >
-      {value || '-'}
+      {displayedValue || '-'}
 
       <button
         className="hidden group-hover:flex absolute top-1/2 right-2 -translate-y-1/2 text-white/60 hover:text-white"
