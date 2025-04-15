@@ -1,18 +1,17 @@
-import { useQuery } from "@tanstack/react-query";
-import { useAxios, useAxiosSecure } from "@/hooks/useAxios";
+import { useAxiosSecure } from '@/hooks/useAxios';
+import { useQuery } from '@tanstack/react-query';
 
 export const useGetViewListingInformation = (id) => {
-  const axios = useAxios();
   const axiosPrivate = useAxiosSecure();
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["propertyDetails", id],
+    queryKey: ['listing-information', id],
     queryFn: async () => {
       const response = await axiosPrivate.get(`/api/v1/property/show/${id}`);
-      return response.data?.data;
+      return response.data;
     },
     enabled: !!id,
     staleTime: 5 * 60 * 1000,
   });
 
-  return { accessInstruction: data, isLoading, isError, error };
+  return { listingInformation: data?.data, isLoading, isError, error };
 };

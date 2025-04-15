@@ -1,21 +1,16 @@
-import AccessInstructionSkeleton from "@/components/access-instruction/AccessInstructionSkeleton";
-import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
-import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
-import { useGetViewListingInformation } from "@/hooks/useGetViewListingInformation";
+import AccessInstructionSkeleton from '@/components/access-instruction/AccessInstructionSkeleton';
+import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
+import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
+import { useGetViewListingInformation } from '@/hooks/useGetViewListingInformation';
 
-import { formatCurrency } from "@/lib/utils/formatCurrency";
-import DOMPurify from "dompurify";
-import { Link, useParams } from "react-router-dom";
+import { formatCurrency } from '@/lib/utils/formatCurrency';
+import DOMPurify from 'dompurify';
+import { Link, useParams } from 'react-router-dom';
 
 const ViewListingInformation = () => {
   const { id } = useParams();
 
-  const { accessInstruction, isLoading } = useGetViewListingInformation(id);
-  console.log(accessInstruction);
-
-  const notes = accessInstruction?.notes
-    ? DOMPurify.sanitize(accessInstruction?.notes)
-    : "";
+  const { listingInformation, isLoading } = useGetViewListingInformation(id);
 
   if (isLoading) {
     return <AccessInstructionSkeleton />;
@@ -34,7 +29,7 @@ const ViewListingInformation = () => {
           <div>
             <h2 className="section-title">Listing Information</h2>
             <p className="text-sm text-[#009696] leading-[21px] tracking-[-0.14px]">
-              {accessInstruction?.address || "N/A"}
+              {listingInformation?.address || 'N/A'}
             </p>
           </div>
         </div>
@@ -49,30 +44,30 @@ const ViewListingInformation = () => {
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold text-sm text-[#ffffffcc]">SKU</p>
             <p className="text-sm text-[#009696]">
-              {accessInstruction?.sku || "N/A"}
+              {listingInformation?.sku || 'N/A'}
             </p>
           </div>
 
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold text-sm text-[#ffffffcc]">Email</p>
             <p className="text-sm text-[#009696]">
-              {accessInstruction?.email || "N/A"}
+              {listingInformation?.email || 'N/A'}
             </p>
           </div>
 
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold text-sm text-[#ffffffcc]">Address</p>
             <p className="text-sm text-[#009696]">
-              {accessInstruction?.address || "N/A"}
+              {listingInformation?.address || 'N/A'}
             </p>
           </div>
 
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold text-sm text-[#ffffffcc]">Price</p>
             <p className="text-sm text-[#009696]">
-              {accessInstruction?.price
-                ? formatCurrency(accessInstruction.price)
-                : "N/A"}
+              {listingInformation?.price
+                ? formatCurrency(listingInformation.price)
+                : 'N/A'}
             </p>
           </div>
 
@@ -81,7 +76,7 @@ const ViewListingInformation = () => {
               Expiration Date
             </p>
             <p className="text-sm text-[#009696]">
-              {accessInstruction?.expiration_date || "N/A"}
+              {listingInformation?.expiration_date || 'N/A'}
             </p>
           </div>
           {/* <p className="text-sm text-[#009696]">
@@ -101,9 +96,9 @@ const ViewListingInformation = () => {
               Commission Rate
             </p>
             <p className="text-sm text-[#009696]">
-              {accessInstruction?.commission_rate
-                ? `${accessInstruction.commission_rate}%`
-                : "N/A"}
+              {listingInformation?.commission_rate
+                ? `${listingInformation.commission_rate}%`
+                : 'N/A'}
             </p>
           </div>
 
@@ -112,9 +107,9 @@ const ViewListingInformation = () => {
               Co List Percentage
             </p>
             <p className="text-sm text-[#009696]">
-              {accessInstruction?.co_list_percentage
-                ? `${accessInstruction.co_list_percentage}%`
-                : "N/A"}
+              {listingInformation?.co_list_percentage
+                ? `${listingInformation.co_list_percentage}%`
+                : 'N/A'}
             </p>
           </div>
 
@@ -123,7 +118,7 @@ const ViewListingInformation = () => {
               Property Source ID
             </p>
             <p className="text-sm text-[#009696]">
-              {accessInstruction?.property_source_id || "N/A"}
+              {listingInformation?.property_source_id || 'N/A'}
             </p>
           </div>
 
@@ -132,74 +127,74 @@ const ViewListingInformation = () => {
               Is Development?
             </p>
             <p className="text-sm text-[#009696]">
-              {accessInstruction?.is_development ? "Yes" : "No"}
+              {listingInformation?.is_development ? 'Yes' : 'No'}
             </p>
           </div>
 
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold text-sm text-[#ffffffcc]">Add to Website</p>
             <p className="text-sm text-[#009696]">
-              {accessInstruction?.add_to_website ? "Yes" : "No"}
+              {listingInformation?.add_to_website ? 'Yes' : 'No'}
             </p>
           </div>
 
           <div className="space-y-[2px] border-b border-secondPrimary py-4 col-span-full">
             <p className="font-bold text-sm text-[#ffffffcc]">Agent</p>
             <p className="text-sm text-[#009696]">
-              {accessInstruction?.agent
-                ? `${accessInstruction.agent.first_name} ${accessInstruction.agent.last_name}`
-                : "N/A"}
+              {listingInformation?.agent
+                ? `${listingInformation.agent.first_name} ${listingInformation.agent.last_name}`
+                : 'N/A'}
             </p>
           </div>
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold text-sm text-[#ffffffcc]">Beds</p>
             <p className="text-sm text-[#009696]">
-              {accessInstruction?.beds ?? "N/A"}
+              {listingInformation?.beds ?? 'N/A'}
             </p>
           </div>
 
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold text-sm text-[#ffffffcc]">Full Baths</p>
             <p className="text-sm text-[#009696]">
-              {accessInstruction?.full_baths ?? "N/A"}
+              {listingInformation?.full_baths ?? 'N/A'}
             </p>
           </div>
 
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold text-sm text-[#ffffffcc]">Half Baths</p>
             <p className="text-sm text-[#009696]">
-              {accessInstruction?.half_baths ?? "N/A"}
+              {listingInformation?.half_baths ?? 'N/A'}
             </p>
           </div>
 
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold text-sm text-[#ffffffcc]">Size</p>
             <p className="text-sm text-[#009696]">
-              {accessInstruction?.size ?? "N/A"}
+              {listingInformation?.size ?? 'N/A'}
             </p>
           </div>
 
           <div className="space-y-[2px] border-b border-secondPrimary py-4 col-span-full">
             <p className="font-bold text-sm text-[#ffffffcc]">External Link</p>
             <p className="text-sm text-[#009696] break-all">
-              {accessInstruction?.link ? (
+              {listingInformation?.link ? (
                 <a
-                  href={accessInstruction.link}
+                  href={listingInformation.link}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[#009696] underline"
                 >
-                  {accessInstruction.link}
+                  {listingInformation.link}
                 </a>
               ) : (
-                "N/A"
+                'N/A'
               )}
             </p>
           </div>
         </div>
       </div>
 
-      {accessInstruction?.note && (
+      {listingInformation?.note && (
         <div className="mt-6">
           <h2 className="section-title">Additional Notes</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
@@ -208,7 +203,7 @@ const ViewListingInformation = () => {
               <div
                 className="rich-text"
                 dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(accessInstruction.note),
+                  __html: DOMPurify.sanitize(listingInformation.note),
                 }}
               />
             </div>

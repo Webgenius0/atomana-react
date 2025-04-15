@@ -5,20 +5,19 @@ import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
 import { useEditPassword, useGetSinglePassword } from '@/hooks/docs.hook';
 import { useEffect } from 'react';
 import { FormProvider } from 'react-hook-form';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function EditPassword() {
   const { slug } = useParams();
-  const location = useLocation();
   const navigate = useNavigate();
   const { passwordDetails } = useGetSinglePassword(slug);
   const { mutate: editPassword, isPending, form } = useEditPassword(slug);
 
   const onSubmit = (data) => {
-    editPassword(data,{
-        onSuccess: ()=>{
-            navigate(`/my-systems/team/docs/password-list/${slug}`);
-        }
+    editPassword(data, {
+      onSuccess: () => {
+        navigate(`/my-systems/team/docs/password-list/${slug}`);
+      },
     });
   };
 
