@@ -9,93 +9,19 @@ import {
   useSourceDropdown,
   useStoreProperty,
 } from '@/hooks/property.hook';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { format } from 'date-fns';
 import { useEffect } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useLocation } from 'react-router-dom';
-import { z } from 'zod';
-
-const formSchema = z.object({
-  email: z
-    .string()
-    .min(1, 'Email is required')
-    .email({ message: 'Invalid Email' }),
-  address: z.string().min(1, 'Address is required'),
-  price: z
-    .string()
-    .min(1, 'Price is required')
-    .refine((value) => !isNaN(Number(value)), { message: 'Invalid Price' }),
-  expiration_date: z.preprocess((value) => {
-    if (!value) return null;
-    try {
-      const date = new Date(value);
-      return isNaN(date.getTime()) ? null : format(date, 'yyyy-MM-dd');
-    } catch {
-      return null;
-    }
-  }, z.string({ required_error: 'Expiration date is required' })),
-  is_development: z.enum(['1', '0'], {
-    // Changed from 'development' to match form
-    required_error: 'This field is required',
-  }),
-  add_to_website: z.enum(['1', '0'], {
-    required_error: 'This field is required',
-  }),
-  commission_rate: z.preprocess(
-    (val) => {
-      if (val === '') return undefined;
-      const num = parseFloat(val);
-      return isNaN(num) ? val : num;
-    },
-    z
-      .number({
-        required_error: 'Commission rate is required',
-        invalid_type_error: 'Must be a valid number',
-      })
-      .min(0, 'Must be positive')
-      .max(100, 'Cannot exceed 100%')
-  ),
-  is_co_listing: z.enum(['1', '0'], {
-    required_error: 'Co-listing is required',
-  }),
-  co_agent: z.preprocess((val) => {
-    if (val === '') return undefined;
-    return Number(val);
-  }, z.number().optional()),
-  co_list_percentage: z.preprocess(
-    (val) => {
-      if (val === '') return undefined;
-      const num = parseFloat(val);
-      return isNaN(num) ? val : num;
-    },
-    z
-      .number({
-        required_error: 'Co-listing percentage is required',
-        invalid_type_error: 'Must be a valid number',
-      })
-      .min(0, 'Must be positive')
-      .max(100, 'Cannot exceed 100%')
-  ),
-  property_source_id: z.preprocess(
-    (val) => {
-      if (val === '') return undefined;
-      return Number(val);
-    },
-    z.number({
-      required_error: 'Property Source is required',
-    })
-  ),
-  beds: z.string().min(1, 'Beds is required'),
-  full_baths: z.string().min(1, 'Full baths is required'),
-  half_baths: z.string().min(1, 'Half baths is required'),
-  size: z.string().min(1, 'Size is required'),
-  link: z.string().min(1, 'Link is required'),
-  note: z.string().min(1, 'Note is required'),
-});
 
 function NewListingInformationForm() {
+  const {
+    mutate: storeProperty,
+    data: storeResponse,
+    isPending,
+    isSuccess,
+    form,
+  } = useStoreProperty();
   const {
     register,
     handleSubmit,
@@ -103,36 +29,11 @@ function NewListingInformationForm() {
     control,
     watch,
     formState: { errors },
-  } = useForm({
-    defaultValues: {
-      email: '',
-      address: '',
-      price: '',
-      expiration_date: '',
-      is_development: '0',
-      commission_rate: '',
-      is_co_listing: '0',
-      co_list_percentage: '',
-      property_source_id: '',
-      beds: '',
-      full_baths: '',
-      half_baths: '',
-      size: '',
-      link: '',
-      note: '',
-    },
-    resolver: zodResolver(formSchema),
-  });
+  } = form;
   const is_development = watch('is_development');
   const is_co_listing = watch('is_co_listing');
   const { coListingAgents, isLoading } = useCoListingDropdown();
   const location = useLocation();
-  const {
-    mutate: storeProperty,
-    data: storeResponse,
-    isPending,
-    isSuccess,
-  } = useStoreProperty();
   const categoryOptions = coListingAgents?.map((item) => ({
     value: `${item.first_name} ${item.last_name}`,
     label: `${item.first_name} ${item.last_name}`,
@@ -150,11 +51,6 @@ function NewListingInformationForm() {
     console.log(data);
     storeProperty(
       { ...data, commission_rate: '1.2', co_list_percentage: '1' },
-      {
-        onSuccess: () => {
-          reset();
-        },
-      }
     );
   };
 
