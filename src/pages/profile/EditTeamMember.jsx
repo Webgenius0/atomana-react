@@ -10,8 +10,8 @@ import { Link, useParams } from 'react-router-dom';
 
 const EditTeamMember = () => {
   const { slug } = useParams();
-
   const { agent } = useGetSingleAgent(slug);
+
   const {
     mutate: editAgent,
     isPending: isAgentEditPending,
