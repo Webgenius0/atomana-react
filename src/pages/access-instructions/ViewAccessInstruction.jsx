@@ -11,8 +11,8 @@ const ViewAccessInstruction = () => {
 
   const { accessInstruction, isLoading } = useGetSingleAccessInstruction(id);
 
-  const notes = accessInstruction?.notes
-    ? DOMPurify.sanitize(accessInstruction?.notes)
+  const note = accessInstruction?.note
+    ? DOMPurify.sanitize(accessInstruction?.note)
     : '';
 
   if (isLoading) {
@@ -60,7 +60,7 @@ const ViewAccessInstruction = () => {
               Property Type
             </p>
             <p className="text-sm font-normal leading-5 text-[#009696]">
-              {accessInstruction?.property_type || 'N/A'}
+              {accessInstruction?.property_type_name || 'N/A'}
             </p>
           </div>
 
@@ -98,7 +98,7 @@ const ViewAccessInstruction = () => {
               Key Access Code
             </p>
             <p className="text-sm font-normal leading-5 text-[#ffffffcc]">
-              {accessInstruction?.key_access_code || 'N/A'}
+              {accessInstruction?.access_key || 'N/A'}
             </p>
           </div>
 
@@ -108,7 +108,7 @@ const ViewAccessInstruction = () => {
               Lockbox Location
             </p>
             <p className="text-sm font-normal leading-5 text-[#ffffffcc]">
-              {accessInstruction?.lockbox_location || 'N/A'}
+              {accessInstruction?.lock_box_location || 'N/A'}
             </p>
           </div>
 
@@ -118,7 +118,7 @@ const ViewAccessInstruction = () => {
               Key Pickup Instructions (if applicable):
             </p>
             <p className="text-sm font-normal leading-5 text-[#ffffffcc]">
-              {accessInstruction?.key_pickup_instructions || 'N/A'}
+              {accessInstruction?.pickup_instructions || 'N/A'}
             </p>
           </div>
         </div>
@@ -143,7 +143,7 @@ const ViewAccessInstruction = () => {
               Gate Access Location
             </p>
             <p className="text-sm font-normal leading-5 text-[#ffffffcc]">
-              {accessInstruction?.gate_access_location || 'N/A'}
+              {accessInstruction?.gete_access_location || 'N/A'}
             </p>
           </div>
         </div>
@@ -162,7 +162,7 @@ const ViewAccessInstruction = () => {
           </div>
         </div>
       </div>
-      {notes && (
+      {note && (
         <div className="mt-[25px]">
           <h2 className="section-title">Additional Notes</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 md:gap-4 md:mt-4">
@@ -173,8 +173,8 @@ const ViewAccessInstruction = () => {
               </p>
 
               <div
-                className="rich-text"
-                dangerouslySetInnerHTML={{ __html: notes }}
+                className="rich-text !text-white"
+                dangerouslySetInnerHTML={{ __html: note }}
               />
             </div>
           </div>

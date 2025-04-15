@@ -93,6 +93,18 @@ export const useCreateNote = () => {
         queryClient.invalidateQueries(['notes']);
       }
     },
+    onError: (error) => {
+      const response = errorResponse(error, (fields) => {
+        Object.entries(fields).forEach(([field, messages]) => {
+          form.setError(field, {
+            message: messages?.[0],
+          });
+        });
+      });
+      if (response) {
+        toast.error(response);
+      }
+    },
   });
 
   return { ...result, form };
@@ -120,7 +132,16 @@ export const useEditNote = (slug) => {
       }
     },
     onError: (error) => {
-      toast.error(error?.response?.data?.message || 'Failed to Update Note');
+      const response = errorResponse(error, (fields) => {
+        Object.entries(fields).forEach(([field, messages]) => {
+          form.setError(field, {
+            message: messages?.[0],
+          });
+        });
+      });
+      if (response) {
+        toast.error(response);
+      }
     },
   });
   return { mutate, isPending, form };
@@ -222,9 +243,16 @@ export const useEditPassword = (slug) => {
       }
     },
     onError: (error) => {
-      toast.error(
-        error?.response?.data?.message || 'Failed to Update Password'
-      );
+      const response = errorResponse(error, (fields) => {
+        Object.entries(fields).forEach(([field, messages]) => {
+          form.setError(field, {
+            message: messages?.[0],
+          });
+        });
+      });
+      if (response) {
+        toast.error(response);
+      }
     },
   });
   return { mutate, isPending, form };

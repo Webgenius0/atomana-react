@@ -28,6 +28,11 @@ export const useGetSystemsData = (type) => {
       title: 'Open House Feedback Form',
     },
     {
+      id: 'A125',
+      type: 'Open Houses',
+      title: 'Open House List',
+    },
+    {
       id: 'B321',
       type: 'Expenses',
       title: 'My Listing Expenses',

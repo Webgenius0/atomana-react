@@ -6,33 +6,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { useEditProfile, useGetProfile } from '@/hooks/profile.hook';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { useCreateVendorCategories } from '@/hooks/vendor.hook';
 import FileSvg from '../svgs/FileSvg';
 import PlusSvg from '../svgs/PlusSvg';
-import { useCreateVendorCategories } from '@/hooks/vendor.hook';
-
-// Define the schema with proper validation
-const vendorListSchema = z.object({
-  name: z
-    .string()
-    .min(1, 'Name is required')
-    .max(100, 'Name must be less than 100 characters'),
-  icon: z
-    .any()
-    .refine((files) => files?.length === 1, 'Image is required')
-    .refine(
-      (files) => files?.[0]?.size <= 5_000_000, // 5MB
-      'Max image size is 5MB'
-    )
-    .refine(
-      (files) =>
-        ['image/jpeg', 'image/png', 'image/webp'].includes(files?.[0]?.type),
-      'Only .jpg, .png, and .webp formats are supported'
-    ),
-});
 
 export default function AddVendorList() {
   const {
@@ -40,6 +16,7 @@ export default function AddVendorList() {
     isPending,
     open,
     setOpen,
+    form,
   } = useCreateVendorCategories();
 
   const {
@@ -47,30 +24,24 @@ export default function AddVendorList() {
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm({
-    resolver: zodResolver(vendorListSchema),
-    defaultValues: {
-      name: '',
-      icon: undefined,
-    },
-  });
+  } = form;
 
   // Handle form submission
-const onSubmit = (data) => {
-  console.log('Form data:', data);
+  const onSubmit = (data) => {
+    console.log('Form data:', data);
 
-  const formData = new FormData();
-  formData.append('name', data.name);
-  formData.append('icon', data.icon[0]); // Make sure this matches your API expectation
+    const formData = new FormData();
+    formData.append('name', data.name);
+    formData.append('icon', data.icon[0]); // Make sure this matches your API expectation
 
-  // Verify FormData content
-  for (const [key, value] of formData.entries()) {
-    console.log(`${key}:`, value);
-  }
+    // Verify FormData content
+    for (const [key, value] of formData.entries()) {
+      console.log(`${key}:`, value);
+    }
 
-  // Send FormData directly, not wrapped in an object
-  createVendorCategories(formData);
-};
+    // Send FormData directly, not wrapped in an object
+    createVendorCategories(formData);
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -93,7 +64,7 @@ const onSubmit = (data) => {
             <input
               type="text"
               id="name"
-              placeholder='Category Name'
+              placeholder="Category Name"
               className="px-4 py-3 outline-none bg-transparent border border-secondPrimary rounded text-sm font-medium leading-5 text-light"
               {...register('name')}
             />

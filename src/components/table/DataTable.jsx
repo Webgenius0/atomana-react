@@ -17,6 +17,7 @@ export default function DataTable({
   showInputs,
   setShowInputs,
   perPage,
+  addButtonText,
 }) {
   const table = useReactTable({
     data,
@@ -171,7 +172,7 @@ export default function DataTable({
                       colSpan="100%"
                       onClick={() => setShowInputs(true)}
                     >
-                      + Add an Expense
+                      + {addButtonText || 'Add New Data'}
                     </td>
                   )}
                 </tr>

@@ -1,9 +1,32 @@
+import errorResponse from '@/lib/errorResponse';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { z } from 'zod';
 import { useAxiosSecure } from './useAxios';
+
+// Define the schema with proper validation
+const vendorListSchema = z.object({
+  name: z
+    .string()
+    .min(1, 'Name is required')
+    .max(100, 'Name must be less than 100 characters'),
+  icon: z
+    .any()
+    .refine((files) => files?.length === 1, 'Image is required')
+    .refine(
+      (files) => files?.[0]?.size <= 5_000_000, // 5MB
+      'Max image size is 5MB'
+    )
+    .refine(
+      (files) =>
+        ['image/jpeg', 'image/png', 'image/webp'].includes(files?.[0]?.type),
+      'Only .jpg, .png, and .webp formats are supported'
+    ),
+});
 
 export const useGetVendorCategories = () => {
   const axiosPrivate = useAxiosSecure();
@@ -26,6 +49,13 @@ export const useCreateVendorCategories = () => {
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
   const axiosPrivate = useAxiosSecure();
+  const form = useForm({
+    resolver: zodResolver(vendorListSchema),
+    defaultValues: {
+      name: '',
+      icon: undefined,
+    },
+  });
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (formData) => {
@@ -48,19 +78,27 @@ export const useCreateVendorCategories = () => {
       }
     },
     onError: (error) => {
-      toast.error(
-        error?.response?.data?.message || 'Failed to Create Category'
-      );
+      const response = errorResponse(error, (fields) => {
+        Object.entries(fields).forEach(([field, messages]) => {
+          form.setError(field, {
+            message: messages?.[0],
+          });
+        });
+      });
+      if (response) {
+        toast.error(response);
+      }
     },
   });
 
-  return { mutate, isPending, open, setOpen };
+  return { mutate, isPending, open, setOpen, form };
 };
 
 export const useCreateVendor = () => {
   const axiosPrivate = useAxiosSecure();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const form = useForm();
 
   const result = useMutation({
     mutationFn: async (payload) => {
@@ -70,15 +108,24 @@ export const useCreateVendor = () => {
     onSuccess: (data) => {
       if (data?.success) {
         queryClient.invalidateQueries(['vendor-list']);
-        navigate('/my-systems/vendor-list/');
+        navigate(-1);
       }
     },
     onError: (error) => {
-      alert(error?.response?.data?.message);
+      const response = errorResponse(error, (fields) => {
+        Object.entries(fields).forEach(([field, messages]) => {
+          form.setError(field, {
+            message: messages?.[0],
+          });
+        });
+      });
+      if (response) {
+        toast.error(response);
+      }
     },
   });
 
-  return result;
+  return { ...result, form };
 };
 
 export const useGetVendorCategoryDetails = (slug) => {
@@ -156,6 +203,18 @@ export const useCreateVendorReview = (slug) => {
         queryClient.invalidateQueries(['vendor', slug]);
         form.reset();
         setOpen(false);
+      }
+    },
+    onError: (error) => {
+      const response = errorResponse(error, (fields) => {
+        Object.entries(fields).forEach(([field, messages]) => {
+          form.setError(field, {
+            message: messages?.[0],
+          });
+        });
+      });
+      if (response) {
+        toast.error(response);
       }
     },
   });

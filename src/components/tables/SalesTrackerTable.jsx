@@ -48,6 +48,7 @@ export default function SalesTrackerTable() {
         showInputs={showInputs}
         setShowInputs={setShowInputs}
         perPage={perPage}
+        addButtonText="Add a Sale"
       />
       <Pagination
         currentPage={currentPage}

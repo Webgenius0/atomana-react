@@ -68,12 +68,9 @@ export const useGetAgentEarnings = ({
   const result = useQuery({
     queryKey: ['agent_earning', perPage, currentPage, name],
     queryFn: async () => {
-      const response = await axiosPrivate.get(
-        `/api/v1/agent-earning/search/search`,
-        {
-          params: { per_page: perPage, page: currentPage, name },
-        }
-      );
+      const response = await axiosPrivate.get(`/api/v1/agent-earning/search`, {
+        params: { per_page: perPage, page: currentPage, name },
+      });
       return response.data;
     },
   });

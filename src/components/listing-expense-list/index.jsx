@@ -39,6 +39,7 @@ export default function MyListingExpenseTable() {
         showInputs={showInputs}
         setShowInputs={setShowInputs}
         perPage={perPage}
+        addButtonText="Add a Listing"
       />
       <Pagination
         currentPage={currentPage}

@@ -1,41 +1,25 @@
+import FormTextEditor from '@/components/form/FormTextEditor';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import DropdownIconSvg from '@/components/svgs/DropdownIconSvg';
-import FileSvg from '@/components/svgs/FileSvg';
 import { useCreateVendor, useGetVendorCategories } from '@/hooks/vendor.hook';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { FormProvider } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 function AddVendor() {
-  const { register, handleSubmit, reset } = useForm();
-  const [fileName, setFileName] = useState('Vendor_Logo.png');
   const [isOpen, setIsOpen] = useState(false);
   const { categories, isLoading } = useGetVendorCategories();
-  const { mutate, isLoading: isSubmitting } = useCreateVendor();
-
-  const onSubmit = (data) => {
-    const payload = {
-      name: data.name,
-      vendor_category_id: data.category,
-      website: data.website,
-      email: data.email,
-      phone: data.phone,
-      about: data.about,
-      additional_note: 'Some default note',
-    };
-
-    mutate(payload);
-  };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setFileName(file ? file.name : 'Vendor_Logo.png');
-  };
-
-  const handleResetForm = () => {
-    reset();
-    setFileName('Vendor_Logo.png');
-  };
+  const {
+    mutate: createVendor,
+    isPending: isSubmitting,
+    form,
+  } = useCreateVendor();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = form;
 
   return (
     <>
@@ -47,133 +31,165 @@ function AddVendor() {
           <h2 className="section-title">Add Vendor</h2>
         </div>
         <div className="mt-6 md:mt-8 lg:mt-12">
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="max-w-[670px] mx-auto flex flex-col gap-4"
-          >
-            <div className="flex flex-col gap-2 w-full">
-              <label className="text-sm font-medium text-white">
-                Vendor Name
-              </label>
-              <input
-                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark text-light w-full outline-none"
-                placeholder="Enter vendor name"
-                {...register('name', { required: true })}
-              />
-            </div>
-
-            <div className="flex flex-col gap-2 relative w-full">
-              <label className="text-sm font-medium text-white">
-                Vendor Category
-              </label>
-              <select
-                {...register('category', { required: true })}
-                onClick={() => setIsOpen(!isOpen)}
-                className="appearance-none px-4 py-3 outline-none rounded-[10px] border border-[#d8dfeb] bg-dark text-white w-full"
-              >
-                {isLoading ? (
-                  <option value="" disabled>
-                    Loading...
-                  </option>
-                ) : categories && categories.length > 0 ? (
-                  categories.map((category) => (
-                    <option key={category.id} value={category.id}>
-                      {category.name}
-                    </option>
-                  ))
-                ) : (
-                  <option value="" disabled>
-                    No categories available
-                  </option>
+          <FormProvider {...form}>
+            <form
+              onSubmit={handleSubmit(createVendor)}
+              className="max-w-[670px] mx-auto flex flex-col gap-4"
+            >
+              <div className="flex flex-col gap-2 w-full">
+                <label className="text-sm font-medium text-white">
+                  Vendor Name
+                </label>
+                <input
+                  className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark text-light w-full outline-none"
+                  placeholder="Enter vendor name"
+                  {...register('name', { required: true })}
+                />
+                {errors?.name?.message && (
+                  <p className="text-red-500 mt-2">{errors?.name?.message}</p>
                 )}
-              </select>
-              <div
-                className={`absolute top-1/2 right-3 transform ${
-                  isOpen ? 'rotate-180' : 'rotate-0'
-                } transition-all`}
-              >
-                <DropdownIconSvg />
               </div>
-            </div>
 
-            <div className="flex flex-col gap-2 w-full">
-              <label className="text-sm font-medium text-light">
-                Vendor Website
-              </label>
-              <input
-                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark text-light w-full outline-none"
-                placeholder="www.vendor.com"
-                {...register('website')}
-              />
-            </div>
+              <div className="flex flex-col gap-2 relative w-full">
+                <label className="text-sm font-medium text-white">
+                  Vendor Category
+                </label>
+                <select
+                  {...register('vendor_category_id', { required: true })}
+                  onClick={() => setIsOpen(!isOpen)}
+                  className="appearance-none px-4 py-3 outline-none rounded-[10px] border border-[#d8dfeb] bg-dark text-white w-full"
+                >
+                  {isLoading ? (
+                    <option value="" disabled>
+                      Loading...
+                    </option>
+                  ) : categories && categories.length > 0 ? (
+                    categories.map((category) => (
+                      <option key={category.id} value={category.id}>
+                        {category.name}
+                      </option>
+                    ))
+                  ) : (
+                    <option value="" disabled>
+                      No categories available
+                    </option>
+                  )}
+                </select>
+                <div
+                  className={`absolute top-1/2 right-3 transform ${
+                    isOpen ? 'rotate-180' : 'rotate-0'
+                  } transition-all`}
+                >
+                  <DropdownIconSvg />
+                </div>
 
-            <div className="flex flex-col gap-2 w-full">
-              <label className="text-sm font-medium text-light">Email</label>
-              <input
-                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark text-light w-full outline-none"
-                placeholder="example@email.com"
-                {...register('email')}
-              />
-            </div>
+                {errors?.vendor_category_id?.message && (
+                  <p className="text-red-500 mt-2">
+                    {errors?.vendor_category_id?.message}
+                  </p>
+                )}
+              </div>
 
-            <div className="flex flex-col gap-2 w-full">
-              <label className="text-sm font-medium text-light">
-                Vendor Phone
-              </label>
-              <input
-                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark text-light w-full outline-none"
-                placeholder="000-000-0000"
-                {...register('phone')}
-              />
-            </div>
+              <div className="flex flex-col gap-2 w-full">
+                <label className="text-sm font-medium text-light">
+                  Vendor Website
+                </label>
+                <input
+                  className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark text-light w-full outline-none"
+                  placeholder="www.vendor.com"
+                  {...register('website')}
+                />
+                {errors?.website?.message && (
+                  <p className="text-red-500 mt-2">
+                    {errors?.website?.message}
+                  </p>
+                )}
+              </div>
 
-            <div className="flex flex-col gap-2 w-full">
-              <label className="text-sm font-medium text-light">
-                About the Vendor
-              </label>
-              <textarea
-                placeholder="Enter vendor details..."
-                {...register('about')}
-                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark text-light w-full outline-none"
-              />
-            </div>
+              <div className="flex flex-col gap-2 w-full">
+                <label className="text-sm font-medium text-light">Email</label>
+                <input
+                  className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark text-light w-full outline-none"
+                  placeholder="example@email.com"
+                  {...register('email')}
+                />
+                {errors?.email?.message && (
+                  <p className="text-red-500 mt-2">{errors?.email?.message}</p>
+                )}
+              </div>
 
-            <div className="flex flex-col gap-2 w-full">
+              <div className="flex flex-col gap-2 w-full">
+                <label className="text-sm font-medium text-light">
+                  Vendor Phone
+                </label>
+                <input
+                  className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark text-light w-full outline-none"
+                  placeholder="000-000-0000"
+                  {...register('phone')}
+                />
+                {errors?.phone?.message && (
+                  <p className="text-red-500 mt-2">{errors?.phone?.message}</p>
+                )}
+              </div>
+
+              <div className="flex flex-col gap-2 w-full">
+                <label className="text-sm font-medium text-light">
+                  About the Vendor
+                </label>
+                <textarea
+                  placeholder="Enter vendor details..."
+                  {...register('about')}
+                  className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark text-light w-full outline-none"
+                />
+                {errors?.about?.message && (
+                  <p className="text-red-500 mt-2">{errors?.about?.message}</p>
+                )}
+              </div>
+
+              {/* <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium text-white">
                 Vendor Image or Logo
               </label>
               <label
-                htmlFor="file-upload"
-                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark flex items-center justify-between cursor-pointer"
+                htmlFor="logo"
+                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full flex items-center justify-between cursor-pointer"
               >
-                <span className="text-secondary">{fileName}</span>
+                <span className="text-secondary text-sm leading-[21px] tracking-[-0.14px]">
+                  {watch('logo')?.[0]?.name || 'Choose File'}
+                </span>
                 <FileSvg />
                 <input
-                  id="file-upload"
+                  id="logo"
                   type="file"
                   className="hidden"
-                  onChange={handleFileChange}
+                  {...register('logo')}
                 />
               </label>
-            </div>
+              {errors?.logo?.message && (
+                <p className="text-red-500 mt-2">{errors?.logo?.message}</p>
+              )}
+            </div> */}
 
-            <div className="flex items-center gap-4 justify-between">
-              <button
-                type="submit"
-                className="request-btn approve"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? 'Adding...' : 'Add Vendor'}
-              </button>
-              <button
-                type="button"
-                onClick={handleResetForm}
-                className="request-btn text-light"
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
+              <FormTextEditor name="additional_note" label="Additional Notes" />
+
+              <div className="flex items-center gap-4 justify-between">
+                <button
+                  type="submit"
+                  className="request-btn approve"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Adding...' : 'Add Vendor'}
+                </button>
+                <button
+                  type="button"
+                  onClick={reset}
+                  className="request-btn text-light"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </FormProvider>
         </div>
       </div>
     </>

@@ -55,7 +55,7 @@ export default function DataViewTable({
                 <tr
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
-                  className={`${row?.original?.path && 'cursor-pointer'}`}
+                  className={`${row?.original?.path && 'cursor-pointer group'}`}
                   onClick={() => {
                     if (row?.original?.path) {
                       navigate(row?.original?.path);
@@ -65,7 +65,9 @@ export default function DataViewTable({
                   {row.getVisibleCells().map((cell) => (
                     <td
                       key={cell.id}
-                      className={'border border-[#5E5E5E] text-white'}
+                      className={
+                        'border border-[#5E5E5E] text-white group-hover:text-white/70'
+                      }
                       style={{
                         minWidth: `${cell.column.getSize()}px`,
                       }}
@@ -80,7 +82,7 @@ export default function DataViewTable({
               ))}
 
             {isLoading &&
-              [...Array(perPage)].map((_, rowIndex) => (
+              [...Array(perPage || 10)].map((_, rowIndex) => (
                 <tr key={rowIndex}>
                   {table
                     .getHeaderGroups()[0]

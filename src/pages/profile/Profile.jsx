@@ -1,5 +1,6 @@
 import profileAvatar from '@/assets/images/profile.png';
 import ArrowGreaterSvg from '@/components/svgs/ArrowGreaterSvg';
+import { ROLE } from '@/constants';
 import { useAuth } from '@/hooks/useAuth';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
@@ -66,7 +67,7 @@ const Profile = () => {
               </span>
               <ArrowGreaterSvg />
             </Link>
-            {user?.role === 'Admin' && (
+            {user?.role === ROLE.ADMIN && (
               <Link
                 to="/profile/manage-team"
                 className="flex items-center justify-between gap-4 border-b border-secondPrimary py-4 duration-300 hover:opacity-60"

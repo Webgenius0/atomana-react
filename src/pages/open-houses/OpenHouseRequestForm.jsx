@@ -1,24 +1,18 @@
+import CustomDatePicker from '@/components/CustomDatePicker';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
+import CalenderSvg from '@/components/svgs/CalenderSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
+import TimeRangePicker from '@/components/TimeRangePicker';
 import { Select } from '@/components/ui/select';
-import {
-  useOpenHouseFeedback,
-  useOpenHouseFeedbackDropdown,
-} from '@/hooks/open-house.hook';
-import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { useOpenHouse } from '@/hooks/open-house.hook';
+import { useGetProperties } from '@/hooks/property.hook';
+import { Controller, FormProvider } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useLocation } from 'react-router-dom';
 
-const OpenHouseFeedbackForm = () => {
-  const form = useForm({
-    defaultValues: {
-      open_house_id: '',
-      people_count: '',
-      feedback: '',
-      additional_feedback: '',
-    },
-  });
+export default function OpenHouseRequestForm() {
+  const { mutate: storeOpenHouse, isPending, form } = useOpenHouse();
 
   const {
     register,
@@ -26,55 +20,40 @@ const OpenHouseFeedbackForm = () => {
     reset,
     control,
     formState: { errors },
-    getValues,
   } = form;
 
   const location = useLocation();
-  const { mutate, isPending } = useOpenHouseFeedback();
-  const { data: openHouse, isLoading: propertiesLoading } =
-    useOpenHouseFeedbackDropdown();
 
-  const propertyOptions = openHouse?.data?.map((item) => ({
+  const { data: properties, isLoading: isPropertiesLoading } =
+    useGetProperties();
+
+  console.log(properties);
+
+  const propertyOptions = properties?.data?.map((item) => ({
     value: item.address,
     label: item.address,
   }));
 
   const onSubmit = (data) => {
-    const formData = {
-      open_house_id: data?.open_house_id,
-      people_count: Number(data?.people_count),
-      feedback: data?.feedback,
-      additional_feedback: data?.additional_feedback,
-    };
-
-    mutate(formData, {
+    storeOpenHouse(data, {
       onSuccess: () => {
-        toast.success(data?.message || "Feedback Submitted Successfully")
+        toast.success(data?.message || 'Form Submitted Successfully');
         reset();
-      },
-      onError: (error) => {
-       toast.error(error?.response?.data?.message || 'Failed to Form Submission');
+
+        // Optional: Navigate after resetting
+        // navigate(`/my-systems/open-house/open-house-form-details`);
       },
     });
-  };
-  console.log({ values: getValues() });
-  const handleResetForm = (e) => {
-    e.preventDefault();
-    reset();
   };
 
   return (
     <>
       <div className="flex items-center gap-4 justify-between">
         <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5">
-          <Link
-            to={`${
-              location.state?.from || '/my-systems/open-house/open-house-form'
-            }`}
-          >
+          <Link to={`${location.state?.from || '/my-systems/open-house'}`}>
             <ArrowLeftSvg />
           </Link>
-          <h2 className="section-title">Open House Feedback Form</h2>
+          <h2 className="section-title">Open House Request Form</h2>
         </div>
         <div className="flex items-center gap-2.5">
           <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
@@ -92,111 +71,111 @@ const OpenHouseFeedbackForm = () => {
             onSubmit={handleSubmit(onSubmit)}
             className="max-w-[670px] mx-start flex flex-col gap-[15px]"
           >
-            {/* Property Selection */}
+            <h2 className="section-title">Open House Request Form</h2>
+
+            {/* Property Address */}
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                 What property do you want to hold an open house at?
               </label>
+
               <Controller
-                name="open_house_id"
+                name="property_id"
                 control={control}
-                rules={{ required: 'Property selection is required' }}
                 render={({ field }) => {
                   return (
                     <Select
                       className="!px-4 !py-6 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                       value={
-                        openHouse?.data?.find((item) => item.id === field.value)
-                          ?.address
+                        properties?.data?.find(
+                          (item) => item.id === field.value
+                        )?.address
                       }
                       setValue={(value) =>
                         field.onChange(
-                          openHouse?.data?.find(
+                          properties?.data?.find(
                             (item) => item.address === value
                           )?.id
                         )
                       }
-                      disabled={propertiesLoading}
+                      disabled={isPropertiesLoading}
                       options={propertyOptions}
                       placeholder="Select Property Address"
                     />
                   );
                 }}
               />
-              {errors?.open_house_id?.message && (
+
+              {errors?.property_id?.message && (
                 <p className="text-red-500 mt-2">
-                  {errors?.open_house_id?.message}
+                  {errors?.property_id?.message}
                 </p>
               )}
             </div>
 
-            {/* People Count */}
+            {/* Date */}
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-                How Many People Came?
+                What day do you want to do it on?
+              </label>
+
+              <label className="flex items-center px-4 rounded-[10px] border border-[#d8dfeb] bg-dark w-full gap-2.5">
+                <Controller
+                  name="date"
+                  control={control}
+                  render={({ field }) => (
+                    <CustomDatePicker
+                      value={field.value}
+                      onChange={field.onChange}
+                    />
+                  )}
+                />
+                <CalenderSvg />
+              </label>
+              {errors?.date?.message && (
+                <p className="text-red-500 mt-2">{errors?.date?.message}</p>
+              )}
+            </div>
+
+            {/* Time Frame */}
+            <div className="flex flex-col gap-2 w-full">
+              <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+                What time frame do you want to hold it?
+              </label>
+              <TimeRangePicker startTime="start_time" endTime="end_time" />
+            </div>
+
+            {/* Open House Signs */}
+            <div className="flex flex-col gap-2 w-full">
+              <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+                How many open house signs do you need?
               </label>
               <input
+                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+                placeholder="0"
                 type="number"
-                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                placeholder="Enter How Many People Came Here"
-                {...register('people_count', {
-                  required: 'People count is required',
-                  min: { value: 0, message: 'Must be positive number' },
-                })}
+                {...register('sign_number')}
               />
-              {errors?.people_count?.message && (
+              {errors?.sign_number?.message && (
                 <p className="text-red-500 mt-2">
-                  {errors?.people_count?.message}
+                  {errors?.sign_number?.message}
                 </p>
               )}
             </div>
 
-            {/* Feedback */}
-            <div className="flex flex-col gap-2 w-full">
-              <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-                Feedback
-              </label>
-              <textarea
-                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                placeholder="Enter Feedback on Attendees"
-                {...register('feedback', {
-                  required: 'Feedback is required',
-                })}
-              />
-              {errors?.feedback?.message && (
-                <p className="text-red-500 mt-2">{errors?.feedback?.message}</p>
-              )}
-            </div>
-
-            {/* Additional Feedback */}
-            <div className="flex flex-col gap-2 w-full">
-              <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-                Additional Feedback
-              </label>
-              <textarea
-                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                placeholder="Enter Additional Feedback"
-                {...register('additional_feedback')}
-              />
-              {errors?.additional_feedback?.message && (
-                <p className="text-red-500 mt-2">
-                  {errors?.additional_feedback?.message}
-                </p>
-              )}
-            </div>
-
-            {/* Form Actions */}
+            {/* Actions */}
             <div className="flex sm:flex-row flex-col items-center gap-4 justify-between mt-4 md:mt-6">
-              <div className="flex items-center sm:justify-start justify-center gap-4 sm:w-unset w-full">
-                <button className="request-btn approve" disabled={isPending}>
-                  {isPending ? 'Adding...' : 'Add'}
-                </button>
-              </div>
+              <button
+                className="flex w-full sm:w-[150px] px-6 py-2.5 justify-center items-center gap-2.5 font-Inria text-sm sm:text-base transition-transform duration-300 ease-in-out rounded-[10px] border border-light bg-inherit active:scale-95 bg-light text-dark"
+                disabled={isPending}
+              >
+                {isPending ? 'Adding...' : 'Add'}
+              </button>
 
               <button
-                onClick={handleResetForm}
+                onClick={reset}
                 disabled={isPending}
-                className="request-btn text-light"
+                className="flex w-full sm:w-[150px] px-6 py-2.5 justify-center items-center gap-2.5 font-Inria text-sm sm:text-base transition-transform duration-300 ease-in-out rounded-[10px] border border-light bg-inherit active:scale-95 text-light"
                 type="button"
               >
                 Cancel
@@ -207,6 +186,4 @@ const OpenHouseFeedbackForm = () => {
       </div>
     </>
   );
-};
-
-export default OpenHouseFeedbackForm;
+}

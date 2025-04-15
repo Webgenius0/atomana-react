@@ -6,21 +6,27 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const data = [
   {
-    id: 'C455',
-    path: '/my-systems/new-listing/new-listing-information-form',
-    type: 'New Listing',
-    title: 'New Listing Information Form',
+    id: 'A123',
+    path: '/my-systems/open-house/open-house-form',
+    type: 'Open House',
+    title: 'Open House Request Form',
   },
   {
-    id: 'C456',
-    path: '/my-systems/new-listing/listing-information',
-    type: 'New Listing',
-    title: 'Listing Information List',
+    id: 'A124',
+    path: '/my-systems/open-house/open-house-feedback-form',
+    type: 'Open House',
+    title: 'Open House Feedback Form',
+  },
+  {
+    id: 'A125',
+    path: '/my-systems/open-house/open-house-list',
+    type: 'Open House',
+    title: 'Open House List',
     role: [ROLE.ADMIN],
   },
 ];
 
-const NewListing = () => {
+const OpenHouses = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { user } = useAuth();
@@ -32,9 +38,8 @@ const NewListing = () => {
         <Link to="/my-systems/">
           <ArrowLeftSvg />
         </Link>
-        <h2 className="section-title">New Listing</h2>
+        <h2 className="section-title">Open Houses</h2>
       </div>
-
       <div className="grid min-[500px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-5">
         {data
           ?.filter((item) => {
@@ -69,4 +74,4 @@ const NewListing = () => {
   );
 };
 
-export default NewListing;
+export default OpenHouses;

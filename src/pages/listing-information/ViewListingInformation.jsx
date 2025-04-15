@@ -21,7 +21,7 @@ const ViewListingInformation = () => {
       <div className="flex items-center gap-4 justify-between">
         <div>
           <Link
-            to="/my-systems/team/access-instructions"
+            to="/my-systems/new-listing/listing-information"
             className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5"
           >
             <ArrowLeftSvg />
