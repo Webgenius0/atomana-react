@@ -27,6 +27,8 @@ export default function OpenHouseRequestForm() {
   const { data: properties, isLoading: isPropertiesLoading } =
     useGetProperties();
 
+  console.log(properties);
+
   const propertyOptions = properties?.data?.map((item) => ({
     value: item.address,
     label: item.address,
