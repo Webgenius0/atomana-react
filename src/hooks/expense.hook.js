@@ -58,15 +58,22 @@ export const useGetMyBusinessExpenses = ({ perPage = 10, currentPage = 1 }) => {
   return { ...result, myBusinessExpenses, current_page, totalItems, per_page };
 };
 
-export const useGetAgentEarnings = ({ perPage = 10, currentPage = 1 }) => {
+export const useGetAgentEarnings = ({
+  perPage = 10,
+  currentPage = 1,
+  name,
+}) => {
   const axiosPrivate = useAxiosSecure();
 
   const result = useQuery({
-    queryKey: ['agent_earning', perPage, currentPage],
+    queryKey: ['agent_earning', perPage, currentPage, name],
     queryFn: async () => {
-      const response = await axiosPrivate.get(`/api/v1/agent-earning`, {
-        params: { per_page: perPage, page: currentPage },
-      });
+      const response = await axiosPrivate.get(
+        `/api/v1/agent-earning/search/search`,
+        {
+          params: { per_page: perPage, page: currentPage, name },
+        }
+      );
       return response.data;
     },
   });

@@ -14,6 +14,7 @@ import CreateCourse from '@/pages/CreateCourse';
 import AddPassword from '@/pages/docs/AddPassword';
 import CreateNote from '@/pages/docs/CreateNote';
 import DocsLayout from '@/pages/docs/DocsLayout';
+import EditNote from '@/pages/docs/EditNote';
 import EditPassword from '@/pages/docs/EditPassword';
 import PasswordListHome from '@/pages/docs/PasswordListHome';
 import SharedNotesHome from '@/pages/docs/SharedNotesHome';
@@ -22,6 +23,7 @@ import ViewSinglePassword from '@/pages/docs/ViewSinglePassword';
 import ErrorPage from '@/pages/ErrorPage';
 import Finances from '@/pages/Finances';
 import ForgetPassword from '@/pages/ForgetPassword';
+import ViewListingInformation from '@/pages/listing-information/ViewListingInformation';
 import Login from '@/pages/Login';
 import MyAgentEarnings from '@/pages/MyAgentEarnings';
 import MyAI from '@/pages/MyAI';
@@ -61,7 +63,6 @@ import VerifyOTP from '@/pages/VerifyOTP';
 import VideoCourseDetails from '@/pages/VideoCourseDetails';
 import { createBrowserRouter } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
-import EditNote from '@/pages/docs/EditNote';
 
 const router = createBrowserRouter([
   {
@@ -174,6 +175,14 @@ const router = createBrowserRouter([
             element: (
               <PageTitle title="New Listing">
                 <NewListing />
+              </PageTitle>
+            ),
+          },
+          {
+            path: 'new-listing/:id',
+            element: (
+              <PageTitle title="New Listing">
+                <ViewListingInformation />
               </PageTitle>
             ),
           },
