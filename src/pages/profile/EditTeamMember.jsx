@@ -81,8 +81,10 @@ const EditTeamMember = () => {
                     required: 'First name is required',
                   })}
                 />
-                {errors.firstName && (
-                  <span className="error-text">{errors.firstName.message}</span>
+                {errors.first_name && (
+                  <span className="error-text">
+                    {errors.first_name.message}
+                  </span>
                 )}
               </div>
               {/* Last Name */}
@@ -97,8 +99,8 @@ const EditTeamMember = () => {
                     required: 'Last name is required',
                   })}
                 />
-                {errors.lastName && (
-                  <span className="error-text">{errors.lastName.message}</span>
+                {errors.last_name && (
+                  <span className="error-text">{errors.last_name.message}</span>
                 )}
               </div>
             </div>

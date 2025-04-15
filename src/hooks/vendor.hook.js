@@ -108,7 +108,7 @@ export const useCreateVendor = () => {
     onSuccess: (data) => {
       if (data?.success) {
         queryClient.invalidateQueries(['vendor-list']);
-        navigate('/my-systems/vendor-list/');
+        navigate(-1);
       }
     },
     onError: (error) => {

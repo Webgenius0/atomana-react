@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/dialog';
 import { useCreateVendorReview, useGetSingleVendor } from '@/hooks/vendor.hook';
 import { format } from 'date-fns';
+import DOMPurify from 'dompurify';
 import { Link, useParams } from 'react-router-dom';
 import person from '../assets/images/person.png';
 
@@ -20,6 +21,10 @@ const VendorDetails = () => {
 
   const { vendorDetails, isLoading, searchQuery, setSearchQuery, reviews } =
     useGetSingleVendor(vendorSlug);
+
+  const additionalNote = vendorDetails?.additional_note
+    ? DOMPurify.sanitize(vendorDetails?.additional_note)
+    : '';
 
   const {
     mutate: addReview,
@@ -99,17 +104,24 @@ const VendorDetails = () => {
             {vendorDetails?.about}
           </p>
         </div>
-        <div className="mt-[25px]">
-          <h2 className="font-bold leading-5 text-sm text-[#ffffffcc]">
-            Additional Notes
-          </h2>
+        {additionalNote && (
+          <div className="mt-[25px]">
+            <h2 className="section-title">Additional Notes</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 md:gap-4 md:mt-4">
+              {/* Notes */}
+              <div className="space-y-[2px]  py-4">
+                <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
+                  Notes
+                </p>
 
-          <div className="space-y-[2px]  py-4">
-            <ul className="list-disc list-inside text-sm font-normal leading-5 text-[#ffffffcc]  ">
-              <li className="indent-3">{vendorDetails?.additional_note}</li>
-            </ul>
+                <div
+                  className="rich-text !text-white"
+                  dangerouslySetInnerHTML={{ __html: additionalNote }}
+                />
+              </div>
+            </div>
           </div>
-        </div>
+        )}
         <div className="mt-5 md:mt-8 lg:mt-[30px]">
           <div className="flex justify-between items-center gap-4">
             <div>
