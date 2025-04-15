@@ -9,19 +9,12 @@ import {
   useSourceDropdown,
   useStoreProperty,
 } from '@/hooks/property.hook';
-import { useEffect } from 'react';
+import { format } from 'date-fns';
 import { Controller } from 'react-hook-form';
-import toast from 'react-hot-toast';
 import { Link, useLocation } from 'react-router-dom';
 
 function NewListingInformationForm() {
-  const {
-    mutate: storeProperty,
-    data: storeResponse,
-    isPending,
-    isSuccess,
-    form,
-  } = useStoreProperty();
+  const { mutate: storeProperty, isPending, form } = useStoreProperty();
   const {
     register,
     handleSubmit,
@@ -48,10 +41,7 @@ function NewListingInformationForm() {
 
   // In your onSubmit function:
   const onSubmit = (data) => {
-    console.log(data);
-    storeProperty(
-      { ...data, commission_rate: '1.2', co_list_percentage: '1' },
-    );
+    storeProperty(data);
   };
 
   const handleResetForm = (e) => {
@@ -59,12 +49,7 @@ function NewListingInformationForm() {
     reset();
   };
 
-  useEffect(() => {
-    if (storeResponse?.success && !isPending && isSuccess) {
-      toast.success('Property added successfully!');
-      reset();
-    }
-  }, [storeResponse, isPending, isSuccess]);
+  console.log({ errors });
 
   return (
     <>
@@ -145,7 +130,9 @@ function NewListingInformationForm() {
                 render={({ field }) => (
                   <CustomDatePicker
                     value={field.value}
-                    onChange={field.onChange}
+                    onChange={(date) => {
+                      field.onChange(format(date, 'yyyy-MM-dd'));
+                    }}
                   />
                 )}
               />
@@ -226,22 +213,6 @@ function NewListingInformationForm() {
             </div>
           )}
 
-          {/* commission rate field */}
-          <div className="flex flex-col gap-2 w-full">
-            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-              Commission Rate
-            </label>
-            <input
-              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-              placeholder="Type commission rate here"
-              {...register('commission_rate')}
-            />
-            {errors?.commission_rate && (
-              <p className="text-red-500 text-xs">
-                {errors?.commission_rate?.message}
-              </p>
-            )}
-          </div>
           {/* Is this a co-listing? */}
           <div>
             <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
@@ -319,6 +290,23 @@ function NewListingInformationForm() {
               </div>
             </div>
           )}
+          {/* commission rate field */}
+          <div className="flex flex-col gap-2 w-full">
+            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+              Commission Rate
+            </label>
+            <input
+              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+              placeholder="Type commission rate here"
+              {...register('commission_rate')}
+            />
+            {errors?.commission_rate && (
+              <p className="text-red-500 text-xs">
+                {errors?.commission_rate?.message}
+              </p>
+            )}
+          </div>
+
           {/* co listing percentage field */}
           <div className="flex flex-col gap-2 w-full">
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
