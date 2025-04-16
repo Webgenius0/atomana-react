@@ -159,3 +159,49 @@ export const useGetOpenHouses = ({ perPage = 10, currentPage = 1 }) => {
     per_page,
   };
 };
+
+export const useGetSingleOpenHouse = (id) => {
+  const axiosPrivate = useAxiosSecure();
+
+  const result = useQuery({
+    queryKey: ['open-house', id],
+    queryFn: async () => {
+      const response = await axiosPrivate.get(`/api/v1/open-house/${id}`);
+      return response.data;
+    },
+  });
+
+  //   const accessInstructions = result?.data?.data?.data || accessInstructionData;
+
+  const openHouse = result?.data?.data;
+
+  return {
+    ...result,
+    openHouse,
+  };
+};
+
+export const useGetOpenHouseFeedbacks = (id) => {
+  const axiosPrivate = useAxiosSecure();
+
+  const result = useQuery({
+    queryKey: ['open-house-feedback', id],
+    queryFn: async () => {
+      const response = await axiosPrivate.get(
+        `/api/v1/open-house/feedback/${id}`
+      );
+      return response.data;
+    },
+  });
+
+  //   const accessInstructions = result?.data?.data?.data || accessInstructionData;
+
+  const feedbacks = result?.data?.data?.data;
+
+  console.log(result?.data);
+
+  return {
+    ...result,
+    feedbacks,
+  };
+};

@@ -43,7 +43,7 @@ import OpenHouseFeedbackForm from '@/pages/open-houses/OpenHouseFeedbackForm';
 import OpenHouseList from '@/pages/open-houses/OpenHouseList';
 import OpenHouseRequestForm from '@/pages/open-houses/OpenHouseRequestForm';
 import OpenHouses from '@/pages/open-houses/OpenHouses';
-import OpenHouseFormDetails from '@/pages/OpenHouseFormDetails';
+import ViewOpenHouse from '@/pages/open-houses/ViewOpenHouse';
 import AccountInformation from '@/pages/profile/AccountInformation';
 import AddTeamMember from '@/pages/profile/AddTeamMember';
 import BusinessInformation from '@/pages/profile/BusinessInformation';
@@ -133,10 +133,10 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: 'open-house/open-house-form-details',
+            path: 'open-house/:id',
             element: (
               <PageTitle title="Details">
-                <OpenHouseFormDetails />
+                <ViewOpenHouse />
               </PageTitle>
             ),
           },
