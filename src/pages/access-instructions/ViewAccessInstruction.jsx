@@ -83,7 +83,6 @@ const ViewAccessInstruction = () => {
               {accessInstruction?.size
                 ? `${accessInstruction?.size} sq ft`
                 : 'N/A'}
-              s
             </p>
           </div>
         </div>
