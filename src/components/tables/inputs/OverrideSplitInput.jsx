@@ -6,6 +6,7 @@ export default function OverrideSplitInput() {
     <input
       {...form.register('override_split')}
       type="number"
+      step="any"
       className="bg-transparent w-full text-white px-3 py-2 border border-white rounded-md"
       placeholder="Override Split"
     />

@@ -6,6 +6,7 @@ export default function ReferralFeeInput() {
     <input
       {...form.register('referral_fee_pct')}
       type="number"
+      step="any"
       className="bg-transparent w-full text-white px-3 py-2 border border-white rounded-md"
       placeholder="Enter Referral Fee"
     />

@@ -151,6 +151,7 @@ export default function AddAccessInstruction() {
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="Enter Property Price"
                 type="number"
+                step="any"
                 {...register('price')}
               />
               {errors?.price?.message && (
@@ -166,6 +167,7 @@ export default function AddAccessInstruction() {
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="Enter Property Size"
                 type="number"
+                step="any"
                 {...register('size')}
               />
               {errors?.size?.message && (
