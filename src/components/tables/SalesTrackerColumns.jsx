@@ -2,6 +2,7 @@ import CommonCell from './cells/CommonCell';
 import CurrencyCell from './cells/CurrencyCell';
 import NoteCell from './cells/NoteCell';
 import PropertyAddressCell from './cells/PropertyAddressCell';
+import ReferralFeeCell from './cells/ReferralFeeCell';
 import UserNameCell from './cells/UserNameCell';
 import BuyerSellerInput from './inputs/BuyerSellerInput';
 import ClosingDateInput from './inputs/ClosingDateInput';
@@ -89,7 +90,7 @@ export const columns = [
   {
     accessorKey: 'referral_fee_pct',
     header: 'Referral Fee',
-    cell: CurrencyCell,
+    cell: ReferralFeeCell,
     size: 125,
     footer: ReferralFeeInput,
   },
