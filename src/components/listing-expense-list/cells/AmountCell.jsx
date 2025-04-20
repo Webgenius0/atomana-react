@@ -38,6 +38,7 @@ export default function AmountCell({ getValue, row, column }) {
       <div className="relative">
         <input
           type="number"
+          step="any"
           autoFocus
           {...form.register(columnId)}
           className="bg-transparent w-full text-white px-3 py-2 border border-white focus:rounded-none outline-none"

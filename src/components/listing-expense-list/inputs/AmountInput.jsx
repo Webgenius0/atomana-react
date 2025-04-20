@@ -6,8 +6,9 @@ export default function AmountInput() {
     <input
       {...form.register('amount')}
       type="number"
+      step="any"
       className="bg-transparent w-full text-white px-3 py-2 border border-white rounded-md"
-      placeholder="Enter amount"
+      placeholder="Enter Amount"
     />
   );
 }
