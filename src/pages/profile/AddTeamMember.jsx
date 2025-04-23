@@ -1,4 +1,4 @@
-import { Controller, useForm } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { useState } from 'react';
@@ -11,6 +11,13 @@ import { format } from 'date-fns';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const AddTeamMember = () => {
+  const navigate = useNavigate();
+  const {
+    mutate: registerAgent,
+    isPending: isRegisterPending,
+    form,
+  } = useRegisterAgent();
+
   const {
     register,
     handleSubmit,
@@ -18,26 +25,19 @@ const AddTeamMember = () => {
     control,
     formState: { errors },
     watch,
-  } = useForm();
-  const navigate = useNavigate();
-  const { mutate: registerAgent, isPending: isRegisterPending } =
-    useRegisterAgent();
+  } = form;
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   //   const { agents, isLoading, isError, error } = useGetAgents();
 
   const onSubmit = (data) => {
-    const formData = data;
-    registerAgent(
-      { formData },
-      {
-        onSuccess: () => {
-          reset();
-          navigate('/profile/manage-team');
-        },
-      }
-    );
+    registerAgent(data, {
+      onSuccess: () => {
+        reset();
+        navigate('/profile/manage-team');
+      },
+    });
   };
 
   return (
@@ -104,7 +104,7 @@ const AddTeamMember = () => {
               )}
             </div>
             {/* Business ID */}
-            <div className="flex flex-col gap-2 w-full">
+            {/* <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                 Business ID
               </label>
@@ -118,7 +118,7 @@ const AddTeamMember = () => {
               {errors.business_id && (
                 <span className="error-text">{errors.business_id.message}</span>
               )}
-            </div>
+            </div> */}
             {/* Contract Year Starts */}
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
