@@ -3,9 +3,9 @@ import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import CalenderSvg from '@/components/svgs/CalenderSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
-import { Select } from '@/components/ui/select';
+import Select from '@/components/ui/react-select';
 import {
-  useCoListingDropdown,
+  useCoListAgentDropdown,
   useSourceDropdown,
   useStoreProperty,
 } from '@/hooks/property.hook';
@@ -14,7 +14,9 @@ import { Controller } from 'react-hook-form';
 import { Link, useLocation } from 'react-router-dom';
 
 function NewListingInformationForm() {
+  const location = useLocation();
   const { mutate: storeProperty, isPending, form } = useStoreProperty();
+
   const {
     register,
     handleSubmit,
@@ -23,33 +25,22 @@ function NewListingInformationForm() {
     watch,
     formState: { errors },
   } = form;
+
   const is_development = watch('is_development');
   const is_co_listing = watch('is_co_listing');
-  const { coListingAgents, isLoading } = useCoListingDropdown();
-  const location = useLocation();
-  const categoryOptions = coListingAgents?.map((item) => ({
-    value: `${item.first_name} ${item.last_name}`,
+
+  const { coAgents, isLoading: isAgentLoading } = useCoListAgentDropdown();
+  const { sources, isLoading: isSourcesLoading } = useSourceDropdown();
+
+  const coListingAgentOptions = coAgents?.map((item) => ({
+    value: item.id,
     label: `${item.first_name} ${item.last_name}`,
   }));
 
-  const { data: sources, isLoading: isSourcesLoading } = useSourceDropdown();
-
-  const sourceOptions = sources?.data?.map((item) => ({
-    value: item.name,
+  const sourceOptions = sources?.map((item) => ({
+    value: item.id,
     label: item.name,
   }));
-
-  // In your onSubmit function:
-  const onSubmit = (data) => {
-    storeProperty(data);
-  };
-
-  const handleResetForm = (e) => {
-    e.preventDefault();
-    reset();
-  };
-
-  console.log({ errors });
 
   return (
     <>
@@ -73,25 +64,9 @@ function NewListingInformationForm() {
       </div>
       <div className="max-w-[670px] w-full mx-auto mt-4">
         <form
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(storeProperty)}
           className="max-w-[670px] mx-start flex flex-col gap-[15px]"
         >
-          {/* Email */}
-          {/* <div className="flex flex-col gap-2 w-full">
-            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-              Email
-            </label>
-            <input
-              type="email"
-              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-              placeholder="youremail@spearsgroup.com"
-              {...register('email')}
-            />
-            {errors?.email && (
-              <p className="text-red-500 text-xs">{errors?.email?.message}</p>
-            )}
-          </div> */}
-
           <div className="flex flex-col gap-2 w-full">
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
               Property Address
@@ -256,32 +231,18 @@ function NewListingInformationForm() {
                   <Controller
                     name="co_agent"
                     control={control}
-                    render={({ field }) => {
-                      const currentValue = coListingAgents?.find(
-                        (item) => item.id === field.value
-                      );
-                      return (
-                        <Select
-                          className={`w-full`}
-                          value={
-                            currentValue &&
-                            `${currentValue?.first_name} ${currentValue?.last_name}`
-                          }
-                          setValue={(value) =>
-                            field.onChange(
-                              coListingAgents?.find(
-                                (item) =>
-                                  `${item.first_name} ${item.last_name}` ===
-                                  value
-                              ).id
-                            )
-                          }
-                          disabled={isLoading}
-                          options={categoryOptions}
-                          placeholder="Select Agent"
-                        />
-                      );
-                    }}
+                    render={({ field }) => (
+                      <Select
+                        options={coListingAgentOptions}
+                        value={coListingAgentOptions?.find(
+                          (option) => option?.value == field?.value
+                        )}
+                        onChange={(option) => field.onChange(option?.value)}
+                        isDisabled={isAgentLoading}
+                        isLoading={isAgentLoading}
+                        placeholder="Select Agent"
+                      />
+                    )}
                   />
                 </label>
                 {errors?.co_agent && (
@@ -340,19 +301,14 @@ function NewListingInformationForm() {
               render={({ field }) => {
                 return (
                   <Select
-                    className="!px-4 !py-6 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                    value={
-                      sources?.data?.find((item) => item.id === field.value)
-                        ?.name
-                    }
-                    setValue={(value) =>
-                      field.onChange(
-                        sources?.data?.find((item) => item.name === value)?.id
-                      )
-                    }
-                    disabled={isSourcesLoading}
+                    isDisabled={isSourcesLoading}
+                    value={sourceOptions?.find(
+                      (option) => option?.value == field?.value
+                    )}
+                    onChange={(option) => field.onChange(option?.value)}
+                    isLoading={isSourcesLoading}
                     options={sourceOptions}
-                    placeholder="Source"
+                    placeholder="Select Source of the Lead"
                   />
                 );
               }}
@@ -456,22 +412,19 @@ function NewListingInformationForm() {
               <p className="text-red-500 text-xs">{errors?.note?.message}</p>
             )}
           </div>
-        </form>
-        <form action="" onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex  items-center gap-4 justify-between mt-4 md:mt-6">
-            <div className="flex items-center  gap-4 sm:w-unset w-full">
-              <button
-                className="request-btn approve cursor-pointer"
-                type="submit"
-                disabled={isPending}
-              >
-                {isPending ? 'Submitting' : 'Submit'}
-              </button>
-            </div>
+          <div className="flex sm:flex-row flex-col items-center gap-4 justify-between mt-4 md:mt-6 pb-4 md:pb-6">
+            <button
+              className="request-btn approve cursor-pointer w-full sm:w-[150px]"
+              type="submit"
+              disabled={isPending}
+            >
+              {isPending ? 'Submitting' : 'Submit'}
+            </button>
 
             <button
-              onClick={handleResetForm}
-              className="request-btn text-light"
+              type="button"
+              onClick={reset}
+              className="request-btn text-light w-full sm:w-[150px]"
             >
               Cancel
             </button>
