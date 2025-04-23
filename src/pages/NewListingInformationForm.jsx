@@ -301,13 +301,13 @@ function NewListingInformationForm() {
               render={({ field }) => {
                 return (
                   <Select
-                    isDisabled={isSourcesLoading}
+                    options={sourceOptions}
                     value={sourceOptions?.find(
                       (option) => option?.value == field?.value
                     )}
                     onChange={(option) => field.onChange(option?.value)}
+                    isDisabled={isSourcesLoading}
                     isLoading={isSourcesLoading}
-                    options={sourceOptions}
                     placeholder="Select Source of the Lead"
                   />
                 );

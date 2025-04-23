@@ -118,15 +118,16 @@ export const useOpenHouseFeedbackDropdown = () => {
   const axiosPrivate = useAxiosSecure();
 
   const result = useQuery({
-    queryKey: ['propertyid'],
+    queryKey: ['open-house-dropdown'],
     queryFn: async () => {
       const response = await axiosPrivate.get('/api/v1/open-house/dropdown');
       return response.data;
     },
   });
 
-  const propertyid = result?.data?.data;
-  return { ...result, propertyid, isLoading: result.isLoading };
+  const properties = result?.data?.data;
+
+  return { ...result, properties };
 };
 
 export const useGetOpenHouses = ({ perPage = 10, currentPage = 1 }) => {

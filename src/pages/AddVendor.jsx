@@ -1,25 +1,30 @@
 import FormTextEditor from '@/components/form/FormTextEditor';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
-import DropdownIconSvg from '@/components/svgs/DropdownIconSvg';
+import Select from '@/components/ui/react-select';
 import { useCreateVendor, useGetVendorCategories } from '@/hooks/vendor.hook';
-import { useState } from 'react';
-import { FormProvider } from 'react-hook-form';
+import { Controller, FormProvider } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 function AddVendor() {
-  const [isOpen, setIsOpen] = useState(false);
   const { categories, isLoading } = useGetVendorCategories();
   const {
     mutate: createVendor,
     isPending: isSubmitting,
     form,
   } = useCreateVendor();
+
   const {
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors },
   } = form;
+
+  const categoryOptions = categories?.map((item) => ({
+    value: item.id,
+    label: item.name,
+  }));
 
   return (
     <>
@@ -54,35 +59,22 @@ function AddVendor() {
                 <label className="text-sm font-medium text-white">
                   Vendor Category
                 </label>
-                <select
-                  {...register('vendor_category_id', { required: true })}
-                  onClick={() => setIsOpen(!isOpen)}
-                  className="appearance-none px-4 py-3 outline-none rounded-[10px] border border-[#d8dfeb] bg-dark text-white w-full"
-                >
-                  {isLoading ? (
-                    <option value="" disabled>
-                      Loading...
-                    </option>
-                  ) : categories && categories.length > 0 ? (
-                    categories.map((category) => (
-                      <option key={category.id} value={category.id}>
-                        {category.name}
-                      </option>
-                    ))
-                  ) : (
-                    <option value="" disabled>
-                      No categories available
-                    </option>
+                <Controller
+                  name="vendor_category_id"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      options={categoryOptions}
+                      value={categoryOptions?.find(
+                        (option) => option?.value == field?.value
+                      )}
+                      onChange={(option) => field.onChange(option?.value)}
+                      isDisabled={isLoading}
+                      isLoading={isLoading}
+                      placeholder="Select Vendor Category"
+                    />
                   )}
-                </select>
-                <div
-                  className={`absolute top-1/2 right-3 transform ${
-                    isOpen ? 'rotate-180' : 'rotate-0'
-                  } transition-all`}
-                >
-                  <DropdownIconSvg />
-                </div>
-
+                />
                 {errors?.vendor_category_id?.message && (
                   <p className="text-red-500 mt-2">
                     {errors?.vendor_category_id?.message}

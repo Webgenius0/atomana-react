@@ -2,7 +2,7 @@ import FormTextEditor from '@/components/form/FormTextEditor';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
-import { Select } from '@/components/ui/select';
+import Select from '@/components/ui/react-select';
 import { useStoreAccessInstruction } from '@/hooks/access-instructions.hook';
 import {
   usePropertyDropdown,
@@ -77,37 +77,31 @@ export default function AddAccessInstruction() {
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                 Property Address
               </label>
-
               <Controller
                 name="property_id"
                 control={control}
                 render={({ field }) => {
                   return (
                     <Select
-                      className="!px-4 !py-6 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                      value={
-                        properties?.find((item) => item.id === field.value)
-                          ?.address
-                      }
-                      setValue={(value) =>
-                        field.onChange(
-                          properties?.find((item) => item.address === value)?.id
-                        )
-                      }
-                      disabled={isPropertiesLoading}
                       options={propertyOptions}
+                      value={propertyOptions?.find(
+                        (option) => option?.value == field?.value
+                      )}
+                      onChange={(option) => field.onChange(option?.value)}
+                      //   isDisabled={isPropertiesLoading}
+                      isLoading={isPropertiesLoading}
                       placeholder="Select Property Address"
                     />
                   );
                 }}
               />
-
               {errors?.property_id?.message && (
                 <p className="text-red-500 mt-2">
                   {errors?.property_id?.message}
                 </p>
               )}
             </div>
+
             {/* Property Type */}
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
@@ -119,18 +113,13 @@ export default function AddAccessInstruction() {
                 render={({ field }) => {
                   return (
                     <Select
-                      className="!px-4 !py-6 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                      value={
-                        propertyTypes?.find((item) => item.id === field.value)
-                          ?.name
-                      }
-                      setValue={(value) =>
-                        field.onChange(
-                          propertyTypes?.find((item) => item.name === value)?.id
-                        )
-                      }
-                      disabled={isPropertyTypeLoading}
                       options={propertyTypeOptions}
+                      value={propertyTypeOptions?.find(
+                        (option) => option?.value == field?.value
+                      )}
+                      onChange={(option) => field.onChange(option?.value)}
+                      //   isDisabled={isPropertyTypeLoading}
+                      isLoading={isPropertyTypeLoading}
                       placeholder="Select Property Type"
                     />
                   );
