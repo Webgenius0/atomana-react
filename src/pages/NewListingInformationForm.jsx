@@ -76,7 +76,8 @@ function NewListingInformationForm() {
           onSubmit={handleSubmit(onSubmit)}
           className="max-w-[670px] mx-start flex flex-col gap-[15px]"
         >
-          <div className="flex flex-col gap-2 w-full">
+          {/* Email */}
+          {/* <div className="flex flex-col gap-2 w-full">
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
               Email
             </label>
@@ -89,7 +90,8 @@ function NewListingInformationForm() {
             {errors?.email && (
               <p className="text-red-500 text-xs">{errors?.email?.message}</p>
             )}
-          </div>
+          </div> */}
+
           <div className="flex flex-col gap-2 w-full">
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
               Property Address
@@ -204,9 +206,9 @@ function NewListingInformationForm() {
                     </div>
                   )}
                 />
-                {errors?.email && (
+                {errors?.add_to_website && (
                   <p className="text-red-500 text-xs">
-                    {errors?.email?.message}
+                    {errors?.add_to_website?.message}
                   </p>
                 )}
               </div>
@@ -296,6 +298,8 @@ function NewListingInformationForm() {
               Commission Rate
             </label>
             <input
+              type="number"
+              step="any"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="Type commission rate here"
               {...register('commission_rate')}
@@ -313,6 +317,8 @@ function NewListingInformationForm() {
               Co Listing Percentage
             </label>
             <input
+              type="number"
+              step="any"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="00 %"
               {...register('co_list_percentage')}
@@ -364,6 +370,7 @@ function NewListingInformationForm() {
                 How many beds?
               </label>
               <input
+                type="number"
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="0"
                 {...register('beds')}
@@ -377,6 +384,7 @@ function NewListingInformationForm() {
                 Full baths?
               </label>
               <input
+                type="number"
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="0"
                 {...register('full_baths')}
@@ -392,6 +400,7 @@ function NewListingInformationForm() {
                 Half baths?
               </label>
               <input
+                type="number"
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="0"
                 {...register('half_baths')}
@@ -407,6 +416,7 @@ function NewListingInformationForm() {
                 Total SQ FT?
               </label>
               <input
+                type="number"
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="0 sq ft"
                 {...register('size')}

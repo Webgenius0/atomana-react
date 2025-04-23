@@ -102,7 +102,7 @@ export const useStoreProperty = () => {
   const queryClient = useQueryClient();
   const form = useForm({
     defaultValues: {
-      email: '',
+      email: 'mdsaifullah.wd@gmail.com',
       address: '',
       price: '',
       expiration_date: '',
