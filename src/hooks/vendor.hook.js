@@ -16,13 +16,15 @@ const vendorListSchema = z.object({
     .max(100, 'Name must be less than 100 characters'),
   icon: z
     .any()
-    .refine((files) => files?.length === 1, 'Image is required')
+    // .refine((files) => files?.length === 1, 'Image is required')
     .refine(
-      (files) => files?.[0]?.size <= 5_000_000, // 5MB
+      (files) => !files || !files?.length || files?.[0]?.size <= 5_000_000, // 5MB
       'Max image size is 5MB'
     )
     .refine(
       (files) =>
+        !files ||
+        !files?.length ||
         ['image/jpeg', 'image/png', 'image/webp'].includes(files?.[0]?.type),
       'Only .jpg, .png, and .webp formats are supported'
     ),

@@ -1,7 +1,7 @@
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
-import { Select } from '@/components/ui/select';
+import Select from '@/components/ui/react-select';
 import {
   useOpenHouseFeedback,
   useOpenHouseFeedbackDropdown,
@@ -18,15 +18,16 @@ const OpenHouseFeedbackForm = () => {
     reset,
     control,
     formState: { errors },
-    getValues,
   } = form;
 
   const location = useLocation();
-  const { data: openHouse, isLoading: propertiesLoading } =
+  const { properties, isLoading: isPropertyLoading } =
     useOpenHouseFeedbackDropdown();
 
-  const propertyOptions = openHouse?.data?.map((item) => ({
-    value: item.address,
+  console.log({ properties });
+
+  const propertyOptions = properties?.map((item) => ({
+    value: item.id,
     label: item.address,
   }));
 
@@ -50,7 +51,7 @@ const OpenHouseFeedbackForm = () => {
       },
     });
   };
-  console.log({ values: getValues() });
+
   const handleResetForm = (e) => {
     e.preventDefault();
     reset();
@@ -93,20 +94,13 @@ const OpenHouseFeedbackForm = () => {
                 render={({ field }) => {
                   return (
                     <Select
-                      className="!px-4 !py-6 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                      value={
-                        openHouse?.data?.find((item) => item.id === field.value)
-                          ?.address
-                      }
-                      setValue={(value) =>
-                        field.onChange(
-                          openHouse?.data?.find(
-                            (item) => item.address === value
-                          )?.id
-                        )
-                      }
-                      disabled={propertiesLoading}
                       options={propertyOptions}
+                      value={propertyOptions?.find(
+                        (option) => option?.value == field?.value
+                      )}
+                      onChange={(option) => field.onChange(option?.value)}
+                      // isDisabled={propertiesLoading}
+                      isLoading={isPropertyLoading}
                       placeholder="Select Property Address"
                     />
                   );

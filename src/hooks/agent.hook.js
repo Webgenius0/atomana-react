@@ -86,8 +86,9 @@ export const useUpdateSingleAgent = (slug) => {
 export const useRegisterAgent = () => {
   const axiosPrivate = useAxiosSecure();
   const queryClient = useQueryClient();
+  const form = useForm();
 
-  return useMutation({
+  const result = useMutation({
     mutationFn: async (data) => {
       const response = await axiosPrivate.post(
         '/api/v1/auth/register-agent',
@@ -102,7 +103,18 @@ export const useRegisterAgent = () => {
       }
     },
     onError: (error) => {
-      alert(error?.response?.data?.message || 'Something went wrong');
+      const response = errorResponse(error, (fields) => {
+        Object.entries(fields).forEach(([field, messages]) => {
+          form.setError(field, {
+            message: messages?.[0],
+          });
+        });
+      });
+      if (response) {
+        toast.error(response);
+      }
     },
   });
+
+  return { ...result, form };
 };
