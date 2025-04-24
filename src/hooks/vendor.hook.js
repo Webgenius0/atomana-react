@@ -1,4 +1,5 @@
 import errorResponse from '@/lib/errorResponse';
+import { isValidURL } from '@/lib/utils/isValidUrl';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
@@ -96,11 +97,36 @@ export const useCreateVendorCategories = () => {
   return { mutate, isPending, open, setOpen, form };
 };
 
+const createVendorSchema = z.object({
+  name: z.any().optional(),
+  vendor_category_id: z.any().optional(),
+  website: z
+    .string()
+    .transform((value) => {
+      if (value) {
+        return value?.startsWith('https://') || value?.startsWith('http://')
+          ? value
+          : `https://${value}`;
+      } else {
+        return value;
+      }
+    })
+    .refine((value) => !value || isValidURL(value), {
+      message: 'Invalid URL format',
+    })
+    .optional(),
+  email: z.any().optional(),
+  phone: z.any().optional(),
+  about: z.any().optional(),
+});
+
 export const useCreateVendor = () => {
   const axiosPrivate = useAxiosSecure();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const form = useForm();
+  const form = useForm({
+    resolver: zodResolver(createVendorSchema),
+  });
 
   const result = useMutation({
     mutationFn: async (payload) => {

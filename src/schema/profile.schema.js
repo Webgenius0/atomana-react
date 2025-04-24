@@ -1,3 +1,4 @@
+import { isValidURL } from '@/lib/utils/isValidUrl';
 import { z } from 'zod';
 
 // Define the Zod schema for validation
@@ -12,20 +13,58 @@ export const profileSchema = z.object({
   date_of_birth: z.string().optional(),
   facebook: z
     .string()
-    .refine((value) => !value || z.string().url().safeParse(value).success, {
+    .transform((value) => {
+      if (value) {
+        return value?.startsWith('https://') || value?.startsWith('http://')
+          ? value
+          : `https://${value}`;
+      } else {
+        return value;
+      }
+    })
+    .refine((value) => !value || isValidURL(value), {
       message: 'Invalid URL format',
     })
     .optional(),
   instagram: z
     .string()
-    .refine((value) => !value || z.string().url().safeParse(value).success, {
+    .transform((value) => {
+      if (value) {
+        return value?.startsWith('https://') || value?.startsWith('http://')
+          ? value
+          : `https://${value}`;
+      } else {
+        return value;
+      }
+    })
+    .refine((value) => !value || isValidURL(value), {
       message: 'Invalid URL format',
     })
     .optional(),
   twitter: z
     .string()
-    .refine((value) => !value || z.string().url().safeParse(value).success, {
+    .transform((value) => {
+      if (value) {
+        return value?.startsWith('https://') || value?.startsWith('http://')
+          ? value
+          : `https://${value}`;
+      } else {
+        return value;
+      }
+    })
+    .refine((value) => !value || isValidURL(value), {
       message: 'Invalid URL format',
     })
     .optional(),
 });
+
+// instagram: z
+//     .string()
+//     .transform((value) =>
+//       value?.startsWith('https://') || value?.startsWith('http://')
+//         ? value
+//         : `https://${value}`
+//     )
+//     .refine((value) => !value || z.string().url().safeParse(value), {
+//       message: 'Invalid URL format.',
+//     }),

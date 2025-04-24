@@ -1,4 +1,5 @@
 import errorResponse from '@/lib/errorResponse';
+import { isValidURL } from '@/lib/utils/isValidUrl';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import DOMPurify from 'dompurify';
@@ -26,7 +27,18 @@ const passwordSchema = z.object({
   website: z
     .string()
     .min(1, 'Website is required')
-    .url('The website field must be a valid URL.'),
+    .transform((value) => {
+      if (value) {
+        return value?.startsWith('https://') || value?.startsWith('http://')
+          ? value
+          : `https://${value}`;
+      } else {
+        return value;
+      }
+    })
+    .refine(isValidURL, {
+      message: 'The website field must be a valid URL.',
+    }),
   user_name: z.string().min(1, 'Username is required'),
   email: z
     .string()

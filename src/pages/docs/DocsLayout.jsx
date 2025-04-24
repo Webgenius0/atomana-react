@@ -132,7 +132,7 @@ const DocsLayout = () => {
                 </button>
               </Link>
 
-              <div className="mt-6">
+              <div className="mt-6 h-[calc(100vh-380px)] overflow-y-auto scrollbar-none">
                 {activeTab === 'notes' &&
                   notes?.map((item) => {
                     const notes = item?.notes
