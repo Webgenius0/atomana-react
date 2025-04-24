@@ -4,7 +4,7 @@ import CalenderSvg from '@/components/svgs/CalenderSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
 import TimeRangePicker from '@/components/TimeRangePicker';
-import { Select } from '@/components/ui/select';
+import Select from '@/components/ui/react-select';
 import { useOpenHouse } from '@/hooks/open-house.hook';
 import { useGetProperties } from '@/hooks/property.hook';
 import { Controller, FormProvider } from 'react-hook-form';
@@ -78,34 +78,24 @@ export default function OpenHouseRequestForm() {
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                 What property do you want to hold an open house at?
               </label>
-
               <Controller
                 name="property_id"
                 control={control}
                 render={({ field }) => {
                   return (
                     <Select
-                      className="!px-4 !py-6 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                      value={
-                        properties?.data?.find(
-                          (item) => item.id === field.value
-                        )?.address
-                      }
-                      setValue={(value) =>
-                        field.onChange(
-                          properties?.data?.find(
-                            (item) => item.address === value
-                          )?.id
-                        )
-                      }
-                      disabled={isPropertiesLoading}
                       options={propertyOptions}
+                      value={propertyOptions?.find(
+                        (option) => option?.value == field?.value
+                      )}
+                      onChange={(option) => field.onChange(option?.value)}
+                      //   isDisabled={isPropertiesLoading}
+                      isLoading={isPropertiesLoading}
                       placeholder="Select Property Address"
                     />
                   );
                 }}
               />
-
               {errors?.property_id?.message && (
                 <p className="text-red-500 mt-2">
                   {errors?.property_id?.message}
