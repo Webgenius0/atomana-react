@@ -93,7 +93,7 @@ export const useGetProperties = () => {
     },
   });
 
-  const properties = result?.data?.data;
+  const properties = result?.data?.data || [];
   return { ...result, properties };
 };
 
