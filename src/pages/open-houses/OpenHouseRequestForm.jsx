@@ -24,13 +24,10 @@ export default function OpenHouseRequestForm() {
 
   const location = useLocation();
 
-  const { data: properties, isLoading: isPropertiesLoading } =
-    useGetProperties();
+  const { properties, isLoading: isPropertiesLoading } = useGetProperties();
 
-  console.log(properties);
-
-  const propertyOptions = properties?.data?.map((item) => ({
-    value: item.address,
+  const propertyOptions = properties?.map((item) => ({
+    value: item.id,
     label: item.address,
   }));
 
