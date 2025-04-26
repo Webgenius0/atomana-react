@@ -102,13 +102,13 @@ export const useStoreProperty = () => {
   const queryClient = useQueryClient();
   const form = useForm({
     defaultValues: {
-      email: 'mdsaifullah.wd@gmail.com',
       address: '',
       price: '',
       expiration_date: '',
       is_development: '0',
       commission_rate: '',
       is_co_listing: '0',
+      co_agent: null,
       co_list_percentage: '',
       property_source_id: '',
       beds: '',

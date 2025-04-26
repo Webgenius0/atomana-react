@@ -10,6 +10,7 @@ import {
   useStoreProperty,
 } from '@/hooks/property.hook';
 import { format } from 'date-fns';
+import { useEffect } from 'react';
 import { Controller } from 'react-hook-form';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -41,6 +42,12 @@ function NewListingInformationForm() {
     value: item.id,
     label: item.name,
   }));
+
+  useEffect(() => {
+    if (is_co_listing == '0') {
+      form.setValue('co_agent', null);
+    }
+  }, [is_co_listing]);
 
   return (
     <>
@@ -246,7 +253,7 @@ function NewListingInformationForm() {
                   />
                 </label>
                 {errors?.co_agent && (
-                  <p className="text-red-500 text-xs">
+                  <p className="text-red-500 text-xs mt-1">
                     {errors?.co_agent?.message}
                   </p>
                 )}
