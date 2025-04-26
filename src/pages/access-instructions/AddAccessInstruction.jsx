@@ -4,10 +4,8 @@ import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
 import Select from '@/components/ui/react-select';
 import { useStoreAccessInstruction } from '@/hooks/access-instructions.hook';
-import {
-  usePropertyDropdown,
-  usePropertyTypeDropdown,
-} from '@/hooks/open-house.hook';
+import { usePropertyTypeDropdown } from '@/hooks/open-house.hook';
+import { useGetProperties } from '@/hooks/property.hook';
 import { Controller, FormProvider } from 'react-hook-form';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -28,7 +26,7 @@ export default function AddAccessInstruction() {
 
   const location = useLocation();
 
-  const { properties, isLoading: isPropertiesLoading } = usePropertyDropdown();
+  const { properties, isLoading: isPropertiesLoading } = useGetProperties();
   const { propertyTypes, isLoading: isPropertyTypeLoading } =
     usePropertyTypeDropdown();
 

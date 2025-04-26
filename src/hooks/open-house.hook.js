@@ -84,21 +84,6 @@ export const useOpenHouseFeedback = () => {
   return { ...result, form };
 };
 
-export const usePropertyDropdown = () => {
-  const axiosPrivate = useAxiosSecure();
-
-  const result = useQuery({
-    queryKey: ['properties'],
-    queryFn: async () => {
-      const response = await axiosPrivate.get('/api/v1/property/dropdown');
-      return response.data;
-    },
-  });
-
-  const properties = result?.data?.data;
-  return { ...result, properties };
-};
-
 export const usePropertyTypeDropdown = () => {
   const axiosPrivate = useAxiosSecure();
 
