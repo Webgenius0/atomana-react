@@ -24,8 +24,6 @@ const OpenHouseFeedbackForm = () => {
   const { properties, isLoading: isPropertyLoading } =
     useOpenHouseFeedbackDropdown();
 
-  console.log({ properties });
-
   const propertyOptions = properties?.map((item) => ({
     value: item.id,
     label: item.address,

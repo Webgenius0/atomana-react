@@ -7,11 +7,13 @@ import TimeRangePicker from '@/components/TimeRangePicker';
 import Select from '@/components/ui/react-select';
 import { useOpenHouse } from '@/hooks/open-house.hook';
 import { useGetProperties } from '@/hooks/property.hook';
+import { useDebouncedState } from '@/hooks/useDebouncedState';
 import { Controller, FormProvider } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useLocation } from 'react-router-dom';
 
 export default function OpenHouseRequestForm() {
+  const [search, setSearch, debouncedSearch] = useDebouncedState('', 400);
   const { mutate: storeOpenHouse, isPending, form } = useOpenHouse();
 
   const {
@@ -24,7 +26,9 @@ export default function OpenHouseRequestForm() {
 
   const location = useLocation();
 
-  const { properties, isLoading: isPropertiesLoading } = useGetProperties();
+  const { properties, isLoading: isPropertiesLoading } = useGetProperties({
+    search: debouncedSearch,
+  });
 
   const propertyOptions = properties?.map((item) => ({
     value: item.id,
@@ -89,6 +93,8 @@ export default function OpenHouseRequestForm() {
                       //   isDisabled={isPropertiesLoading}
                       isLoading={isPropertiesLoading}
                       placeholder="Select Property Address"
+                      inputValue={search}
+                      onInputChange={(value) => setSearch(value)}
                     />
                   );
                 }}

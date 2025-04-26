@@ -82,15 +82,18 @@ import { useAxiosSecure } from './useAxios';
 //   note: z.string().min(1, 'Note is required'),
 // });
 
-export const useGetProperties = () => {
+export const useGetProperties = (params) => {
   const axiosPrivate = useAxiosSecure();
 
   const result = useQuery({
-    queryKey: ['properties'],
+    queryKey: ['properties', params],
     queryFn: async () => {
-      const response = await axiosPrivate.get('/api/v1/property/dropdown');
+      const response = await axiosPrivate.get('/api/v1/property/dropdown', {
+        params,
+      });
       return response.data;
     },
+    enabled: !!params?.search,
   });
 
   const properties = result?.data?.data || [];
