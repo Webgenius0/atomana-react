@@ -126,11 +126,25 @@ export const useStoreMyListingExpenses = () => {
     onSuccess: (data) => {
       if (data?.success) {
         setShowInputs(false);
+        form.reset();
         queryClient.invalidateQueries(['listing_expense']);
       }
     },
     onError: (error) => {
-      alert(error?.response?.data?.message);
+      if (typeof error?.response?.data?.error === 'string') {
+        alert(`${error?.response?.data?.error}`);
+      } else if (error?.response?.data?.error) {
+        alert(
+          Object.entries(error?.response?.data?.error)
+            .map(
+              ([field, [message]]) =>
+                `${field.split('_').join(' ').toUpperCase()}: ${message}`
+            )
+            .join(`\n`)
+        );
+      } else {
+        alert(`${error?.response?.data?.message}`);
+      }
     },
   });
 
@@ -158,11 +172,26 @@ export const useStoreMyBusinessExpenses = () => {
     },
     onSuccess: (data) => {
       if (data?.success) {
+        setShowInputs(false);
+        form.reset();
         queryClient.invalidateQueries(['business_expense']);
       }
     },
     onError: (error) => {
-      alert(error?.response?.data?.message);
+      if (typeof error?.response?.data?.error === 'string') {
+        alert(`${error?.response?.data?.error}`);
+      } else if (error?.response?.data?.error) {
+        alert(
+          Object.entries(error?.response?.data?.error)
+            .map(
+              ([field, [message]]) =>
+                `${field.split('_').join(' ').toUpperCase()}: ${message}`
+            )
+            .join(`\n`)
+        );
+      } else {
+        alert(`${error?.response?.data?.message}`);
+      }
     },
   });
 
@@ -185,11 +214,26 @@ export const useStoreSalesTrack = () => {
     },
     onSuccess: (data) => {
       if (data?.success) {
+        setShowInputs(false);
+        form.reset();
         queryClient.invalidateQueries(['sales_track']);
       }
     },
     onError: (error) => {
-      alert(error?.response?.data?.message);
+      if (typeof error?.response?.data?.error === 'string') {
+        alert(`${error?.response?.data?.error}`);
+      } else if (error?.response?.data?.error) {
+        alert(
+          Object.entries(error?.response?.data?.error)
+            .map(
+              ([field, [message]]) =>
+                `${field.split('_').join(' ').toUpperCase()}: ${message}`
+            )
+            .join(`\n`)
+        );
+      } else {
+        alert(`${error?.response?.data?.message}`);
+      }
     },
   });
 

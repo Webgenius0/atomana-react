@@ -123,7 +123,7 @@ export default function DataTable({
                         <th
                           key={header.id}
                           colSpan={header.colSpan}
-                          className="text-center text-white/60 border border-[#5E5E5E] px-[10px] py-[6.5px]"
+                          className="text-white/60 border border-[#5E5E5E] px-[10px] py-[6.5px]"
                         >
                           {header.isPlaceholder
                             ? null
