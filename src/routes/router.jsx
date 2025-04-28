@@ -9,6 +9,9 @@ import AddLessons from '@/pages/AddLessons';
 import AddVendor from '@/pages/AddVendor';
 import AgentLeaderBoard from '@/pages/AgentLeaderBoard';
 import BlogCourseDetails from '@/pages/BlogCourseDetails';
+import ContractInformationList from '@/pages/contract-information/ContractInformationList';
+import NewContractInformationForm from '@/pages/contract-information/NewContractInformationForm';
+import ViewContractInformation from '@/pages/contract-information/ViewContractInformation';
 import Courses from '@/pages/Courses';
 import CreateCourse from '@/pages/CreateCourse';
 import AddPassword from '@/pages/docs/AddPassword';
@@ -24,6 +27,7 @@ import ErrorPage from '@/pages/ErrorPage';
 import Finances from '@/pages/Finances';
 import ForgetPassword from '@/pages/ForgetPassword';
 import ListingInformationList from '@/pages/listing-information/ListingInformationList';
+import NewListingInformationForm from '@/pages/listing-information/NewListingInformationForm';
 import ViewListingInformation from '@/pages/listing-information/ViewListingInformation';
 import Login from '@/pages/Login';
 import MyAgentEarnings from '@/pages/MyAgentEarnings';
@@ -38,7 +42,6 @@ import MySystems from '@/pages/MySystems';
 import MyTeam from '@/pages/MyTeam';
 import NewContract from '@/pages/NewContract';
 import NewListing from '@/pages/NewListing';
-import NewListingInformationForm from '@/pages/NewListingInformationForm';
 import OpenHouseFeedbackForm from '@/pages/open-houses/OpenHouseFeedbackForm';
 import OpenHouseList from '@/pages/open-houses/OpenHouseList';
 import OpenHouseRequestForm from '@/pages/open-houses/OpenHouseRequestForm';
@@ -217,6 +220,30 @@ const router = createBrowserRouter([
             element: (
               <PageTitle title="New Contract">
                 <NewContract />
+              </PageTitle>
+            ),
+          },
+          {
+            path: 'new-contract/contract-information',
+            element: (
+              <PageTitle title="New Contract Information">
+                <ContractInformationList />
+              </PageTitle>
+            ),
+          },
+          {
+            path: 'new-contract/:id',
+            element: (
+              <PageTitle title="New Contract">
+                <ViewContractInformation />
+              </PageTitle>
+            ),
+          },
+          {
+            path: 'new-contract/new-contract-information-form',
+            element: (
+              <PageTitle title="New Contract Information Form">
+                <NewContractInformationForm />
               </PageTitle>
             ),
           },
