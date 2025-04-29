@@ -108,7 +108,7 @@ const createVendorSchema = z.object({
           ? value
           : `https://${value}`;
       } else {
-        return value;
+        return '';
       }
     })
     .refine((value) => !value || isValidURL(value), {
@@ -118,6 +118,7 @@ const createVendorSchema = z.object({
   email: z.any().optional(),
   phone: z.any().optional(),
   about: z.any().optional(),
+  additional_note: z.any().optional(),
 });
 
 export const useCreateVendor = () => {
@@ -126,6 +127,15 @@ export const useCreateVendor = () => {
   const navigate = useNavigate();
   const form = useForm({
     resolver: zodResolver(createVendorSchema),
+    defaultValues: {
+      name: '',
+      vendor_category_id: '',
+      website: '',
+      email: '',
+      phone: '',
+      about: '',
+      additional_note: '',
+    },
   });
 
   const result = useMutation({
