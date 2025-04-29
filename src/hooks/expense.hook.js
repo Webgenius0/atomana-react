@@ -106,7 +106,21 @@ export const useGetSalesTrack = ({ perPage = 10, currentPage = 1 }) => {
 
 export const useStoreMyListingExpenses = () => {
   const [showInputs, setShowInputs] = useState(false);
-  const form = useForm();
+  const form = useForm({
+    defaultValues: {
+      expense_category_id: '',
+      expense_sub_category_id: '',
+      description: '',
+      amount: '',
+      payment_method_id: '',
+      payee: '',
+      recept: '',
+      user_id: '',
+      reimbursable: '',
+      listing: '',
+      note: '',
+    },
+  });
   const axiosPrivate = useAxiosSecure();
   const queryClient = useQueryClient();
 
@@ -153,7 +167,21 @@ export const useStoreMyListingExpenses = () => {
 
 export const useStoreMyBusinessExpenses = () => {
   const [showInputs, setShowInputs] = useState(false);
-  const form = useForm();
+  const form = useForm({
+    defaultValues: {
+      expense_category_id: '',
+      expense_sub_category_id: '',
+      description: '',
+      amount: '',
+      payment_method_id: '',
+      payee: '',
+      recept: '',
+      user_id: '',
+      reimbursable: '',
+      listing: '',
+      note: '',
+    },
+  });
   const axiosPrivate = useAxiosSecure();
   const queryClient = useQueryClient();
 

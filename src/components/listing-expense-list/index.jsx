@@ -24,7 +24,11 @@ export default function MyListingExpenseTable() {
 
   // Form instance
   const onSubmit = (data) => {
-    if (showInputs) mutate({ ...data, recept: data.recept[0] });
+    const _data = {};
+    Object.entries(data).forEach(([key, value]) => {
+      _data[key] = value || '';
+    });
+    if (showInputs) mutate({ ..._data, recept: _data?.recept?.[0] || null });
   };
 
   return (
