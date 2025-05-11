@@ -17,10 +17,11 @@ export const useGetContractInformation = ({
     },
   });
 
-  const listingInformation = result?.data?.data?.data?.map((item) => ({
-    ...item,
-    path: `/my-systems/new-contract/${item.id}`,
-  }));
+  const listingInformation =
+    result?.data?.data?.data?.map((item) => ({
+      ...item,
+      path: `/my-systems/new-contract/${item.id}`,
+    })) || [];
 
   const current_page = result?.data?.data?.current_page;
   const totalItems = result?.data?.data?.total || 50;

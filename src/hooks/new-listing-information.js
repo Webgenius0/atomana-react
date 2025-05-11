@@ -14,10 +14,11 @@ export const useGetListingInformation = ({ perPage = 10, currentPage = 1 }) => {
     },
   });
 
-  const listingInformation = result?.data?.data?.data?.map((item) => ({
-    ...item,
-    path: `/my-systems/new-listing/${item.id}`,
-  }));
+  const listingInformation =
+    result?.data?.data?.data?.map((item) => ({
+      ...item,
+      path: `/my-systems/new-listing/${item.id}`,
+    })) || [];
 
   const current_page = result?.data?.data?.current_page;
   const totalItems = result?.data?.data?.total || 50;

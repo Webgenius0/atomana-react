@@ -128,10 +128,11 @@ export const useGetOpenHouses = ({ perPage = 10, currentPage = 1 }) => {
     },
   });
 
-  const openHouses = result?.data?.data?.data?.map((item) => ({
-    ...item,
-    path: `/my-systems/open-house/${item.id}`,
-  }));
+  const openHouses =
+    result?.data?.data?.data?.map((item) => ({
+      ...item,
+      path: `/my-systems/open-house/${item.id}`,
+    })) || [];
 
   const current_page = result?.data?.data?.current_page;
   const totalItems = result?.data?.data?.total || 50;
