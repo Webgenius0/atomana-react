@@ -54,7 +54,12 @@ export const useUpdateSingleAgent = (slug) => {
     mutationFn: async (data) => {
       const response = await axiosPrivate.post(
         `/api/v1/admin/agent/${slug}`,
-        data
+        data,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
       );
       return response.data;
     },
