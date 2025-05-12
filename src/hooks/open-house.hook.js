@@ -26,9 +26,6 @@ export const useOpenHouse = () => {
       );
       return response.data;
     },
-    onSuccess: (data) => {
-      console.log(data);
-    },
     onError: (error) => {
       const response = errorResponse(error, (fields) => {
         Object.entries(fields).forEach(([field, messages]) => {

@@ -6,10 +6,12 @@ import Select from '@/components/ui/react-select';
 import { useStoreAccessInstruction } from '@/hooks/access-instructions.hook';
 import { usePropertyTypeDropdown } from '@/hooks/open-house.hook';
 import { useGetProperties } from '@/hooks/property.hook';
+import { useDebouncedState } from '@/hooks/useDebouncedState';
 import { Controller, FormProvider } from 'react-hook-form';
 import { Link, useLocation } from 'react-router-dom';
 
 export default function AddAccessInstruction() {
+  const [search, setSearch, debouncedSearch] = useDebouncedState('', 400);
   const {
     mutate: storeAccessInstruction,
     isPending,
@@ -26,17 +28,20 @@ export default function AddAccessInstruction() {
 
   const location = useLocation();
 
-  const { properties, isLoading: isPropertiesLoading } = useGetProperties();
+  const { properties, isLoading: isPropertiesLoading } = useGetProperties({
+    search: debouncedSearch,
+  });
+
   const { propertyTypes, isLoading: isPropertyTypeLoading } =
     usePropertyTypeDropdown();
 
   const propertyOptions = properties?.map((item) => ({
-    value: item.address,
+    value: item.id,
     label: item.address,
   }));
 
   const propertyTypeOptions = propertyTypes?.map((item) => ({
-    value: item.name,
+    value: item.id,
     label: item.name,
   }));
 
@@ -89,6 +94,8 @@ export default function AddAccessInstruction() {
                       //   isDisabled={isPropertiesLoading}
                       isLoading={isPropertiesLoading}
                       placeholder="Select Property Address"
+                      inputValue={search}
+                      onInputChange={(value) => setSearch(value)}
                     />
                   );
                 }}
