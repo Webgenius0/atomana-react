@@ -11,16 +11,16 @@ export const useGetContractInformation = ({
   const axiosPrivate = useAxiosSecure();
 
   const result = useQuery({
-    queryKey: ['listing-information', perPage, currentPage],
+    queryKey: ['contract-information', perPage, currentPage],
     queryFn: async () => {
-      const response = await axiosPrivate.get(`/api/v1/property`, {
+      const response = await axiosPrivate.get(`/api/v1/contract`, {
         params: { per_page: perPage, page: currentPage },
       });
       return response.data;
     },
   });
 
-  const listingInformation =
+  const contractInformation =
     result?.data?.data?.data?.map((item) => ({
       ...item,
       path: `/my-systems/new-contract/${item.id}`,
@@ -32,7 +32,7 @@ export const useGetContractInformation = ({
 
   return {
     ...result,
-    listingInformation,
+    contractInformation,
     current_page,
     totalItems,
     per_page,

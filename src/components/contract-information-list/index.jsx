@@ -10,7 +10,7 @@ export default function ContractInformationTable() {
   const [currentPage, setCurrentPage] = useState(1);
 
   // Fetch table data
-  const { listingInformation, totalItems, isLoading } =
+  const { contractInformation, totalItems, isLoading } =
     useGetContractInformation({
       perPage,
       currentPage,
@@ -19,7 +19,7 @@ export default function ContractInformationTable() {
   return (
     <div>
       <DataViewTable
-        data={listingInformation}
+        data={contractInformation}
         columns={columns}
         isLoading={isLoading}
         perPage={perPage}
