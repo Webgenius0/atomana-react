@@ -109,7 +109,7 @@ export const useStoreAccessInstruction = () => {
         });
       });
       if (response) {
-        toast.error(response);
+        toast.error(error?.response?.data?.error || response);
       }
     },
   });

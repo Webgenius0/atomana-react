@@ -22,16 +22,20 @@ export default function SalesTrackerTable({ rowSelection, setRowSelection }) {
 
   // Form instance
   const onSubmit = (data) => {
-    new Date().toLocaleDateString;
-    console.log({
-      original: data?.date_under_contract,
-      formatted: format(data.date_under_contract, 'yyyy-MM-dd'),
+    const _data = {};
+    Object.entries(data).forEach(([key, value]) => {
+      _data[key] = value || '';
     });
-    mutate({
-      ...data,
-      date_under_contract: format(data.date_under_contract, 'yyyy-MM-dd'),
-      closing_date: format(data.closing_date, 'yyyy-MM-dd'),
-    });
+    if (showInputs)
+      mutate({
+        ..._data,
+        date_under_contract: data.date_under_contract
+          ? format(data.date_under_contract, 'yyyy-MM-dd')
+          : '',
+        closing_date: data.closing_date
+          ? format(data.closing_date, 'yyyy-MM-dd')
+          : '',
+      });
   };
 
   //   console.log({ error: form.formState.errors });
