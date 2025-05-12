@@ -109,7 +109,7 @@ const Activities = () => {
               Today
             </div>
             <DropdownTwo options={options} onSelect={handleSelect} />
-            <span className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 border border-[#024040] bg-gradient-to-r from-black via-black to-[#024040] shadow-[0_0_0_1px_black]">
+            <span className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 border border-[#024040] bg-gradient-to-r from-black via-black to-[#024040] shadow-[0_0_0_1px_black]">
               <PlusSvg />
             </span>
           </div>

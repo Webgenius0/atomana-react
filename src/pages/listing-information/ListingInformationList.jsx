@@ -17,12 +17,8 @@ const ListingInformationList = () => {
 
   const location = useLocation();
 
-  const {
-    mutate: deleteExpense,
-    isPending,
-    rowSelection,
-    setRowSelection,
-  } = useDeleteListingInformation();
+  const { mutate, isPending, rowSelection, setRowSelection } =
+    useDeleteListingInformation();
 
   const selectedRows = Object.entries(rowSelection)
     .filter(([, value]) => value)
@@ -53,7 +49,7 @@ const ListingInformationList = () => {
           {selectedRows.length > 0 && (
             <button
               onClick={() => {
-                deleteExpense(selectedRows);
+                mutate(selectedRows);
               }}
               disabled={isPending}
               className={cn(

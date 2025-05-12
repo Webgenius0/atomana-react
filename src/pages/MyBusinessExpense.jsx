@@ -18,12 +18,8 @@ const MyBusinessExpense = () => {
 
   const location = useLocation();
 
-  const {
-    mutate: deleteExpense,
-    isPending,
-    rowSelection,
-    setRowSelection,
-  } = useDeleteExpense();
+  const { mutate, isPending, rowSelection, setRowSelection } =
+    useDeleteExpense();
 
   const selectedRows = Object.entries(rowSelection)
     .filter(([, value]) => value)
@@ -43,7 +39,7 @@ const MyBusinessExpense = () => {
           {selectedRows.length > 0 && (
             <button
               onClick={() => {
-                deleteExpense(selectedRows);
+                mutate(selectedRows);
               }}
               disabled={isPending}
               className={cn(

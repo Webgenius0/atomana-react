@@ -19,12 +19,8 @@ const OpenHouseList = () => {
 
   const location = useLocation();
 
-  const {
-    mutate: deleteExpense,
-    isPending,
-    rowSelection,
-    setRowSelection,
-  } = useDeleteOpenHouse();
+  const { mutate, isPending, rowSelection, setRowSelection } =
+    useDeleteOpenHouse();
 
   const selectedRows = Object.entries(rowSelection)
     .filter(([, value]) => value)
@@ -55,7 +51,7 @@ const OpenHouseList = () => {
           {selectedRows.length > 0 && (
             <button
               onClick={() => {
-                deleteExpense(selectedRows);
+                mutate(selectedRows);
               }}
               disabled={isPending}
               className={cn(
