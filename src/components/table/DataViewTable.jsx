@@ -11,11 +11,18 @@ export default function DataViewTable({
   data = [],
   isLoading,
   perPage,
+  rowSelection,
+  setRowSelection,
 }) {
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getRowId: (row) => row.id,
+    onRowSelectionChange: setRowSelection,
+    state: {
+      rowSelection,
+    },
   });
 
   const navigate = useNavigate();
@@ -68,6 +75,9 @@ export default function DataViewTable({
                       className={
                         'border border-[#5E5E5E] text-white group-hover:text-white/70'
                       }
+                      onClick={(e) => {
+                        cell.column.id === 'select-col' && e.stopPropagation();
+                      }}
                       style={{
                         minWidth: `${cell.column.getSize()}px`,
                       }}

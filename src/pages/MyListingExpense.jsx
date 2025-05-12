@@ -2,6 +2,8 @@ import MyListingExpenseTable from '@/components/listing-expense-list';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
+import { useDeleteExpense } from '@/hooks/expense.hook';
+import { cn } from '@/lib/utils';
 import { Trash2Icon } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -12,6 +14,17 @@ const MyListingExpense = () => {
   //   ];
 
   const location = useLocation();
+
+  const {
+    mutate: deleteExpense,
+    isPending,
+    rowSelection,
+    setRowSelection,
+  } = useDeleteExpense();
+
+  const selectedRows = Object.entries(rowSelection)
+    .filter(([, value]) => value)
+    .map(([key]) => key);
 
   return (
     <>
@@ -24,9 +37,22 @@ const MyListingExpense = () => {
           <h2 className="section-title">MyListing Expenses</h2>
         </Link>
         <div className="flex items-center gap-2.5">
-          <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
-            <Trash2Icon className="text-light size-4" />
-          </button>
+          {selectedRows.length > 0 && (
+            <button
+              onClick={() => {
+                deleteExpense(selectedRows);
+              }}
+              disabled={isPending}
+              className={cn(
+                'w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95 hover:opacity-60',
+                {
+                  'opacity-60': isPending,
+                }
+              )}
+            >
+              <Trash2Icon className="text-light size-4" />
+            </button>
+          )}
           <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
             <PersonPlusSvg />
           </button>
@@ -40,7 +66,10 @@ const MyListingExpense = () => {
         <TabStepper tabs={tabs} />
       </div> */}
 
-      <MyListingExpenseTable />
+      <MyListingExpenseTable
+        rowSelection={rowSelection}
+        setRowSelection={setRowSelection}
+      />
     </>
   );
 };

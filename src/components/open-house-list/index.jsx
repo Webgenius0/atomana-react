@@ -4,7 +4,7 @@ import { useState } from 'react';
 import DataViewTable from '../table/DataViewTable';
 import { columns } from './ColumnDefs';
 
-export default function OpenHouseTable() {
+export default function OpenHouseTable({ rowSelection, setRowSelection }) {
   // Pagination states
   const [perPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,6 +22,8 @@ export default function OpenHouseTable() {
         columns={columns}
         isLoading={isLoading}
         perPage={perPage}
+        rowSelection={rowSelection}
+        setRowSelection={setRowSelection}
       />
       <Pagination
         currentPage={currentPage}

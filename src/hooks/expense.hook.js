@@ -460,3 +460,33 @@ export const useUpdateBusinessExpense = (rowId, columnId) => {
     setShowInput,
   };
 };
+
+export const useDeleteExpense = () => {
+  const [rowSelection, setRowSelection] = useState({});
+  const axiosPrivate = useAxiosSecure();
+  const queryClient = useQueryClient();
+
+  const result = useMutation({
+    mutationFn: async (ids) => {
+      const response = await axiosPrivate.delete(`/api/v1/expense/`, {
+        data: {
+          id: ids,
+        },
+      });
+      return response.data;
+    },
+    onSuccess: (data) => {
+      if (data?.success) {
+        queryClient.invalidateQueries(['business_expense']);
+        queryClient.invalidateQueries(['listing_expense']);
+        toast.success(data?.message || 'Expense deleted successfully');
+        setRowSelection({});
+      }
+    },
+    onError: (error) => {
+      toast.error(error?.response?.data?.message);
+    },
+  });
+
+  return { ...result, rowSelection, setRowSelection };
+};

@@ -1,5 +1,6 @@
 import errorResponse from '@/lib/errorResponse';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useAxiosSecure } from './useAxios';
@@ -191,4 +192,33 @@ export const useGetOpenHouseFeedbacks = (id) => {
     ...result,
     feedbacks,
   };
+};
+
+export const useDeleteOpenHouse = () => {
+  const [rowSelection, setRowSelection] = useState({});
+  const axiosPrivate = useAxiosSecure();
+  const queryClient = useQueryClient();
+
+  const result = useMutation({
+    mutationFn: async (ids) => {
+      const response = await axiosPrivate.delete(`/api/v1/open-house/`, {
+        data: {
+          id: ids,
+        },
+      });
+      return response.data;
+    },
+    onSuccess: (data) => {
+      if (data?.success) {
+        queryClient.invalidateQueries(['open-houses']);
+        toast.success(data?.message || 'Open House deleted successfully');
+        setRowSelection({});
+      }
+    },
+    onError: (error) => {
+      toast.error(error?.response?.data?.message);
+    },
+  });
+
+  return { ...result, rowSelection, setRowSelection };
 };
