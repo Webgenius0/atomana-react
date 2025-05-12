@@ -135,7 +135,7 @@ export const useGetOpenHouses = ({ perPage = 10, currentPage = 1 }) => {
     })) || [];
 
   const current_page = result?.data?.data?.current_page;
-  const totalItems = result?.data?.data?.total || 50;
+  const totalItems = result?.data?.data?.total;
   const per_page = result?.data?.data?.per_page;
 
   return {

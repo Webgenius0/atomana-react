@@ -4,10 +4,10 @@ import CalenderSvg from '@/components/svgs/CalenderSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
 import Select from '@/components/ui/react-select';
+import { useStoreContractInformation } from '@/hooks/new-contract-information';
 import {
   useCoListAgentDropdown,
   useSourceDropdown,
-  useStoreProperty,
 } from '@/hooks/property.hook';
 import { format } from 'date-fns';
 import { useEffect } from 'react';
@@ -16,7 +16,11 @@ import { Link, useLocation } from 'react-router-dom';
 
 function NewContractInformationForm() {
   const location = useLocation();
-  const { isPending, form } = useStoreProperty();
+  const {
+    isPending,
+    form,
+    mutate: storeContractInformation,
+  } = useStoreContractInformation();
 
   const {
     register,
@@ -27,8 +31,15 @@ function NewContractInformationForm() {
     formState: { errors },
   } = form;
 
-  const client_type = watch('client_type');
+  const represent = watch('represent');
   const is_co_listing = watch('is_co_listing');
+
+  useEffect(() => {
+    if (represent === 'buyer') {
+      form.clearErrors('date_listed');
+      form.setValue('date_listed', null);
+    }
+  }, [represent]);
 
   const { coAgents, isLoading: isAgentLoading } = useCoListAgentDropdown();
   const { sources, isLoading: isSourcesLoading } = useSourceDropdown();
@@ -71,7 +82,7 @@ function NewContractInformationForm() {
       </div>
       <div className="max-w-[670px] w-full mx-auto mt-4">
         <form
-          onSubmit={handleSubmit(() => {})}
+          onSubmit={handleSubmit(storeContractInformation)}
           className="max-w-[670px] mx-start flex flex-col gap-[15px]"
         >
           {/* Property Address */}
@@ -98,7 +109,7 @@ function NewContractInformationForm() {
 
             <label className="flex items-center px-4 rounded-[10px] border border-[#d8dfeb] bg-dark w-full gap-2.5">
               <Controller
-                name="closing_date"
+                name="closing_data"
                 control={control}
                 render={({ field }) => (
                   <CustomDatePicker
@@ -112,9 +123,9 @@ function NewContractInformationForm() {
               <CalenderSvg />
             </label>
 
-            {errors?.closing_date && (
+            {errors?.closing_data && (
               <p className="text-red-500 text-xs">
-                {errors?.closing_date?.message}
+                {errors?.closing_data?.message}
               </p>
             )}
           </div>
@@ -153,44 +164,65 @@ function NewContractInformationForm() {
 
           {/* Co-listing details (conditional) */}
           {is_co_listing === '1' && (
-            <div className="flex items-center sm:gap-6 gap-4 sm:ml-12 ml-8">
-              {/* <FormLineSvg /> */}
-              <div className="w-full">
+            <>
+              <div className="flex items-center sm:gap-6 gap-4 sm:ml-12 ml-8">
+                {/* <FormLineSvg /> */}
+                <div className="w-full">
+                  <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+                    <p className="mb-3">Who are you co-listing with?</p>
+                    <Controller
+                      name="co_agent"
+                      control={control}
+                      render={({ field }) => (
+                        <Select
+                          options={coListingAgentOptions}
+                          value={coListingAgentOptions?.find(
+                            (option) => option?.value == field?.value
+                          )}
+                          onChange={(option) => field.onChange(option?.value)}
+                          isDisabled={isAgentLoading}
+                          isLoading={isAgentLoading}
+                          placeholder="Select Agent"
+                        />
+                      )}
+                    />
+                  </label>
+                  {errors?.co_agent && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors?.co_agent?.message}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {/* Co-listing Percentage */}
+              <div className="flex flex-col gap-2 w-full sm:ml-12 ml-8">
                 <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-                  <p className="mb-3">Who are you co-listing with?</p>
-                  <Controller
-                    name="co_agent"
-                    control={control}
-                    render={({ field }) => (
-                      <Select
-                        options={coListingAgentOptions}
-                        value={coListingAgentOptions?.find(
-                          (option) => option?.value == field?.value
-                        )}
-                        onChange={(option) => field.onChange(option?.value)}
-                        isDisabled={isAgentLoading}
-                        isLoading={isAgentLoading}
-                        placeholder="Select Agent"
-                      />
-                    )}
-                  />
+                  Co-listing Percentage
                 </label>
-                {errors?.co_agent && (
-                  <p className="text-red-500 text-xs mt-1">
-                    {errors?.co_agent?.message}
+                <input
+                  type="number"
+                  step="any"
+                  className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+                  placeholder="Co-listing Percentage"
+                  {...register('co_agent_percentage')}
+                />
+                {errors?.co_agent_percentage && (
+                  <p className="text-red-500 text-xs">
+                    {errors?.co_agent_percentage?.message}
                   </p>
                 )}
               </div>
-            </div>
+            </>
           )}
 
-          {/* Client Type */}
+          {/* Represent */}
           <div>
             <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
               Did you represent the buyer, seller, or both?
             </p>
             <Controller
-              name="client_type"
+              name="represent"
               control={control}
               render={({ field }) => (
                 <div className="flex space-x-4">
@@ -215,15 +247,15 @@ function NewContractInformationForm() {
                 </div>
               )}
             />
-            {errors?.client_type && (
+            {errors?.represent && (
               <p className="text-red-500 text-xs">
-                {errors?.client_type?.message}
+                {errors?.represent?.message}
               </p>
             )}
           </div>
 
           {/* Date Listed */}
-          {(client_type === 'seller' || client_type === 'both') && (
+          {(represent === 'seller' || represent === 'both') && (
             <div className="sm:ml-12 ml-8">
               <div className="flex flex-col gap-2 w-full">
                 <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
@@ -278,7 +310,7 @@ function NewContractInformationForm() {
 
             <label className="flex items-center px-4 rounded-[10px] border border-[#d8dfeb] bg-dark w-full gap-2.5">
               <Controller
-                name="date_under_contract"
+                name="contract_data"
                 control={control}
                 render={({ field }) => (
                   <CustomDatePicker
@@ -292,9 +324,9 @@ function NewContractInformationForm() {
               <CalenderSvg />
             </label>
 
-            {errors?.date_under_contract && (
+            {errors?.contract_data && (
               <p className="text-red-500 text-xs">
-                {errors?.date_under_contract?.message}
+                {errors?.contract_data?.message}
               </p>
             )}
           </div>
@@ -309,11 +341,11 @@ function NewContractInformationForm() {
               step="any"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="Commission Percentage"
-              {...register('commission_percentage')}
+              {...register('commision_percentage')}
             />
-            {errors?.commission_percentage && (
+            {errors?.commision_percentage && (
               <p className="text-red-500 text-xs">
-                {errors?.commission_percentage?.message}
+                {errors?.commision_percentage?.message}
               </p>
             )}
           </div>
@@ -361,12 +393,10 @@ function NewContractInformationForm() {
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="Enter Name"
-                {...register('referral_name')}
+                {...register('name')}
               />
-              {errors?.referral_name && (
-                <p className="text-red-500 text-xs">
-                  {errors?.referral_name?.message}
-                </p>
+              {errors?.name && (
+                <p className="text-red-500 text-xs">{errors?.name?.message}</p>
               )}
             </div>
 
@@ -378,16 +408,16 @@ function NewContractInformationForm() {
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="Enter Company Name"
-                {...register('full_baths')}
+                {...register('company')}
               />
-              {errors?.referral_company && (
+              {errors?.company && (
                 <p className="text-red-500 text-xs">
-                  {errors?.referral_company?.message}
+                  {errors?.company?.message}
                 </p>
               )}
             </div>
 
-            {/* Referral Email */}
+            {/* Referral email */}
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                 Email
@@ -395,12 +425,10 @@ function NewContractInformationForm() {
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="Enter Email"
-                {...register('referral_email')}
+                {...register('email')}
               />
-              {errors?.referral_email && (
-                <p className="text-red-500 text-xs">
-                  {errors?.referral_email?.message}
-                </p>
+              {errors?.email && (
+                <p className="text-red-500 text-xs">{errors?.email?.message}</p>
               )}
             </div>
 
@@ -411,15 +439,32 @@ function NewContractInformationForm() {
               </label>
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                placeholder="0 sq ft"
-                {...register('referral_phone')}
+                placeholder="Enter Phone Number"
+                {...register('phone')}
               />
-              {errors?.referral_phone && (
-                <p className="text-red-500 text-xs">
-                  {errors?.referral_phone?.message}
-                </p>
+              {errors?.phone && (
+                <p className="text-red-500 text-xs">{errors?.phone?.message}</p>
               )}
             </div>
+          </div>
+
+          {/* Referral Percentage */}
+          <div className="flex flex-col gap-2 w-full">
+            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+              Referral Percentage
+            </label>
+            <input
+              type="number"
+              step="any"
+              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+              placeholder="Referral Percentage"
+              {...register('referral_percentage')}
+            />
+            {errors?.referral_percentage && (
+              <p className="text-red-500 text-xs">
+                {errors?.referral_percentage?.message}
+              </p>
+            )}
           </div>
 
           {/* Additional Comments / Questions */}
@@ -431,10 +476,10 @@ function NewContractInformationForm() {
               type="note"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="Type your answer here"
-              {...register('note')}
+              {...register('comment')}
             />
-            {errors?.note && (
-              <p className="text-red-500 text-xs">{errors?.note?.message}</p>
+            {errors?.comment && (
+              <p className="text-red-500 text-xs">{errors?.comment?.message}</p>
             )}
           </div>
 
