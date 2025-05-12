@@ -5,7 +5,7 @@ import Pagination from '../Pagination';
 import DataTable from '../table/DataTable';
 import { columns } from './SalesTrackerColumns';
 
-export default function SalesTrackerTable() {
+export default function SalesTrackerTable({ rowSelection, setRowSelection }) {
   // Pagination states
   const [perPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -49,6 +49,8 @@ export default function SalesTrackerTable() {
         setShowInputs={setShowInputs}
         perPage={perPage}
         addButtonText="Add a Sale"
+        rowSelection={rowSelection}
+        setRowSelection={setRowSelection}
       />
       <Pagination
         currentPage={currentPage}

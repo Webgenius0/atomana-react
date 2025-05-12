@@ -490,3 +490,32 @@ export const useDeleteExpense = () => {
 
   return { ...result, rowSelection, setRowSelection };
 };
+
+export const useDeleteSalesTrack = () => {
+  const [rowSelection, setRowSelection] = useState({});
+  const axiosPrivate = useAxiosSecure();
+  const queryClient = useQueryClient();
+
+  const result = useMutation({
+    mutationFn: async (ids) => {
+      const response = await axiosPrivate.delete(`/api/v1/sales-track/`, {
+        data: {
+          id: ids,
+        },
+      });
+      return response.data;
+    },
+    onSuccess: (data) => {
+      if (data?.success) {
+        queryClient.invalidateQueries(['sales_track']);
+        toast.success(data?.message || 'Sales Track deleted successfully');
+        setRowSelection({});
+      }
+    },
+    onError: (error) => {
+      toast.error(error?.response?.data?.message);
+    },
+  });
+
+  return { ...result, rowSelection, setRowSelection };
+};
