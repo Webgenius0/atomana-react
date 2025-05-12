@@ -4,13 +4,16 @@ import { useState } from 'react';
 import DataViewTable from '../table/DataViewTable';
 import { columns } from './ColumnDefs';
 
-export default function ContractInformationTable() {
+export default function ContractInformationTable({
+  rowSelection,
+  setRowSelection,
+}) {
   // Pagination states
   const [perPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
 
   // Fetch table data
-  const { listingInformation, totalItems, isLoading } =
+  const { contractInformation, totalItems, isLoading } =
     useGetContractInformation({
       perPage,
       currentPage,
@@ -19,10 +22,12 @@ export default function ContractInformationTable() {
   return (
     <div>
       <DataViewTable
-        data={listingInformation}
+        data={contractInformation}
         columns={columns}
         isLoading={isLoading}
         perPage={perPage}
+        rowSelection={rowSelection}
+        setRowSelection={setRowSelection}
       />
       <Pagination
         currentPage={currentPage}

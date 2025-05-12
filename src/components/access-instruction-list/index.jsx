@@ -4,7 +4,10 @@ import { useState } from 'react';
 import DataViewTable from '../table/DataViewTable';
 import { columns } from './ColumnDefs';
 
-export default function AccessInstructionList() {
+export default function AccessInstructionList({
+  rowSelection,
+  setRowSelection,
+}) {
   // Pagination states
   const [perPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,6 +26,8 @@ export default function AccessInstructionList() {
         columns={columns}
         isLoading={isLoading}
         perPage={perPage}
+        rowSelection={rowSelection}
+        setRowSelection={setRowSelection}
       />
       <Pagination
         currentPage={currentPage}

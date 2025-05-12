@@ -2,6 +2,9 @@ import MyBusinessExpenseTable from '@/components/business-expense-list';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
+import { useDeleteExpense } from '@/hooks/expense.hook';
+import { cn } from '@/lib/utils';
+import { Trash2Icon } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 const MyBusinessExpense = () => {
@@ -15,6 +18,13 @@ const MyBusinessExpense = () => {
 
   const location = useLocation();
 
+  const { mutate, isPending, rowSelection, setRowSelection } =
+    useDeleteExpense();
+
+  const selectedRows = Object.entries(rowSelection)
+    .filter(([, value]) => value)
+    .map(([key]) => key);
+
   return (
     <>
       <div className="flex items-center gap-4 justify-between">
@@ -26,6 +36,22 @@ const MyBusinessExpense = () => {
         </div>
 
         <div className="flex items-center gap-2.5">
+          {selectedRows.length > 0 && (
+            <button
+              onClick={() => {
+                mutate(selectedRows);
+              }}
+              disabled={isPending}
+              className={cn(
+                'w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95 hover:opacity-60',
+                {
+                  'opacity-60': isPending,
+                }
+              )}
+            >
+              <Trash2Icon className="text-light size-4" />
+            </button>
+          )}
           <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
             <PersonPlusSvg />
           </button>
@@ -39,7 +65,10 @@ const MyBusinessExpense = () => {
         <TabStepper tabs={tabs} />
       </div> */}
 
-      <MyBusinessExpenseTable />
+      <MyBusinessExpenseTable
+        rowSelection={rowSelection}
+        setRowSelection={setRowSelection}
+      />
     </>
   );
 };

@@ -7,7 +7,10 @@ import {
 import { useState } from 'react';
 import { columns } from './ColumnDefs';
 
-export default function MyBusinessExpenseTable() {
+export default function MyBusinessExpenseTable({
+  rowSelection,
+  setRowSelection,
+}) {
   // Pagination states
   const [perPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -45,6 +48,8 @@ export default function MyBusinessExpenseTable() {
         setShowInputs={setShowInputs}
         perPage={perPage}
         addButtonText="Add an Expense"
+        rowSelection={rowSelection}
+        setRowSelection={setRowSelection}
       />
       <Pagination
         currentPage={currentPage}

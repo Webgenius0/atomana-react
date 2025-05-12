@@ -18,12 +18,18 @@ export default function DataTable({
   setShowInputs,
   perPage,
   addButtonText,
+  rowSelection,
+  setRowSelection,
 }) {
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getRowId: (row) => row.id,
+    onRowSelectionChange: setRowSelection,
+    state: {
+      rowSelection,
+    },
   });
 
   return (

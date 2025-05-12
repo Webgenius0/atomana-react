@@ -1,6 +1,9 @@
 import ContractInformationTable from '@/components/contract-information-list';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import PlusSvg from '@/components/svgs/PlusSvg';
+import { useDeleteContractInformation } from '@/hooks/new-contract-information';
+import { cn } from '@/lib/utils';
+import { Trash2Icon } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 const ContractInformationList = () => {
@@ -14,6 +17,13 @@ const ContractInformationList = () => {
 
   const location = useLocation();
 
+  const { mutate, isPending, rowSelection, setRowSelection } =
+    useDeleteContractInformation();
+
+  const selectedRows = Object.entries(rowSelection)
+    .filter(([, value]) => value)
+    .map(([key]) => key);
+
   return (
     <>
       <div className="flex items-center gap-4 justify-between">
@@ -25,22 +35,40 @@ const ContractInformationList = () => {
         </div>
 
         <div className="flex items-center gap-2.5">
-          {/* <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
-            <PersonPlusSvg />
-          </button>
-          <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
-            <ThreeDotsSvg />
-          </button> */}
           <Link
             to="/my-systems/new-contract/new-contract-information-form"
             state={{ from: location.pathname }}
             className="flex items-center gap-2.5 text-sm leading-6 tracking-[-0.14px] text-light hover:opacity-60 duration-300 ml-auto "
           >
             <p className="sm:block hidden">New Contract Information</p>
-            <span className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 border border-[#024040] bg-gradient-to-r from-black via-black to-[#024040] shadow-[0_0_0_1px_black]">
+            <span className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 border border-[#024040] bg-gradient-to-r from-black via-black to-[#024040] shadow-[0_0_0_1px_black]">
               <PlusSvg />
             </span>
           </Link>
+
+          {selectedRows.length > 0 && (
+            <button
+              onClick={() => {
+                mutate(selectedRows);
+              }}
+              disabled={isPending}
+              className={cn(
+                'w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95 hover:opacity-60',
+                {
+                  'opacity-60': isPending,
+                }
+              )}
+            >
+              <Trash2Icon className="text-light size-4" />
+            </button>
+          )}
+
+          {/* <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
+            <PersonPlusSvg />
+          </button>
+          <button className="w-10 h-10 rounded-full border border-secondPrimary flex items-center justify-center duration-300 active:scale-95">
+            <ThreeDotsSvg />
+          </button> */}
         </div>
       </div>
 
@@ -48,7 +76,10 @@ const ContractInformationList = () => {
         <TabStepper tabs={tabs} />
       </div> */}
 
-      <ContractInformationTable />
+      <ContractInformationTable
+        rowSelection={rowSelection}
+        setRowSelection={setRowSelection}
+      />
     </>
   );
 };

@@ -1,5 +1,6 @@
 import errorResponse from '@/lib/errorResponse';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
@@ -114,4 +115,38 @@ export const useStoreAccessInstruction = () => {
   });
 
   return { form, ...result };
+};
+
+export const useDeleteAccessInstruction = () => {
+  const [rowSelection, setRowSelection] = useState({});
+  const axiosPrivate = useAxiosSecure();
+  const queryClient = useQueryClient();
+
+  const result = useMutation({
+    mutationFn: async (ids) => {
+      const response = await axiosPrivate.delete(
+        `/api/v1/property/access-instruction/`,
+        {
+          data: {
+            id: ids,
+          },
+        }
+      );
+      return response.data;
+    },
+    onSuccess: (data) => {
+      if (data?.success) {
+        queryClient.invalidateQueries(['access-instructions']);
+        toast.success(
+          data?.message || 'Access Instruction deleted successfully'
+        );
+        setRowSelection({});
+      }
+    },
+    onError: (error) => {
+      toast.error(error?.response?.data?.message);
+    },
+  });
+
+  return { ...result, rowSelection, setRowSelection };
 };
