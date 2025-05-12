@@ -228,7 +228,22 @@ export const useStoreMyBusinessExpenses = () => {
 
 export const useStoreSalesTrack = () => {
   const [showInputs, setShowInputs] = useState(false);
-  const form = useForm();
+  const form = useForm({
+    defaultValues: {
+      user_id: '',
+      property_id: '',
+      price: '',
+      status: '',
+      date_under_contract: '',
+      closing_date: '',
+      purchase_price: '',
+      referral_fee_pct: '',
+      buyer_seller: '',
+      commission_on_sale: '',
+      note: '',
+      override_split: '',
+    },
+  });
   const axiosPrivate = useAxiosSecure();
   const queryClient = useQueryClient();
 
