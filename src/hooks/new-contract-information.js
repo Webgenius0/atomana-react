@@ -23,7 +23,7 @@ export const useGetContractInformation = ({
   const contractInformation =
     result?.data?.data?.data?.map((item) => ({
       ...item,
-      path: `/my-systems/new-contract/${item.id}`,
+      path: `/my-systems/new-contract/${item.uid}`,
     })) || [];
 
   const current_page = result?.data?.data?.current_page;
@@ -92,4 +92,19 @@ export const useStoreContractInformation = () => {
   });
 
   return { ...result, form };
+};
+
+export const useGetViewContractInformation = (id) => {
+  const axiosPrivate = useAxiosSecure();
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ['contract-information', id],
+    queryFn: async () => {
+      const response = await axiosPrivate.get(`/api/v1/contract/${id}`);
+      return response.data;
+    },
+    enabled: !!id,
+    staleTime: 5 * 60 * 1000,
+  });
+
+  return { contractInformation: data?.data, isLoading, isError, error };
 };
