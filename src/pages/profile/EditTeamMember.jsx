@@ -49,6 +49,13 @@ const EditTeamMember = () => {
       file: data?.file?.[0],
     };
 
+    console.log({
+      ...data,
+      _method: 'PUT',
+      aggrement: data?.aggrement?.[0],
+      file: data?.file?.[0],
+    });
+
     editAgent(_data);
     // navigate('/profile/member-profile');
   };
@@ -156,8 +163,10 @@ const EditTeamMember = () => {
                 />
                 <CalenderSvg />
               </label>
-              {errors?.date?.message && (
-                <p className="text-red-500 mt-2">{errors?.date?.message}</p>
+              {errors?.contract_year_start?.message && (
+                <p className="text-red-500 mt-2">
+                  {errors?.contract_year_start?.message}
+                </p>
               )}
             </div>
             {/* Total Commission this Contract Year */}
@@ -200,6 +209,11 @@ const EditTeamMember = () => {
                   {...register('aggrement')}
                 />
               </label>
+              {errors?.aggrement?.message && (
+                <p className="text-red-500 mt-2">
+                  {errors?.aggrement?.message}
+                </p>
+              )}
             </div>
             {/* Additional Files */}
             <div className="flex flex-col gap-2 w-full">
@@ -222,6 +236,9 @@ const EditTeamMember = () => {
                   {...register('file')}
                 />
               </label>
+              {errors?.file?.message && (
+                <p className="text-red-500 mt-2">{errors?.file?.message}</p>
+              )}
             </div>
 
             <div className="flex items-center gap-4 justify-between sm:mt-2 md:mt-6">
