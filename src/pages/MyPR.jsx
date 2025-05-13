@@ -8,8 +8,40 @@ import {
   useGetSingleConversation,
   useSendMessageToConversation,
 } from '@/hooks/my-pr.hook';
-import { useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+
+const parseLine = (line, idx) => {
+  // Bold: **text**
+  const boldParsed = line.split(/(\*\*.*?\*\*)/g).map((chunk, i) => {
+    if (chunk.startsWith('**') && chunk.endsWith('**')) {
+      return <strong key={i}>{chunk.slice(2, -2)}</strong>;
+    }
+
+    // Italic: _text_
+    return chunk.split(/(_.*?_)/g).map((part, j) => {
+      if (part.startsWith('_') && part.endsWith('_')) {
+        return <em key={j}>{part.slice(1, -1)}</em>;
+      }
+
+      // Inline code: `code`
+      return part.split(/(`.*?`)/g).map((codePart, k) => {
+        if (codePart.startsWith('`') && codePart.endsWith('`')) {
+          return <code key={k}>{codePart.slice(1, -1)}</code>;
+        }
+
+        return <Fragment key={k}>{codePart}</Fragment>;
+      });
+    });
+  });
+
+  return (
+    <span key={idx}>
+      {boldParsed}
+      <br />
+    </span>
+  );
+};
 
 const MyPR = () => {
   const messageInputRef = useRef(null);
@@ -207,12 +239,7 @@ const MyPR = () => {
                     />
 
                     <p className="text-[13px] sm:text-sm text-light rounded-lg max-w-[80%] lg:max-w-[580px]">
-                      {chat?.response?.split('\n')?.map?.((line, idx) => (
-                        <span key={idx}>
-                          {line}
-                          <br />
-                        </span>
-                      ))}
+                      {chat?.response?.split('\n')?.map(parseLine)}
                     </p>
                   </div>
                 </div>
