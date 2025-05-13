@@ -207,7 +207,12 @@ const MyAI = () => {
                     />
 
                     <p className="text-[13px] sm:text-sm text-light rounded-lg max-w-[80%] lg:max-w-[580px]">
-                      {chat.response}
+                      {chat?.response?.split('\n')?.map?.((line, idx) => (
+                        <span key={idx}>
+                          {line}
+                          <br />
+                        </span>
+                      ))}
                     </p>
                   </div>
                 </div>
