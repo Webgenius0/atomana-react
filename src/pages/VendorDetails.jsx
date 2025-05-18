@@ -115,7 +115,7 @@ const VendorDetails = () => {
                 </p>
 
                 <div
-                  className="rich-text !text-white"
+                  className="rich-text"
                   dangerouslySetInnerHTML={{ __html: additionalNote }}
                 />
               </div>

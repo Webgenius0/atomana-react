@@ -196,16 +196,13 @@ const ViewListingInformation = () => {
       {listingInformation?.note && (
         <div className="mt-6">
           <h2 className="section-title">Additional Notes</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-            <div className="space-y-[2px] py-4">
-              <p className="font-bold text-sm text-[#ffffffcc]">Note</p>
-              <div
-                className="rich-text"
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(listingInformation.note),
-                }}
-              />
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+            <div
+              className="rich-text"
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(listingInformation.note),
+              }}
+            />
           </div>
         </div>
       )}

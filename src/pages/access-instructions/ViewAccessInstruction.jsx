@@ -164,18 +164,11 @@ const ViewAccessInstruction = () => {
       {note && (
         <div className="mt-[25px]">
           <h2 className="section-title">Additional Notes</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 md:gap-4 md:mt-4">
-            {/* Notes */}
-            <div className="space-y-[2px]  py-4">
-              <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
-                Notes
-              </p>
-
-              <div
-                className="rich-text !text-white"
-                dangerouslySetInnerHTML={{ __html: note }}
-              />
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 md:gap-4 md:my-4">
+            <div
+              className="rich-text"
+              dangerouslySetInnerHTML={{ __html: note }}
+            />
           </div>
         </div>
       )}
