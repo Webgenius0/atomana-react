@@ -4,13 +4,15 @@ import CalenderSvg from '@/components/svgs/CalenderSvg';
 import FileSvg from '@/components/svgs/FileSvg';
 import { useGetSingleAgent, useUpdateSingleAgent } from '@/hooks/agent.hook';
 import { format } from 'date-fns';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Controller } from 'react-hook-form';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link, useParams } from 'react-router-dom';
 
 const EditTeamMember = () => {
   const { slug } = useParams();
   const { agent } = useGetSingleAgent(slug);
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     mutate: editAgent,
@@ -33,6 +35,7 @@ const EditTeamMember = () => {
         first_name: agent?.first_name,
         last_name: agent?.last_name,
         email: agent?.email,
+        password: agent?.password,
         phone: agent?.phone,
         contract_year_start: agent?.contract_year_start,
         total_commission_this_contract_year:
@@ -48,13 +51,6 @@ const EditTeamMember = () => {
       aggrement: data?.aggrement?.[0],
       file: data?.file?.[0],
     };
-
-    console.log({
-      ...data,
-      _method: 'PUT',
-      aggrement: data?.aggrement?.[0],
-      file: data?.file?.[0],
-    });
 
     editAgent(_data);
     // navigate('/profile/member-profile');
@@ -124,6 +120,35 @@ const EditTeamMember = () => {
               />
               {errors.email && (
                 <span className="error-text">{errors.email.message}</span>
+              )}
+            </div>
+            <div className="relative flex flex-col gap-2 w-full">
+              <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+                Password
+              </label>
+              <div className="relative">
+                <input
+                  className="input-field pr-10 px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Password"
+                  {...register('password', {
+                    required: 'Password is required',
+                  })}
+                />
+                <button
+                  type="button"
+                  className="absolute right-3 top-3 text-gray-400"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? (
+                    <FaEye size={20} />
+                  ) : (
+                    <FaEyeSlash size={20} />
+                  )}
+                </button>
+              </div>
+              {errors.password && (
+                <span className="error-text">{errors.password.message}</span>
               )}
             </div>
             {/* Phone */}
