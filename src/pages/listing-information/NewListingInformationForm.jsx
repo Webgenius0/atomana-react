@@ -139,13 +139,23 @@ function NewListingInformationForm() {
               render={({ field }) => (
                 <div className="flex space-x-4">
                   <label className="flex items-center gap-2">
-                    <input {...field} type="radio" value="1" />
+                    <input
+                      {...field}
+                      type="radio"
+                      value="1"
+                      checked={field.value === '1'}
+                    />
                     <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                       Yes
                     </p>
                   </label>
                   <label className="flex items-center gap-2">
-                    <input {...field} type="radio" value="0" />
+                    <input
+                      {...field}
+                      type="radio"
+                      value="0"
+                      checked={field.value === '0'}
+                    />
                     <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                       No
                     </p>
@@ -174,13 +184,23 @@ function NewListingInformationForm() {
                   render={({ field }) => (
                     <div className="flex space-x-4">
                       <label className="flex items-center gap-2">
-                        <input {...field} type="radio" value="1" />
+                        <input
+                          {...field}
+                          type="radio"
+                          value="1"
+                          checked={field.value === '1'}
+                        />
                         <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                           Yes
                         </p>
                       </label>
                       <label className="flex items-center gap-2">
-                        <input {...field} type="radio" value="0" />
+                        <input
+                          {...field}
+                          type="radio"
+                          value="0"
+                          checked={field.value === '0'}
+                        />
                         <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                           No
                         </p>
@@ -208,13 +228,23 @@ function NewListingInformationForm() {
               render={({ field }) => (
                 <div className="flex space-x-4">
                   <label className="flex items-center gap-2">
-                    <input {...field} type="radio" value="1" />
+                    <input
+                      {...field}
+                      type="radio"
+                      value="1"
+                      checked={field.value === '1'}
+                    />
                     <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                       Yes
                     </p>
                   </label>
                   <label className="flex items-center gap-2">
-                    <input {...field} type="radio" value="0" />
+                    <input
+                      {...field}
+                      type="radio"
+                      value="0"
+                      checked={field.value === '0'}
+                    />
                     <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                       No
                     </p>
