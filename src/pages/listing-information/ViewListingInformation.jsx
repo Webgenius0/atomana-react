@@ -169,7 +169,11 @@ const ViewListingInformation = () => {
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold text-sm text-[#ffffffcc]">Size</p>
             <p className="text-sm text-[#009696]">
-              {listingInformation?.size ?? 'N/A'}
+              {listingInformation?.size
+                ? `${Number(listingInformation?.size)
+                    ?.toFixed(0)
+                    .padStart(2, '0')} SQFT`
+                : 'N/A'}
             </p>
           </div>
 
