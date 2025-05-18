@@ -411,7 +411,7 @@ function NewListingInformationForm() {
               <input
                 type="number"
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                placeholder="SQFT"
+                placeholder="0"
                 {...register('size')}
               />
               {errors?.size && (
