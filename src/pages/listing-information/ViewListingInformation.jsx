@@ -1,7 +1,7 @@
 import AccessInstructionSkeleton from '@/components/access-instruction/AccessInstructionSkeleton';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
-import { useGetViewListingInformation } from '@/hooks/useGetViewListingInformation';
+import { useGetSingleListingInformation } from '@/hooks/new-listing-information';
 
 import { formatCurrency } from '@/lib/utils/formatCurrency';
 import DOMPurify from 'dompurify';
@@ -9,8 +9,7 @@ import { Link, useParams } from 'react-router-dom';
 
 const ViewListingInformation = () => {
   const { id } = useParams();
-
-  const { listingInformation, isLoading } = useGetViewListingInformation(id);
+  const { listingInformation, isLoading } = useGetSingleListingInformation(id);
 
   if (isLoading) {
     return <AccessInstructionSkeleton />;

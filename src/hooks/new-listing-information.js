@@ -3,7 +3,10 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAxiosSecure } from './useAxios';
 
-export const useGetListingInformation = ({ perPage = 10, currentPage = 1 }) => {
+export const useGetListingInformationList = ({
+  perPage = 10,
+  currentPage = 1,
+}) => {
   const axiosPrivate = useAxiosSecure();
 
   const result = useQuery({
@@ -33,6 +36,21 @@ export const useGetListingInformation = ({ perPage = 10, currentPage = 1 }) => {
     totalItems,
     per_page,
   };
+};
+
+export const useGetSingleListingInformation = (id) => {
+  const axiosPrivate = useAxiosSecure();
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ['listing-information', id],
+    queryFn: async () => {
+      const response = await axiosPrivate.get(`/api/v1/property/show/${id}`);
+      return response.data;
+    },
+    enabled: !!id,
+    staleTime: 5 * 60 * 1000,
+  });
+
+  return { listingInformation: data?.data, isLoading, isError, error };
 };
 
 export const useDeleteListingInformation = () => {

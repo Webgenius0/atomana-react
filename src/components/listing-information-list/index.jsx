@@ -1,5 +1,5 @@
 import Pagination from '@/components/Pagination';
-import { useGetListingInformation } from '@/hooks/new-listing-information';
+import { useGetListingInformationList } from '@/hooks/new-listing-information';
 import { useState } from 'react';
 import DataViewTable from '../table/DataViewTable';
 import { columns } from './ColumnDefs';
@@ -14,7 +14,7 @@ export default function ListingInformationTable({
 
   // Fetch table data
   const { listingInformation, totalItems, isLoading } =
-    useGetListingInformation({
+    useGetListingInformationList({
       perPage,
       currentPage,
     });

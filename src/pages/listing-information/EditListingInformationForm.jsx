@@ -6,8 +6,8 @@ import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
 import Select from '@/components/ui/react-select';
 import {
   useCoListAgentDropdown,
+  useEditProperty,
   useSourceDropdown,
-  useStoreProperty,
 } from '@/hooks/property.hook';
 import { format } from 'date-fns';
 import { useEffect } from 'react';
@@ -17,7 +17,7 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 function EditListingInformationForm() {
   const { id } = useParams();
   const location = useLocation();
-  const { mutate: storeProperty, isPending, form } = useStoreProperty(id);
+  const { mutate: storeProperty, isPending, form } = useEditProperty(id);
 
   const {
     register,
@@ -143,13 +143,23 @@ function EditListingInformationForm() {
               render={({ field }) => (
                 <div className="flex space-x-4">
                   <label className="flex items-center gap-2">
-                    <input {...field} type="radio" value="1" />
+                    <input
+                      {...field}
+                      type="radio"
+                      value="1"
+                      checked={field.value === '1'}
+                    />
                     <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                       Yes
                     </p>
                   </label>
                   <label className="flex items-center gap-2">
-                    <input {...field} type="radio" value="0" />
+                    <input
+                      {...field}
+                      type="radio"
+                      value="0"
+                      checked={field.value === '0'}
+                    />
                     <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                       No
                     </p>
@@ -178,13 +188,23 @@ function EditListingInformationForm() {
                   render={({ field }) => (
                     <div className="flex space-x-4">
                       <label className="flex items-center gap-2">
-                        <input {...field} type="radio" value="1" />
+                        <input
+                          {...field}
+                          type="radio"
+                          value="1"
+                          checked={field.value === '1'}
+                        />
                         <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                           Yes
                         </p>
                       </label>
                       <label className="flex items-center gap-2">
-                        <input {...field} type="radio" value="0" />
+                        <input
+                          {...field}
+                          type="radio"
+                          value="0"
+                          checked={field.value === '0'}
+                        />
                         <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                           No
                         </p>
@@ -212,13 +232,23 @@ function EditListingInformationForm() {
               render={({ field }) => (
                 <div className="flex space-x-4">
                   <label className="flex items-center gap-2">
-                    <input {...field} type="radio" value="1" />
+                    <input
+                      {...field}
+                      type="radio"
+                      value="1"
+                      checked={field.value === '1'}
+                    />
                     <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                       Yes
                     </p>
                   </label>
                   <label className="flex items-center gap-2">
-                    <input {...field} type="radio" value="0" />
+                    <input
+                      {...field}
+                      type="radio"
+                      value="0"
+                      checked={field.value === '0'}
+                    />
                     <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                       No
                     </p>
