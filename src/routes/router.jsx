@@ -4,6 +4,7 @@ import MySystemsLayout from '@/layouts/MySystemsLayout';
 import VendorListLayout from '@/layouts/VendorListLayout';
 import AccessInstructions from '@/pages/access-instructions/AccessInstructions';
 import AddAccessInstruction from '@/pages/access-instructions/AddAccessInstruction';
+import EditAccessInstruction from '@/pages/access-instructions/EditAccessInstruction';
 import ViewAccessInstruction from '@/pages/access-instructions/ViewAccessInstruction';
 import AddLessons from '@/pages/AddLessons';
 import AddVendor from '@/pages/AddVendor';
@@ -301,6 +302,14 @@ const router = createBrowserRouter([
             element: (
               <PageTitle title="View Access Instruction">
                 <ViewAccessInstruction />
+              </PageTitle>
+            ),
+          },
+          {
+            path: 'team/access-instructions/edit/:id',
+            element: (
+              <PageTitle title="Edit Access Instruction">
+                <EditAccessInstruction />
               </PageTitle>
             ),
           },

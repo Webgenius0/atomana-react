@@ -8,15 +8,16 @@ import { usePropertyTypeDropdown } from '@/hooks/open-house.hook';
 import { useGetProperties } from '@/hooks/property.hook';
 import { useDebouncedState } from '@/hooks/useDebouncedState';
 import { Controller, FormProvider } from 'react-hook-form';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 
-export default function AddAccessInstruction() {
+export default function EditAccessInstruction() {
+  const { id } = useParams();
   const [search, setSearch, debouncedSearch] = useDebouncedState('', 400);
   const {
     mutate: storeAccessInstruction,
     isPending,
     form,
-  } = useStoreAccessInstruction();
+  } = useStoreAccessInstruction(id);
 
   const {
     register,
@@ -55,7 +56,7 @@ export default function AddAccessInstruction() {
         >
           <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit">
             <ArrowLeftSvg />
-            <h2 className="section-title">Access Instruction Form</h2>
+            <h2 className="section-title">Edit Access Instruction</h2>
           </div>
         </Link>
         <div className="flex items-center gap-2.5">
