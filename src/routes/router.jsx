@@ -250,6 +250,14 @@ const router = createBrowserRouter([
             ),
           },
           {
+            path: 'new-contract/contract-information/edit/:id',
+            element: (
+              <PageTitle title="New Contract Information">
+                <ContractInformationList />
+              </PageTitle>
+            ),
+          },
+          {
             path: 'new-contract/new-contract-information-form',
             element: (
               <PageTitle title="New Contract Information Form">
