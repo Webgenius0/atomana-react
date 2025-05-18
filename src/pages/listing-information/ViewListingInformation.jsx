@@ -40,19 +40,19 @@ const ViewListingInformation = () => {
       <div className="mt-5">
         <h2 className="section-title">Property Details</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-12 md:mt-2">
-          <div className="space-y-[2px] border-b border-secondPrimary py-4">
+          {/* <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold text-sm text-[#ffffffcc]">SKU</p>
             <p className="text-sm text-[#009696]">
               {listingInformation?.sku || 'N/A'}
             </p>
-          </div>
+          </div> */}
 
-          <div className="space-y-[2px] border-b border-secondPrimary py-4">
+          {/* <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold text-sm text-[#ffffffcc]">Email</p>
             <p className="text-sm text-[#009696]">
               {listingInformation?.email || 'N/A'}
             </p>
-          </div>
+          </div> */}
 
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold text-sm text-[#ffffffcc]">Address</p>
@@ -112,14 +112,14 @@ const ViewListingInformation = () => {
             </p>
           </div>
 
-          <div className="space-y-[2px] border-b border-secondPrimary py-4">
+          {/* <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold text-sm text-[#ffffffcc]">
               Property Source ID
             </p>
             <p className="text-sm text-[#009696]">
               {listingInformation?.property_source_id || 'N/A'}
             </p>
-          </div>
+          </div> */}
 
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold text-sm text-[#ffffffcc]">
