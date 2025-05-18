@@ -94,7 +94,7 @@ export default function ManageTeam() {
                       {agent.first_name} {agent.last_name}
                     </p>
                     <p className="text-sm font-medium leading-5 text-light">
-                      {agent.role}
+                      {agent.email}
                     </p>
                   </div>
                 </div>

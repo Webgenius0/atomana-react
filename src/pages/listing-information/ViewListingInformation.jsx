@@ -1,7 +1,7 @@
 import AccessInstructionSkeleton from '@/components/access-instruction/AccessInstructionSkeleton';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
-import { useGetViewListingInformation } from '@/hooks/useGetViewListingInformation';
+import { useGetSingleListingInformation } from '@/hooks/new-listing-information';
 
 import { formatCurrency } from '@/lib/utils/formatCurrency';
 import DOMPurify from 'dompurify';
@@ -9,8 +9,7 @@ import { Link, useParams } from 'react-router-dom';
 
 const ViewListingInformation = () => {
   const { id } = useParams();
-
-  const { listingInformation, isLoading } = useGetViewListingInformation(id);
+  const { listingInformation, isLoading } = useGetSingleListingInformation(id);
 
   if (isLoading) {
     return <AccessInstructionSkeleton />;
@@ -41,19 +40,19 @@ const ViewListingInformation = () => {
       <div className="mt-5">
         <h2 className="section-title">Property Details</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-12 md:mt-2">
-          <div className="space-y-[2px] border-b border-secondPrimary py-4">
+          {/* <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold text-sm text-[#ffffffcc]">SKU</p>
             <p className="text-sm text-[#009696]">
               {listingInformation?.sku || 'N/A'}
             </p>
-          </div>
+          </div> */}
 
-          <div className="space-y-[2px] border-b border-secondPrimary py-4">
+          {/* <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold text-sm text-[#ffffffcc]">Email</p>
             <p className="text-sm text-[#009696]">
               {listingInformation?.email || 'N/A'}
             </p>
-          </div>
+          </div> */}
 
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold text-sm text-[#ffffffcc]">Address</p>
@@ -113,14 +112,14 @@ const ViewListingInformation = () => {
             </p>
           </div>
 
-          <div className="space-y-[2px] border-b border-secondPrimary py-4">
+          {/* <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold text-sm text-[#ffffffcc]">
               Property Source ID
             </p>
             <p className="text-sm text-[#009696]">
               {listingInformation?.property_source_id || 'N/A'}
             </p>
-          </div>
+          </div> */}
 
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
             <p className="font-bold text-sm text-[#ffffffcc]">
@@ -197,16 +196,13 @@ const ViewListingInformation = () => {
       {listingInformation?.note && (
         <div className="mt-6">
           <h2 className="section-title">Additional Notes</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-            <div className="space-y-[2px] py-4">
-              <p className="font-bold text-sm text-[#ffffffcc]">Note</p>
-              <div
-                className="rich-text"
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(listingInformation.note),
-                }}
-              />
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+            <div
+              className="rich-text"
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(listingInformation.note),
+              }}
+            />
           </div>
         </div>
       )}

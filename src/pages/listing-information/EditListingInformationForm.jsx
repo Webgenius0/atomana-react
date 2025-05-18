@@ -6,17 +6,18 @@ import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
 import Select from '@/components/ui/react-select';
 import {
   useCoListAgentDropdown,
+  useEditProperty,
   useSourceDropdown,
-  useStoreProperty,
 } from '@/hooks/property.hook';
 import { format } from 'date-fns';
 import { useEffect } from 'react';
 import { Controller } from 'react-hook-form';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 
-function NewListingInformationForm() {
+function EditListingInformationForm() {
+  const { id } = useParams();
   const location = useLocation();
-  const { mutate: storeProperty, isPending, form } = useStoreProperty();
+  const { mutate: storeProperty, isPending, form } = useEditProperty(id);
 
   const {
     register,
@@ -53,11 +54,14 @@ function NewListingInformationForm() {
     <>
       <div className="flex items-center gap-4 justify-between">
         <Link
-          to={`${location.state?.from || '/my-systems/new-listing'}`}
+          to={`${
+            location.state?.from ||
+            '/my-systems/new-listing/listing-information'
+          }`}
           className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5"
         >
           <ArrowLeftSvg />
-          <h2 className="section-title">New Listing Information Form</h2>
+          <h2 className="section-title">Edit Listing Information</h2>
         </Link>
 
         <div className="flex items-center gap-2.5">
@@ -406,12 +410,12 @@ function NewListingInformationForm() {
             </div>
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-                Total SQFT?
+                Total SQ FT?
               </label>
               <input
                 type="number"
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                placeholder="SQFT"
+                placeholder="0 sq ft"
                 {...register('size')}
               />
               {errors?.size && (
@@ -472,4 +476,4 @@ function NewListingInformationForm() {
   );
 }
 
-export default NewListingInformationForm;
+export default EditListingInformationForm;

@@ -71,7 +71,7 @@ export default function ViewSingleNote() {
             </p>
           )}
           <div
-            className="text-white"
+            className="rich-text"
             dangerouslySetInnerHTML={{ __html: notes }}
           />
 

@@ -1,7 +1,9 @@
 import errorResponse from '@/lib/errorResponse';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { useGetSingleListingInformation } from './new-listing-information';
 import { useAxiosSecure } from './useAxios';
 
 // const formSchema = z.object({
@@ -108,9 +110,9 @@ export const useStoreProperty = () => {
       address: '',
       price: '',
       expiration_date: '',
-      is_development: '0',
+      is_development: '',
       commission_rate: '',
-      is_co_listing: '0',
+      is_co_listing: '',
       co_agent: null,
       co_list_percentage: '',
       property_source_id: '',
@@ -132,6 +134,89 @@ export const useStoreProperty = () => {
     onSuccess: (data) => {
       if (data?.success) {
         toast.success('Listing Form Created Successfully');
+        queryClient.invalidateQueries(['properties']);
+        form.reset();
+      }
+    },
+    onError: (error) => {
+      const response = errorResponse(error, (fields) => {
+        Object.entries(fields).forEach(([field, messages]) => {
+          form.setError(field, {
+            message: messages?.[0],
+          });
+        });
+      });
+      if (response) {
+        toast.error(response);
+      }
+    },
+  });
+
+  return { ...result, form };
+};
+
+export const useEditProperty = (id) => {
+  const { listingInformation } = useGetSingleListingInformation(id);
+  const axiosPrivate = useAxiosSecure();
+  const queryClient = useQueryClient();
+
+  const form = useForm({
+    defaultValues: {
+      address: '',
+      price: '',
+      expiration_date: '',
+      is_development: '',
+      commission_rate: '',
+      is_co_listing: '',
+      co_agent: null,
+      co_list_percentage: '',
+      property_source_id: '',
+      beds: '',
+      full_baths: '',
+      half_baths: '',
+      size: '',
+      link: '',
+      note: '',
+    },
+    // resolver: zodResolver(formSchema),
+  });
+
+  console.log({ errors: form.formState.errors });
+
+  useEffect(() => {
+    if (listingInformation) {
+      console.log(listingInformation);
+      form.reset({
+        ...listingInformation,
+        is_development:
+          listingInformation?.is_development === true
+            ? '1'
+            : listingInformation?.is_development === false
+            ? '0'
+            : '',
+        add_to_website:
+          listingInformation?.add_to_website === true
+            ? '1'
+            : listingInformation?.add_to_website === false
+            ? '0'
+            : '',
+        is_co_listing: listingInformation?.co_agent ? '1' : '',
+        co_agent: listingInformation?.co_agent?.id,
+      });
+    }
+  }, [listingInformation]);
+
+  const result = useMutation({
+    mutationFn: async (data) => {
+      const response = await axiosPrivate.put(
+        `/api/v1/property/update/${id}`,
+        data
+      );
+      return response.data;
+    },
+    onSuccess: (data) => {
+      if (data?.success) {
+        toast.success('Listing Information Updated Successfully');
         queryClient.invalidateQueries(['properties']);
         form.reset();
       }

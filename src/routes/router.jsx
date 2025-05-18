@@ -4,6 +4,7 @@ import MySystemsLayout from '@/layouts/MySystemsLayout';
 import VendorListLayout from '@/layouts/VendorListLayout';
 import AccessInstructions from '@/pages/access-instructions/AccessInstructions';
 import AddAccessInstruction from '@/pages/access-instructions/AddAccessInstruction';
+import EditAccessInstruction from '@/pages/access-instructions/EditAccessInstruction';
 import ViewAccessInstruction from '@/pages/access-instructions/ViewAccessInstruction';
 import AddLessons from '@/pages/AddLessons';
 import AddVendor from '@/pages/AddVendor';
@@ -26,6 +27,7 @@ import ViewSinglePassword from '@/pages/docs/ViewSinglePassword';
 import ErrorPage from '@/pages/ErrorPage';
 import Finances from '@/pages/Finances';
 import ForgetPassword from '@/pages/ForgetPassword';
+import EditListingInformationForm from '@/pages/listing-information/EditListingInformationForm';
 import ListingInformationList from '@/pages/listing-information/ListingInformationList';
 import NewListingInformationForm from '@/pages/listing-information/NewListingInformationForm';
 import ViewListingInformation from '@/pages/listing-information/ViewListingInformation';
@@ -42,6 +44,7 @@ import MySystems from '@/pages/MySystems';
 import MyTeam from '@/pages/MyTeam';
 import NewContract from '@/pages/NewContract';
 import NewListing from '@/pages/NewListing';
+import EditOpenHouseRequestForm from '@/pages/open-houses/EditOpenHouseRequestForm';
 import OpenHouseFeedbackForm from '@/pages/open-houses/OpenHouseFeedbackForm';
 import OpenHouseList from '@/pages/open-houses/OpenHouseList';
 import OpenHouseRequestForm from '@/pages/open-houses/OpenHouseRequestForm';
@@ -128,6 +131,14 @@ const router = createBrowserRouter([
             ),
           },
           {
+            path: '/my-systems/open-house/open-house-list/edit/:id',
+            element: (
+              <PageTitle title="Open House Form">
+                <EditOpenHouseRequestForm />
+              </PageTitle>
+            ),
+          },
+          {
             path: 'open-house/open-house-feedback-form',
             element: (
               <PageTitle title="Open House Feedback Form">
@@ -200,6 +211,14 @@ const router = createBrowserRouter([
             ),
           },
           {
+            path: 'new-listing/listing-information/edit/:id',
+            element: (
+              <PageTitle title="Edit Listing Information">
+                <EditListingInformationForm />
+              </PageTitle>
+            ),
+          },
+          {
             path: 'new-listing/:id',
             element: (
               <PageTitle title="New Listing">
@@ -236,6 +255,14 @@ const router = createBrowserRouter([
             element: (
               <PageTitle title="New Contract">
                 <ViewContractInformation />
+              </PageTitle>
+            ),
+          },
+          {
+            path: 'new-contract/contract-information/edit/:id',
+            element: (
+              <PageTitle title="New Contract Information">
+                <ContractInformationList />
               </PageTitle>
             ),
           },
@@ -292,6 +319,14 @@ const router = createBrowserRouter([
             element: (
               <PageTitle title="View Access Instruction">
                 <ViewAccessInstruction />
+              </PageTitle>
+            ),
+          },
+          {
+            path: 'team/access-instructions/edit/:id',
+            element: (
+              <PageTitle title="Edit Access Instruction">
+                <EditAccessInstruction />
               </PageTitle>
             ),
           },
