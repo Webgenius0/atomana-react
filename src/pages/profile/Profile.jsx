@@ -27,13 +27,13 @@ const Profile = () => {
       <div className="space-y-[25px] py-[25px]">
         <div className="flex flex-col items-center gap-2 mb-6">
           <img
-            src={profileAvatar}
+            src={user?.avatar || profileAvatar}
             className="w-14 h-14 md:h-16 md:w-16 lg:w-[75px] lg:h-[75px] flex-shrink-0 rounded-full"
             alt="profile avatar"
           />
 
           <p className="text-light text-center text-xl font-medium leading-[21px] tracking-[-0.2px]">
-            Elena Laol
+            {user?.first_name} {user?.last_name}
           </p>
         </div>
 
