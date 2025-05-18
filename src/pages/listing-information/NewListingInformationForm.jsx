@@ -406,12 +406,12 @@ function NewListingInformationForm() {
             </div>
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-                Total SQ FT?
+                Total SQFT?
               </label>
               <input
                 type="number"
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                placeholder="0 sq ft"
+                placeholder="SQFT"
                 {...register('size')}
               />
               {errors?.size && (

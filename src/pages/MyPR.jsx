@@ -2,12 +2,25 @@ import ProfileAvatar from '@/assets/images/bot.png';
 import logo from '@/assets/images/my-ai-logo.png';
 import CrossSvg from '@/components/svgs/CrossSvg';
 import PlusSvg from '@/components/svgs/PlusSvg';
+import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import {
   useCreateNewChat,
   useGetChatHistory,
   useGetSingleConversation,
   useSendMessageToConversation,
 } from '@/hooks/my-pr.hook';
+import { cn } from '@/lib/utils';
+import { DialogTrigger } from '@radix-ui/react-dialog';
+import { Trash2Icon } from 'lucide-react';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -83,8 +96,6 @@ const MyPR = () => {
     setMessage('');
   };
 
-  console.log({ conversation });
-
   useEffect(() => {
     if (!hideSidebar) {
       document.body.style.overflow = 'hidden';
@@ -151,11 +162,11 @@ const MyPR = () => {
           <aside
             className={`fixed top-0 ${
               hideSidebar ? '-left-full' : 'left-0'
-            } duration-500 w-[300px] md:w-[250px] lg:w-[300px] h-full bg-[#1c1c1c] py-4 lg:py-[25px] px-6 lg:px-[50px] ease-in-out md:relative md:top-auto md:left-auto border-r border-secondPrimary z-[1000]`}
+            } duration-500 w-[300px] md:w-[250px] lg:w-[300px] h-full bg-[#1c1c1c] py-4 lg:py-[25px] ease-in-out md:relative md:top-auto md:left-auto border-r border-secondPrimary z-[9000]`}
           >
             <div className="sidebar-content">
               {/* Header */}
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between px-6 lg:px-[50px] ">
                 <h2 className="text-light text-sm font-medium leading-[21px] tracking-[-0.14px] flex items-center gap-[5px]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -184,10 +195,10 @@ const MyPR = () => {
               </div>
               <div className="flex flex-col gap-[30px] mt-[25px]">
                 <div>
-                  <h3 className="text-xs font-bold tracking-[-0.24px] mb-2.5 text-[#ffffff80]">
+                  <h3 className="text-xs font-bold tracking-[-0.24px] mb-2.5 text-[#ffffff80] px-6 lg:px-[50px] ">
                     All Chats
                   </h3>
-                  <ul className="flex flex-col gap-2.5">
+                  <ul className="flex flex-col gap-2.5 overflow-y-scroll h-[calc(100svh-264px)] scrollbar-none px-3">
                     {chatHistory?.map((chat) => (
                       <li
                         key={chat.id}
@@ -195,11 +206,47 @@ const MyPR = () => {
                           setActiveChatId(chat.id);
                           setCurrentMessage('');
                         }}
-                        className={`text-light text-sm tracking-[-0.28px] cursor-pointer duration-300 ${
-                          activeChatId === chat.id ? 'font-bold' : ''
+                        className={`text-light text-sm tracking-[-0.28px] cursor-pointer duration-300 hover:bg-background/70 px-3 lg:px-[38px] py-2 rounded-md group relative ${
+                          activeChatId === chat.id
+                            ? 'font-bold bg-background/70'
+                            : ''
                         }`}
                       >
                         {chat.name}
+
+                        <span
+                          className={cn(
+                            'absolute top-1/2 -translate-y-1/2 right-2 hidden group-hover:inline-block',
+                            activeChatId === chat.id && 'inline-block'
+                          )}
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <Trash2Icon className="size-4 text-light/60 hover:text-light" />
+                            </DialogTrigger>
+                            <DialogContent className="sm:max-w-[425px]">
+                              <DialogHeader>
+                                <DialogTitle className="flex items-center gap-2 text-red-400 mb-4">
+                                  <Trash2Icon className="h-5 w-5" />
+                                  Delete message
+                                </DialogTitle>
+                                <DialogDescription>
+                                  Are you sure you want to delete this message?
+                                  This action cannot be undone.
+                                </DialogDescription>
+                              </DialogHeader>
+                              <DialogFooter className="gap-2 sm:gap-0">
+                                <DialogClose>
+                                  <Button variant="outline">Cancel</Button>
+                                </DialogClose>
+                                <Button variant="destructive">
+                                  Delete message
+                                </Button>
+                              </DialogFooter>
+                            </DialogContent>
+                          </Dialog>
+                        </span>
                       </li>
                     ))}
                   </ul>
@@ -238,9 +285,9 @@ const MyPR = () => {
                       className="w-7 h-7 rounded-full"
                     />
 
-                    <p className="text-[13px] sm:text-sm text-light rounded-lg max-w-[80%] lg:max-w-[580px]">
+                    <div className="text-[13px] sm:text-sm text-light rounded-lg max-w-[80%] lg:max-w-[580px]">
                       {chat?.response?.split('\n')?.map(parseLine)}
-                    </p>
+                    </div>
                   </div>
                 </div>
               ))}
