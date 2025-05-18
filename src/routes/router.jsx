@@ -26,6 +26,7 @@ import ViewSinglePassword from '@/pages/docs/ViewSinglePassword';
 import ErrorPage from '@/pages/ErrorPage';
 import Finances from '@/pages/Finances';
 import ForgetPassword from '@/pages/ForgetPassword';
+import EditListingInformationForm from '@/pages/listing-information/EditListingInformationForm';
 import ListingInformationList from '@/pages/listing-information/ListingInformationList';
 import NewListingInformationForm from '@/pages/listing-information/NewListingInformationForm';
 import ViewListingInformation from '@/pages/listing-information/ViewListingInformation';
@@ -196,6 +197,14 @@ const router = createBrowserRouter([
             element: (
               <PageTitle title="New Listing Information">
                 <ListingInformationList />
+              </PageTitle>
+            ),
+          },
+          {
+            path: 'new-listing/listing-information/edit/:id',
+            element: (
+              <PageTitle title="Edit Listing Information">
+                <EditListingInformationForm />
               </PageTitle>
             ),
           },
