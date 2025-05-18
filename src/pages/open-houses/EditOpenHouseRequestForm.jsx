@@ -10,11 +10,12 @@ import { useGetProperties } from '@/hooks/property.hook';
 import { useDebouncedState } from '@/hooks/useDebouncedState';
 import { Controller, FormProvider } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 
-export default function OpenHouseRequestForm() {
+export default function EditOpenHouseRequestForm() {
+  const { id } = useParams();
   const [search, setSearch, debouncedSearch] = useDebouncedState('', 400);
-  const { mutate: storeOpenHouse, isPending, form } = useOpenHouse();
+  const { mutate: storeOpenHouse, isPending, form } = useOpenHouse(id);
 
   const {
     register,
@@ -50,10 +51,14 @@ export default function OpenHouseRequestForm() {
   return (
     <>
       <div className="flex items-center gap-4 justify-between">
-        <Link to={`${location.state?.from || '/my-systems/open-house'}`}>
+        <Link
+          to={`${
+            location.state?.from || '/my-systems/open-house/open-house-list'
+          }`}
+        >
           <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5">
             <ArrowLeftSvg />
-            <h2 className="section-title">Open House Request Form</h2>
+            <h2 className="section-title">Edit Open House Request Form</h2>
           </div>
         </Link>
         <div className="flex items-center gap-2.5">
