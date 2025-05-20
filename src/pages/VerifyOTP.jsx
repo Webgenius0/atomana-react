@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
-const OTP_EXP_TIME = 60;
+const OTP_EXP_TIME = 5 * 60;
 
 const VerifyOTP = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -92,23 +92,7 @@ const VerifyOTP = () => {
       setOtpExpTime(OTP_EXP_TIME);
       toast.success('OTP sent!');
     } catch (err) {
-      const response = errorResponse(err, (fields) => {
-        Object.entries(fields).forEach(([field, messages]) => {
-          let fieldName = field;
-          // demo to update api response type to local field
-          // switch (field) {
-          //   case "name":
-          //     fieldName = "name";
-          //     break;
-          // }
-          setError(fieldName, {
-            message: messages?.[0],
-          });
-        });
-      });
-      if (response) {
-        toast.error(response);
-      }
+      toast.error(err?.response?.data?.message);
     } finally {
       setIsLoading(false);
     }
@@ -170,9 +154,15 @@ const VerifyOTP = () => {
                 <p className="font-medium text-sm sm:text-base">
                   The Code Expire in{' '}
                   <span className="text-[rgba(0,150,150,1)] font-bold">
-                    {otpExpTime}
+                    {`${String(Math.floor(otpExpTime / 60).toFixed(0)).padStart(
+                      2,
+                      '0'
+                    )}:${String((otpExpTime % 60).toFixed(0)).padStart(
+                      2,
+                      '0'
+                    )}`}
                   </span>{' '}
-                  Second
+                  Minutes
                 </p>
               )}
               {otpExpTime === 0 && (
