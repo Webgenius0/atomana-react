@@ -10,16 +10,18 @@ function TabCard({ tab }) {
           {typeof tab.icon === 'function' ? (
             React.createElement(tab.icon) // Proper way to render a component
           ) : (
-            <img src={tab.icon} alt={tab.category} className="w-10 h-10" />
+            <img src={tab.icon} alt={tab.category} className="w-16 h-16" />
           )}
         </p>
 
         {/* Category Name */}
-        <h1 className="py-2 lg:text-lg md:text-base text-sm">{tab.category}</h1>
+        <h1 className="py-2 lg:text-2xl md:text-xl text-base uppercase">
+          {tab.category}
+        </h1>
 
         {/* Total Vendors */}
-        <p className="py-2 lg:text-lg md:text-base text-sm">
-          {tab.totalCategoryName}: {tab.totalCategories}
+        <p className="text-light/60 lg:text-lg md:text-base text-sm">
+          {'Total Items'}: {tab.totalCategories}
         </p>
       </div>
     </Link>
