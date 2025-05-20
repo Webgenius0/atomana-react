@@ -56,7 +56,7 @@ const MySystems = () => {
       <div className="mt-5 mb-5">
         <h1 className="section-title">Systems</h1>
       </div>
-      <div className="text-white grid lg:grid-cols-4 md:grid-cols-3 min-[426px]:grid-cols-2 grid-cols-1 lg:gap-x-4 gap-x-3 lg:gap-y-4 gap-y-3 my-4">
+      <div className="text-white grid xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-x-4 gap-x-3 lg:gap-y-4 gap-y-3 my-4">
         {systemTabs?.map((tab, idx) => {
           const IconComponent = tab.icon;
           return <TabCard key={idx} tab={tab} IconComponent={IconComponent} />;

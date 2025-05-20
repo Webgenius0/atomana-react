@@ -15,9 +15,7 @@ function TabCard({ tab }) {
         </p>
 
         {/* Category Name */}
-        <h1 className="py-2 lg:text-2xl md:text-xl text-base uppercase">
-          {tab.category}
-        </h1>
+        <h1 className="py-2 xl:text-3xl text-2xl uppercase">{tab.category}</h1>
 
         {/* Total Vendors */}
         <p className="text-light/60 lg:text-lg md:text-base text-sm">
