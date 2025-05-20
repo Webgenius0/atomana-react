@@ -1,5 +1,5 @@
 import ProfileAvatar from '@/assets/images/bot.png';
-import logo from '@/assets/images/my-ai-logo.png';
+import logo from '@/assets/images/my-ai-logo.svg';
 import CrossSvg from '@/components/svgs/CrossSvg';
 import PlusSvg from '@/components/svgs/PlusSvg';
 import { Button } from '@/components/ui/button';
