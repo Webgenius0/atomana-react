@@ -162,7 +162,7 @@ const MyPR = () => {
           <aside
             className={`fixed top-0 ${
               hideSidebar ? '-left-full' : 'left-0'
-            } duration-500 w-[300px] md:w-[250px] lg:w-[300px] h-full bg-[#1c1c1c] py-4 lg:py-[25px] ease-in-out md:relative md:top-auto md:left-auto border-r border-secondPrimary z-[9000]`}
+            } duration-500 w-[300px] md:w-[250px] lg:w-[300px] h-full py-4 lg:py-[25px] ease-in-out md:relative md:top-auto md:left-auto border-r border-secondPrimary z-[9000]`}
           >
             <div className="sidebar-content">
               {/* Header */}
