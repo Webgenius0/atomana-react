@@ -145,7 +145,7 @@ const AddTeamMember = () => {
               )}
             </div>
             {/* Total Commission this Contract Year */}
-            <div className="flex flex-col gap-2 w-full">
+            {/* <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                 Total Commission this Contract Year
               </label>
@@ -161,7 +161,7 @@ const AddTeamMember = () => {
                   {errors?.total_commission_this_contract_year?.message}
                 </p>
               )}
-            </div>
+            </div> */}
             {/* Password */}
             <div className="relative flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">

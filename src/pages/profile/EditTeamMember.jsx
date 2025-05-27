@@ -84,9 +84,9 @@ const EditTeamMember = () => {
                     required: 'First name is required',
                   })}
                 />
-                {errors.first_name && (
-                  <span className="error-text">
-                    {errors.first_name.message}
+                {errors?.first_name && (
+                  <span className="text-red-500 mt-2">
+                    {errors?.first_name?.message}
                   </span>
                 )}
               </div>
@@ -102,8 +102,10 @@ const EditTeamMember = () => {
                     required: 'Last name is required',
                   })}
                 />
-                {errors.last_name && (
-                  <span className="error-text">{errors.last_name.message}</span>
+                {errors?.last_name && (
+                  <span className="text-red-500 mt-2">
+                    {errors?.last_name.message}
+                  </span>
                 )}
               </div>
             </div>
@@ -118,8 +120,10 @@ const EditTeamMember = () => {
                 type="text"
                 {...register('email', { required: 'Email is required' })}
               />
-              {errors.email && (
-                <span className="error-text">{errors.email.message}</span>
+              {errors?.email && (
+                <span className="text-red-500 mt-2">
+                  {errors?.email.message}
+                </span>
               )}
             </div>
             <div className="relative flex flex-col gap-2 w-full">
@@ -131,9 +135,7 @@ const EditTeamMember = () => {
                   className="input-field pr-10 px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                   type={showPassword ? 'text' : 'password'}
                   placeholder="Password"
-                  {...register('password', {
-                    required: 'Password is required',
-                  })}
+                  {...register('password')}
                 />
                 <button
                   type="button"
@@ -147,8 +149,10 @@ const EditTeamMember = () => {
                   )}
                 </button>
               </div>
-              {errors.password && (
-                <span className="error-text">{errors.password.message}</span>
+              {errors?.password && (
+                <span className="text-red-500 mt-2">
+                  {errors?.password.message}
+                </span>
               )}
             </div>
             {/* Phone */}
@@ -195,7 +199,7 @@ const EditTeamMember = () => {
               )}
             </div>
             {/* Total Commission this Contract Year */}
-            <div className="flex flex-col gap-2 w-full">
+            {/* <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                 Total Commission this Contract Year
               </label>
@@ -211,7 +215,7 @@ const EditTeamMember = () => {
                   {errors?.total_commission_this_contract_year?.message}
                 </p>
               )}
-            </div>
+            </div> */}
             {/* Employment Agreement */}
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">

@@ -91,7 +91,11 @@ export const useUpdateSingleAgent = (slug) => {
 export const useRegisterAgent = () => {
   const axiosPrivate = useAxiosSecure();
   const queryClient = useQueryClient();
-  const form = useForm();
+  const form = useForm({
+    defaultValues: {
+      total_commission_this_contract_year: '0',
+    },
+  });
 
   const result = useMutation({
     mutationFn: async (data) => {
