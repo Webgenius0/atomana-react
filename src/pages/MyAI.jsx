@@ -22,7 +22,7 @@ import { cn } from '@/lib/utils';
 import { DialogTrigger } from '@radix-ui/react-dialog';
 import { Trash2Icon } from 'lucide-react';
 import { Fragment, useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const parseLine = (line, idx) => {
   // Bold: **text**
@@ -61,6 +61,7 @@ const MyAI = () => {
   const [hideSidebar, setHideSidebar] = useState(false);
   const [activeChatId, setActiveChatId] = useState(null);
   const [currentMessage, setCurrentMessage] = useState('');
+  const location = useLocation(); // for my ai only
 
   const { chatHistory } = useGetChatHistory();
   const {
@@ -129,6 +130,17 @@ const MyAI = () => {
       setCurrentMessage('');
     }
   }, [isConversationLoading]);
+
+  // For My AI only
+  useEffect(() => {
+    const message = location?.state?.prompt;
+    if (message) {
+      setMessage(message);
+      setCurrentMessage(message);
+      createNewChat({ message });
+      setMessage('');
+    }
+  }, [location?.state?.prompt]);
 
   return (
     <section>

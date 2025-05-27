@@ -1,38 +1,42 @@
-import React, { useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
-import logo from "@/assets/images/logo.png";
-import profileAvatar from "@/assets/images/profile.png";
-import Notification from "@/components/Notification";
-import MyTeamSvg from "@/components/svgs/MyTeamSvg";
-import MyTeamSvgActive from "@/components/svgs/MyTeamSvgActive";
-import MySystemsSvg from "@/components/svgs/MySystemsSvg";
-import MyAISvg from "@/components/svgs/MyAISvg";
-import MyAISvgActive from "@/components/svgs/MyAISvgActive";
-import MyClassroomSvg from "@/components/svgs/MyClassroomSvg";
-import MyClassroomSvgActive from "@/components/svgs/MyClassroomSvgActive";
-import MyPrSvg from "@/components/svgs/MyPrSvg";
-import MyPrSvgActive from "@/components/svgs/MyPrSvgActive";
-import MySystemsSvgActive from "@/components/svgs/MySystemsSvgActive";
-import SearchWhiteSvg from "../svgs/SearchWhiteSvg";
-import Modal from "../Modal";
-import LogoSquareSvg from "../svgs/LogoSquareSvg";
-import SearchBarModal from "../SearchBarModal";
+import logo from '@/assets/images/logo.png';
+import profileAvatar from '@/assets/images/profile.png';
+import Notification from '@/components/Notification';
+import MyAISvg from '@/components/svgs/MyAISvg';
+import MyAISvgActive from '@/components/svgs/MyAISvgActive';
+import MyClassroomSvg from '@/components/svgs/MyClassroomSvg';
+import MyClassroomSvgActive from '@/components/svgs/MyClassroomSvgActive';
+import MyPrSvg from '@/components/svgs/MyPrSvg';
+import MyPrSvgActive from '@/components/svgs/MyPrSvgActive';
+import MySystemsSvg from '@/components/svgs/MySystemsSvg';
+import MySystemsSvgActive from '@/components/svgs/MySystemsSvgActive';
+import MyTeamSvg from '@/components/svgs/MyTeamSvg';
+import MyTeamSvgActive from '@/components/svgs/MyTeamSvgActive';
+import { useEffect, useRef, useState } from 'react';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import Modal from '../Modal';
+import SearchBarModal from '../SearchBarModal';
+import LogoSquareSvg from '../svgs/LogoSquareSvg';
+import SearchWhiteSvg from '../svgs/SearchWhiteSvg';
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
+  const [searchText, setSearchText] = useState('');
   const location = useLocation();
+  const navigate = useNavigate();
+  const searchRef = useRef(null);
 
- 
   const handleOpenModal = () => {
-    setIsModalOpen(true)
+    setIsModalOpen(true);
     // Prevent layout shift by maintaining scrollbar space
-  document.body.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`;
+    document.body.style.paddingRight = `${
+      window.innerWidth - document.documentElement.clientWidth
+    }px`;
   };
   const handleCloseModal = () => {
-    setIsModalOpen(false)
+    setIsModalOpen(false);
     // Reset paddingRight when modal closes
-  document.body.style.paddingRight = "";
+    document.body.style.paddingRight = '';
   };
 
   const handleNotificationClick = () => {
@@ -43,15 +47,47 @@ const Header = () => {
     setShowNotification(false);
   };
 
-  
+  const handleNavigation = () => {
+    setIsModalOpen(false);
+    navigate('/my-ai', { state: { prompt: searchText } });
+    setSearchText('');
+    searchRef.current.blur();
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.ctrlKey && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        setIsModalOpen(true);
+        searchRef.current.focus();
+      }
+
+      if (event.key.toLowerCase() === 'escape') {
+        setIsModalOpen(false);
+      }
+
+      if (
+        event.key.toLowerCase() === 'enter' &&
+        !!searchText.trim() &&
+        isModalOpen
+      ) {
+        handleNavigation();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [searchText]);
+
   return (
     <header className={`sticky top-0 left-0 bg-dark z-50`}>
       <nav>
         <div
           className={`border-b border-secondPrimary ${
-            location.pathname === "/my-ai" || location.pathname === "/my-pr"
-              ? "hidden md:block"
-              : ""
+            location.pathname === '/my-ai' || location.pathname === '/my-pr'
+              ? 'hidden md:block'
+              : ''
           }`}
         >
           <div className="my-container">
@@ -66,17 +102,35 @@ const Header = () => {
               </Link>
 
               {/* search */}
-              <label onClick={handleOpenModal} className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-secondPrimary to-[#1a1a1a] border border-primary rounded-full px-4 max-w-[625px] w-full focus-within:border-[#009696] focus-within:shadow-[0_0_3px] focus-within:shadow-[#009696]">
+
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  console.log('clicked');
+                  handleNavigation();
+                }}
+                onClick={handleOpenModal}
+                className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-secondPrimary to-[#1a1a1a] border border-primary rounded-full px-4 max-w-[625px] w-full focus-within:border-[#009696] focus-within:shadow-[0_0_3px] focus-within:shadow-[#009696]"
+              >
                 <LogoSquareSvg />
                 <input
+                  ref={searchRef}
                   type="text"
+                  value={searchText}
+                  onChange={(e) => setSearchText(e.target.value)}
                   className="w-full py-2.5 bg-inherit border-none outline-none text-secondary placeholder:text-secondary text-sm font-medium leading-[21px] tracking-[-0.14px]"
                   placeholder="Ask Maria about clients, properties, appointments, or anything else you need help with"
                 />
-              </label>
-              {isModalOpen && <SearchBarModal onClose={handleCloseModal} />}
+              </form>
+              {isModalOpen && (
+                <SearchBarModal
+                  searchText={searchText}
+                  setSearchText={setSearchText}
+                  onClose={handleCloseModal}
+                />
+              )}
 
-              <Modal  isOpen={isModalOpen} onClose={handleCloseModal}>
+              <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
                 <label className="flex items-center gap-2 bg-gradient-to-r from-secondPrimary to-[#1a1a1a] border border-primary rounded-full px-4 max-w-[625px] w-full focus-within:border-[#009696] focus-within:shadow-[0_0_3px] focus-within:shadow-[#009696]">
                   <input
                     type="text"
@@ -140,7 +194,7 @@ const Header = () => {
               <NavLink
                 to="/"
                 className={({ isActive }) =>
-                  isActive ? "nav-item active" : "nav-item"
+                  isActive ? 'nav-item active' : 'nav-item'
                 }
               >
                 {({ isActive }) => (
@@ -153,7 +207,7 @@ const Header = () => {
               <NavLink
                 to="/my-systems"
                 className={({ isActive }) =>
-                  isActive ? "nav-item active" : "nav-item"
+                  isActive ? 'nav-item active' : 'nav-item'
                 }
               >
                 {({ isActive }) => (
@@ -166,7 +220,7 @@ const Header = () => {
               <NavLink
                 to="/my-ai"
                 className={({ isActive }) =>
-                  isActive ? "nav-item active" : "nav-item"
+                  isActive ? 'nav-item active' : 'nav-item'
                 }
               >
                 {({ isActive }) => (
@@ -179,7 +233,7 @@ const Header = () => {
               <NavLink
                 to="/my-classroom"
                 className={({ isActive }) =>
-                  isActive ? "nav-item active" : "nav-item"
+                  isActive ? 'nav-item active' : 'nav-item'
                 }
               >
                 {({ isActive }) => (
@@ -192,7 +246,7 @@ const Header = () => {
               <NavLink
                 to="/my-pr"
                 className={({ isActive }) =>
-                  isActive ? "nav-item active" : "nav-item"
+                  isActive ? 'nav-item active' : 'nav-item'
                 }
               >
                 {({ isActive }) => (
