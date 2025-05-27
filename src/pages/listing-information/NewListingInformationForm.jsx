@@ -4,11 +4,13 @@ import CalenderSvg from '@/components/svgs/CalenderSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
 import Select from '@/components/ui/react-select';
+import { ROLE } from '@/constants';
 import {
   useCoListAgentDropdown,
   useSourceDropdown,
   useStoreProperty,
 } from '@/hooks/property.hook';
+import { useAuth } from '@/hooks/useAuth';
 import { format } from 'date-fns';
 import { useEffect } from 'react';
 import { Controller } from 'react-hook-form';
@@ -17,6 +19,8 @@ import { Link, useLocation } from 'react-router-dom';
 function NewListingInformationForm() {
   const location = useLocation();
   const { mutate: storeProperty, isPending, form } = useStoreProperty();
+  const { user } = useAuth();
+  const userRole = user?.role;
 
   const {
     register,
@@ -27,7 +31,7 @@ function NewListingInformationForm() {
     formState: { errors },
   } = form;
 
-  const is_development = watch('is_development');
+  //   const is_development = watch('is_development');
   const is_co_listing = watch('is_co_listing');
 
   const { coAgents, isLoading: isAgentLoading } = useCoListAgentDropdown();
@@ -102,6 +106,8 @@ function NewListingInformationForm() {
               <p className="text-red-500 text-xs">{errors?.price?.message}</p>
             )}
           </div>
+
+          {/* Expiration Date */}
           <div className="flex flex-col gap-2 w-full">
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
               Expiration Date?
@@ -129,7 +135,9 @@ function NewListingInformationForm() {
               </p>
             )}
           </div>
-          <div>
+
+          {/* Is this a development */}
+          {/* <div>
             <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
               Is this a development?
             </p>
@@ -168,11 +176,11 @@ function NewListingInformationForm() {
                 {errors?.is_development?.message}
               </p>
             )}
-          </div>
+          </div> */}
+
           {/* Add to development page (conditional) */}
-          {is_development === '1' && (
+          {/* {is_development === '1' && (
             <div className="flex items-center sm:gap-6 gap-4 sm:ml-12 ml-8">
-              {/* <FormLineSvg /> */}
               <div className="w-full">
                 <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light mb-3">
                   Would you like it added to the development page on the Spears
@@ -215,7 +223,7 @@ function NewListingInformationForm() {
                 )}
               </div>
             </div>
-          )}
+          )} */}
 
           {/* Is this a co-listing? */}
           <div>
@@ -419,6 +427,7 @@ function NewListingInformationForm() {
               )}
             </div>
           </div>
+
           {/* photos/videos direct link */}
           <div className="flex flex-col gap-2 w-full">
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
@@ -434,6 +443,104 @@ function NewListingInformationForm() {
               <p className="text-red-500 text-xs">{errors?.link?.message}</p>
             )}
           </div>
+
+          {/* Buyer&apos;s Agent Commission */}
+          <div className="flex flex-col gap-2 w-full">
+            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+              Buyer&apos;s Agent Commission
+            </label>
+            <input
+              type="number"
+              step="any"
+              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+              placeholder="Type buyer's commission rate here"
+              {...register('buyers_agent_commission')}
+            />
+            {errors?.buyers_agent_commission && (
+              <p className="text-red-500 text-xs">
+                {errors?.buyers_agent_commission?.message}
+              </p>
+            )}
+          </div>
+
+          {/* Agent */}
+          {userRole === ROLE.ADMIN && (
+            <div className="flex items-center sm:gap-6 gap-4">
+              <div className="w-full">
+                <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+                  <p className="mb-3">Agent</p>
+                  <Controller
+                    name="agent"
+                    control={control}
+                    render={({ field }) => (
+                      <Select
+                        options={coListingAgentOptions}
+                        value={coListingAgentOptions?.find(
+                          (option) => option?.value == field?.value
+                        )}
+                        onChange={(option) => field.onChange(option?.value)}
+                        isDisabled={isAgentLoading}
+                        isLoading={isAgentLoading}
+                        placeholder="Select Agent"
+                      />
+                    )}
+                  />
+                </label>
+                {errors?.agent && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors?.agent?.message}
+                  </p>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* List Date */}
+          <div className="flex flex-col gap-2 w-full">
+            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+              List Date?
+            </label>
+
+            <label className="flex items-center px-4 rounded-[10px] border border-[#d8dfeb] bg-dark w-full gap-2.5">
+              <Controller
+                name="list_date"
+                control={control}
+                render={({ field }) => (
+                  <CustomDatePicker
+                    value={field.value}
+                    onChange={(date) => {
+                      field.onChange(format(date, 'yyyy-MM-dd'));
+                    }}
+                  />
+                )}
+              />
+              <CalenderSvg />
+            </label>
+
+            {errors?.list_date && (
+              <p className="text-red-500 text-xs">
+                {errors?.list_date?.message}
+              </p>
+            )}
+          </div>
+
+          {/* Buyer&apos;s Agent Commission */}
+          <div className="flex flex-col gap-2 w-full">
+            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+              Commission Split
+            </label>
+            <input
+              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+              placeholder="e.g. 70/30"
+              {...register('commission_split')}
+            />
+            {errors?.commission_split && (
+              <p className="text-red-500 text-xs">
+                {errors?.commission_split?.message}
+              </p>
+            )}
+          </div>
+
           {/* additional information */}
           <div className="flex flex-col gap-2 w-full">
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">

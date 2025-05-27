@@ -100,9 +100,7 @@ const Header = () => {
                   className="w-full h-full object-cover"
                 />
               </Link>
-
               {/* search */}
-
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
