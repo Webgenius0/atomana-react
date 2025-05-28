@@ -1,6 +1,9 @@
+import errorResponse from '@/lib/errorResponse';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { useAxiosSecure } from './useAxios';
 
 export const useGetProfile = () => {
@@ -40,4 +43,41 @@ export const useEditProfile = () => {
     },
   });
   return { mutate, isPending, open, setOpen };
+};
+
+export const useChangePassword = () => {
+  const axiosPrivate = useAxiosSecure();
+  const navigate = useNavigate();
+  const form = useForm();
+
+  const result = useMutation({
+    mutationFn: async (data) => {
+      const response = await axiosPrivate.post(
+        '/api/v1/auth/change-password',
+        data
+      );
+      return response.data;
+    },
+
+    onSuccess: (data) => {
+      if (data?.success) {
+        navigate('/profile');
+        toast.success('Password updated successfully!');
+      }
+    },
+    onError: (error) => {
+      const response = errorResponse(error, (fields) => {
+        Object.entries(fields).forEach(([field, messages]) => {
+          form.setError(field, {
+            message: messages?.[0],
+          });
+        });
+      });
+      if (response) {
+        toast.error(response);
+      }
+    },
+  });
+
+  return { ...result, form };
 };

@@ -53,6 +53,7 @@ import ViewOpenHouse from '@/pages/open-houses/ViewOpenHouse';
 import AccountInformation from '@/pages/profile/AccountInformation';
 import AddTeamMember from '@/pages/profile/AddTeamMember';
 import BusinessInformation from '@/pages/profile/BusinessInformation';
+import ChangePassword from '@/pages/profile/ChangePassword';
 import EditTeamMember from '@/pages/profile/EditTeamMember';
 import ManageTeam from '@/pages/profile/ManageTeam';
 import MemberProfile from '@/pages/profile/MemberProfile';
@@ -549,6 +550,14 @@ const router = createBrowserRouter([
             element: (
               <PageTitle title="Account Information">
                 <AccountInformation />
+              </PageTitle>
+            ),
+          },
+          {
+            path: 'change-password',
+            element: (
+              <PageTitle title="Change Password">
+                <ChangePassword />
               </PageTitle>
             ),
           },
