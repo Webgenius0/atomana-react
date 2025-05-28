@@ -50,8 +50,13 @@ const Login = () => {
       }
 
       toast.success('Login successfully!');
-      navigate('/');
+
       reset();
+      if (response?.data?.user?.role === 'Agent') {
+        navigate('/my-ai');
+      } else {
+        navigate('/');
+      }
     } catch (err) {
       const response = errorResponse(err, (fields) => {
         Object.entries(fields).forEach(([field, messages]) => {
