@@ -27,8 +27,8 @@ const AccountInformation = () => {
         <div className="mt-[25px]">
           {/* Full Name */}
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
-            <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
-              Full name
+            <p className="font-bold leading-5 text-sm text-[#ffffffcc] capitalize">
+              Full Name
             </p>
             {isLoading ? (
               <div className="h-5 bg-gray-800 rounded animate-pulse w-32" />
@@ -43,7 +43,9 @@ const AccountInformation = () => {
 
           {/* Role */}
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
-            <p className="font-bold leading-5 text-sm text-[#ffffffcc]">Role</p>
+            <p className="font-bold leading-5 text-sm text-[#ffffffcc] capitalize">
+              Role
+            </p>
             {isLoading ? (
               <div className="h-5 bg-gray-800 rounded animate-pulse w-16" />
             ) : (
@@ -55,7 +57,7 @@ const AccountInformation = () => {
 
           {/* License Number */}
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
-            <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
+            <p className="font-bold leading-5 text-sm text-[#ffffffcc] capitalize">
               License Number
             </p>
             {isLoading ? (
@@ -69,13 +71,13 @@ const AccountInformation = () => {
 
           {/* ECAR ID */}
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
-            <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
+            <p className="font-bold leading-5 text-sm text-[#ffffffcc] uppercase">
               ECAR ID
             </p>
             {isLoading ? (
               <div className="h-5 bg-gray-800 rounded animate-pulse w-36" />
             ) : (
-              <p className="text-sm font-medium leading-5 text-light">
+              <p className="text-sm font-medium leading-5 text-light uppercase">
                 {profile?.ecar_id || 'N/A'}
               </p>
             )}
@@ -83,7 +85,7 @@ const AccountInformation = () => {
 
           {/* Status */}
           <div className="space-y-[2px] border-b border-secondPrimary py-4">
-            <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
+            <p className="font-bold leading-5 text-sm text-[#ffffffcc] capitalize">
               Status
             </p>
             {isLoading ? (
@@ -98,13 +100,13 @@ const AccountInformation = () => {
           {/* Email */}
           <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
             <div className="space-y-[2px]">
-              <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
-                Personal email address
+              <p className="font-bold leading-5 text-sm text-[#ffffffcc] capitalize">
+                Personal Email Address
               </p>
               {isLoading ? (
                 <div className="h-5 bg-gray-800 rounded animate-pulse w-32" />
               ) : (
-                <p className="text-sm font-medium leading-5 text-light">
+                <p className="text-sm font-medium leading-5 text-light lowercase">
                   {profile?.email}
                 </p>
               )}
@@ -115,13 +117,13 @@ const AccountInformation = () => {
           {/* Home Address */}
           <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
             <div className="space-y-[2px]">
-              <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
-                Home address
+              <p className="font-bold leading-5 text-sm text-[#ffffffcc] capitalize">
+                Home Address
               </p>
               {isLoading ? (
                 <div className="h-5 bg-gray-800 rounded animate-pulse w-36" />
               ) : (
-                <p className="text-sm font-medium leading-5 text-light">
+                <p className="text-sm font-medium leading-5 text-light capitalize">
                   {profile?.address || 'N/A'}
                 </p>
               )}
@@ -132,8 +134,8 @@ const AccountInformation = () => {
           {/* Phone */}
           <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
             <div className="space-y-[2px]">
-              <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
-                Phone number
+              <p className="font-bold leading-5 text-sm text-[#ffffffcc] capitalize">
+                Phone Number
               </p>
               {isLoading ? (
                 <div className="h-5 bg-gray-800 rounded animate-pulse w-32" />
@@ -149,7 +151,7 @@ const AccountInformation = () => {
           {/* BirthDay */}
           <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
             <div className="space-y-[2px]">
-              <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
+              <p className="font-bold leading-5 text-sm text-[#ffffffcc] capitalize">
                 Birthday
               </p>
               {isLoading ? (
@@ -188,8 +190,8 @@ const AccountInformation = () => {
           {/* Social Media */}
           <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
             <div className="space-y-[2px]">
-              <p className="font-bold leading-5 text-sm text-[#ffffffcc] mb-1">
-                Social media
+              <p className="font-bold leading-5 text-sm text-[#ffffffcc] mb-1 capitalize">
+                Social Media
               </p>
               {isLoading ? (
                 <div className="flex gap-3">
@@ -229,7 +231,7 @@ const AccountInformation = () => {
           {/* Bio */}
           <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
             <div className="space-y-[2px]">
-              <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
+              <p className="font-bold leading-5 text-sm text-[#ffffffcc] capitalize">
                 About Me
               </p>
               {isLoading ? (
