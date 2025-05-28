@@ -503,6 +503,35 @@ function NewListingInformationForm() {
             </div>
           )}
 
+          <div className="flex items-center sm:gap-6 gap-4">
+            <div className="w-full">
+              <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+                <p className="mb-3">Listing Agent</p>
+                <Controller
+                  name="listing_agent"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      options={coListingAgentOptions}
+                      value={coListingAgentOptions?.find(
+                        (option) => option?.value == field?.value
+                      )}
+                      onChange={(option) => field.onChange(option?.value)}
+                      isDisabled={isAgentLoading}
+                      isLoading={isAgentLoading}
+                      placeholder="Select Listing Agent"
+                    />
+                  )}
+                />
+              </label>
+              {errors?.agent && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors?.agent?.message}
+                </p>
+              )}
+            </div>
+          </div>
+
           {/* List Date */}
           <div className="flex flex-col gap-2 w-full">
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
