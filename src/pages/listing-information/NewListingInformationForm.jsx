@@ -549,7 +549,7 @@ function NewListingInformationForm() {
               <input
                 id="listing_agreement"
                 type="file"
-                accept="image/*"
+                accept="image/*,application/pdf"
                 className="hidden"
                 {...register('listing_agreement')}
               />

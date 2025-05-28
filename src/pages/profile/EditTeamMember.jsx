@@ -247,7 +247,7 @@ const EditTeamMember = () => {
                 <input
                   id="aggrement"
                   type="file"
-                  accept="image/*"
+                  accept="image/*,application/pdf"
                   className="hidden"
                   {...register('aggrement')}
                 />
@@ -275,6 +275,7 @@ const EditTeamMember = () => {
                 <input
                   id="file"
                   type="file"
+                  accept="image/*,application/pdf"
                   className="hidden"
                   {...register('file')}
                 />
