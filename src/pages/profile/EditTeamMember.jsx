@@ -2,6 +2,7 @@ import CustomDatePicker from '@/components/CustomDatePicker';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import CalenderSvg from '@/components/svgs/CalenderSvg';
 import FileSvg from '@/components/svgs/FileSvg';
+import Select from '@/components/ui/react-select';
 import { useGetSingleAgent, useUpdateSingleAgent } from '@/hooks/agent.hook';
 import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
@@ -29,6 +30,18 @@ const EditTeamMember = () => {
     formState: { errors },
   } = form;
 
+  const isRoleLoading = false;
+  const roleOptions = [
+    {
+      value: 1,
+      label: 'Admin',
+    },
+    {
+      value: 2,
+      label: 'Agent',
+    },
+  ];
+
   useEffect(() => {
     if (agent) {
       reset({
@@ -40,6 +53,7 @@ const EditTeamMember = () => {
         contract_year_start: agent?.contract_year_start,
         total_commission_this_contract_year:
           agent?.total_commission_this_contract_year,
+        role_id: agent?.role_id || 2,
       });
     }
   }, [agent]);
@@ -267,6 +281,36 @@ const EditTeamMember = () => {
               </label>
               {errors?.file?.message && (
                 <p className="text-red-500 mt-2">{errors?.file?.message}</p>
+              )}
+            </div>
+
+            {/* Role */}
+            <div className="flex flex-col gap-2 w-full">
+              <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+                Role
+              </label>
+              <Controller
+                name="role_id"
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <Select
+                      options={roleOptions}
+                      value={roleOptions?.find(
+                        (option) => option?.value == field?.value
+                      )}
+                      onChange={(option) => field.onChange(option?.value)}
+                      isDisabled={isRoleLoading}
+                      isLoading={isRoleLoading}
+                      placeholder="Select Role"
+                    />
+                  );
+                }}
+              />
+              {errors?.role_id && (
+                <p className="text-red-500 text-xs">
+                  {errors?.role_id?.message}
+                </p>
               )}
             </div>
 

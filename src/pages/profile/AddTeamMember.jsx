@@ -6,6 +6,7 @@ import { useState } from 'react';
 import CustomDatePicker from '@/components/CustomDatePicker';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import CalenderSvg from '@/components/svgs/CalenderSvg';
+import Select from '@/components/ui/react-select';
 import { useRegisterAgent } from '@/hooks/agent.hook';
 import { format } from 'date-fns';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -31,7 +32,20 @@ const AddTeamMember = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   //   const { agents, isLoading, isError, error } = useGetAgents();
 
+  const isRoleLoading = false;
+  const roleOptions = [
+    {
+      value: 1,
+      label: 'Admin',
+    },
+    {
+      value: 2,
+      label: 'Agent',
+    },
+  ];
+
   const onSubmit = (data) => {
+    console.log({ update: data });
     registerAgent(data, {
       onSuccess: () => {
         reset();
@@ -67,8 +81,10 @@ const AddTeamMember = () => {
                     required: 'First name is required',
                   })}
                 />
-                {errors.firstName && (
-                  <span className="error-text">{errors.firstName.message}</span>
+                {errors?.firstName && (
+                  <span className="text-red-500 mt-2">
+                    {errors?.firstName.message}
+                  </span>
                 )}
               </div>
               {/* Last Name */}
@@ -83,8 +99,10 @@ const AddTeamMember = () => {
                     required: 'Last name is required',
                   })}
                 />
-                {errors.lastName && (
-                  <span className="error-text">{errors.lastName.message}</span>
+                {errors?.lastName && (
+                  <span className="text-red-500 mt-2">
+                    {errors?.lastName.message}
+                  </span>
                 )}
               </div>
             </div>
@@ -99,8 +117,10 @@ const AddTeamMember = () => {
                 type="text"
                 {...register('email', { required: 'Email is required' })}
               />
-              {errors.email && (
-                <span className="error-text">{errors.email.message}</span>
+              {errors?.email && (
+                <span className="text-red-500 mt-2">
+                  {errors?.email.message}
+                </span>
               )}
             </div>
             {/* Business ID */}
@@ -115,8 +135,8 @@ const AddTeamMember = () => {
                   required: 'Business ID is required',
                 })}
               />
-              {errors.business_id && (
-                <span className="error-text">{errors.business_id.message}</span>
+              {errors?.business_id && (
+                <span className="text-red-500 mt-2">{errors?.business_id.message}</span>
               )}
             </div> */}
             {/* Contract Year Starts */}
@@ -188,8 +208,10 @@ const AddTeamMember = () => {
                   )}
                 </button>
               </div>
-              {errors.password && (
-                <span className="error-text">{errors.password.message}</span>
+              {errors?.password && (
+                <span className="text-red-500 mt-2">
+                  {errors?.password.message}
+                </span>
               )}
             </div>
             {/* Confirm Password */}
@@ -220,10 +242,40 @@ const AddTeamMember = () => {
                   )}
                 </button>
               </div>
-              {errors.confirmPassword && (
-                <span className="error-text">
-                  {errors.confirmPassword.message}
+              {errors?.confirmPassword && (
+                <span className="text-red-500 mt-2">
+                  {errors?.confirmPassword.message}
                 </span>
+              )}
+            </div>
+
+            {/* Role */}
+            <div className="flex flex-col gap-2 w-full">
+              <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+                Role
+              </label>
+              <Controller
+                name="role_id"
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <Select
+                      options={roleOptions}
+                      value={roleOptions?.find(
+                        (option) => option?.value == field?.value
+                      )}
+                      onChange={(option) => field.onChange(option?.value)}
+                      isDisabled={isRoleLoading}
+                      isLoading={isRoleLoading}
+                      placeholder="Select Role"
+                    />
+                  );
+                }}
+              />
+              {errors?.role_id && (
+                <p className="text-red-500 text-xs">
+                  {errors?.role_id?.message}
+                </p>
               )}
             </div>
 

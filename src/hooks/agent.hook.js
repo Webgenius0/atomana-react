@@ -94,6 +94,7 @@ export const useRegisterAgent = () => {
   const form = useForm({
     defaultValues: {
       total_commission_this_contract_year: '0',
+      role_id: 2,
     },
   });
 
