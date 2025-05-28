@@ -242,9 +242,9 @@ const AddTeamMember = () => {
                   )}
                 </button>
               </div>
-              {errors?.confirmPassword && (
+              {errors?.password_confirmation && (
                 <span className="text-red-500 mt-2">
-                  {errors?.confirmPassword.message}
+                  {errors?.password_confirmation.message}
                 </span>
               )}
             </div>
