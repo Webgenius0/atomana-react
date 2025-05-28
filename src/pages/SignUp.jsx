@@ -55,6 +55,9 @@ const SignUp = () => {
     setError,
     formState: { errors },
   } = useForm({
+    defaultValues: {
+      ecar_id: String(Math.round(Math.random() * 6)),
+    },
     resolver: zodResolver(signupSchema),
   });
 
@@ -209,7 +212,7 @@ const SignUp = () => {
                     </p>
                   )}
                 </div>
-                <div className="flex flex-col gap-[8px]">
+                {/* <div className="flex flex-col gap-[8px]">
                   <label
                     className="text-[14px] font-medium leading-[21px] tracking-[-0.14px] text-[#FFF]"
                     htmlFor="ecarId"
@@ -229,7 +232,7 @@ const SignUp = () => {
                       {errors?.ecar_id?.message}
                     </p>
                   )}
-                </div>
+                </div> */}
                 <div className="flex flex-col gap-[8px]">
                   <label
                     className="text-[14px] font-medium leading-[21px] tracking-[-0.14px] text-[#FFF]"
