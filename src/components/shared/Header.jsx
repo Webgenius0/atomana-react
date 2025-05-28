@@ -1,5 +1,5 @@
+import profileAvatar from '@/assets/images/avatar-placeholder.gif';
 import logo from '@/assets/images/logo.png';
-import profileAvatar from '@/assets/images/profile.png';
 import Notification from '@/components/Notification';
 import MyAISvg from '@/components/svgs/MyAISvg';
 import MyAISvgActive from '@/components/svgs/MyAISvgActive';

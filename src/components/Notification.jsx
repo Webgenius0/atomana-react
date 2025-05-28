@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import ProfileAvatar from "@/assets/images/profile.png";
+import ProfileAvatar from '@/assets/images/avatar-placeholder.gif';
+import { useEffect, useRef } from 'react';
 
 const Notification = ({ onClose }) => {
   const notificationRef = useRef(null);
@@ -14,82 +14,82 @@ const Notification = ({ onClose }) => {
       }
     };
 
-    document.addEventListener("mousedown", handleOutsideClick);
+    document.addEventListener('mousedown', handleOutsideClick);
     return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
+      document.removeEventListener('mousedown', handleOutsideClick);
     };
   }, []);
 
   const notifications = [
     {
       id: 1,
-      type: "edit_request",
-      user: "Lindsey Sargo",
-      message: "asked to edit OpenHouseBrochure",
-      time: "1 h ago",
-      category: "Most Popular Templates",
+      type: 'edit_request',
+      user: 'Lindsey Sargo',
+      message: 'asked to edit OpenHouseBrochure',
+      time: '1 h ago',
+      category: 'Most Popular Templates',
       avatar: ProfileAvatar,
-      status: "pending",
+      status: 'pending',
     },
     {
       id: 2,
-      type: "comment",
-      user: "John Doe",
-      message: "commented on SalesReport2024",
-      time: "3 h ago",
-      category: "Sales Reports",
+      type: 'comment',
+      user: 'John Doe',
+      message: 'commented on SalesReport2024',
+      time: '3 h ago',
+      category: 'Sales Reports',
       avatar: ProfileAvatar,
-      status: "read",
+      status: 'read',
     },
     {
       id: 3,
-      type: "share",
-      user: "Alice Johnson",
-      message: "shared AnnualReport2024 with you",
-      time: "5 h ago",
-      category: "Annual Reports",
+      type: 'share',
+      user: 'Alice Johnson',
+      message: 'shared AnnualReport2024 with you',
+      time: '5 h ago',
+      category: 'Annual Reports',
       avatar: ProfileAvatar,
-      status: "unread",
+      status: 'unread',
     },
     {
       id: 4,
-      type: "approval",
-      user: "Michael Smith",
-      message: "approved your edit request for ProjectPlan",
-      time: "8 h ago",
-      category: "Project Documents",
+      type: 'approval',
+      user: 'Michael Smith',
+      message: 'approved your edit request for ProjectPlan',
+      time: '8 h ago',
+      category: 'Project Documents',
       avatar: ProfileAvatar,
-      status: "read",
+      status: 'read',
     },
     {
       id: 5,
-      type: "edit_request",
-      user: "Emma Brown",
-      message: "asked to edit MarketingStrategy2024",
-      time: "12 h ago",
-      category: "Marketing Plans",
+      type: 'edit_request',
+      user: 'Emma Brown',
+      message: 'asked to edit MarketingStrategy2024',
+      time: '12 h ago',
+      category: 'Marketing Plans',
       avatar: ProfileAvatar,
-      status: "pending",
+      status: 'pending',
     },
     {
       id: 6,
-      type: "comment",
-      user: "Sophia Wilson",
-      message: "commented on Q2SalesReport",
-      time: "1 day ago",
-      category: "Quarterly Reports",
+      type: 'comment',
+      user: 'Sophia Wilson',
+      message: 'commented on Q2SalesReport',
+      time: '1 day ago',
+      category: 'Quarterly Reports',
       avatar: ProfileAvatar,
-      status: "read",
+      status: 'read',
     },
     {
       id: 7,
-      type: "share",
-      user: "Oliver Taylor",
-      message: "shared BudgetReport2023 with you",
-      time: "2 days ago",
-      category: "Budget Reports",
+      type: 'share',
+      user: 'Oliver Taylor',
+      message: 'shared BudgetReport2023 with you',
+      time: '2 days ago',
+      category: 'Budget Reports',
       avatar: ProfileAvatar,
-      status: "unread",
+      status: 'unread',
     },
   ];
 

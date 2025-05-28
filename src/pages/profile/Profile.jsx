@@ -1,4 +1,4 @@
-import profileAvatar from '@/assets/images/profile.png';
+import profileAvatar from '@/assets/images/avatar-placeholder.gif';
 import ArrowGreaterSvg from '@/components/svgs/ArrowGreaterSvg';
 import { ROLE } from '@/constants';
 import { useAuth } from '@/hooks/useAuth';

@@ -1,3 +1,5 @@
+import profile from '@/assets/images/avatar-placeholder.gif';
+import imageIcon from '@/assets/images/image-icon.svg';
 import CustomDatePicker from '@/components/CustomDatePicker';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import CalenderSvg from '@/components/svgs/CalenderSvg';
@@ -11,6 +13,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link, useParams } from 'react-router-dom';
 
 const EditTeamMember = () => {
+  const [preview, setPreview] = useState(profile);
   const { slug } = useParams();
   const { agent } = useGetSingleAgent(slug);
   const [showPassword, setShowPassword] = useState(false);
@@ -85,6 +88,38 @@ const EditTeamMember = () => {
             onSubmit={handleSubmit(onSubmit)}
             className="max-w-[670px] mx-auto flex flex-col gap-[15px]"
           >
+            <label className="cursor-pointer border rounded-full border-light w-40 h-40 flex items-center justify-center relative mx-auto">
+              <Controller
+                name="avatar"
+                control={form.control}
+                render={({ field }) => (
+                  <input
+                    type="file"
+                    className="hidden"
+                    accept="image/*"
+                    onChange={(e) => {
+                      const file = e.target.files[0];
+                      field.onChange(file);
+                      const reader = new FileReader();
+                      reader.onloadend = () => {
+                        setPreview(reader.result);
+                      };
+                      reader.readAsDataURL(file);
+                    }}
+                  />
+                )}
+              />
+              <img
+                src={preview}
+                alt="icon"
+                className="opacity-40 w-full h-full rounded-full absolute"
+              />
+              <img
+                src={imageIcon}
+                alt="icon"
+                className="flex items-center justify-center"
+              />
+            </label>
             <div className="flex items-center gap-2.5">
               {/* First Name */}
               <div className="flex flex-col gap-2 w-full">
