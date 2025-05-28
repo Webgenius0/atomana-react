@@ -1,6 +1,7 @@
 import CustomDatePicker from '@/components/CustomDatePicker';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import CalenderSvg from '@/components/svgs/CalenderSvg';
+import FileSvg from '@/components/svgs/FileSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
 import Select from '@/components/ui/react-select';
@@ -53,6 +54,13 @@ function NewListingInformationForm() {
     }
   }, [is_co_listing]);
 
+  const onSubmit = (data) => {
+    storeProperty({
+      ...data,
+      listing_agreement: data?.listing_agreement?.[0],
+    });
+  };
+
   return (
     <>
       <div className="flex items-center gap-4 justify-between">
@@ -75,7 +83,7 @@ function NewListingInformationForm() {
       </div>
       <div className="max-w-[670px] w-full mx-auto mt-4">
         <form
-          onSubmit={handleSubmit(storeProperty)}
+          onSubmit={handleSubmit(onSubmit)}
           className="max-w-[670px] mx-start flex flex-col gap-[15px]"
         >
           <div className="flex flex-col gap-2 w-full">
@@ -520,6 +528,35 @@ function NewListingInformationForm() {
             {errors?.list_date && (
               <p className="text-red-500 text-xs">
                 {errors?.list_date?.message}
+              </p>
+            )}
+          </div>
+
+          {/* Employment Agreement */}
+          <div className="flex flex-col gap-2 w-full">
+            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+              Listing Agreement
+            </label>
+
+            <label
+              htmlFor="listing_agreement"
+              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full flex items-center justify-between cursor-pointer"
+            >
+              <span className="text-secondary text-sm leading-[21px] tracking-[-0.14px]">
+                {watch('listing_agreement')?.[0]?.name || 'Choose File'}
+              </span>
+              <FileSvg />
+              <input
+                id="listing_agreement"
+                type="file"
+                accept="image/*"
+                className="hidden"
+                {...register('listing_agreement')}
+              />
+            </label>
+            {errors?.listing_agreement?.message && (
+              <p className="text-red-500 mt-2">
+                {errors?.listing_agreement?.message}
               </p>
             )}
           </div>
