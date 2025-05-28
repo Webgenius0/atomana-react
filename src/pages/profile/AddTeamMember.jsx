@@ -1,17 +1,16 @@
-import { Controller } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
-
-import { useState } from 'react';
-
 import profile from '@/assets/images/avatar-placeholder.gif';
 import imageIcon from '@/assets/images/image-icon.svg';
 import CustomDatePicker from '@/components/CustomDatePicker';
 import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
 import CalenderSvg from '@/components/svgs/CalenderSvg';
+import FileSvg from '@/components/svgs/FileSvg';
 import Select from '@/components/ui/react-select';
 import { useRegisterAgent } from '@/hooks/agent.hook';
 import { format } from 'date-fns';
+import { useState } from 'react';
+import { Controller } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
 
 const AddTeamMember = () => {
   const [preview, setPreview] = useState(profile);
@@ -71,6 +70,7 @@ const AddTeamMember = () => {
             onSubmit={handleSubmit(onSubmit)}
             className="max-w-[670px] mx-auto flex flex-col gap-[15px]"
           >
+            {/* Avatar */}
             <label className="cursor-pointer border rounded-full border-light w-40 h-40 flex items-center justify-center relative mx-auto">
               <Controller
                 name="avatar"
@@ -103,8 +103,9 @@ const AddTeamMember = () => {
                 className="flex items-center justify-center"
               />
             </label>
+
+            {/* Name */}
             <div className="flex items-center gap-2.5">
-              {/* Avatar */}
               {/* First Name */}
               <div className="flex flex-col gap-2 w-full">
                 <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
@@ -142,6 +143,7 @@ const AddTeamMember = () => {
                 )}
               </div>
             </div>
+
             {/* Email */}
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
@@ -159,22 +161,23 @@ const AddTeamMember = () => {
                 </span>
               )}
             </div>
-            {/* Business ID */}
-            {/* <div className="flex flex-col gap-2 w-full">
+
+            {/* Phone */}
+            <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-                Business ID
+                Phone
               </label>
               <input
-                className="input-field px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                placeholder="000-000-0000"
-                {...register('business_id', {
-                  required: 'Business ID is required',
-                })}
+                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+                placeholder="0"
+                // type="number"
+                {...register('phone')}
               />
-              {errors?.business_id && (
-                <span className="text-red-500 mt-2">{errors?.business_id.message}</span>
+              {errors?.phone?.message && (
+                <p className="text-red-500 mt-2">{errors?.phone?.message}</p>
               )}
-            </div> */}
+            </div>
+
             {/* Contract Year Starts */}
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
@@ -200,24 +203,63 @@ const AddTeamMember = () => {
                 <p className="text-red-500 mt-2">{errors?.date?.message}</p>
               )}
             </div>
-            {/* Total Commission this Contract Year */}
-            {/* <div className="flex flex-col gap-2 w-full">
+
+            {/* Employment Agreement */}
+            <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-                Total Commission this Contract Year
+                Employment Agreement
               </label>
-              <input
-                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                placeholder="0"
-                type="number"
-                step="any"
-                {...register('total_commission_this_contract_year')}
-              />
-              {errors?.total_commission_this_contract_year?.message && (
+
+              <label
+                htmlFor="aggrement"
+                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full flex items-center justify-between cursor-pointer"
+              >
+                <span className="text-secondary text-sm leading-[21px] tracking-[-0.14px]">
+                  {watch('aggrement')?.[0]?.name || 'Choose File'}
+                </span>
+                <FileSvg />
+                <input
+                  id="aggrement"
+                  type="file"
+                  accept="image/*,application/pdf"
+                  className="hidden"
+                  {...register('aggrement')}
+                />
+              </label>
+              {errors?.aggrement?.message && (
                 <p className="text-red-500 mt-2">
-                  {errors?.total_commission_this_contract_year?.message}
+                  {errors?.aggrement?.message}
                 </p>
               )}
-            </div> */}
+            </div>
+
+            {/* Additional Files */}
+            <div className="flex flex-col gap-2 w-full">
+              <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+                Additional Files
+              </label>
+
+              <label
+                htmlFor="file"
+                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full flex items-center justify-between cursor-pointer"
+              >
+                <span className="text-secondary text-sm leading-[21px] tracking-[-0.14px]">
+                  {watch('file')?.[0]?.name || 'Choose File'}
+                </span>
+                <FileSvg />
+                <input
+                  id="file"
+                  type="file"
+                  accept="image/*,application/pdf"
+                  className="hidden"
+                  {...register('file')}
+                />
+              </label>
+              {errors?.file?.message && (
+                <p className="text-red-500 mt-2">{errors?.file?.message}</p>
+              )}
+            </div>
+
             {/* Password */}
             <div className="relative flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
@@ -250,6 +292,7 @@ const AddTeamMember = () => {
                 </span>
               )}
             </div>
+
             {/* Confirm Password */}
             <div className="relative flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">

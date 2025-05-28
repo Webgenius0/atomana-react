@@ -17,6 +17,7 @@ const EditTeamMember = () => {
   const { slug } = useParams();
   const { agent } = useGetSingleAgent(slug);
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const {
     mutate: editAgent,
@@ -48,14 +49,7 @@ const EditTeamMember = () => {
   useEffect(() => {
     if (agent) {
       reset({
-        first_name: agent?.first_name,
-        last_name: agent?.last_name,
-        email: agent?.email,
-        password: agent?.password,
-        phone: agent?.phone,
-        contract_year_start: agent?.contract_year_start,
-        total_commission_this_contract_year:
-          agent?.total_commission_this_contract_year,
+        ...agent,
         role_id: agent?.role_id || 3,
       });
     }
@@ -88,6 +82,7 @@ const EditTeamMember = () => {
             onSubmit={handleSubmit(onSubmit)}
             className="max-w-[670px] mx-auto flex flex-col gap-[15px]"
           >
+            {/* Avatar */}
             <label className="cursor-pointer border rounded-full border-light w-40 h-40 flex items-center justify-center relative mx-auto">
               <Controller
                 name="avatar"
@@ -120,6 +115,8 @@ const EditTeamMember = () => {
                 className="flex items-center justify-center"
               />
             </label>
+
+            {/* Name */}
             <div className="flex items-center gap-2.5">
               {/* First Name */}
               <div className="flex flex-col gap-2 w-full">
@@ -158,6 +155,7 @@ const EditTeamMember = () => {
                 )}
               </div>
             </div>
+
             {/* Email */}
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
@@ -175,35 +173,7 @@ const EditTeamMember = () => {
                 </span>
               )}
             </div>
-            <div className="relative flex flex-col gap-2 w-full">
-              <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-                Password
-              </label>
-              <div className="relative">
-                <input
-                  className="input-field pr-10 px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                  type={showPassword ? 'text' : 'password'}
-                  placeholder="Password"
-                  {...register('password')}
-                />
-                <button
-                  type="button"
-                  className="absolute right-3 top-3 text-gray-400"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? (
-                    <FaEye size={20} />
-                  ) : (
-                    <FaEyeSlash size={20} />
-                  )}
-                </button>
-              </div>
-              {errors?.password && (
-                <span className="text-red-500 mt-2">
-                  {errors?.password.message}
-                </span>
-              )}
-            </div>
+
             {/* Phone */}
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
@@ -247,24 +217,7 @@ const EditTeamMember = () => {
                 </p>
               )}
             </div>
-            {/* Total Commission this Contract Year */}
-            {/* <div className="flex flex-col gap-2 w-full">
-              <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-                Total Commission this Contract Year
-              </label>
-              <input
-                className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                placeholder="0"
-                type="number"
-                step="any"
-                {...register('total_commission_this_contract_year')}
-              />
-              {errors?.total_commission_this_contract_year?.message && (
-                <p className="text-red-500 mt-2">
-                  {errors?.total_commission_this_contract_year?.message}
-                </p>
-              )}
-            </div> */}
+
             {/* Employment Agreement */}
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
@@ -293,6 +246,7 @@ const EditTeamMember = () => {
                 </p>
               )}
             </div>
+
             {/* Additional Files */}
             <div className="flex flex-col gap-2 w-full">
               <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
@@ -317,6 +271,72 @@ const EditTeamMember = () => {
               </label>
               {errors?.file?.message && (
                 <p className="text-red-500 mt-2">{errors?.file?.message}</p>
+              )}
+            </div>
+
+            {/* Password */}
+            <div className="relative flex flex-col gap-2 w-full">
+              <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+                Password
+              </label>
+              <div className="relative">
+                <input
+                  className="input-field pr-10 px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Password"
+                  {...register('password')}
+                />
+                <button
+                  type="button"
+                  className="absolute right-3 top-3 text-gray-400"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? (
+                    <FaEye size={20} />
+                  ) : (
+                    <FaEyeSlash size={20} />
+                  )}
+                </button>
+              </div>
+              {errors?.password && (
+                <span className="text-red-500 mt-2">
+                  {errors?.password.message}
+                </span>
+              )}
+            </div>
+
+            {/* Confirm Password */}
+            <div className="relative flex flex-col gap-2 w-full">
+              <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+                Confirm Password
+              </label>
+              <div className="relative">
+                <input
+                  className="input-field pr-10 px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  placeholder="Confirm Password"
+                  {...register('password_confirmation', {
+                    required: 'Confirm Password is required',
+                    validate: (value) =>
+                      value === watch('password') || 'Passwords do not match',
+                  })}
+                />
+                <button
+                  type="button"
+                  className="absolute right-3 top-3 text-gray-400"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                >
+                  {showConfirmPassword ? (
+                    <FaEye size={20} />
+                  ) : (
+                    <FaEyeSlash size={20} />
+                  )}
+                </button>
+              </div>
+              {errors?.password_confirmation && (
+                <span className="text-red-500 mt-2">
+                  {errors?.password_confirmation.message}
+                </span>
               )}
             </div>
 
