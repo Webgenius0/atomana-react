@@ -1,38 +1,36 @@
-import { FaLongArrowAltRight } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5';
-import { useNavigate } from 'react-router-dom';
 import LogoSquareSvg from './svgs/LogoSquareSvg';
 
-const links = [
-  {
-    path: '/',
-    label: 'MyTeam',
-  },
-  {
-    path: '/my-systems',
-    label: 'MySystems',
-  },
-  {
-    path: '/my-ai',
-    label: 'MyAI',
-  },
-  {
-    path: '/my-classroom',
-    label: 'MyClassroom',
-  },
-  {
-    path: '/my-pr',
-    label: 'MyPR',
-  },
-];
+// const links = [
+//   {
+//     path: '/',
+//     label: 'MyTeam',
+//   },
+//   {
+//     path: '/my-systems',
+//     label: 'MySystems',
+//   },
+//   {
+//     path: '/my-ai',
+//     label: 'MyAI',
+//   },
+//   {
+//     path: '/my-classroom',
+//     label: 'MyClassroom',
+//   },
+//   {
+//     path: '/my-pr',
+//     label: 'MyPR',
+//   },
+// ];
 
 function SearchBarModal({ onClose, searchText, setSearchText }) {
-  const navigate = useNavigate();
+  //   const navigate = useNavigate();
 
-  const handleNavigation = (path) => {
-    onClose();
-    navigate(path);
-  };
+  //   const handleNavigation = (path) => {
+  //     onClose();
+  //     navigate(path);
+  //   };
 
   return (
     <div className="fixed inset-0 sm:flex items-center justify-center z-[9001] bg-black bg-opacity-50 hidden">
@@ -57,7 +55,7 @@ function SearchBarModal({ onClose, searchText, setSearchText }) {
               />
             </div>
           </div>
-          <div className="border-b-2 border-gray-500 w-full mt-0">
+          {/* <div className="border-b-2 border-gray-500 w-full mt-0">
             <div className="flex items-center gap-3 px-4 py-2">
               <LogoSquareSvg />
               <input
@@ -66,9 +64,9 @@ function SearchBarModal({ onClose, searchText, setSearchText }) {
                 placeholder="Ask Maria"
               />
             </div>
-          </div>
+          </div> */}
         </div>
-        <div className="flex flex-col gap-3 p-4">
+        {/* <div className="flex flex-col gap-3 p-4">
           <p className="text-xs text-zinc-700">Go to</p>
           <div className="flex flex-col gap-3">
             {links.map((item) => (
@@ -82,7 +80,7 @@ function SearchBarModal({ onClose, searchText, setSearchText }) {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
