@@ -1,80 +1,91 @@
-import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
-import { Link } from "react-router-dom";
+import EditBusinessAddress from '@/components/profile/business-information/EditBusinessAddress';
+import EditBusinessName from '@/components/profile/business-information/EditBusinessName';
+import EditBusinessPhone from '@/components/profile/business-information/EditBusinessPhone';
+import EditPhone from '@/components/profile/business-information/EditPhone';
+import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
+import { useGetProfile } from '@/hooks/profile.hook';
+import { Link } from 'react-router-dom';
 
 const BusinessInformation = () => {
+  const { profile, isLoading } = useGetProfile();
+
   return (
     <div className="my-container">
       <div className="pt-6 md:pt-8 lg:pt-12 pb-3">
         <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit">
-          <Link
-            to="/profile"
-          >
+          <Link to="/profile">
             <ArrowLeftSvg />
           </Link>
           <h2 className="section-title">Business Information </h2>
         </div>
 
         <div className="mt-[25px]">
-          <div className="space-y-[2px] border-b border-secondPrimary py-4">
-            <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
-              Business name
-            </p>
-            <p className="text-sm font-medium leading-5 text-light">
-              Spears Group
-            </p>
-          </div>
-
+          {/* Business Name */}
           <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
             <div className="space-y-[2px]">
-              <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
-                Business address
+              <p className="font-bold leading-5 text-sm text-[#ffffffcc] capitalize">
+                Business Name
               </p>
-              <p className="text-sm font-medium leading-5 text-light">
-                341 Horton Ave <br />
-                San Francisco, CA 94118
-              </p>
+              {isLoading ? (
+                <div className="h-5 bg-gray-800 rounded animate-pulse w-32" />
+              ) : (
+                <p className="text-sm font-medium leading-5 text-light capitalize">
+                  {profile?.business_name || 'N/A'}
+                </p>
+              )}
             </div>
-
-            <Link
-              to=""
-              className="text-xs md:text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
-            >
-              EDIT
-            </Link>
+            <EditBusinessName />
           </div>
+
+          {/* Business Address */}
           <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
             <div className="space-y-[2px]">
-              <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
-                Business phone number
+              <p className="font-bold leading-5 text-sm text-[#ffffffcc] capitalize">
+                Business Address
               </p>
-              <p className="text-sm font-medium leading-5 text-light">
-                208-913-4467
-              </p>
+              {isLoading ? (
+                <div className="h-5 bg-gray-800 rounded animate-pulse w-32" />
+              ) : (
+                <p className="text-sm font-medium leading-5 text-light capitalize">
+                  {profile?.business_name || 'N/A'}
+                </p>
+              )}
             </div>
-
-            <Link
-              to=""
-              className="text-xs md:text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
-            >
-              MANAGE
-            </Link>
+            <EditBusinessAddress />
           </div>
+
+          {/* Business Phone Number */}
           <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
             <div className="space-y-[2px]">
-              <p className="font-bold leading-5 text-sm text-[#ffffffcc]">
-                Phone number
+              <p className="font-bold leading-5 text-sm text-[#ffffffcc] capitalize">
+                Business Phone Number
               </p>
-              <p className="text-sm font-medium leading-5 text-light">
-                208-913-4467
-              </p>
+              {isLoading ? (
+                <div className="h-5 bg-gray-800 rounded animate-pulse w-32" />
+              ) : (
+                <p className="text-sm font-medium leading-5 text-light">
+                  {profile?.business_phone || 'N/A'}
+                </p>
+              )}
             </div>
+            <EditBusinessPhone />
+          </div>
 
-            <Link
-              to=""
-              className="text-xs md:text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase"
-            >
-              MANAGE
-            </Link>
+          {/* Phone */}
+          <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
+            <div className="space-y-[2px]">
+              <p className="font-bold leading-5 text-sm text-[#ffffffcc] capitalize">
+                Phone Number
+              </p>
+              {isLoading ? (
+                <div className="h-5 bg-gray-800 rounded animate-pulse w-32" />
+              ) : (
+                <p className="text-sm font-medium leading-5 text-light">
+                  {profile?.phone || 'N/A'}
+                </p>
+              )}
+            </div>
+            <EditPhone />
           </div>
         </div>
       </div>
