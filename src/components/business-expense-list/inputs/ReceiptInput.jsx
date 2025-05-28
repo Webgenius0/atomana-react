@@ -26,7 +26,7 @@ export default function ReceiptInput() {
       <input
         type="file"
         className="w-full hidden"
-        accept="image/*"
+        accept="image/*,application/pdf"
         {...form.register('recept')}
       />
 
