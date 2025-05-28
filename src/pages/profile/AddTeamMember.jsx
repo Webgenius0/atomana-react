@@ -35,11 +35,11 @@ const AddTeamMember = () => {
   const isRoleLoading = false;
   const roleOptions = [
     {
-      value: 1,
+      value: 2,
       label: 'Admin',
     },
     {
-      value: 2,
+      value: 3,
       label: 'Agent',
     },
   ];

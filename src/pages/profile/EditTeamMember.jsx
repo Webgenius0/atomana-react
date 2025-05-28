@@ -33,11 +33,11 @@ const EditTeamMember = () => {
   const isRoleLoading = false;
   const roleOptions = [
     {
-      value: 1,
+      value: 2,
       label: 'Admin',
     },
     {
-      value: 2,
+      value: 3,
       label: 'Agent',
     },
   ];
@@ -53,7 +53,7 @@ const EditTeamMember = () => {
         contract_year_start: agent?.contract_year_start,
         total_commission_this_contract_year:
           agent?.total_commission_this_contract_year,
-        role_id: agent?.role_id || 2,
+        role_id: agent?.role_id || 3,
       });
     }
   }, [agent]);
