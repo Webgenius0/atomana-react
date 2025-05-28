@@ -1,5 +1,3 @@
-import CustomDatePicker from '@/components/CustomDatePicker';
-import CalenderSvg from '@/components/svgs/CalenderSvg';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -11,36 +9,35 @@ import {
 import { useEditProfile, useGetProfile } from '@/hooks/profile.hook';
 import { profileSchema } from '@/schema/profile.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { format } from 'date-fns';
 import { useEffect } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
-export default function EditBirthDay() {
+export default function EditLicenseNumber() {
   const { profile } = useGetProfile();
   const { mutate: editProfile, isPending, open, setOpen } = useEditProfile();
 
   const {
-    control,
+    register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm({
     resolver: zodResolver(profileSchema),
     defaultValues: {
-      date_of_birth: profile?.date_of_birth || '',
+      licence: profile?.licence || '',
     },
   });
 
   useEffect(() => {
     reset({
-      date_of_birth: profile?.date_of_birth || '',
+      licence: profile?.licence || '',
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profile]);
 
   // Handle form submission
   const onSubmit = (data) => {
-    editProfile({ data, field: 'birthday' });
+    editProfile({ data, field: 'licence' });
   };
 
   return (
@@ -52,29 +49,19 @@ export default function EditBirthDay() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader className="mb-2">
-          <DialogTitle>Birthday</DialogTitle>
+          <DialogTitle>License Number</DialogTitle>
         </DialogHeader>
 
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-          <label className="flex items-center px-4 rounded-[10px] border border-[#d8dfeb] bg-dark w-full gap-2.5">
-            <Controller
-              name="date_of_birth"
-              control={control}
-              render={({ field }) => (
-                <CustomDatePicker
-                  value={field.value}
-                  onChange={(date) => {
-                    field.onChange(format(date, 'MM-dd-yyyy'));
-                  }}
-                  className="py-[7px]"
-                />
-              )}
-            />
-            <CalenderSvg />
-          </label>
-          {errors?.date_of_birth?.message && (
+          <input
+            type="text"
+            id="licence"
+            className="px-4 py-3 outline-none bg-transparent border border-secondPrimary rounded text-sm font-medium leading-5 text-light"
+            {...register('licence')}
+          />
+          {errors?.licence?.message && (
             <p className="text-red-500 text-sm mt-1">
-              {errors?.date_of_birth?.message}
+              {errors?.licence?.message}
             </p>
           )}
           <Button type="submit" disabled={isPending} size="lg">

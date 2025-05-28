@@ -24,44 +24,44 @@ export default function EditEmail() {
   } = useForm({
     resolver: zodResolver(profileSchema),
     defaultValues: {
-      phone: profile?.phone || '',
+      email: profile?.email || '',
     },
   });
 
   useEffect(() => {
     reset({
-      phone: profile?.phone || '',
+      email: profile?.email || '',
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profile]);
 
   // Handle form submission
   const onSubmit = (data) => {
-    editProfile({ data, field: 'phone' });
+    editProfile({ data, field: 'email' });
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <button className="text-xs md:text-sm font-bold tracking-[-0.408] text-[#009696] duration-300 hover:opacity-60 uppercase">
-          MANAGE
+          EDIT
         </button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader className="mb-2">
-          <DialogTitle>Phone Number</DialogTitle>
+          <DialogTitle>Email</DialogTitle>
         </DialogHeader>
 
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <input
             type="text"
-            id="phone"
+            id="email"
             className="px-4 py-3 outline-none bg-transparent border border-secondPrimary rounded text-sm font-medium leading-5 text-light"
-            {...register('phone')}
+            {...register('email')}
           />
-          {errors?.phone?.message && (
+          {errors?.email?.message && (
             <p className="text-red-500 text-sm mt-1">
-              {errors?.phone?.message}
+              {errors?.email?.message}
             </p>
           )}
           <Button type="submit" disabled={isPending} size="lg">
