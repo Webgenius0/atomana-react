@@ -1,8 +1,10 @@
+import { ROLE } from '@/constants';
 import errorResponse from '@/lib/errorResponse';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { useAuth } from './useAuth';
 import { useAxiosSecure } from './useAxios';
 
 export const useGetContractInformation = ({
@@ -43,28 +45,40 @@ export const useGetContractInformation = ({
 export const useStoreContractInformation = () => {
   const axiosPrivate = useAxiosSecure();
   const queryClient = useQueryClient();
+  const { user } = useAuth();
+  const userRole = user?.role;
+
+  const defaultValues = {
+    agent: userRole === ROLE.ADMIN ? null : user?.id,
+    address: '',
+    closing_date: '',
+    is_co_listing: '0',
+    co_agent: null,
+    co_agent_percentage: '',
+    represent: '',
+    date_listed: null,
+    price: '',
+    date_under_contract: '',
+    commission_percentage: '',
+    referral_percentage: '',
+    buyers_agent_commission: '',
+    commission_split: '',
+    property_source_id: '',
+    name: '',
+    company: '',
+    email: '',
+    phone: '',
+    comment: '',
+  };
+
   const form = useForm({
-    defaultValues: {
-      address: '',
-      closing_data: '',
-      is_co_listing: '0',
-      co_agent: null,
-      co_agent_percentage: '',
-      represent: '',
-      date_listed: null,
-      price: '',
-      contract_data: '',
-      commision_percentage: '',
-      referral_percentage: '',
-      property_source_id: '',
-      name: '',
-      company: '',
-      email: '',
-      phone: '',
-      comment: '',
-    },
+    defaultValues,
     // resolver: zodResolver(formSchema),
   });
+
+  useEffect(() => {
+    if (user) form.reset(defaultValues);
+  }, [user]);
 
   const result = useMutation({
     mutationFn: async (data) => {

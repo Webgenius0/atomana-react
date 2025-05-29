@@ -4,11 +4,13 @@ import CalenderSvg from '@/components/svgs/CalenderSvg';
 import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
 import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
 import Select from '@/components/ui/react-select';
+import { ROLE } from '@/constants';
 import { useStoreContractInformation } from '@/hooks/new-contract-information';
 import {
   useCoListAgentDropdown,
   useSourceDropdown,
 } from '@/hooks/property.hook';
+import { useAuth } from '@/hooks/useAuth';
 import { format } from 'date-fns';
 import { useEffect } from 'react';
 import { Controller } from 'react-hook-form';
@@ -16,6 +18,8 @@ import { Link, useLocation } from 'react-router-dom';
 
 function NewContractInformationForm() {
   const location = useLocation();
+  const { user } = useAuth();
+  const userRole = user?.role;
   const {
     isPending,
     form,
@@ -85,6 +89,38 @@ function NewContractInformationForm() {
           onSubmit={handleSubmit(storeContractInformation)}
           className="max-w-[670px] mx-start flex flex-col gap-[15px]"
         >
+          {/* Agent */}
+          {userRole === ROLE.ADMIN && (
+            <div className="flex items-center sm:gap-6 gap-4">
+              <div className="w-full">
+                <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+                  <p className="mb-3">Agent</p>
+                  <Controller
+                    name="agent"
+                    control={control}
+                    render={({ field }) => (
+                      <Select
+                        options={coListingAgentOptions}
+                        value={coListingAgentOptions?.find(
+                          (option) => option?.value == field?.value
+                        )}
+                        onChange={(option) => field.onChange(option?.value)}
+                        isDisabled={isAgentLoading}
+                        isLoading={isAgentLoading}
+                        placeholder="Select Agent"
+                      />
+                    )}
+                  />
+                </label>
+                {errors?.agent && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors?.agent?.message}
+                  </p>
+                )}
+              </div>
+            </div>
+          )}
+
           {/* Property Address */}
           <div className="flex flex-col gap-2 w-full">
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
@@ -109,7 +145,7 @@ function NewContractInformationForm() {
 
             <label className="flex items-center px-4 rounded-[10px] border border-[#d8dfeb] bg-dark w-full gap-2.5">
               <Controller
-                name="closing_data"
+                name="closing_date"
                 control={control}
                 render={({ field }) => (
                   <CustomDatePicker
@@ -123,9 +159,9 @@ function NewContractInformationForm() {
               <CalenderSvg />
             </label>
 
-            {errors?.closing_data && (
+            {errors?.closing_date && (
               <p className="text-red-500 text-xs">
-                {errors?.closing_data?.message}
+                {errors?.closing_date?.message}
               </p>
             )}
           </div>
@@ -226,20 +262,20 @@ function NewContractInformationForm() {
               control={control}
               render={({ field }) => (
                 <div className="flex space-x-4">
-                  <label className="flex items-center gap-2">
-                    <input {...field} type="radio" value="buyer" />
+                  <label className="flex items-center gap-2" htmlFor="buyer">
+                    <input {...field} type="radio" value="buyer" id="buyer" />
                     <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                       Buyer
                     </p>
                   </label>
-                  <label className="flex items-center gap-2">
-                    <input {...field} type="radio" value="seller" />
+                  <label className="flex items-center gap-2" htmlFor="seller">
+                    <input {...field} type="radio" value="seller" id="seller" />
                     <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                       Seller
                     </p>
                   </label>
-                  <label className="flex items-center gap-2">
-                    <input {...field} type="radio" value="both" />
+                  <label className="flex items-center gap-2" htmlFor="both">
+                    <input {...field} type="radio" value="both" id="both" />
                     <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                       Both
                     </p>
@@ -310,7 +346,7 @@ function NewContractInformationForm() {
 
             <label className="flex items-center px-4 rounded-[10px] border border-[#d8dfeb] bg-dark w-full gap-2.5">
               <Controller
-                name="contract_data"
+                name="date_under_contract"
                 control={control}
                 render={({ field }) => (
                   <CustomDatePicker
@@ -324,9 +360,9 @@ function NewContractInformationForm() {
               <CalenderSvg />
             </label>
 
-            {errors?.contract_data && (
+            {errors?.date_under_contract && (
               <p className="text-red-500 text-xs">
-                {errors?.contract_data?.message}
+                {errors?.date_under_contract?.message}
               </p>
             )}
           </div>
@@ -341,11 +377,60 @@ function NewContractInformationForm() {
               step="any"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="Commission Percentage"
-              {...register('commision_percentage')}
+              {...register('commission_percentage')}
             />
-            {errors?.commision_percentage && (
+            {errors?.commission_percentage && (
               <p className="text-red-500 text-xs">
-                {errors?.commision_percentage?.message}
+                {errors?.commission_percentage?.message}
+              </p>
+            )}
+          </div>
+
+          {/* Buyer&apos;s Agent Commission */}
+          <div className="flex flex-col gap-2 w-full">
+            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+              Buyer&apos;s Agent Commission
+            </label>
+            <input
+              type="number"
+              step="any"
+              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+              placeholder="Type buyer's commission rate here"
+              {...register('buyers_agent_commission')}
+            />
+            {errors?.buyers_agent_commission && (
+              <p className="text-red-500 text-xs">
+                {errors?.buyers_agent_commission?.message}
+              </p>
+            )}
+          </div>
+
+          {/* Commission Split */}
+          <div className="flex flex-col gap-2 w-full">
+            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+              Commission Split
+            </label>
+            <input
+              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+              placeholder="e.g. 70/30"
+              {...register('commission_split', {
+                pattern: {
+                  value: /^\d{1,3}\/\d{1,3}$/,
+                  message:
+                    'Invalid commission split. Format must be like 70/30',
+                },
+                validate: (value) => {
+                  const [first, second] = value.split('/').map(Number);
+                  if (first + second !== 100) {
+                    return 'The sum of the commission must be 100';
+                  }
+                  return true;
+                },
+              })}
+            />
+            {errors?.commission_split && (
+              <p className="text-red-500 text-xs">
+                {errors?.commission_split?.message}
               </p>
             )}
           </div>
@@ -467,10 +552,10 @@ function NewContractInformationForm() {
             )}
           </div>
 
-          {/* Additional Comments / Questions */}
+          {/* Additional Comments */}
           <div className="flex flex-col gap-2 w-full">
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-              Additional Comments / Questions
+              Additional Comments
             </label>
             <textarea
               type="note"
