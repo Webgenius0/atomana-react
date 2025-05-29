@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/dialog';
 import {
   useCreateNewChat,
+  useDeleteChat,
   useGetChatHistory,
   useGetSingleConversation,
   useSendMessageToConversation,
@@ -78,6 +79,12 @@ const MyAI = () => {
     containerRef,
     scrollToBottom,
   } = useSendMessageToConversation(activeChatId);
+  const {
+    mutate: deleteChat,
+    isPending: isDeletePending,
+    open,
+    setOpen,
+  } = useDeleteChat();
 
   const {
     mutate: createNewChat,
@@ -233,7 +240,7 @@ const MyAI = () => {
                           )}
                           onClick={(e) => e.stopPropagation()}
                         >
-                          <Dialog>
+                          <Dialog open={open} onOpenChange={setOpen}>
                             <DialogTrigger asChild>
                               <Trash2Icon className="size-4 text-light/60 hover:text-light" />
                             </DialogTrigger>
@@ -252,7 +259,11 @@ const MyAI = () => {
                                 <DialogClose>
                                   <Button variant="outline">Cancel</Button>
                                 </DialogClose>
-                                <Button variant="destructive">
+                                <Button
+                                  variant="destructive"
+                                  disabled={isDeletePending}
+                                  onClick={() => deleteChat(chat.id)}
+                                >
                                   Delete chat
                                 </Button>
                               </DialogFooter>

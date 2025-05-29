@@ -97,3 +97,26 @@ export const useSendMessageToConversation = (id) => {
 
   return { ...result, message, setMessage, containerRef, scrollToBottom };
 };
+
+export const useDeleteChat = () => {
+  const [open, setOpen] = useState(false);
+  const axiosPrivate = useAxiosSecure();
+  const queryClient = useQueryClient();
+
+  const result = useMutation({
+    mutationFn: async (id) => {
+      const response = await axiosPrivate.delete(`/api/v1/my-ai/chat/${id}`);
+      return response.data;
+    },
+
+    onSuccess: async (data, id) => {
+      if (data?.success) {
+        setOpen(false);
+        await queryClient.invalidateQueries(['chat-history-ai']);
+        queryClient.setQueryData(['chat-ai', id], () => []);
+      }
+    },
+  });
+
+  return { ...result, open, setOpen };
+};
