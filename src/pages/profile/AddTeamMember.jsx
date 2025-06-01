@@ -1,16 +1,16 @@
-import profile from '@/assets/images/avatar-placeholder.gif';
-import imageIcon from '@/assets/images/image-icon.svg';
-import CustomDatePicker from '@/components/CustomDatePicker';
-import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
-import CalenderSvg from '@/components/svgs/CalenderSvg';
-import FileSvg from '@/components/svgs/FileSvg';
-import Select from '@/components/ui/react-select';
-import { useRegisterAgent } from '@/hooks/agent.hook';
-import { format } from 'date-fns';
-import { useState } from 'react';
-import { Controller } from 'react-hook-form';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router-dom';
+import profile from "@/assets/images/avatar-placeholder.gif";
+import imageIcon from "@/assets/images/image-icon.svg";
+import CustomDatePicker from "@/components/CustomDatePicker";
+import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
+import CalenderSvg from "@/components/svgs/CalenderSvg";
+import FileSvg from "@/components/svgs/FileSvg";
+import Select from "@/components/ui/react-select";
+import { useRegisterAgent } from "@/hooks/agent.hook";
+import { format } from "date-fns";
+import { useState } from "react";
+import { Controller } from "react-hook-form";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
 
 const AddTeamMember = () => {
   const [preview, setPreview] = useState(profile);
@@ -38,21 +38,19 @@ const AddTeamMember = () => {
   const roleOptions = [
     {
       value: 2,
-      label: 'Admin',
+      label: "Admin",
     },
     {
       value: 3,
-      label: 'Agent',
+      label: "Agent",
     },
   ];
 
-  const onSubmit = (data) => {
-    console.log({ update: data });
-    registerAgent(data, {
-      onSuccess: () => {
-        reset();
-        navigate('/profile/manage-team');
-      },
+  const onSubmit = (data) => {    
+    registerAgent({...data,
+      avar: data?.avatar?.[0],
+      additional_file: data?.additional_file?.[0],
+      employement_agrement: data?.employement_agrement?.[0],
     });
   };
 
@@ -79,7 +77,7 @@ const AddTeamMember = () => {
                   <input
                     type="file"
                     className="hidden"
-                    accept="image/*"
+                    accept=".jpg, .jpeg, .png"
                     onChange={(e) => {
                       const file = e.target.files[0];
                       field.onChange(file);
@@ -114,8 +112,8 @@ const AddTeamMember = () => {
                 <input
                   className="input-field px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                   placeholder="First"
-                  {...register('first_name', {
-                    required: 'First name is required',
+                  {...register("first_name", {
+                    required: "First name is required",
                   })}
                 />
                 {errors?.firstName && (
@@ -132,8 +130,8 @@ const AddTeamMember = () => {
                 <input
                   className="input-field px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                   placeholder="Last"
-                  {...register('last_name', {
-                    required: 'Last name is required',
+                  {...register("last_name", {
+                    required: "Last name is required",
                   })}
                 />
                 {errors?.lastName && (
@@ -153,7 +151,7 @@ const AddTeamMember = () => {
                 className="input-field px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="example@email.com"
                 type="text"
-                {...register('email', { required: 'Email is required' })}
+                {...register("email", { required: "Email is required" })}
               />
               {errors?.email && (
                 <span className="text-red-500 mt-2">
@@ -171,7 +169,7 @@ const AddTeamMember = () => {
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="0"
                 // type="number"
-                {...register('phone')}
+                {...register("phone")}
               />
               {errors?.phone?.message && (
                 <p className="text-red-500 mt-2">{errors?.phone?.message}</p>
@@ -192,7 +190,7 @@ const AddTeamMember = () => {
                     <CustomDatePicker
                       value={field.value}
                       onChange={(date) => {
-                        field.onChange(format(date, 'yyyy-MM-dd'));
+                        field.onChange(format(date, "yyyy-MM-dd"));
                       }}
                     />
                   )}
@@ -211,24 +209,24 @@ const AddTeamMember = () => {
               </label>
 
               <label
-                htmlFor="aggrement"
+                htmlFor="employement_agrement"
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full flex items-center justify-between cursor-pointer"
               >
                 <span className="text-secondary text-sm leading-[21px] tracking-[-0.14px]">
-                  {watch('aggrement')?.[0]?.name || 'Choose File'}
+                  {watch("employement_agrement")?.[0]?.name || "Choose File"}
                 </span>
                 <FileSvg />
                 <input
-                  id="aggrement"
+                  id="employement_agrement"
                   type="file"
-                  accept="image/*,application/pdf"
+                  accept="application/pdf"
                   className="hidden"
-                  {...register('aggrement')}
+                  {...register("employement_agrement")}
                 />
               </label>
-              {errors?.aggrement?.message && (
+              {errors?.employement_agrement?.message && (
                 <p className="text-red-500 mt-2">
-                  {errors?.aggrement?.message}
+                  {errors?.employement_agrement?.message}
                 </p>
               )}
             </div>
@@ -240,23 +238,25 @@ const AddTeamMember = () => {
               </label>
 
               <label
-                htmlFor="file"
+                htmlFor="additional_file"
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full flex items-center justify-between cursor-pointer"
               >
                 <span className="text-secondary text-sm leading-[21px] tracking-[-0.14px]">
-                  {watch('file')?.[0]?.name || 'Choose File'}
+                  {watch("additional_file")?.[0]?.name || "Choose File"}
                 </span>
                 <FileSvg />
                 <input
-                  id="file"
+                  id="additional_file"
                   type="file"
-                  accept="image/*,application/pdf"
+                  accept="application/pdf"
                   className="hidden"
-                  {...register('file')}
+                  {...register("additional_file")}
                 />
               </label>
-              {errors?.file?.message && (
-                <p className="text-red-500 mt-2">{errors?.file?.message}</p>
+              {errors?.additional_file?.message && (
+                <p className="text-red-500 mt-2">
+                  {errors?.additional_file?.message}
+                </p>
               )}
             </div>
 
@@ -268,10 +268,10 @@ const AddTeamMember = () => {
               <div className="relative">
                 <input
                   className="input-field pr-10 px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                  type={showPassword ? 'text' : 'password'}
+                  type={showPassword ? "text" : "password"}
                   placeholder="Password"
-                  {...register('password', {
-                    required: 'Password is required',
+                  {...register("password", {
+                    required: "Password is required",
                   })}
                 />
                 <button
@@ -301,12 +301,12 @@ const AddTeamMember = () => {
               <div className="relative">
                 <input
                   className="input-field pr-10 px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                  type={showConfirmPassword ? 'text' : 'password'}
+                  type={showConfirmPassword ? "text" : "password"}
                   placeholder="Confirm Password"
-                  {...register('password_confirmation', {
-                    required: 'Confirm Password is required',
+                  {...register("password_confirmation", {
+                    required: "Confirm Password is required",
                     validate: (value) =>
-                      value === watch('password') || 'Passwords do not match',
+                      value === watch("password") || "Passwords do not match",
                   })}
                 />
                 <button
@@ -362,7 +362,7 @@ const AddTeamMember = () => {
               <input
                 className="request-btn approve cursor-pointer"
                 type="submit"
-                value={isRegisterPending ? 'Adding...' : 'Add'}
+                value={isRegisterPending ? "Adding..." : "Add"}
                 disabled={isRegisterPending}
               />
               <button
