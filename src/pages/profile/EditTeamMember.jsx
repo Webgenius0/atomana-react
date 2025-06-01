@@ -256,7 +256,9 @@ const EditTeamMember = () => {
               >
                 <span className="text-secondary text-sm leading-[21px] tracking-[-0.14px]">
                   {watch("employement_agrement")?.[0]?.name ||
-                    watch("employement_agrement") ||
+                    watch("employement_agrement")?.slice?.(
+                      watch("employement_agrement")?.lastIndexOf?.("/") + 1
+                    ) ||
                     "Choose File"}
                 </span>
                 <FileSvg />
@@ -287,7 +289,9 @@ const EditTeamMember = () => {
               >
                 <span className="text-secondary text-sm leading-[21px] tracking-[-0.14px]">
                   {watch("additional_file")?.[0]?.name ||
-                    watch("additional_file") ||
+                    watch("additional_file")?.slice?.(
+                      watch("additional_file")?.lastIndexOf?.("/") + 1
+                    ) ||
                     "Choose File"}
                 </span>
                 <FileSvg />
