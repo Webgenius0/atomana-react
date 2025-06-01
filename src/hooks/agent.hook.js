@@ -5,14 +5,14 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useAxiosSecure } from "./useAxios";
 
-export const useGetAgents = (page = 1, perPage = 10) => {
+export const useGetAgents = (page = 1, per_page = 10, search) => {
   const axiosPrivate = useAxiosSecure();
 
   const result = useQuery({
-    queryKey: ["agents", page],
+    queryKey: ["agents", page, per_page, search],
     queryFn: async () => {
       const response = await axiosPrivate.get(
-        `/api/v1/admin/agent?page=${page}&per_page=${perPage}`
+        `/api/v1/admin/agent`, {params: {search, page, per_page}}
       );
       return response.data;
     },
@@ -67,6 +67,7 @@ export const useUpdateSingleAgent = (slug) => {
     onSuccess: (data) => {
       if (data?.success) {
         queryClient.invalidateQueries(["agent", slug]);
+        queryClient.invalidateQueries(["agents"]);
         toast.success("Successfully Updated!");
         navigate("/profile/manage-team");
       }

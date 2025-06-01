@@ -219,7 +219,7 @@ const AddTeamMember = () => {
                 <input
                   id="employement_agrement"
                   type="file"
-                  accept="application/pdf"
+                  accept="image/* application/pdf"
                   className="hidden"
                   {...register("employement_agrement")}
                 />
@@ -248,7 +248,7 @@ const AddTeamMember = () => {
                 <input
                   id="additional_file"
                   type="file"
-                  accept="application/pdf"
+                  accept="image/* application/pdf"
                   className="hidden"
                   {...register("additional_file")}
                 />
