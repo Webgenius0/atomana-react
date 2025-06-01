@@ -63,10 +63,10 @@ const EditTeamMember = () => {
     };
 
     for (const key in dirtyFields) {
-      if (key === "aggrement") {
-        updatedFields.aggrement = data.aggrement?.[0];
-      } else if (key === "file") {
-        updatedFields.file = data.file?.[0];
+      if (key === "employement_agrement") {
+        updatedFields.employement_agrement = data.employement_agrement?.[0];
+      } else if (key === "additional_file") {
+        updatedFields.additional_file = data.additional_file?.[0];
       } else {
         updatedFields[key] = data[key];
       }
@@ -120,7 +120,7 @@ const EditTeamMember = () => {
                     <input
                       type="file"
                       className="hidden"
-                      accept="image/*"
+                      accept=".jpg, .jpeg, .png"
                       onChange={(e) => {
                         const file = e.target.files[0];
                         field.onChange(file);
@@ -251,28 +251,26 @@ const EditTeamMember = () => {
               </label>
 
               <label
-                htmlFor="aggrement"
+                htmlFor="employement_agrement"
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full flex items-center justify-between cursor-pointer"
               >
                 <span className="text-secondary text-sm leading-[21px] tracking-[-0.14px]">
                   {watch("employement_agrement")?.[0]?.name ||
-                    watch("employement_agrement")?.substring(
-                      watch("employement_agrement")?.lastIndexOf("/") + 1
-                    ) ||
+                    watch("employement_agrement") ||
                     "Choose File"}
                 </span>
                 <FileSvg />
                 <input
-                  id="aggrement"
+                  id="employement_agrement"
                   type="file"
-                  accept="application/pdf"
+                  accept=".pdf,.docx,.doc"
                   className="hidden"
-                  {...register("aggrement")}
+                  {...register("employement_agrement")}
                 />
               </label>
-              {errors?.aggrement?.message && (
+              {errors?.employement_agrement?.message && (
                 <p className="text-red-500 mt-2">
-                  {errors?.aggrement?.message}
+                  {errors?.employement_agrement?.message}
                 </p>
               )}
             </div>
@@ -284,27 +282,27 @@ const EditTeamMember = () => {
               </label>
 
               <label
-                htmlFor="file"
+                htmlFor="additional_file"
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full flex items-center justify-between cursor-pointer"
               >
                 <span className="text-secondary text-sm leading-[21px] tracking-[-0.14px]">
                   {watch("additional_file")?.[0]?.name ||
-                    watch("additional_file")?.substring(
-                      watch("additional_file")?.lastIndexOf("/") + 1
-                    ) ||
+                    watch("additional_file") ||
                     "Choose File"}
                 </span>
                 <FileSvg />
                 <input
-                  id="file"
+                  id="additional_file"
                   type="file"
-                  accept="application/pdf"
+                  accept=".pdf,.docx,.doc"
                   className="hidden"
-                  {...register("file")}
+                  {...register("additional_file")}
                 />
               </label>
-              {errors?.file?.message && (
-                <p className="text-red-500 mt-2">{errors?.file?.message}</p>
+              {errors?.additional_file?.message && (
+                <p className="text-red-500 mt-2">
+                  {errors?.additional_file?.message}
+                </p>
               )}
             </div>
 

@@ -46,8 +46,9 @@ const AddTeamMember = () => {
     },
   ];
 
-  const onSubmit = (data) => {    
-    registerAgent({...data,
+  const onSubmit = (data) => {
+    registerAgent({
+      ...data,
       avar: data?.avatar?.[0],
       additional_file: data?.additional_file?.[0],
       employement_agrement: data?.employement_agrement?.[0],
@@ -219,7 +220,7 @@ const AddTeamMember = () => {
                 <input
                   id="employement_agrement"
                   type="file"
-                  accept="image/* application/pdf"
+                  accept=".pdf,.docx,.doc"
                   className="hidden"
                   {...register("employement_agrement")}
                 />
