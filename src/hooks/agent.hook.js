@@ -1,18 +1,18 @@
-import errorResponse from '@/lib/errorResponse';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
-import { useAxiosSecure } from './useAxios';
+import errorResponse from "@/lib/errorResponse";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { useAxiosSecure } from "./useAxios";
 
-export const useGetAgents = (page = 1, perPage = 10) => {
+export const useGetAgents = (page = 1, per_page = 10, search) => {
   const axiosPrivate = useAxiosSecure();
 
   const result = useQuery({
-    queryKey: ['agents', page],
+    queryKey: ["agents", page, per_page, search],
     queryFn: async () => {
       const response = await axiosPrivate.get(
-        `/api/v1/admin/agent?page=${page}&per_page=${perPage}`
+        `/api/v1/admin/agent`, {params: {search, page, per_page}}
       );
       return response.data;
     },
@@ -30,7 +30,7 @@ export const useGetSingleAgent = (slug) => {
   const axiosPrivate = useAxiosSecure();
 
   const result = useQuery({
-    queryKey: ['agent', slug],
+    queryKey: ["agent", slug],
     queryFn: async () => {
       const response = await axiosPrivate.get(`/api/v1/admin/agent/${slug}`);
       return response.data;
@@ -57,7 +57,7 @@ export const useUpdateSingleAgent = (slug) => {
         data,
         {
           headers: {
-            'Content-Type': 'multipart/form-data',
+            "Content-Type": "multipart/form-data",
           },
         }
       );
@@ -66,9 +66,10 @@ export const useUpdateSingleAgent = (slug) => {
 
     onSuccess: (data) => {
       if (data?.success) {
-        queryClient.invalidateQueries(['agent', slug]);
-        toast.success('Successfully Updated!');
-        navigate('/profile/manage-team');
+        queryClient.invalidateQueries(["agent", slug]);
+        queryClient.invalidateQueries(["agents"]);
+        toast.success("Successfully Updated!");
+        navigate("/profile/manage-team");
       }
     },
     onError: (error) => {
@@ -91,9 +92,10 @@ export const useUpdateSingleAgent = (slug) => {
 export const useRegisterAgent = () => {
   const axiosPrivate = useAxiosSecure();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const form = useForm({
     defaultValues: {
-      total_commission_this_contract_year: '0',
+      // total_commission_this_contract_year: '0',
       role_id: 3,
     },
   });
@@ -101,15 +103,22 @@ export const useRegisterAgent = () => {
   const result = useMutation({
     mutationFn: async (data) => {
       const response = await axiosPrivate.post(
-        '/api/v1/auth/register-agent',
-        data
+        "/api/v1/auth/register-agent",
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
       return response.data;
     },
 
     onSuccess: (data) => {
       if (data?.success) {
-        queryClient.invalidateQueries(['agents_admin']);
+        queryClient.invalidateQueries(["agents_admin"]);
+        navigate("/profile/manage-team");
+        form.reset();
       }
     },
     onError: (error) => {

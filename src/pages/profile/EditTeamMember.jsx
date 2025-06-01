@@ -1,20 +1,21 @@
-import profile from '@/assets/images/avatar-placeholder.gif';
-import imageIcon from '@/assets/images/image-icon.svg';
-import CustomDatePicker from '@/components/CustomDatePicker';
-import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
-import CalenderSvg from '@/components/svgs/CalenderSvg';
-import FileSvg from '@/components/svgs/FileSvg';
-import Select from '@/components/ui/react-select';
-import { useGetSingleAgent, useUpdateSingleAgent } from '@/hooks/agent.hook';
-import { format } from 'date-fns';
-import { useEffect, useState } from 'react';
-import { Controller } from 'react-hook-form';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Link, useParams } from 'react-router-dom';
+import profile from "@/assets/images/avatar-placeholder.gif";
+import imageIcon from "@/assets/images/image-icon.svg";
+import CustomDatePicker from "@/components/CustomDatePicker";
+import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
+import CalenderSvg from "@/components/svgs/CalenderSvg";
+import FileSvg from "@/components/svgs/FileSvg";
+import Select from "@/components/ui/react-select";
+import { useGetSingleAgent, useUpdateSingleAgent } from "@/hooks/agent.hook";
+import { format } from "date-fns";
+import { useEffect, useState } from "react";
+import { Controller } from "react-hook-form";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const EditTeamMember = () => {
   const [preview, setPreview] = useState(profile);
   const { slug } = useParams();
+  const navigate = useNavigate();
   const { agent } = useGetSingleAgent(slug);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -31,23 +32,24 @@ const EditTeamMember = () => {
     reset,
     control,
     watch,
-    formState: { errors },
+    formState: { errors, dirtyFields },
   } = form;
 
   const isRoleLoading = false;
   const roleOptions = [
     {
       value: 2,
-      label: 'Admin',
+      label: "Admin",
     },
     {
       value: 3,
-      label: 'Agent',
+      label: "Agent",
     },
   ];
 
   useEffect(() => {
     if (agent) {
+      setPreview(agent?.avatar);
       reset({
         ...agent,
         role_id: agent?.role_id || 3,
@@ -56,16 +58,42 @@ const EditTeamMember = () => {
   }, [agent]);
 
   const onSubmit = (data) => {
-    const _data = {
-      ...data,
-      _method: 'PUT',
-      aggrement: data?.aggrement?.[0],
-      file: data?.file?.[0],
+    const updatedFields = {
+      _method: "PUT",
     };
 
-    editAgent(_data);
-    // navigate('/profile/member-profile');
+    for (const key in dirtyFields) {
+      if (key === "employement_agrement") {
+        updatedFields.employement_agrement = data.employement_agrement?.[0];
+      } else if (key === "additional_file") {
+        updatedFields.additional_file = data.additional_file?.[0];
+      } else {
+        updatedFields[key] = data[key];
+      }
+    }
+
+    console.log(data, "✅ Sending only updated fields:", updatedFields);
+
+    editAgent(updatedFields);
   };
+  // const onSubmit = (data) => {
+  //   const _data = {
+  //     ...data,
+  //     _method: "PUT",
+  //     aggrement: data?.aggrement?.[0],
+  //     file: data?.file?.[0],
+  //   };
+
+  //   const updatedFields = {};
+  //   for (const key in dirtyFields) {
+  //     updatedFields[key] = data[key];
+  //   }
+
+  //   console.log("data", data);
+
+  //   editAgent(_data);
+  //   // navigate('/profile/member-profile');
+  // };
 
   return (
     <div className="my-container">
@@ -88,31 +116,33 @@ const EditTeamMember = () => {
                 name="avatar"
                 control={form.control}
                 render={({ field }) => (
-                  <input
-                    type="file"
-                    className="hidden"
-                    accept="image/*"
-                    onChange={(e) => {
-                      const file = e.target.files[0];
-                      field.onChange(file);
-                      const reader = new FileReader();
-                      reader.onloadend = () => {
-                        setPreview(reader.result);
-                      };
-                      reader.readAsDataURL(file);
-                    }}
-                  />
+                  <>
+                    <input
+                      type="file"
+                      className="hidden"
+                      accept=".jpg, .jpeg, .png"
+                      onChange={(e) => {
+                        const file = e.target.files[0];
+                        field.onChange(file);
+                        const reader = new FileReader();
+                        reader.onloadend = () => {
+                          setPreview(reader.result);
+                        };
+                        reader.readAsDataURL(file);
+                      }}
+                    />
+                    <img
+                      src={preview}
+                      alt="icon"
+                      className="opacity-40 w-full h-full rounded-full absolute"
+                    />
+                    <img
+                      src={imageIcon}
+                      alt="icon"
+                      className="flex items-center justify-center"
+                    />
+                  </>
                 )}
-              />
-              <img
-                src={preview}
-                alt="icon"
-                className="opacity-40 w-full h-full rounded-full absolute"
-              />
-              <img
-                src={imageIcon}
-                alt="icon"
-                className="flex items-center justify-center"
               />
             </label>
 
@@ -126,9 +156,7 @@ const EditTeamMember = () => {
                 <input
                   className="input-field px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                   placeholder="First"
-                  {...register('first_name', {
-                    required: 'First name is required',
-                  })}
+                  {...register("first_name")}
                 />
                 {errors?.first_name && (
                   <span className="text-red-500 mt-2">
@@ -144,9 +172,7 @@ const EditTeamMember = () => {
                 <input
                   className="input-field px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                   placeholder="Last"
-                  {...register('last_name', {
-                    required: 'Last name is required',
-                  })}
+                  {...register("last_name")}
                 />
                 {errors?.last_name && (
                   <span className="text-red-500 mt-2">
@@ -165,7 +191,7 @@ const EditTeamMember = () => {
                 className="input-field px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="example@email.com"
                 type="text"
-                {...register('email', { required: 'Email is required' })}
+                {...register("email")}
               />
               {errors?.email && (
                 <span className="text-red-500 mt-2">
@@ -183,7 +209,7 @@ const EditTeamMember = () => {
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="0"
                 // type="number"
-                {...register('phone')}
+                {...register("phone")}
               />
               {errors?.phone?.message && (
                 <p className="text-red-500 mt-2">{errors?.phone?.message}</p>
@@ -204,7 +230,7 @@ const EditTeamMember = () => {
                     <CustomDatePicker
                       value={field.value}
                       onChange={(date) => {
-                        field.onChange(format(date, 'yyyy-MM-dd'));
+                        field.onChange(format(date, "yyyy-MM-dd"));
                       }}
                     />
                   )}
@@ -225,24 +251,28 @@ const EditTeamMember = () => {
               </label>
 
               <label
-                htmlFor="aggrement"
+                htmlFor="employement_agrement"
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full flex items-center justify-between cursor-pointer"
               >
                 <span className="text-secondary text-sm leading-[21px] tracking-[-0.14px]">
-                  {watch('aggrement')?.[0]?.name || 'Choose File'}
+                  {watch("employement_agrement")?.[0]?.name ||
+                    watch("employement_agrement")?.slice?.(
+                      watch("employement_agrement")?.lastIndexOf?.("/") + 1
+                    ) ||
+                    "Choose File"}
                 </span>
                 <FileSvg />
                 <input
-                  id="aggrement"
+                  id="employement_agrement"
                   type="file"
-                  accept="image/*,application/pdf"
+                  accept=".pdf,.docx,.doc"
                   className="hidden"
-                  {...register('aggrement')}
+                  {...register("employement_agrement")}
                 />
               </label>
-              {errors?.aggrement?.message && (
+              {errors?.employement_agrement?.message && (
                 <p className="text-red-500 mt-2">
-                  {errors?.aggrement?.message}
+                  {errors?.employement_agrement?.message}
                 </p>
               )}
             </div>
@@ -254,23 +284,29 @@ const EditTeamMember = () => {
               </label>
 
               <label
-                htmlFor="file"
+                htmlFor="additional_file"
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full flex items-center justify-between cursor-pointer"
               >
                 <span className="text-secondary text-sm leading-[21px] tracking-[-0.14px]">
-                  {watch('file')?.[0]?.name || 'Choose File'}
+                  {watch("additional_file")?.[0]?.name ||
+                    watch("additional_file")?.slice?.(
+                      watch("additional_file")?.lastIndexOf?.("/") + 1
+                    ) ||
+                    "Choose File"}
                 </span>
                 <FileSvg />
                 <input
-                  id="file"
+                  id="additional_file"
                   type="file"
-                  accept="image/*,application/pdf"
+                  accept=".pdf,.docx,.doc"
                   className="hidden"
-                  {...register('file')}
+                  {...register("additional_file")}
                 />
               </label>
-              {errors?.file?.message && (
-                <p className="text-red-500 mt-2">{errors?.file?.message}</p>
+              {errors?.additional_file?.message && (
+                <p className="text-red-500 mt-2">
+                  {errors?.additional_file?.message}
+                </p>
               )}
             </div>
 
@@ -282,9 +318,9 @@ const EditTeamMember = () => {
               <div className="relative">
                 <input
                   className="input-field pr-10 px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                  type={showPassword ? 'text' : 'password'}
+                  type={showPassword ? "text" : "password"}
                   placeholder="Password"
-                  {...register('password')}
+                  {...register("password")}
                 />
                 <button
                   type="button"
@@ -313,12 +349,12 @@ const EditTeamMember = () => {
               <div className="relative">
                 <input
                   className="input-field pr-10 px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                  type={showConfirmPassword ? 'text' : 'password'}
+                  type={showConfirmPassword ? "text" : "password"}
                   placeholder="Confirm Password"
-                  {...register('password_confirmation', {
-                    required: 'Confirm Password is required',
+                  {...register("password_confirmation", {
+                    // required: "Confirm Password is required",
                     validate: (value) =>
-                      value === watch('password') || 'Passwords do not match',
+                      value === watch("password") || "Passwords do not match",
                   })}
                 />
                 <button
@@ -374,10 +410,14 @@ const EditTeamMember = () => {
               <input
                 className="request-btn approve cursor-pointer"
                 type="submit"
-                value={isAgentEditPending ? 'Saving...' : 'Save Changes'}
+                value={isAgentEditPending ? "Saving..." : "Save Changes"}
               />
 
-              <button onClick={reset} className="request-btn text-light">
+              <button
+                type="button"
+                onClick={() => navigate("/profile/manage-team")}
+                className="request-btn text-light"
+              >
                 Cancel
               </button>
             </div>

@@ -6,31 +6,22 @@ import PhoneSvg from '@/components/svgs/PhoneSvg';
 import PlusSvg from '@/components/svgs/PlusSvg';
 import SearchGraySvg from '@/components/svgs/SearchGraySvg';
 import { useGetAgents } from '@/hooks/agent.hook';
+import { useDebouncedState } from '@/hooks/useDebouncedState';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function ManageTeam() {
-  const [searchMember, setSearchMember] = useState('');
+  const [searchMember, setSearchMember, debouncedSearchMember] = useDebouncedState('');
   const [page, setPage] = useState(1); // Track pagination
 
   const { agents, isLoading, isError, error, totalPages, currentPage } =
-    useGetAgents(page, 10); // Fetch paginated data
+    useGetAgents(page, 10, debouncedSearchMember); // Fetch paginated data
 
   const handleSearch = (e) => {
     setSearchMember(e.target.value);
   };
 
-  const filteredAgents = agents.filter((agent) => {
-    const searchTerms = searchMember.toLowerCase().split(' ');
-
-    return searchTerms.every(
-      (term) =>
-        agent.first_name.toLowerCase().includes(term) ||
-        agent.last_name.toLowerCase().includes(term) ||
-        agent.email.toLowerCase().includes(term)
-    );
-  });
 
   return (
     <div className="my-container">
@@ -73,17 +64,17 @@ export default function ManageTeam() {
             ))
           ) : isError ? (
             <p className="text-red-500 text-sm">Error: {error.message}</p>
-          ) : filteredAgents.length === 0 ? (
+          ) : agents.length === 0 ? (
             <p className="text-light/70 text-2xl text-center py-20">
               No members found
             </p>
           ) : (
-            filteredAgents.map((agent) => (
+            agents.map((agent) => (
               <div
                 key={agent.id}
                 className="border-b border-secondPrimary py-4 flex items-center justify-between pr-0 md:pr-5"
               >
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-3">
                   <img
                     src={agent.avatar}
                     alt={agent.first_name}
