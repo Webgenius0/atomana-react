@@ -1,20 +1,20 @@
-import CustomDatePicker from '@/components/CustomDatePicker';
-import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
-import CalenderSvg from '@/components/svgs/CalenderSvg';
-import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
-import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
-import Select from '@/components/ui/react-select';
-import { ROLE } from '@/constants';
-import { useStoreContractInformation } from '@/hooks/new-contract-information';
+import CustomDatePicker from "@/components/CustomDatePicker";
+import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
+import CalenderSvg from "@/components/svgs/CalenderSvg";
+import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
+import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
+import Select from "@/components/ui/react-select";
+import { ROLE } from "@/constants";
+import { useStoreContractInformation } from "@/hooks/new-contract-information";
 import {
   useCoListAgentDropdown,
   useSourceDropdown,
-} from '@/hooks/property.hook';
-import { useAuth } from '@/hooks/useAuth';
-import { format } from 'date-fns';
-import { useEffect } from 'react';
-import { Controller } from 'react-hook-form';
-import { Link, useLocation } from 'react-router-dom';
+} from "@/hooks/property.hook";
+import { useAuth } from "@/hooks/useAuth";
+import { format } from "date-fns";
+import { useEffect } from "react";
+import { Controller } from "react-hook-form";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function NewContractInformationForm() {
   const location = useLocation();
@@ -35,13 +35,15 @@ function NewContractInformationForm() {
     formState: { errors },
   } = form;
 
-  const represent = watch('represent');
-  const is_co_listing = watch('is_co_listing');
+  const navigate = useNavigate();
+
+  const represent = watch("represent");
+  const is_co_listing = watch("is_co_listing");
 
   useEffect(() => {
-    if (represent === 'buyer') {
-      form.clearErrors('date_listed');
-      form.setValue('date_listed', null);
+    if (represent === "buyer") {
+      form.clearErrors("date_listed");
+      form.setValue("date_listed", null);
     }
   }, [represent]);
 
@@ -59,16 +61,20 @@ function NewContractInformationForm() {
   }));
 
   useEffect(() => {
-    if (is_co_listing == '0') {
-      form.setValue('co_agent', null);
+    if (is_co_listing == "0") {
+      form.setValue("co_agent", null);
     }
   }, [is_co_listing]);
+
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   return (
     <>
       <div className="flex items-center gap-4 justify-between">
         <Link
-          to={`${location.state?.from || '/my-systems/new-contract'}`}
+          to={`${location.state?.from || "/my-systems/new-contract"}`}
           className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5"
         >
           <ArrowLeftSvg />
@@ -130,7 +136,7 @@ function NewContractInformationForm() {
               type="text"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="Type the address and subdivision name here"
-              {...register('address')}
+              {...register("address")}
             />
             {errors?.address && (
               <p className="text-red-500 text-xs">{errors?.address?.message}</p>
@@ -151,7 +157,7 @@ function NewContractInformationForm() {
                   <CustomDatePicker
                     value={field.value}
                     onChange={(date) => {
-                      field.onChange(format(date, 'yyyy-MM-dd'));
+                      field.onChange(format(date, "yyyy-MM-dd"));
                     }}
                   />
                 )}
@@ -199,7 +205,7 @@ function NewContractInformationForm() {
           </div>
 
           {/* Co-listing details (conditional) */}
-          {is_co_listing === '1' && (
+          {is_co_listing === "1" && (
             <>
               <div className="flex items-center sm:gap-6 gap-4 sm:ml-12 ml-8">
                 {/* <FormLineSvg /> */}
@@ -241,7 +247,7 @@ function NewContractInformationForm() {
                   step="any"
                   className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                   placeholder="Co-listing Percentage"
-                  {...register('co_agent_percentage')}
+                  {...register("co_agent_percentage")}
                 />
                 {errors?.co_agent_percentage && (
                   <p className="text-red-500 text-xs">
@@ -291,7 +297,7 @@ function NewContractInformationForm() {
           </div>
 
           {/* Date Listed */}
-          {(represent === 'seller' || represent === 'both') && (
+          {(represent === "seller" || represent === "both") && (
             <div className="sm:ml-12 ml-8">
               <div className="flex flex-col gap-2 w-full">
                 <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
@@ -306,7 +312,7 @@ function NewContractInformationForm() {
                       <CustomDatePicker
                         value={field.value}
                         onChange={(date) => {
-                          field.onChange(format(date, 'yyyy-MM-dd'));
+                          field.onChange(format(date, "yyyy-MM-dd"));
                         }}
                       />
                     )}
@@ -331,7 +337,7 @@ function NewContractInformationForm() {
             <input
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="Purchase Price"
-              {...register('price')}
+              {...register("price")}
             />
             {errors?.price && (
               <p className="text-red-500 text-xs">{errors?.price?.message}</p>
@@ -352,7 +358,7 @@ function NewContractInformationForm() {
                   <CustomDatePicker
                     value={field.value}
                     onChange={(date) => {
-                      field.onChange(format(date, 'yyyy-MM-dd'));
+                      field.onChange(format(date, "yyyy-MM-dd"));
                     }}
                   />
                 )}
@@ -377,7 +383,7 @@ function NewContractInformationForm() {
               step="any"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="Commission Percentage"
-              {...register('commission_percentage')}
+              {...register("commission_percentage")}
             />
             {errors?.commission_percentage && (
               <p className="text-red-500 text-xs">
@@ -396,7 +402,7 @@ function NewContractInformationForm() {
               step="any"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="Type buyer's commission rate here"
-              {...register('buyers_agent_commission')}
+              {...register("buyers_agent_commission")}
             />
             {errors?.buyers_agent_commission && (
               <p className="text-red-500 text-xs">
@@ -413,16 +419,16 @@ function NewContractInformationForm() {
             <input
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="e.g. 70/30"
-              {...register('commission_split', {
+              {...register("commission_split", {
                 pattern: {
                   value: /^\d{1,3}\/\d{1,3}$/,
                   message:
-                    'Invalid commission split. Format must be like 70/30',
+                    "Invalid commission split. Format must be like 70/30",
                 },
                 validate: (value) => {
-                  const [first, second] = value.split('/').map(Number);
+                  const [first, second] = value.split("/").map(Number);
                   if (first + second !== 100) {
-                    return 'The sum of the commission must be 100';
+                    return "The sum of the commission must be 100";
                   }
                   return true;
                 },
@@ -478,7 +484,7 @@ function NewContractInformationForm() {
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="Enter Name"
-                {...register('name')}
+                {...register("name")}
               />
               {errors?.name && (
                 <p className="text-red-500 text-xs">{errors?.name?.message}</p>
@@ -493,7 +499,7 @@ function NewContractInformationForm() {
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="Enter Company Name"
-                {...register('company')}
+                {...register("company")}
               />
               {errors?.company && (
                 <p className="text-red-500 text-xs">
@@ -510,7 +516,7 @@ function NewContractInformationForm() {
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="Enter Email"
-                {...register('email')}
+                {...register("email")}
               />
               {errors?.email && (
                 <p className="text-red-500 text-xs">{errors?.email?.message}</p>
@@ -525,7 +531,7 @@ function NewContractInformationForm() {
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="Enter Phone Number"
-                {...register('phone')}
+                {...register("phone")}
               />
               {errors?.phone && (
                 <p className="text-red-500 text-xs">{errors?.phone?.message}</p>
@@ -543,7 +549,7 @@ function NewContractInformationForm() {
               step="any"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="Referral Percentage"
-              {...register('referral_percentage')}
+              {...register("referral_percentage")}
             />
             {errors?.referral_percentage && (
               <p className="text-red-500 text-xs">
@@ -561,7 +567,7 @@ function NewContractInformationForm() {
               type="note"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="Type your answer here"
-              {...register('comment')}
+              {...register("comment")}
             />
             {errors?.comment && (
               <p className="text-red-500 text-xs">{errors?.comment?.message}</p>
@@ -575,12 +581,12 @@ function NewContractInformationForm() {
               type="submit"
               disabled={isPending}
             >
-              {isPending ? 'Submitting' : 'Submit'}
+              {isPending ? "Submitting" : "Submit"}
             </button>
 
             <button
               type="button"
-              onClick={reset}
+              onClick={handleBack}
               className="request-btn text-light w-full sm:w-[150px]"
             >
               Cancel

@@ -1,14 +1,14 @@
-import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
-import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
-import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
-import Select from '@/components/ui/react-select';
+import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
+import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
+import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
+import Select from "@/components/ui/react-select";
 import {
   useOpenHouseFeedback,
   useOpenHouseFeedbackDropdown,
-} from '@/hooks/open-house.hook';
-import { Controller, FormProvider } from 'react-hook-form';
-import toast from 'react-hot-toast';
-import { Link, useLocation } from 'react-router-dom';
+} from "@/hooks/open-house.hook";
+import { Controller, FormProvider } from "react-hook-form";
+import toast from "react-hot-toast";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const OpenHouseFeedbackForm = () => {
   const { mutate, isPending, form } = useOpenHouseFeedback();
@@ -19,6 +19,8 @@ const OpenHouseFeedbackForm = () => {
     control,
     formState: { errors },
   } = form;
+
+  const navigate = useNavigate();
 
   const location = useLocation();
   const { properties, isLoading: isPropertyLoading } =
@@ -39,27 +41,31 @@ const OpenHouseFeedbackForm = () => {
 
     mutate(formData, {
       onSuccess: () => {
-        toast.success(data?.message || 'Feedback Submitted Successfully');
+        toast.success(data?.message || "Feedback Submitted Successfully");
         reset();
       },
       onError: (error) => {
         toast.error(
-          error?.response?.data?.message || 'Failed to Form Submission'
+          error?.response?.data?.message || "Failed to Form Submission"
         );
       },
     });
   };
 
-  const handleResetForm = (e) => {
-    e.preventDefault();
-    reset();
+  // const handleResetForm = (e) => {
+  //   e.preventDefault();
+  //   reset();
+  // };
+
+  const handleBack = () => {
+    navigate(-1);
   };
 
   return (
     <>
       <div className="flex items-center gap-4 justify-between">
         <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5">
-          <Link to={`${location.state?.from || '/my-systems/open-house'}`}>
+          <Link to={`${location.state?.from || "/my-systems/open-house"}`}>
             <ArrowLeftSvg />
           </Link>
           <h2 className="section-title">Open House Feedback Form</h2>
@@ -88,7 +94,7 @@ const OpenHouseFeedbackForm = () => {
               <Controller
                 name="open_house_id"
                 control={control}
-                rules={{ required: 'Property selection is required' }}
+                rules={{ required: "Property selection is required" }}
                 render={({ field }) => {
                   return (
                     <Select
@@ -120,9 +126,9 @@ const OpenHouseFeedbackForm = () => {
                 type="number"
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="Enter How Many People Came Here"
-                {...register('people_count', {
-                  required: 'People count is required',
-                  min: { value: 0, message: 'Must be positive number' },
+                {...register("people_count", {
+                  required: "People count is required",
+                  min: { value: 0, message: "Must be positive number" },
                 })}
               />
               {errors?.people_count?.message && (
@@ -140,8 +146,8 @@ const OpenHouseFeedbackForm = () => {
               <textarea
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="Enter Feedback on Attendees"
-                {...register('feedback', {
-                  required: 'Feedback is required',
+                {...register("feedback", {
+                  required: "Feedback is required",
                 })}
               />
               {errors?.feedback?.message && (
@@ -157,7 +163,7 @@ const OpenHouseFeedbackForm = () => {
               <textarea
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="Enter Additional Feedback"
-                {...register('additional_feedback')}
+                {...register("additional_feedback")}
               />
               {errors?.additional_feedback?.message && (
                 <p className="text-red-500 mt-2">
@@ -170,12 +176,12 @@ const OpenHouseFeedbackForm = () => {
             <div className="flex sm:flex-row flex-col items-center gap-4 justify-between mt-4 md:mt-6">
               <div className="flex items-center sm:justify-start justify-center gap-4 sm:w-unset w-full">
                 <button className="request-btn approve" disabled={isPending}>
-                  {isPending ? 'Adding...' : 'Add'}
+                  {isPending ? "Adding..." : "Add"}
                 </button>
               </div>
 
               <button
-                onClick={handleResetForm}
+                onClick={handleBack}
                 disabled={isPending}
                 className="request-btn text-light"
                 type="button"

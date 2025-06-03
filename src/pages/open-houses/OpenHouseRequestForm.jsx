@@ -1,20 +1,22 @@
-import CustomDatePicker from '@/components/CustomDatePicker';
-import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
-import CalenderSvg from '@/components/svgs/CalenderSvg';
-import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
-import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
-import TimeRangePicker from '@/components/TimeRangePicker';
-import Select from '@/components/ui/react-select';
-import { useOpenHouse } from '@/hooks/open-house.hook';
-import { useGetProperties } from '@/hooks/property.hook';
-import { useDebouncedState } from '@/hooks/useDebouncedState';
-import { Controller, FormProvider } from 'react-hook-form';
-import toast from 'react-hot-toast';
-import { Link, useLocation } from 'react-router-dom';
+import CustomDatePicker from "@/components/CustomDatePicker";
+import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
+import CalenderSvg from "@/components/svgs/CalenderSvg";
+import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
+import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
+import TimeRangePicker from "@/components/TimeRangePicker";
+import Select from "@/components/ui/react-select";
+import { useOpenHouse } from "@/hooks/open-house.hook";
+import { useGetProperties } from "@/hooks/property.hook";
+import { useDebouncedState } from "@/hooks/useDebouncedState";
+import { Controller, FormProvider } from "react-hook-form";
+import toast from "react-hot-toast";
+import { Link, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function OpenHouseRequestForm() {
-  const [search, setSearch, debouncedSearch] = useDebouncedState('', 400);
+  const [search, setSearch, debouncedSearch] = useDebouncedState("", 400);
   const { mutate: storeOpenHouse, isPending, form } = useOpenHouse();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -38,7 +40,7 @@ export default function OpenHouseRequestForm() {
   const onSubmit = (data) => {
     storeOpenHouse(data, {
       onSuccess: () => {
-        toast.success(data?.message || 'Form Submitted Successfully');
+        toast.success(data?.message || "Form Submitted Successfully");
         reset();
 
         // Optional: Navigate after resetting
@@ -47,10 +49,14 @@ export default function OpenHouseRequestForm() {
     });
   };
 
+  const handleBack = () => {
+    navigate(-1);
+  };
+
   return (
     <>
       <div className="flex items-center gap-4 justify-between">
-        <Link to={`${location.state?.from || '/my-systems/open-house'}`}>
+        <Link to={`${location.state?.from || "/my-systems/open-house"}`}>
           <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5">
             <ArrowLeftSvg />
             <h2 className="section-title">Open House Request Form</h2>
@@ -147,7 +153,7 @@ export default function OpenHouseRequestForm() {
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="0"
                 type="number"
-                {...register('sign_number')}
+                {...register("sign_number")}
               />
               {errors?.sign_number?.message && (
                 <p className="text-red-500 mt-2">
@@ -162,11 +168,11 @@ export default function OpenHouseRequestForm() {
                 className="flex w-full sm:w-[150px] px-6 py-2.5 justify-center items-center gap-2.5 font-Inria text-sm sm:text-base transition-transform duration-300 ease-in-out rounded-[10px] border border-light bg-inherit active:scale-95 bg-light text-dark"
                 disabled={isPending}
               >
-                {isPending ? 'Adding...' : 'Add'}
+                {isPending ? "Adding..." : "Add"}
               </button>
 
               <button
-                onClick={reset}
+                onClick={handleBack}
                 disabled={isPending}
                 className="flex w-full sm:w-[150px] px-6 py-2.5 justify-center items-center gap-2.5 font-Inria text-sm sm:text-base transition-transform duration-300 ease-in-out rounded-[10px] border border-light bg-inherit active:scale-95 text-light"
                 type="button"
