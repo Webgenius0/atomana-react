@@ -37,7 +37,7 @@ export default function EditBusinessPhone() {
 
   // Handle form submission
   const onSubmit = (data) => {
-    editProfile({ data, field: 'business_phone' });
+    editProfile({ data, field: 'business-phone' });
   };
 
   return (
