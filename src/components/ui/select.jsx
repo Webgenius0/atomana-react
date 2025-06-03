@@ -50,7 +50,7 @@ export function Select({
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0 border-white/10">
+      <PopoverContent className="w-[200px] p-0 border-white/10 z-[999999]">
         <Command className="bg-[#151515] text-light">
           <CommandInput
             placeholder={placeholder || 'Search option...'}

@@ -6,7 +6,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { Select } from '@/components/ui/select';
+import Select from '@/components/ui/react-select';
 import {
   useGetExpenseCategories,
   useStoreSubCategory,
@@ -18,7 +18,7 @@ export default function NewSubcategoryDialog() {
     useGetExpenseCategories();
 
   const categoryOptions = expenseCategories?.map((item) => ({
-    value: item.name,
+    value: item.id,
     label: item.name,
   }));
 
@@ -73,18 +73,14 @@ export default function NewSubcategoryDialog() {
             Category
           </label>
           <Select
-            value={
-              expenseCategories?.find((item) => item.id === categoryId)?.name
-            }
-            setValue={(value) =>
-              setCategoryId(
-                expenseCategories?.find((item) => item.name === value)?.id
-              )
-            }
-            disabled={isCategoryLoading}
             options={categoryOptions}
+            value={categoryOptions?.find(
+              (option) => option?.value == categoryId
+            )}
+            onChange={(option) => setCategoryId(option?.value)}
+            isDisabled={isCategoryLoading}
+            isLoading={isCategoryLoading}
             placeholder="Select Category"
-            className="h-12 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
           />
           <p className="text-red-400">{categoryError}</p>
         </div>

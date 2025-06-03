@@ -88,7 +88,6 @@ export default function Select({ width, height, borderRadius, ...props }) {
       isClearable
       isSearchable
       styles={customStyles}
-      menuPortalTarget={document.body}
       {...props}
     />
   );
