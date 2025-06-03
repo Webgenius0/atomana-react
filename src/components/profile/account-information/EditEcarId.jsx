@@ -37,7 +37,7 @@ export default function EditEcarId() {
 
   // Handle form submission
   const onSubmit = (data) => {
-    editProfile({ data, field: 'ecar_id' });
+    editProfile({ data, field: 'ecarId' });
   };
 
   return (

@@ -3,6 +3,10 @@ import { z } from 'zod';
 
 // Define the Zod schema for validation
 export const profileSchema = z.object({
+  first_name: z.string().optional(),
+  last_name: z.string().optional(),
+  licence: z.string().optional(),
+  ecar_id: z.string().optional(),
   address: z
     .string()
     .max(100, 'Address must be less than 100 characters')
@@ -57,14 +61,3 @@ export const profileSchema = z.object({
     })
     .optional(),
 });
-
-// instagram: z
-//     .string()
-//     .transform((value) =>
-//       value?.startsWith('https://') || value?.startsWith('http://')
-//         ? value
-//         : `https://${value}`
-//     )
-//     .refine((value) => !value || z.string().url().safeParse(value), {
-//       message: 'Invalid URL format.',
-//     }),

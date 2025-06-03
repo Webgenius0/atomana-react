@@ -56,7 +56,7 @@ const SignUp = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      ecar_id: String(Math.round(Math.random() * 6)),
+      ecar_id: String(Math.round(Math.random() * 10)),
     },
     resolver: zodResolver(signupSchema),
   });

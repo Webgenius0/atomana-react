@@ -1,81 +1,81 @@
-import PageTitle from "@/components/PageTitle";
-import MainLayout from "@/layouts/MainLayout";
-import MySystemsLayout from "@/layouts/MySystemsLayout";
-import VendorListLayout from "@/layouts/VendorListLayout";
-import AccessInstructions from "@/pages/access-instructions/AccessInstructions";
-import AddAccessInstruction from "@/pages/access-instructions/AddAccessInstruction";
-import EditAccessInstruction from "@/pages/access-instructions/EditAccessInstruction";
-import ViewAccessInstruction from "@/pages/access-instructions/ViewAccessInstruction";
-import AddLessons from "@/pages/AddLessons";
-import AddVendor from "@/pages/AddVendor";
-import AgentLeaderBoard from "@/pages/AgentLeaderBoard";
-import BlogCourseDetails from "@/pages/BlogCourseDetails";
-import ContractInformationList from "@/pages/contract-information/ContractInformationList";
-import NewContractInformationForm from "@/pages/contract-information/NewContractInformationForm";
-import ViewContractInformation from "@/pages/contract-information/ViewContractInformation";
-import Courses from "@/pages/Courses";
-import CreateCourse from "@/pages/CreateCourse";
-import AddPassword from "@/pages/docs/AddPassword";
-import CreateNote from "@/pages/docs/CreateNote";
-import DocsLayout from "@/pages/docs/DocsLayout";
-import EditNote from "@/pages/docs/EditNote";
-import EditPassword from "@/pages/docs/EditPassword";
-import PasswordListHome from "@/pages/docs/PasswordListHome";
-import SharedNotesHome from "@/pages/docs/SharedNotesHome";
-import ViewSingleNote from "@/pages/docs/ViewSingleNote";
-import ViewSinglePassword from "@/pages/docs/ViewSinglePassword";
-import ErrorPage from "@/pages/ErrorPage";
-import Finances from "@/pages/Finances";
-import ForgetPassword from "@/pages/ForgetPassword";
-import EditListingInformationForm from "@/pages/listing-information/EditListingInformationForm";
-import ListingInformationList from "@/pages/listing-information/ListingInformationList";
-import NewListingInformationForm from "@/pages/listing-information/NewListingInformationForm";
-import ViewListingInformation from "@/pages/listing-information/ViewListingInformation";
-import Login from "@/pages/Login";
-import MyAgentEarnings from "@/pages/MyAgentEarnings";
-import MyAI from "@/pages/MyAI";
-import MyBusinessExpense from "@/pages/MyBusinessExpense";
-import MyClassroom from "@/pages/MyClassroom";
-import MyEssentials from "@/pages/MyEssentials";
-import MyListingExpense from "@/pages/MyListingExpense";
-import Mypl from "@/pages/Mypl";
-import MyPR from "@/pages/MyPR";
-import MySystems from "@/pages/MySystems";
-import MyTeam from "@/pages/MyTeam";
-import NewContract from "@/pages/NewContract";
-import NewListing from "@/pages/NewListing";
-import EditOpenHouseRequestForm from "@/pages/open-houses/EditOpenHouseRequestForm";
-import OpenHouseFeedbackForm from "@/pages/open-houses/OpenHouseFeedbackForm";
-import OpenHouseList from "@/pages/open-houses/OpenHouseList";
-import OpenHouseRequestForm from "@/pages/open-houses/OpenHouseRequestForm";
-import OpenHouses from "@/pages/open-houses/OpenHouses";
-import ViewOpenHouse from "@/pages/open-houses/ViewOpenHouse";
-import AccountInformation from "@/pages/profile/AccountInformation";
-import AddTeamMember from "@/pages/profile/AddTeamMember";
-import BusinessInformation from "@/pages/profile/BusinessInformation";
-import ChangePassword from "@/pages/profile/ChangePassword";
-import EditTeamMember from "@/pages/profile/EditTeamMember";
-import ManageTeam from "@/pages/profile/ManageTeam";
-import MemberProfile from "@/pages/profile/MemberProfile";
-import Profile from "@/pages/profile/Profile";
-import ResetPassword from "@/pages/ResetPassword";
-import SalesTracker from "@/pages/SalesTracker";
-import SignUp from "@/pages/SignUp";
-import Team from "@/pages/Team";
-import UpdateLesson from "@/pages/UpdateLesson";
-import VendorCategories from "@/pages/VendorCategories";
-import VendorCategoryDetails from "@/pages/VendorCategoryDetails";
-import VendorDetails from "@/pages/VendorDetails";
-import VendorList from "@/pages/VendorList";
-import VerifyForgetPasswordOTP from "@/pages/VerifyForgetPasswordOTP";
-import VerifyOTP from "@/pages/VerifyOTP";
-import VideoCourseDetails from "@/pages/VideoCourseDetails";
-import { createBrowserRouter } from "react-router-dom";
-import PrivateRoute from "./PrivateRoute";
+import PageTitle from '@/components/PageTitle';
+import MainLayout from '@/layouts/MainLayout';
+import MySystemsLayout from '@/layouts/MySystemsLayout';
+import VendorListLayout from '@/layouts/VendorListLayout';
+import AccessInstructions from '@/pages/access-instructions/AccessInstructions';
+import AddAccessInstruction from '@/pages/access-instructions/AddAccessInstruction';
+import EditAccessInstruction from '@/pages/access-instructions/EditAccessInstruction';
+import ViewAccessInstruction from '@/pages/access-instructions/ViewAccessInstruction';
+import AddLessons from '@/pages/AddLessons';
+import AddVendor from '@/pages/AddVendor';
+import AgentLeaderBoard from '@/pages/AgentLeaderBoard';
+import MyAI from '@/pages/ai/MyAI';
+import MyPR from '@/pages/ai/MyPR';
+import BlogCourseDetails from '@/pages/BlogCourseDetails';
+import ContractInformationList from '@/pages/contract-information/ContractInformationList';
+import NewContractInformationForm from '@/pages/contract-information/NewContractInformationForm';
+import ViewContractInformation from '@/pages/contract-information/ViewContractInformation';
+import Courses from '@/pages/Courses';
+import CreateCourse from '@/pages/CreateCourse';
+import AddPassword from '@/pages/docs/AddPassword';
+import CreateNote from '@/pages/docs/CreateNote';
+import DocsLayout from '@/pages/docs/DocsLayout';
+import EditNote from '@/pages/docs/EditNote';
+import EditPassword from '@/pages/docs/EditPassword';
+import PasswordListHome from '@/pages/docs/PasswordListHome';
+import SharedNotesHome from '@/pages/docs/SharedNotesHome';
+import ViewSingleNote from '@/pages/docs/ViewSingleNote';
+import ViewSinglePassword from '@/pages/docs/ViewSinglePassword';
+import ErrorPage from '@/pages/ErrorPage';
+import Finances from '@/pages/Finances';
+import ForgetPassword from '@/pages/ForgetPassword';
+import EditListingInformationForm from '@/pages/listing-information/EditListingInformationForm';
+import ListingInformationList from '@/pages/listing-information/ListingInformationList';
+import NewListingInformationForm from '@/pages/listing-information/NewListingInformationForm';
+import ViewListingInformation from '@/pages/listing-information/ViewListingInformation';
+import Login from '@/pages/Login';
+import MyAgentEarnings from '@/pages/MyAgentEarnings';
+import MyBusinessExpense from '@/pages/MyBusinessExpense';
+import MyClassroom from '@/pages/MyClassroom';
+import MyEssentials from '@/pages/MyEssentials';
+import MyListingExpense from '@/pages/MyListingExpense';
+import Mypl from '@/pages/Mypl';
+import MySystems from '@/pages/MySystems';
+import MyTeam from '@/pages/MyTeam';
+import NewContract from '@/pages/NewContract';
+import NewListing from '@/pages/NewListing';
+import EditOpenHouseRequestForm from '@/pages/open-houses/EditOpenHouseRequestForm';
+import OpenHouseFeedbackForm from '@/pages/open-houses/OpenHouseFeedbackForm';
+import OpenHouseList from '@/pages/open-houses/OpenHouseList';
+import OpenHouseRequestForm from '@/pages/open-houses/OpenHouseRequestForm';
+import OpenHouses from '@/pages/open-houses/OpenHouses';
+import ViewOpenHouse from '@/pages/open-houses/ViewOpenHouse';
+import AccountInformation from '@/pages/profile/AccountInformation';
+import AddTeamMember from '@/pages/profile/AddTeamMember';
+import BusinessInformation from '@/pages/profile/BusinessInformation';
+import ChangePassword from '@/pages/profile/ChangePassword';
+import EditTeamMember from '@/pages/profile/EditTeamMember';
+import ManageTeam from '@/pages/profile/ManageTeam';
+import MemberProfile from '@/pages/profile/MemberProfile';
+import Profile from '@/pages/profile/Profile';
+import ResetPassword from '@/pages/ResetPassword';
+import SalesTracker from '@/pages/SalesTracker';
+import SignUp from '@/pages/SignUp';
+import Team from '@/pages/Team';
+import UpdateLesson from '@/pages/UpdateLesson';
+import VendorCategories from '@/pages/VendorCategories';
+import VendorCategoryDetails from '@/pages/VendorCategoryDetails';
+import VendorDetails from '@/pages/VendorDetails';
+import VendorList from '@/pages/VendorList';
+import VerifyForgetPasswordOTP from '@/pages/VerifyForgetPasswordOTP';
+import VerifyOTP from '@/pages/VerifyOTP';
+import VideoCourseDetails from '@/pages/VideoCourseDetails';
+import { createBrowserRouter } from 'react-router-dom';
+import PrivateRoute from './PrivateRoute';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: (
       <PrivateRoute>
         <MainLayout />
@@ -92,7 +92,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/my-systems",
+        path: '/my-systems',
         element: (
           <PageTitle title="My Systems">
             <MySystemsLayout />
@@ -108,7 +108,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "open-house",
+            path: 'open-house',
             element: (
               <PageTitle title="Open House">
                 <OpenHouses />
@@ -116,7 +116,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "open-house/open-house-list",
+            path: 'open-house/open-house-list',
             element: (
               <PageTitle title="Open House List">
                 <OpenHouseList />
@@ -124,7 +124,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "open-house/open-house-form",
+            path: 'open-house/open-house-form',
             element: (
               <PageTitle title="Open House Form">
                 <OpenHouseRequestForm />
@@ -132,7 +132,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "/my-systems/open-house/open-house-list/edit/:id",
+            path: '/my-systems/open-house/open-house-list/edit/:id',
             element: (
               <PageTitle title="Open House Form">
                 <EditOpenHouseRequestForm />
@@ -140,7 +140,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "open-house/open-house-feedback-form",
+            path: 'open-house/open-house-feedback-form',
             element: (
               <PageTitle title="Open House Feedback Form">
                 <OpenHouseFeedbackForm />
@@ -148,7 +148,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "open-house/:id",
+            path: 'open-house/:id',
             element: (
               <PageTitle title="Details">
                 <ViewOpenHouse />
@@ -156,7 +156,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "finances",
+            path: 'finances',
             element: (
               <PageTitle title="Finances">
                 <Finances />
@@ -164,7 +164,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "finances/my-listing",
+            path: 'finances/my-listing',
             element: (
               <PageTitle title="My Listing Expenses">
                 <MyListingExpense />
@@ -172,7 +172,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "finances/my-business-expenses",
+            path: 'finances/my-business-expenses',
             element: (
               <PageTitle title="My Business Expenses">
                 <MyBusinessExpense />
@@ -180,7 +180,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "finances/my-agent-earnings",
+            path: 'finances/my-agent-earnings',
             element: (
               <PageTitle title="My Agent Earnings">
                 <MyAgentEarnings />
@@ -188,7 +188,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "finances/pl",
+            path: 'finances/pl',
             element: (
               <PageTitle title="My P&L">
                 <Mypl />
@@ -196,7 +196,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "new-listing",
+            path: 'new-listing',
             element: (
               <PageTitle title="New Listing">
                 <NewListing />
@@ -204,7 +204,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "new-listing/listing-information",
+            path: 'new-listing/listing-information',
             element: (
               <PageTitle title="New Listing Information">
                 <ListingInformationList />
@@ -212,7 +212,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "new-listing/listing-information/edit/:id",
+            path: 'new-listing/listing-information/edit/:id',
             element: (
               <PageTitle title="Edit Listing Information">
                 <EditListingInformationForm />
@@ -220,7 +220,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "new-listing/:id",
+            path: 'new-listing/:id',
             element: (
               <PageTitle title="New Listing">
                 <ViewListingInformation />
@@ -228,7 +228,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "new-listing/new-listing-information-form",
+            path: 'new-listing/new-listing-information-form',
             element: (
               <PageTitle title="New Listing Information Form">
                 <NewListingInformationForm />
@@ -236,7 +236,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "new-contract",
+            path: 'new-contract',
             element: (
               <PageTitle title="New Contract">
                 <NewContract />
@@ -244,7 +244,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "new-contract/contract-information",
+            path: 'new-contract/contract-information',
             element: (
               <PageTitle title="New Contract Information">
                 <ContractInformationList />
@@ -252,7 +252,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "new-contract/:id",
+            path: 'new-contract/:id',
             element: (
               <PageTitle title="New Contract">
                 <ViewContractInformation />
@@ -260,7 +260,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "new-contract/contract-information/edit/:id",
+            path: 'new-contract/contract-information/edit/:id',
             element: (
               <PageTitle title="New Contract Information">
                 <ContractInformationList />
@@ -268,7 +268,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "new-contract/new-contract-information-form",
+            path: 'new-contract/new-contract-information-form',
             element: (
               <PageTitle title="New Contract Information Form">
                 <NewContractInformationForm />
@@ -276,7 +276,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "team",
+            path: 'team',
             element: (
               <PageTitle title="Team">
                 <Team />
@@ -300,7 +300,7 @@ const router = createBrowserRouter([
           //     ),
           //   },
           {
-            path: "team/access-instructions",
+            path: 'team/access-instructions',
             element: (
               <PageTitle title="Access Instructions">
                 <AccessInstructions />
@@ -308,7 +308,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "team/access-instructions/add",
+            path: 'team/access-instructions/add',
             element: (
               <PageTitle title="Add Access Instruction">
                 <AddAccessInstruction />
@@ -316,7 +316,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "team/access-instructions/:id",
+            path: 'team/access-instructions/:id',
             element: (
               <PageTitle title="View Access Instruction">
                 <ViewAccessInstruction />
@@ -324,7 +324,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "team/access-instructions/edit/:id",
+            path: 'team/access-instructions/edit/:id',
             element: (
               <PageTitle title="Edit Access Instruction">
                 <EditAccessInstruction />
@@ -332,7 +332,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "team/sales-tracker",
+            path: 'team/sales-tracker',
             element: (
               <PageTitle title="Sales Tracker">
                 <SalesTracker />
@@ -340,7 +340,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "vendor-list",
+            path: 'vendor-list',
             element: (
               <PageTitle title="Vendor List">
                 <VendorListLayout />
@@ -356,7 +356,7 @@ const router = createBrowserRouter([
                 ),
               },
               {
-                path: ":slug",
+                path: ':slug',
                 element: (
                   <PageTitle title="Vendor List">
                     <VendorList />
@@ -364,7 +364,7 @@ const router = createBrowserRouter([
                 ),
               },
               {
-                path: "add-vendor",
+                path: 'add-vendor',
                 element: (
                   <PageTitle title="Add Vendor">
                     <AddVendor />
@@ -372,7 +372,7 @@ const router = createBrowserRouter([
                 ),
               },
               {
-                path: ":categorySlug/:vendorSlug",
+                path: ':categorySlug/:vendorSlug',
                 element: (
                   <PageTitle title="Vendor Details">
                     <VendorDetails />
@@ -380,7 +380,7 @@ const router = createBrowserRouter([
                 ),
               },
               {
-                path: ":categorySlug",
+                path: ':categorySlug',
                 element: (
                   <PageTitle title="Vendor Category Details">
                     <VendorCategoryDetails />
@@ -392,7 +392,7 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "/my-ai",
+        path: '/my-ai',
         element: (
           <PageTitle title="My AI">
             <MyAI />
@@ -400,11 +400,11 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/my-systems/team/docs/",
+        path: '/my-systems/team/docs/',
         element: <DocsLayout />,
         children: [
           {
-            path: "shared-notes",
+            path: 'shared-notes',
             element: (
               <PageTitle title="Shared Notes">
                 <SharedNotesHome />
@@ -412,7 +412,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "shared-notes/:slug",
+            path: 'shared-notes/:slug',
             element: (
               <PageTitle title="Shared Notes">
                 <ViewSingleNote />
@@ -420,7 +420,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "shared-notes/create-note",
+            path: 'shared-notes/create-note',
             element: (
               <PageTitle title="Create Note">
                 <CreateNote />
@@ -428,7 +428,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "shared-notes/edit-note/:slug",
+            path: 'shared-notes/edit-note/:slug',
             element: (
               <PageTitle title="Edit Note">
                 <EditNote />
@@ -436,7 +436,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "password-list",
+            path: 'password-list',
             element: (
               <PageTitle title="Password List">
                 <PasswordListHome />
@@ -444,7 +444,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "password-list/:slug",
+            path: 'password-list/:slug',
             element: (
               <PageTitle title="Password List">
                 <ViewSinglePassword />
@@ -452,7 +452,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "password-list/add-password",
+            path: 'password-list/add-password',
             element: (
               <PageTitle title="Add Password">
                 <AddPassword />
@@ -460,7 +460,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "password-list/edit-password/:slug",
+            path: 'password-list/edit-password/:slug',
             element: (
               <PageTitle title="Edit Password">
                 <EditPassword />
@@ -470,7 +470,7 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "/my-classroom",
+        path: '/my-classroom',
         element: (
           <PageTitle title="My Classroom">
             <MyClassroom />
@@ -478,7 +478,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/my-classroom/courses",
+        path: '/my-classroom/courses',
         element: (
           <PageTitle title="All Courses">
             <Courses />
@@ -486,7 +486,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/my-classroom/blog/:id",
+        path: '/my-classroom/blog/:id',
         element: (
           <PageTitle title="Blog">
             <BlogCourseDetails />
@@ -495,7 +495,7 @@ const router = createBrowserRouter([
       },
       {
         // path: "/my-classroom/:id",
-        path: "/my-classroom/video/:id",
+        path: '/my-classroom/video/:id',
         element: (
           <PageTitle title="Video">
             <VideoCourseDetails />
@@ -503,7 +503,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/my-classroom/create-course",
+        path: '/my-classroom/create-course',
         element: (
           <PageTitle title="Course Details">
             <CreateCourse />
@@ -511,7 +511,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/my-classroom/create-course/add-lessons",
+        path: '/my-classroom/create-course/add-lessons',
         element: (
           <PageTitle title="Add Lessons">
             <AddLessons />
@@ -519,7 +519,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/my-classroom/create-course/edit-lesson/:id",
+        path: '/my-classroom/create-course/edit-lesson/:id',
         element: (
           <PageTitle title="Update Lesson">
             <UpdateLesson />
@@ -527,7 +527,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/my-pr",
+        path: '/my-pr',
         element: (
           <PageTitle title="My PR">
             <MyPR />
@@ -535,7 +535,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/profile",
+        path: '/profile',
         children: [
           {
             index: true,
@@ -546,7 +546,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "account-information",
+            path: 'account-information',
             element: (
               <PageTitle title="Account Information">
                 <AccountInformation />
@@ -554,7 +554,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "change-password",
+            path: 'change-password',
             element: (
               <PageTitle title="Change Password">
                 <ChangePassword />
@@ -562,7 +562,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "business-information",
+            path: 'business-information',
             element: (
               <PageTitle title="Business Information">
                 <BusinessInformation />
@@ -570,7 +570,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "manage-team",
+            path: 'manage-team',
             element: (
               <PageTitle title="Manage Team And Permission">
                 <ManageTeam />
@@ -578,7 +578,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "add-team-member",
+            path: 'add-team-member',
             element: (
               <PageTitle title="Add A Team Member">
                 <AddTeamMember />
@@ -586,7 +586,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "edit-team-member/:slug",
+            path: 'edit-team-member/:slug',
             element: (
               <PageTitle title="Edit Team Member">
                 <EditTeamMember />
@@ -594,7 +594,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "member-profile",
+            path: 'member-profile',
             element: (
               <PageTitle title="Member Profile">
                 <MemberProfile />
@@ -604,7 +604,7 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "/my-essentials",
+        path: '/my-essentials',
         element: (
           <PageTitle title="My Essentials">
             <MyEssentials />
@@ -612,7 +612,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/agent-leaderboard",
+        path: '/agent-leaderboard',
         element: (
           <PageTitle title="Agent Leaderboard">
             <AgentLeaderBoard />
@@ -622,27 +622,27 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/sign-in",
+    path: '/sign-in',
     element: <Login />,
   },
   {
-    path: "/sign-up",
+    path: '/sign-up',
     element: <SignUp />,
   },
   {
-    path: "/verify-otp",
+    path: '/verify-otp',
     element: <VerifyOTP />,
   },
   {
-    path: "/forget-password",
+    path: '/forget-password',
     element: <ForgetPassword />,
   },
   {
-    path: "/forget-password/verify-otp",
+    path: '/forget-password/verify-otp',
     element: <VerifyForgetPasswordOTP />,
   },
   {
-    path: "/reset-password",
+    path: '/reset-password',
     element: <ResetPassword />,
   },
 ]);
