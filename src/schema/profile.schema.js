@@ -1,5 +1,5 @@
-import { isValidURL } from '@/lib/utils/isValidUrl';
-import { z } from 'zod';
+import { isValidURL } from "@/lib/utils/isValidUrl";
+import { z } from "zod";
 
 // Define the Zod schema for validation
 export const profileSchema = z.object({
@@ -7,9 +7,12 @@ export const profileSchema = z.object({
   last_name: z.string().optional(),
   licence: z.string().optional(),
   ecar_id: z.string().optional(),
+  business_name: z.string().optional(),
+  business_address: z.string().optional(),
+  business_phone: z.string().optional(),
   address: z
     .string()
-    .max(100, 'Address must be less than 100 characters')
+    .max(100, "Address must be less than 100 characters")
     .optional(),
   email: z.string().optional(),
   bio: z.string().max(100).optional(),
@@ -19,7 +22,7 @@ export const profileSchema = z.object({
     .string()
     .transform((value) => {
       if (value) {
-        return value?.startsWith('https://') || value?.startsWith('http://')
+        return value?.startsWith("https://") || value?.startsWith("http://")
           ? value
           : `https://${value}`;
       } else {
@@ -27,14 +30,14 @@ export const profileSchema = z.object({
       }
     })
     .refine((value) => !value || isValidURL(value), {
-      message: 'Invalid URL format',
+      message: "Invalid URL format",
     })
     .optional(),
   instagram: z
     .string()
     .transform((value) => {
       if (value) {
-        return value?.startsWith('https://') || value?.startsWith('http://')
+        return value?.startsWith("https://") || value?.startsWith("http://")
           ? value
           : `https://${value}`;
       } else {
@@ -42,14 +45,14 @@ export const profileSchema = z.object({
       }
     })
     .refine((value) => !value || isValidURL(value), {
-      message: 'Invalid URL format',
+      message: "Invalid URL format",
     })
     .optional(),
   twitter: z
     .string()
     .transform((value) => {
       if (value) {
-        return value?.startsWith('https://') || value?.startsWith('http://')
+        return value?.startsWith("https://") || value?.startsWith("http://")
           ? value
           : `https://${value}`;
       } else {
@@ -57,7 +60,7 @@ export const profileSchema = z.object({
       }
     })
     .refine((value) => !value || isValidURL(value), {
-      message: 'Invalid URL format',
+      message: "Invalid URL format",
     })
     .optional(),
 });
