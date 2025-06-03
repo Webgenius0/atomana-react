@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 
-import { useState } from 'react';
+import { useState } from "react";
 
-import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
-import { useChangePassword } from '@/hooks/profile.hook';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
+import { useChangePassword } from "@/hooks/profile.hook";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const ChangePassword = () => {
   const {
@@ -21,6 +21,8 @@ const ChangePassword = () => {
     watch,
   } = form;
 
+  const navigate = useNavigate();
+
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -28,6 +30,10 @@ const ChangePassword = () => {
 
   const onSubmit = (data) => {
     changePassword(data);
+  };
+
+  const handleBack = () => {
+    navigate(-1);
   };
 
   return (
@@ -52,10 +58,10 @@ const ChangePassword = () => {
               <div className="relative">
                 <input
                   className="input-field pr-10 px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                  type={showCurrentPassword ? 'text' : 'password'}
+                  type={showCurrentPassword ? "text" : "password"}
                   placeholder="Password"
-                  {...register('current_password', {
-                    required: 'Current password is required',
+                  {...register("current_password", {
+                    required: "Current password is required",
                   })}
                 />
                 <button
@@ -84,10 +90,10 @@ const ChangePassword = () => {
               <div className="relative">
                 <input
                   className="input-field pr-10 px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                  type={showNewPassword ? 'text' : 'password'}
+                  type={showNewPassword ? "text" : "password"}
                   placeholder="Password"
-                  {...register('password', {
-                    required: 'Password is required',
+                  {...register("password", {
+                    required: "Password is required",
                   })}
                 />
                 <button
@@ -116,12 +122,12 @@ const ChangePassword = () => {
               <div className="relative">
                 <input
                   className="input-field pr-10 px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
-                  type={showConfirmPassword ? 'text' : 'password'}
+                  type={showConfirmPassword ? "text" : "password"}
                   placeholder="Confirm Password"
-                  {...register('password_confirmation', {
-                    required: 'Confirm Password is required',
+                  {...register("password_confirmation", {
+                    required: "Confirm Password is required",
                     validate: (value) =>
-                      value === watch('password') || 'Passwords do not match',
+                      value === watch("password") || "Passwords do not match",
                   })}
                 />
                 <button
@@ -147,12 +153,12 @@ const ChangePassword = () => {
               <input
                 className="request-btn approve cursor-pointer"
                 type="submit"
-                value={isChangePasswordPending ? 'Saving...' : 'Save'}
+                value={isChangePasswordPending ? "Saving..." : "Save"}
                 disabled={isChangePasswordPending}
               />
               <button
                 type="button"
-                onClick={() => reset()}
+                onClick={handleBack}
                 className="request-btn text-light"
               >
                 Cancel

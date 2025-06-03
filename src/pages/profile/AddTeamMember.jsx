@@ -55,6 +55,10 @@ const AddTeamMember = () => {
     });
   };
 
+  const handleBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div className="my-container">
       <div className="pt-6 md:pt-8 lg:pt-12 pb-3">
@@ -368,7 +372,7 @@ const AddTeamMember = () => {
               />
               <button
                 type="button"
-                onClick={() => reset()}
+                onClick={handleBack}
                 className="request-btn text-light"
               >
                 Cancel

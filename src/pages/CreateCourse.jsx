@@ -1,13 +1,13 @@
-import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
-import CancelButtonSvg from '@/components/svgs/CancelButtonSvg';
-import EditButtonSvg from '@/components/svgs/EditButtonSvg';
-import PlusSvg from '@/components/svgs/PlusSvg';
-import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
-import { LessonDataContext } from '@/context/LessonDataProvider';
-import { NewCourseDataContext } from '@/context/NewCourseDataProvider';
-import { useContext } from 'react';
-import { Controller } from 'react-hook-form';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
+import CancelButtonSvg from "@/components/svgs/CancelButtonSvg";
+import EditButtonSvg from "@/components/svgs/EditButtonSvg";
+import PlusSvg from "@/components/svgs/PlusSvg";
+import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
+import { LessonDataContext } from "@/context/LessonDataProvider";
+import { NewCourseDataContext } from "@/context/NewCourseDataProvider";
+import { useContext } from "react";
+import { Controller } from "react-hook-form";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const CreateCourse = () => {
   const { courseData, setCourseData, form } = useContext(NewCourseDataContext);
@@ -37,10 +37,11 @@ const CreateCourse = () => {
   const handleCancel = (e) => {
     e.preventDefault();
     reset();
+    navigate(-1);
   };
 
   const handleAddClick = () => {
-    navigate('/my-classroom/create-course/add-lessons/');
+    navigate("/my-classroom/create-course/add-lessons/");
   };
 
   const handleLessonDelete = (title) => {
@@ -68,7 +69,7 @@ const CreateCourse = () => {
       <div>
         <div className="flex items-center justify-between pt-6 md:pt-8 lg:pt-12 pb-4 md:pb-5 lg:pb-8 mb-4">
           <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit">
-            <Link to={`${location.state?.from || '/my-classroom/courses'}`}>
+            <Link to={`${location.state?.from || "/my-classroom/courses"}`}>
               <ArrowLeftSvg />
             </Link>
             <h2 className="section-title">Create Content</h2>
@@ -87,7 +88,7 @@ const CreateCourse = () => {
               name="contentType"
               control={control}
               defaultValue="Course"
-              rules={{ required: 'Content type is required' }}
+              rules={{ required: "Content type is required" }}
               render={({ field }) => (
                 <div className="flex space-x-4 mt-2">
                   <label className="flex items-center gap-2">
@@ -95,7 +96,7 @@ const CreateCourse = () => {
                       type="radio"
                       {...field}
                       value="Video"
-                      checked={field.value === 'Video'}
+                      checked={field.value === "Video"}
                     />
                     <p className="text-sm font-medium text-light">Video</p>
                   </label>
@@ -104,7 +105,7 @@ const CreateCourse = () => {
                       type="radio"
                       {...field}
                       value="Blog"
-                      checked={field.value === 'Blog'}
+                      checked={field.value === "Blog"}
                     />
                     <p className="text-sm font-medium text-light">Blog</p>
                   </label>
@@ -123,7 +124,7 @@ const CreateCourse = () => {
               Title
             </label>
             <input
-              {...register('title', { required: 'Title is required' })}
+              {...register("title", { required: "Title is required" })}
               id="title"
               type="text"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm w-full"
@@ -144,8 +145,8 @@ const CreateCourse = () => {
               Description
             </label>
             <textarea
-              {...register('description', {
-                required: 'Description is required',
+              {...register("description", {
+                required: "Description is required",
               })}
               id="description"
               rows="4"
@@ -170,7 +171,7 @@ const CreateCourse = () => {
                       type="text"
                       className="flex-grow text-white font-Inter text-sm font-bold bg-[#151515]"
                       disabled
-                      value={`${lesson.title || ' '}`}
+                      value={`${lesson.title || " "}`}
                     />
                     <div className="flex gap-2 items-center">
                       <Link

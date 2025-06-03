@@ -1,18 +1,18 @@
-import FormTextEditor from '@/components/form/FormTextEditor';
-import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
-import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
-import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
-import Select from '@/components/ui/react-select';
-import { useStoreAccessInstruction } from '@/hooks/access-instructions.hook';
-import { usePropertyTypeDropdown } from '@/hooks/open-house.hook';
-import { useGetProperties } from '@/hooks/property.hook';
-import { useDebouncedState } from '@/hooks/useDebouncedState';
-import { Controller, FormProvider } from 'react-hook-form';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import FormTextEditor from "@/components/form/FormTextEditor";
+import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
+import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
+import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
+import Select from "@/components/ui/react-select";
+import { useStoreAccessInstruction } from "@/hooks/access-instructions.hook";
+import { usePropertyTypeDropdown } from "@/hooks/open-house.hook";
+import { useGetProperties } from "@/hooks/property.hook";
+import { useDebouncedState } from "@/hooks/useDebouncedState";
+import { Controller, FormProvider } from "react-hook-form";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 
 export default function EditAccessInstruction() {
   const { id } = useParams();
-  const [search, setSearch, debouncedSearch] = useDebouncedState('', 400);
+  const [search, setSearch, debouncedSearch] = useDebouncedState("", 400);
   const {
     mutate: storeAccessInstruction,
     isPending,
@@ -28,6 +28,7 @@ export default function EditAccessInstruction() {
   } = form;
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   const { properties, isLoading: isPropertiesLoading } = useGetProperties({
     search: debouncedSearch,
@@ -46,12 +47,16 @@ export default function EditAccessInstruction() {
     label: item.name,
   }));
 
+  const handleBack = () => {
+    navigate(-1);
+  };
+
   return (
     <>
       <div className="flex items-center gap-4 justify-between py-5 sticky top-[75px] md:top-[144px] bg-dark">
         <Link
           to={`${
-            location.state?.from || '/my-systems/team/access-instructions'
+            location.state?.from || "/my-systems/team/access-instructions"
           }`}
         >
           <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit">
@@ -147,7 +152,7 @@ export default function EditAccessInstruction() {
                 placeholder="Enter Property Price"
                 type="number"
                 step="any"
-                {...register('price')}
+                {...register("price")}
               />
               {errors?.price?.message && (
                 <p className="text-red-500 mt-2">{errors?.price?.message}</p>
@@ -163,7 +168,7 @@ export default function EditAccessInstruction() {
                 placeholder="Enter Property Size"
                 type="number"
                 step="any"
-                {...register('size')}
+                {...register("size")}
               />
               {errors?.size?.message && (
                 <p className="text-red-500 mt-2">{errors?.size?.message}</p>
@@ -179,7 +184,7 @@ export default function EditAccessInstruction() {
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="Enter Key Access Code"
-                {...register('access_key')}
+                {...register("access_key")}
               />
               {errors?.access_key?.message && (
                 <p className="text-red-500 mt-2">
@@ -195,7 +200,7 @@ export default function EditAccessInstruction() {
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="Enter Lockbox Location"
-                {...register('lock_box_location')}
+                {...register("lock_box_location")}
               />
               {errors?.lock_box_location?.message && (
                 <p className="text-red-500 mt-2">
@@ -211,7 +216,7 @@ export default function EditAccessInstruction() {
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="Enter Key Pickup Instructions"
-                {...register('pickup_instructions')}
+                {...register("pickup_instructions")}
               />
               {errors?.pickup_instructions?.message && (
                 <p className="text-red-500 mt-2">
@@ -229,7 +234,7 @@ export default function EditAccessInstruction() {
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="Enter Gate Code"
-                {...register('gate_code')}
+                {...register("gate_code")}
               />
               {errors?.gate_code?.message && (
                 <p className="text-red-500 mt-2">
@@ -245,7 +250,7 @@ export default function EditAccessInstruction() {
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="Enter Gate Access Location"
-                {...register('gete_access_location')}
+                {...register("gete_access_location")}
               />
               {errors?.gete_access_location?.message && (
                 <p className="text-red-500 mt-2">
@@ -263,7 +268,7 @@ export default function EditAccessInstruction() {
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="Enter Visitor Parking"
-                {...register('visitor_parking')}
+                {...register("visitor_parking")}
               />
               {errors?.visitor_parking?.message && (
                 <p className="text-red-500 mt-2">
@@ -282,11 +287,11 @@ export default function EditAccessInstruction() {
                 className="flex w-full sm:w-[150px] px-6 py-2.5 justify-center items-center gap-2.5 font-Inria text-sm sm:text-base transition-transform duration-300 ease-in-out rounded-[10px] border border-light bg-inherit active:scale-95 bg-light text-dark"
                 disabled={isPending}
               >
-                {isPending ? 'Adding...' : 'Add'}
+                {isPending ? "Adding..." : "Add"}
               </button>
 
               <button
-                onClick={reset}
+                onClick={handleBack}
                 disabled={isPending}
                 className="flex w-full sm:w-[150px] px-6 py-2.5 justify-center items-center gap-2.5 font-Inria text-sm sm:text-base transition-transform duration-300 ease-in-out rounded-[10px] border border-light bg-inherit active:scale-95 text-light"
                 type="button"

@@ -1,18 +1,18 @@
-import CustomDatePicker from '@/components/CustomDatePicker';
-import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
-import CalenderSvg from '@/components/svgs/CalenderSvg';
-import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
-import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
-import Select from '@/components/ui/react-select';
-import { useStoreContractInformation } from '@/hooks/new-contract-information';
+import CustomDatePicker from "@/components/CustomDatePicker";
+import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
+import CalenderSvg from "@/components/svgs/CalenderSvg";
+import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
+import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
+import Select from "@/components/ui/react-select";
+import { useStoreContractInformation } from "@/hooks/new-contract-information";
 import {
   useCoListAgentDropdown,
   useSourceDropdown,
-} from '@/hooks/property.hook';
-import { format } from 'date-fns';
-import { useEffect } from 'react';
-import { Controller } from 'react-hook-form';
-import { Link, useLocation, useParams } from 'react-router-dom';
+} from "@/hooks/property.hook";
+import { format } from "date-fns";
+import { useEffect } from "react";
+import { Controller } from "react-hook-form";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 
 function EditContractInformationForm() {
   const { id } = useParams();
@@ -23,6 +23,8 @@ function EditContractInformationForm() {
     mutate: storeContractInformation,
   } = useStoreContractInformation(id);
 
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -32,13 +34,13 @@ function EditContractInformationForm() {
     formState: { errors },
   } = form;
 
-  const represent = watch('represent');
-  const is_co_listing = watch('is_co_listing');
+  const represent = watch("represent");
+  const is_co_listing = watch("is_co_listing");
 
   useEffect(() => {
-    if (represent === 'buyer') {
-      form.clearErrors('date_listed');
-      form.setValue('date_listed', null);
+    if (represent === "buyer") {
+      form.clearErrors("date_listed");
+      form.setValue("date_listed", null);
     }
   }, [represent]);
 
@@ -56,16 +58,20 @@ function EditContractInformationForm() {
   }));
 
   useEffect(() => {
-    if (is_co_listing == '0') {
-      form.setValue('co_agent', null);
+    if (is_co_listing == "0") {
+      form.setValue("co_agent", null);
     }
   }, [is_co_listing]);
+
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   return (
     <>
       <div className="flex items-center gap-4 justify-between">
         <Link
-          to={`${location.state?.from || '/my-systems/new-contract'}`}
+          to={`${location.state?.from || "/my-systems/new-contract"}`}
           className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5"
         >
           <ArrowLeftSvg />
@@ -95,7 +101,7 @@ function EditContractInformationForm() {
               type="text"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="Type the address and subdivision name here"
-              {...register('address')}
+              {...register("address")}
             />
             {errors?.address && (
               <p className="text-red-500 text-xs">{errors?.address?.message}</p>
@@ -116,7 +122,7 @@ function EditContractInformationForm() {
                   <CustomDatePicker
                     value={field.value}
                     onChange={(date) => {
-                      field.onChange(format(date, 'yyyy-MM-dd'));
+                      field.onChange(format(date, "yyyy-MM-dd"));
                     }}
                   />
                 )}
@@ -164,7 +170,7 @@ function EditContractInformationForm() {
           </div>
 
           {/* Co-listing details (conditional) */}
-          {is_co_listing === '1' && (
+          {is_co_listing === "1" && (
             <>
               <div className="flex items-center sm:gap-6 gap-4 sm:ml-12 ml-8">
                 {/* <FormLineSvg /> */}
@@ -206,7 +212,7 @@ function EditContractInformationForm() {
                   step="any"
                   className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                   placeholder="Co-listing Percentage"
-                  {...register('co_agent_percentage')}
+                  {...register("co_agent_percentage")}
                 />
                 {errors?.co_agent_percentage && (
                   <p className="text-red-500 text-xs">
@@ -256,7 +262,7 @@ function EditContractInformationForm() {
           </div>
 
           {/* Date Listed */}
-          {(represent === 'seller' || represent === 'both') && (
+          {(represent === "seller" || represent === "both") && (
             <div className="sm:ml-12 ml-8">
               <div className="flex flex-col gap-2 w-full">
                 <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
@@ -271,7 +277,7 @@ function EditContractInformationForm() {
                       <CustomDatePicker
                         value={field.value}
                         onChange={(date) => {
-                          field.onChange(format(date, 'yyyy-MM-dd'));
+                          field.onChange(format(date, "yyyy-MM-dd"));
                         }}
                       />
                     )}
@@ -296,7 +302,7 @@ function EditContractInformationForm() {
             <input
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="Purchase Price"
-              {...register('price')}
+              {...register("price")}
             />
             {errors?.price && (
               <p className="text-red-500 text-xs">{errors?.price?.message}</p>
@@ -317,7 +323,7 @@ function EditContractInformationForm() {
                   <CustomDatePicker
                     value={field.value}
                     onChange={(date) => {
-                      field.onChange(format(date, 'yyyy-MM-dd'));
+                      field.onChange(format(date, "yyyy-MM-dd"));
                     }}
                   />
                 )}
@@ -342,7 +348,7 @@ function EditContractInformationForm() {
               step="any"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="Commission Percentage"
-              {...register('commision_percentage')}
+              {...register("commision_percentage")}
             />
             {errors?.commision_percentage && (
               <p className="text-red-500 text-xs">
@@ -394,7 +400,7 @@ function EditContractInformationForm() {
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="Enter Name"
-                {...register('name')}
+                {...register("name")}
               />
               {errors?.name && (
                 <p className="text-red-500 text-xs">{errors?.name?.message}</p>
@@ -409,7 +415,7 @@ function EditContractInformationForm() {
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="Enter Company Name"
-                {...register('company')}
+                {...register("company")}
               />
               {errors?.company && (
                 <p className="text-red-500 text-xs">
@@ -426,7 +432,7 @@ function EditContractInformationForm() {
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="Enter Email"
-                {...register('email')}
+                {...register("email")}
               />
               {errors?.email && (
                 <p className="text-red-500 text-xs">{errors?.email?.message}</p>
@@ -441,7 +447,7 @@ function EditContractInformationForm() {
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="Enter Phone Number"
-                {...register('phone')}
+                {...register("phone")}
               />
               {errors?.phone && (
                 <p className="text-red-500 text-xs">{errors?.phone?.message}</p>
@@ -459,7 +465,7 @@ function EditContractInformationForm() {
               step="any"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="Referral Percentage"
-              {...register('referral_percentage')}
+              {...register("referral_percentage")}
             />
             {errors?.referral_percentage && (
               <p className="text-red-500 text-xs">
@@ -477,7 +483,7 @@ function EditContractInformationForm() {
               type="note"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="Type your answer here"
-              {...register('comment')}
+              {...register("comment")}
             />
             {errors?.comment && (
               <p className="text-red-500 text-xs">{errors?.comment?.message}</p>
@@ -491,12 +497,12 @@ function EditContractInformationForm() {
               type="submit"
               disabled={isPending}
             >
-              {isPending ? 'Submitting' : 'Submit'}
+              {isPending ? "Submitting" : "Submit"}
             </button>
 
             <button
               type="button"
-              onClick={reset}
+              onClick={handleBack}
               className="request-btn text-light w-full sm:w-[150px]"
             >
               Cancel

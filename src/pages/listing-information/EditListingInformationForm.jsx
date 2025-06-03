@@ -1,18 +1,18 @@
-import CustomDatePicker from '@/components/CustomDatePicker';
-import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
-import CalenderSvg from '@/components/svgs/CalenderSvg';
-import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
-import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
-import Select from '@/components/ui/react-select';
+import CustomDatePicker from "@/components/CustomDatePicker";
+import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
+import CalenderSvg from "@/components/svgs/CalenderSvg";
+import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
+import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
+import Select from "@/components/ui/react-select";
 import {
   useCoListAgentDropdown,
   useEditProperty,
   useSourceDropdown,
-} from '@/hooks/property.hook';
-import { format } from 'date-fns';
-import { useEffect } from 'react';
-import { Controller } from 'react-hook-form';
-import { Link, useLocation, useParams } from 'react-router-dom';
+} from "@/hooks/property.hook";
+import { format } from "date-fns";
+import { useEffect } from "react";
+import { Controller } from "react-hook-form";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 
 function EditListingInformationForm() {
   const { id } = useParams();
@@ -28,8 +28,10 @@ function EditListingInformationForm() {
     formState: { errors },
   } = form;
 
-  const is_development = watch('is_development');
-  const is_co_listing = watch('is_co_listing');
+  const navigate = useNavigate();
+
+  const is_development = watch("is_development");
+  const is_co_listing = watch("is_co_listing");
 
   const { coAgents, isLoading: isAgentLoading } = useCoListAgentDropdown();
   const { sources, isLoading: isSourcesLoading } = useSourceDropdown();
@@ -45,10 +47,14 @@ function EditListingInformationForm() {
   }));
 
   useEffect(() => {
-    if (is_co_listing == '0') {
-      form.setValue('co_agent', null);
+    if (is_co_listing == "0") {
+      form.setValue("co_agent", null);
     }
   }, [is_co_listing]);
+
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   return (
     <>
@@ -56,7 +62,7 @@ function EditListingInformationForm() {
         <Link
           to={`${
             location.state?.from ||
-            '/my-systems/new-listing/listing-information'
+            "/my-systems/new-listing/listing-information"
           }`}
           className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5"
         >
@@ -86,7 +92,7 @@ function EditListingInformationForm() {
               type="text"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="Type the address and subdivision name here"
-              {...register('address')}
+              {...register("address")}
             />
             {errors?.address && (
               <p className="text-red-500 text-xs">{errors?.address?.message}</p>
@@ -100,7 +106,7 @@ function EditListingInformationForm() {
             <input
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="$0"
-              {...register('price')}
+              {...register("price")}
             />
             {errors?.price && (
               <p className="text-red-500 text-xs">{errors?.price?.message}</p>
@@ -119,7 +125,7 @@ function EditListingInformationForm() {
                   <CustomDatePicker
                     value={field.value}
                     onChange={(date) => {
-                      field.onChange(format(date, 'yyyy-MM-dd'));
+                      field.onChange(format(date, "yyyy-MM-dd"));
                     }}
                   />
                 )}
@@ -147,7 +153,7 @@ function EditListingInformationForm() {
                       {...field}
                       type="radio"
                       value="1"
-                      checked={field.value === '1'}
+                      checked={field.value === "1"}
                     />
                     <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                       Yes
@@ -158,7 +164,7 @@ function EditListingInformationForm() {
                       {...field}
                       type="radio"
                       value="0"
-                      checked={field.value === '0'}
+                      checked={field.value === "0"}
                     />
                     <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                       No
@@ -174,7 +180,7 @@ function EditListingInformationForm() {
             )}
           </div>
           {/* Add to development page (conditional) */}
-          {is_development === '1' && (
+          {is_development === "1" && (
             <div className="flex items-center sm:gap-6 gap-4 sm:ml-12 ml-8">
               {/* <FormLineSvg /> */}
               <div className="w-full">
@@ -192,7 +198,7 @@ function EditListingInformationForm() {
                           {...field}
                           type="radio"
                           value="1"
-                          checked={field.value === '1'}
+                          checked={field.value === "1"}
                         />
                         <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                           Yes
@@ -203,7 +209,7 @@ function EditListingInformationForm() {
                           {...field}
                           type="radio"
                           value="0"
-                          checked={field.value === '0'}
+                          checked={field.value === "0"}
                         />
                         <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                           No
@@ -236,7 +242,7 @@ function EditListingInformationForm() {
                       {...field}
                       type="radio"
                       value="1"
-                      checked={field.value === '1'}
+                      checked={field.value === "1"}
                     />
                     <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                       Yes
@@ -247,7 +253,7 @@ function EditListingInformationForm() {
                       {...field}
                       type="radio"
                       value="0"
-                      checked={field.value === '0'}
+                      checked={field.value === "0"}
                     />
                     <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
                       No
@@ -263,7 +269,7 @@ function EditListingInformationForm() {
             )}
           </div>
           {/* Co-listing details (conditional) */}
-          {is_co_listing === '1' && (
+          {is_co_listing === "1" && (
             <div className="flex items-center sm:gap-6 gap-4 sm:ml-12 ml-8">
               {/* <FormLineSvg /> */}
               <div className="w-full">
@@ -304,7 +310,7 @@ function EditListingInformationForm() {
               step="any"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="Type commission rate here"
-              {...register('commission_rate')}
+              {...register("commission_rate")}
             />
             {errors?.commission_rate && (
               <p className="text-red-500 text-xs">
@@ -323,7 +329,7 @@ function EditListingInformationForm() {
               step="any"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="00 %"
-              {...register('co_list_percentage')}
+              {...register("co_list_percentage")}
             />
             {errors?.co_list_percentage && (
               <p className="text-red-500 text-xs">
@@ -370,7 +376,7 @@ function EditListingInformationForm() {
                 type="number"
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="0"
-                {...register('beds')}
+                {...register("beds")}
               />
               {errors?.beds && (
                 <p className="text-red-500 text-xs">{errors?.beds?.message}</p>
@@ -384,7 +390,7 @@ function EditListingInformationForm() {
                 type="number"
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="0"
-                {...register('full_baths')}
+                {...register("full_baths")}
               />
               {errors?.full_baths && (
                 <p className="text-red-500 text-xs">
@@ -400,7 +406,7 @@ function EditListingInformationForm() {
                 type="number"
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="0"
-                {...register('half_baths')}
+                {...register("half_baths")}
               />
               {errors?.half_baths && (
                 <p className="text-red-500 text-xs">
@@ -416,7 +422,7 @@ function EditListingInformationForm() {
                 type="number"
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="0 sq ft"
-                {...register('size')}
+                {...register("size")}
               />
               {errors?.size && (
                 <p className="text-red-500 text-xs">{errors?.size?.message}</p>
@@ -432,7 +438,7 @@ function EditListingInformationForm() {
               type="link"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="Link"
-              {...register('link')}
+              {...register("link")}
             />
             {errors?.link && (
               <p className="text-red-500 text-xs">{errors?.link?.message}</p>
@@ -447,7 +453,7 @@ function EditListingInformationForm() {
               type="note"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="Type your answer here"
-              {...register('note')}
+              {...register("note")}
             />
             {errors?.note && (
               <p className="text-red-500 text-xs">{errors?.note?.message}</p>
@@ -459,12 +465,12 @@ function EditListingInformationForm() {
               type="submit"
               disabled={isPending}
             >
-              {isPending ? 'Submitting' : 'Submit'}
+              {isPending ? "Submitting" : "Submit"}
             </button>
 
             <button
               type="button"
-              onClick={reset}
+              onClick={handleBack}
               className="request-btn text-light w-full sm:w-[150px]"
             >
               Cancel

@@ -1,14 +1,15 @@
-import FormTextEditor from '@/components/form/FormTextEditor';
-import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
-import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
-import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
-import { useCreateNote } from '@/hooks/docs.hook';
-import { FormProvider } from 'react-hook-form';
-import { Link, useLocation } from 'react-router-dom';
+import FormTextEditor from "@/components/form/FormTextEditor";
+import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
+import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
+import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
+import { useCreateNote } from "@/hooks/docs.hook";
+import { FormProvider } from "react-hook-form";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export default function CreateNote() {
   const location = useLocation();
   const { mutate: createNote, isPending, form } = useCreateNote();
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
     createNote(data);
@@ -17,6 +18,7 @@ export default function CreateNote() {
   const handleResetForm = (e) => {
     e.preventDefault();
     form.reset();
+    navigate(-1);
   };
 
   return (
@@ -25,7 +27,7 @@ export default function CreateNote() {
         <div className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5">
           <Link
             to={`${
-              location.state?.from || '/my-systems/team/docs/shared-notes'
+              location.state?.from || "/my-systems/team/docs/shared-notes"
             }`}
           >
             <ArrowLeftSvg />
@@ -55,7 +57,7 @@ export default function CreateNote() {
               <input
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="Enter Title"
-                {...form.register('title')}
+                {...form.register("title")}
               />
               {form.formState?.errors?.title?.message && (
                 <p className="text-base font-semibold text-red-500">
@@ -71,7 +73,7 @@ export default function CreateNote() {
                 <input
                   className="request-btn approve cursor-pointer"
                   type="submit"
-                  value={isPending ? 'Adding...' : 'Add'}
+                  value={isPending ? "Adding..." : "Add"}
                   disabled={isPending}
                 />
               </div>

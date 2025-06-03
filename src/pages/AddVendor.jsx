@@ -1,9 +1,9 @@
-import FormTextEditor from '@/components/form/FormTextEditor';
-import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
-import Select from '@/components/ui/react-select';
-import { useCreateVendor, useGetVendorCategories } from '@/hooks/vendor.hook';
-import { Controller, FormProvider } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import FormTextEditor from "@/components/form/FormTextEditor";
+import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
+import Select from "@/components/ui/react-select";
+import { useCreateVendor, useGetVendorCategories } from "@/hooks/vendor.hook";
+import { Controller, FormProvider } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
 
 function AddVendor() {
   const { categories, isLoading } = useGetVendorCategories();
@@ -12,6 +12,8 @@ function AddVendor() {
     isPending: isSubmitting,
     form,
   } = useCreateVendor();
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -25,6 +27,10 @@ function AddVendor() {
     value: item.id,
     label: item.name,
   }));
+
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   return (
     <>
@@ -48,7 +54,7 @@ function AddVendor() {
                 <input
                   className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark text-light w-full outline-none"
                   placeholder="Enter vendor name"
-                  {...register('name', { required: true })}
+                  {...register("name", { required: true })}
                 />
                 {errors?.name?.message && (
                   <p className="text-red-500 mt-2">{errors?.name?.message}</p>
@@ -89,7 +95,7 @@ function AddVendor() {
                 <input
                   className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark text-light w-full outline-none"
                   placeholder="www.vendor.com"
-                  {...register('website')}
+                  {...register("website")}
                 />
                 {errors?.website?.message && (
                   <p className="text-red-500 mt-2">
@@ -103,7 +109,7 @@ function AddVendor() {
                 <input
                   className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark text-light w-full outline-none"
                   placeholder="example@email.com"
-                  {...register('email')}
+                  {...register("email")}
                 />
                 {errors?.email?.message && (
                   <p className="text-red-500 mt-2">{errors?.email?.message}</p>
@@ -117,7 +123,7 @@ function AddVendor() {
                 <input
                   className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark text-light w-full outline-none"
                   placeholder="000-000-0000"
-                  {...register('phone')}
+                  {...register("phone")}
                 />
                 {errors?.phone?.message && (
                   <p className="text-red-500 mt-2">{errors?.phone?.message}</p>
@@ -130,7 +136,7 @@ function AddVendor() {
                 </label>
                 <textarea
                   placeholder="Enter vendor details..."
-                  {...register('about')}
+                  {...register("about")}
                   className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark text-light w-full outline-none"
                 />
                 {errors?.about?.message && (
@@ -170,11 +176,11 @@ function AddVendor() {
                   className="request-btn approve"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? 'Adding...' : 'Add Vendor'}
+                  {isSubmitting ? "Adding..." : "Add Vendor"}
                 </button>
                 <button
                   type="button"
-                  onClick={reset}
+                  onClick={handleBack}
                   className="request-btn text-light"
                 >
                   Cancel
