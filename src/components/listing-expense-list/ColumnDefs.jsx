@@ -118,7 +118,7 @@ export const columns = [
     accessorKey: 'listing',
     header: 'Listing',
     cell: ListingCell,
-    size: 100,
+    size: 150,
     footer: ListingInput,
   },
   {
