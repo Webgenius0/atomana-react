@@ -1,21 +1,21 @@
-import CustomDatePicker from "@/components/CustomDatePicker";
-import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
-import CalenderSvg from "@/components/svgs/CalenderSvg";
-import FileSvg from "@/components/svgs/FileSvg";
-import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
-import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
-import Select from "@/components/ui/react-select";
-import { ROLE } from "@/constants";
+import CustomDatePicker from '@/components/CustomDatePicker';
+import ArrowLeftSvg from '@/components/svgs/ArrowLeftSvg';
+import CalenderSvg from '@/components/svgs/CalenderSvg';
+import FileSvg from '@/components/svgs/FileSvg';
+import PersonPlusSvg from '@/components/svgs/PersonPlusSvg';
+import ThreeDotsSvg from '@/components/svgs/ThreeDotsSvg';
+import Select from '@/components/ui/react-select';
+import { ROLE } from '@/constants';
 import {
   useCoListAgentDropdown,
   useSourceDropdown,
   useStoreProperty,
-} from "@/hooks/property.hook";
-import { useAuth } from "@/hooks/useAuth";
-import { format } from "date-fns";
-import { useEffect } from "react";
-import { Controller } from "react-hook-form";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+} from '@/hooks/property.hook';
+import { useAuth } from '@/hooks/useAuth';
+import { format } from 'date-fns';
+import { useEffect } from 'react';
+import { Controller } from 'react-hook-form';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 function NewListingInformationForm() {
   const location = useLocation();
@@ -26,7 +26,6 @@ function NewListingInformationForm() {
   const {
     register,
     handleSubmit,
-    reset,
     control,
     watch,
     formState: { errors },
@@ -35,7 +34,7 @@ function NewListingInformationForm() {
   const navigate = useNavigate();
 
   //   const is_development = watch('is_development');
-  const is_co_listing = watch("is_co_listing");
+  const is_co_listing = watch('is_co_listing');
 
   const { coAgents, isLoading: isAgentLoading } = useCoListAgentDropdown();
   const { sources, isLoading: isSourcesLoading } = useSourceDropdown();
@@ -51,12 +50,13 @@ function NewListingInformationForm() {
   }));
 
   useEffect(() => {
-    if (is_co_listing == "0") {
-      form.setValue("co_agent", null);
+    if (is_co_listing == '0') {
+      form.setValue('co_agent', null);
     }
   }, [is_co_listing]);
 
   const onSubmit = (data) => {
+    console.log({ listing_agreement: data?.listing_agreement });
     storeProperty({
       ...data,
       listing_agreement: data?.listing_agreement?.[0],
@@ -71,7 +71,7 @@ function NewListingInformationForm() {
     <>
       <div className="flex items-center gap-4 justify-between">
         <Link
-          to={`${location.state?.from || "/my-systems/new-listing"}`}
+          to={`${location.state?.from || '/my-systems/new-listing'}`}
           className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5"
         >
           <ArrowLeftSvg />
@@ -92,6 +92,7 @@ function NewListingInformationForm() {
           onSubmit={handleSubmit(onSubmit)}
           className="max-w-[670px] mx-start flex flex-col gap-[15px]"
         >
+          {/* Property Address */}
           <div className="flex flex-col gap-2 w-full">
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
               Property Address
@@ -100,13 +101,14 @@ function NewListingInformationForm() {
               type="text"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="Type the address and subdivision name here"
-              {...register("address")}
+              {...register('address')}
             />
             {errors?.address && (
               <p className="text-red-500 text-xs">{errors?.address?.message}</p>
             )}
           </div>
 
+          {/* Price */}
           <div className="flex flex-col gap-2 w-full">
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
               Price
@@ -114,7 +116,7 @@ function NewListingInformationForm() {
             <input
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="$0"
-              {...register("price")}
+              {...register('price')}
             />
             {errors?.price && (
               <p className="text-red-500 text-xs">{errors?.price?.message}</p>
@@ -135,7 +137,7 @@ function NewListingInformationForm() {
                   <CustomDatePicker
                     value={field.value}
                     onChange={(date) => {
-                      field.onChange(format(date, "yyyy-MM-dd"));
+                      field.onChange(format(date, 'yyyy-MM-dd'));
                     }}
                   />
                 )}
@@ -150,13 +152,13 @@ function NewListingInformationForm() {
             )}
           </div>
 
-          {/* Is this a development */}
-          {/* <div>
+          {/* Is this a co-listing? */}
+          <div>
             <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-              Is this a development?
+              Is this a co-listing?
             </p>
             <Controller
-              name="is_development"
+              name="is_co_listing"
               control={control}
               render={({ field }) => (
                 <div className="flex space-x-4">
@@ -185,103 +187,16 @@ function NewListingInformationForm() {
                 </div>
               )}
             />
-            {errors?.is_development && (
-              <p className="text-red-500 text-xs">
-                {errors?.is_development?.message}
-              </p>
-            )}
-          </div> */}
-
-          {/* Add to development page (conditional) */}
-          {/* {is_development === '1' && (
-            <div className="flex items-center sm:gap-6 gap-4 sm:ml-12 ml-8">
-              <div className="w-full">
-                <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light mb-3">
-                  Would you like it added to the development page on the Spears
-                  Group website?
-                </p>
-                <Controller
-                  name="add_to_website"
-                  control={control}
-                  render={({ field }) => (
-                    <div className="flex space-x-4">
-                      <label className="flex items-center gap-2">
-                        <input
-                          {...field}
-                          type="radio"
-                          value="1"
-                          checked={field.value === '1'}
-                        />
-                        <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-                          Yes
-                        </p>
-                      </label>
-                      <label className="flex items-center gap-2">
-                        <input
-                          {...field}
-                          type="radio"
-                          value="0"
-                          checked={field.value === '0'}
-                        />
-                        <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-                          No
-                        </p>
-                      </label>
-                    </div>
-                  )}
-                />
-                {errors?.add_to_website && (
-                  <p className="text-red-500 text-xs">
-                    {errors?.add_to_website?.message}
-                  </p>
-                )}
-              </div>
-            </div>
-          )} */}
-
-          {/* Is this a co-listing? */}
-          <div>
-            <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-              Is this a co-listing?
-            </p>
-            <Controller
-              name="is_co_listing"
-              control={control}
-              render={({ field }) => (
-                <div className="flex space-x-4">
-                  <label className="flex items-center gap-2">
-                    <input
-                      {...field}
-                      type="radio"
-                      value="1"
-                      checked={field.value === "1"}
-                    />
-                    <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-                      Yes
-                    </p>
-                  </label>
-                  <label className="flex items-center gap-2">
-                    <input
-                      {...field}
-                      type="radio"
-                      value="0"
-                      checked={field.value === "0"}
-                    />
-                    <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-                      No
-                    </p>
-                  </label>
-                </div>
-              )}
-            />
             {errors?.is_co_listing && (
               <p className="text-red-500 text-xs">
                 {errors?.is_co_listing?.message}
               </p>
             )}
           </div>
+
           {/* Co-listing details (conditional) */}
-          {is_co_listing === "1" && (
+          {is_co_listing === '1' && (
+            // Co Listing Agent
             <div className="flex items-center sm:gap-6 gap-4 sm:ml-12 ml-8">
               {/* <FormLineSvg /> */}
               <div className="w-full">
@@ -322,7 +237,7 @@ function NewListingInformationForm() {
               step="any"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="Type commission rate here"
-              {...register("commission_rate")}
+              {...register('commission_rate')}
             />
             {errors?.commission_rate && (
               <p className="text-red-500 text-xs">
@@ -341,7 +256,7 @@ function NewListingInformationForm() {
               step="any"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="00 %"
-              {...register("co_list_percentage")}
+              {...register('co_list_percentage')}
             />
             {errors?.co_list_percentage && (
               <p className="text-red-500 text-xs">
@@ -349,6 +264,7 @@ function NewListingInformationForm() {
               </p>
             )}
           </div>
+
           {/* source fo the list */}
           <div className="flex flex-col gap-2 w-full">
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
@@ -378,6 +294,7 @@ function NewListingInformationForm() {
               </p>
             )}
           </div>
+
           {/* beds, full-bath, half-bath, size as sq ft */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
             <div className="flex flex-col gap-2 w-full">
@@ -388,7 +305,7 @@ function NewListingInformationForm() {
                 type="number"
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="0"
-                {...register("beds")}
+                {...register('beds')}
               />
               {errors?.beds && (
                 <p className="text-red-500 text-xs">{errors?.beds?.message}</p>
@@ -402,7 +319,7 @@ function NewListingInformationForm() {
                 type="number"
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="0"
-                {...register("full_baths")}
+                {...register('full_baths')}
               />
               {errors?.full_baths && (
                 <p className="text-red-500 text-xs">
@@ -418,7 +335,7 @@ function NewListingInformationForm() {
                 type="number"
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="0"
-                {...register("half_baths")}
+                {...register('half_baths')}
               />
               {errors?.half_baths && (
                 <p className="text-red-500 text-xs">
@@ -434,7 +351,7 @@ function NewListingInformationForm() {
                 type="number"
                 className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
                 placeholder="0"
-                {...register("size")}
+                {...register('size')}
               />
               {errors?.size && (
                 <p className="text-red-500 text-xs">{errors?.size?.message}</p>
@@ -451,7 +368,7 @@ function NewListingInformationForm() {
               type="link"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="Link"
-              {...register("link")}
+              {...register('link')}
             />
             {errors?.link && (
               <p className="text-red-500 text-xs">{errors?.link?.message}</p>
@@ -468,7 +385,7 @@ function NewListingInformationForm() {
               step="any"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="Type buyer's commission rate here"
-              {...register("buyers_agent_commission")}
+              {...register('buyers_agent_commission')}
             />
             {errors?.buyers_agent_commission && (
               <p className="text-red-500 text-xs">
@@ -477,12 +394,12 @@ function NewListingInformationForm() {
             )}
           </div>
 
-          {/* Agent */}
+          {/* Listing Agent */}
           {userRole === ROLE.ADMIN && (
             <div className="flex items-center sm:gap-6 gap-4">
               <div className="w-full">
                 <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-                  <p className="mb-3">Agent</p>
+                  <p className="mb-3">Listing Agent</p>
                   <Controller
                     name="agent"
                     control={control}
@@ -509,35 +426,6 @@ function NewListingInformationForm() {
             </div>
           )}
 
-          <div className="flex items-center sm:gap-6 gap-4">
-            <div className="w-full">
-              <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-                <p className="mb-3">Listing Agent</p>
-                <Controller
-                  name="listing_agent"
-                  control={control}
-                  render={({ field }) => (
-                    <Select
-                      options={coListingAgentOptions}
-                      value={coListingAgentOptions?.find(
-                        (option) => option?.value == field?.value
-                      )}
-                      onChange={(option) => field.onChange(option?.value)}
-                      isDisabled={isAgentLoading}
-                      isLoading={isAgentLoading}
-                      placeholder="Select Listing Agent"
-                    />
-                  )}
-                />
-              </label>
-              {errors?.agent && (
-                <p className="text-red-500 text-xs mt-1">
-                  {errors?.agent?.message}
-                </p>
-              )}
-            </div>
-          </div>
-
           {/* List Date */}
           <div className="flex flex-col gap-2 w-full">
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
@@ -552,7 +440,7 @@ function NewListingInformationForm() {
                   <CustomDatePicker
                     value={field.value}
                     onChange={(date) => {
-                      field.onChange(format(date, "yyyy-MM-dd"));
+                      field.onChange(format(date, 'yyyy-MM-dd'));
                     }}
                   />
                 )}
@@ -578,7 +466,7 @@ function NewListingInformationForm() {
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full flex items-center justify-between cursor-pointer"
             >
               <span className="text-secondary text-sm leading-[21px] tracking-[-0.14px]">
-                {watch("listing_agreement")?.[0]?.name || "Choose File"}
+                {watch('listing_agreement')?.[0]?.name || 'Choose File'}
               </span>
               <FileSvg />
               <input
@@ -586,7 +474,7 @@ function NewListingInformationForm() {
                 type="file"
                 accept="image/*,application/pdf"
                 className="hidden"
-                {...register("listing_agreement")}
+                {...register('listing_agreement')}
               />
             </label>
             {errors?.listing_agreement?.message && (
@@ -604,7 +492,7 @@ function NewListingInformationForm() {
             <input
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="e.g. 70/30"
-              {...register("commission_split")}
+              {...register('commission_split')}
             />
             {errors?.commission_split && (
               <p className="text-red-500 text-xs">
@@ -622,7 +510,7 @@ function NewListingInformationForm() {
               type="note"
               className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
               placeholder="Type your answer here"
-              {...register("note")}
+              {...register('note')}
             />
             {errors?.note && (
               <p className="text-red-500 text-xs">{errors?.note?.message}</p>
@@ -634,7 +522,7 @@ function NewListingInformationForm() {
               type="submit"
               disabled={isPending}
             >
-              {isPending ? "Submitting" : "Submit"}
+              {isPending ? 'Submitting' : 'Submit'}
             </button>
 
             <button

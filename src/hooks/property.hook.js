@@ -132,7 +132,11 @@ export const useStoreProperty = () => {
 
   const result = useMutation({
     mutationFn: async (data) => {
-      const response = await axiosPrivate.post(`/api/v1/property/store`, data);
+      const response = await axiosPrivate.post(`/api/v1/property/store`, data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       return response.data;
     },
     onSuccess: (data) => {
