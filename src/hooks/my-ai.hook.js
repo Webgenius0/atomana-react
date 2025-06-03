@@ -8,7 +8,7 @@ export const useGetChatHistory = () => {
   const result = useQuery({
     queryKey: ['chat-history-ai'],
     queryFn: async () => {
-      const response = await axiosPrivate.get(`/v1/my-ai/chat`);
+      const response = await axiosPrivate.get(`/api/v1/my-ai/chat`);
       return response.data;
     },
   });
@@ -25,7 +25,7 @@ export const useGetSingleConversation = (id) => {
   const result = useQuery({
     queryKey: ['chat-ai', id],
     queryFn: async () => {
-      const response = await axiosPrivate.get(`/v1/my-ai/chat/${id}`);
+      const response = await axiosPrivate.get(`/api/v1/my-ai/chat/${id}`);
       return response.data;
     },
     enabled: !!id,
@@ -44,7 +44,7 @@ export const useCreateNewChat = () => {
 
   const result = useMutation({
     mutationFn: async (payload) => {
-      const response = await axiosPrivate.post(`/v1/my-ai/chat`, payload);
+      const response = await axiosPrivate.post(`/api/v1/my-ai/chat`, payload);
       return response.data;
     },
 
@@ -80,7 +80,7 @@ export const useSendMessageToConversation = (id) => {
   const result = useMutation({
     mutationFn: async (payload) => {
       const response = await axiosPrivate.post(
-        `/v1/my-ai/chat/${id}`,
+        `/api/v1/my-ai/chat/${id}`,
         payload
       );
       return response.data;
@@ -105,7 +105,7 @@ export const useDeleteChat = () => {
 
   const result = useMutation({
     mutationFn: async (id) => {
-      const response = await axiosPrivate.delete(`/v1/my-ai/chat/${id}`);
+      const response = await axiosPrivate.delete(`/api/v1/my-ai/chat/${id}`);
       return response.data;
     },
 
