@@ -190,7 +190,7 @@ export const useEditProperty = (id) => {
     // resolver: zodResolver(formSchema),
   });
 
-  console.log({ errors: form.formState.errors }, {listingInformation: listingInformation?.agent?.id});
+  console.log({ errors: form.formState.errors }, {listingInformation: listingInformation?.listing_agreement});
 
   useEffect(() => {
     if (listingInformation) {
@@ -200,6 +200,7 @@ export const useEditProperty = (id) => {
         is_co_listing: listingInformation?.co_agent ? '1' : '',
         co_agent: listingInformation?.co_agent?.id,
         agent: listingInformation?.agent?.id,
+        listing_agreement: listingInformation?.listing_agreement,
       });
     }
   }, [listingInformation]);
@@ -208,7 +209,11 @@ export const useEditProperty = (id) => {
     mutationFn: async (data) => {
       const response = await axiosPrivate.put(
         `/api/v1/property/update/${id}`,
-        data
+        data, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          }
+        }
       );
       return response.data;
     },

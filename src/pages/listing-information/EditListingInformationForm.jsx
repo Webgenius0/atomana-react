@@ -1,6 +1,7 @@
 import CustomDatePicker from "@/components/CustomDatePicker";
 import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
 import CalenderSvg from "@/components/svgs/CalenderSvg";
+import FileSvg from "@/components/svgs/FileSvg";
 import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
 import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
 import Select from "@/components/ui/react-select";
@@ -457,6 +458,80 @@ function EditListingInformationForm() {
               </div>
             </div>
           )}
+          {/* List Date */}
+          <div className="flex flex-col gap-2 w-full">
+            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+              List Date?
+            </label>
+
+            <label className="flex items-center px-4 rounded-[10px] border border-[#d8dfeb] bg-dark w-full gap-2.5">
+              <Controller
+                name="list_date"
+                control={control}
+                render={({ field }) => (
+                  <CustomDatePicker
+                    value={field.value}
+                    onChange={(date) => {
+                      field.onChange(format(date, "yyyy-MM-dd"));
+                    }}
+                  />
+                )}
+              />
+              <CalenderSvg />
+            </label>
+
+            {errors?.list_date && (
+              <p className="text-red-500 text-xs">
+                {errors?.list_date?.message}
+              </p>
+            )}
+          </div>
+          {/* Employment Agreement */}
+          <div className="flex flex-col gap-2 w-full">
+            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+              Listing Agreement
+            </label>
+
+            <label
+              htmlFor="listing_agreement"
+              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full flex items-center justify-between cursor-pointer"
+            >
+              <span className="text-secondary text-sm leading-[21px] tracking-[-0.14px]">
+                {watch("listing_agreement")?.[0]?.name ||
+                  watch("listing_agreement") ||
+                  "Choose File"}
+              </span>
+              <FileSvg />
+              <input
+                id="listing_agreement"
+                type="file"
+                accept="image/*,application/pdf"
+                className="hidden"
+                {...register("listing_agreement")}
+              />
+            </label>
+            {errors?.listing_agreement?.message && (
+              <p className="text-red-500 mt-2">
+                {errors?.listing_agreement?.message}
+              </p>
+            )}
+          </div>
+          {/* Commission Split */}
+          <div className="flex flex-col gap-2 w-full">
+            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+              Commission Split
+            </label>
+            <input
+              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+              placeholder="e.g. 70/30"
+              {...register("commission_split")}
+            />
+            {errors?.commission_split && (
+              <p className="text-red-500 text-xs">
+                {errors?.commission_split?.message}
+              </p>
+            )}
+          </div>
           {/* additional information */}
           <div className="flex flex-col gap-2 w-full">
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
