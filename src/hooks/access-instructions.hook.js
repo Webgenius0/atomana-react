@@ -1,16 +1,17 @@
-import errorResponse from '@/lib/errorResponse';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
-import { useAxiosSecure } from './useAxios';
+import errorResponse from "@/lib/errorResponse";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { useAxiosSecure } from "./useAxios";
+import { hisam } from "@/lib/utils/hisam.log";
 
 export const useGetSingleAccessInstruction = (id) => {
   const axiosPrivate = useAxiosSecure();
 
   const result = useQuery({
-    queryKey: ['access-instruction', id],
+    queryKey: ["access-instruction", id],
     queryFn: async () => {
       const response = await axiosPrivate.get(
         `/api/v1/property/access-instruction/${id}`
@@ -33,7 +34,7 @@ export const useGetAccessInstructions = ({ perPage = 10, currentPage = 1 }) => {
   const axiosPrivate = useAxiosSecure();
 
   const result = useQuery({
-    queryKey: ['access-instructions', perPage, currentPage],
+    queryKey: ["access-instructions", perPage, currentPage],
     queryFn: async () => {
       const response = await axiosPrivate.get(
         `/api/v1/property/access-instruction`,
@@ -71,17 +72,17 @@ export const useStoreAccessInstruction = () => {
 
   const form = useForm({
     defaultValues: {
-      property_id: '',
-      property_type_id: '',
-      price: '',
-      size: '',
-      access_key: '',
-      lock_box_location: '',
-      pickup_instructions: '',
-      gate_code: '',
-      gete_access_location: '',
-      visitor_parking: '',
-      note: '',
+      property_id: "",
+      property_type_id: "",
+      price: "",
+      size: "",
+      access_key: "",
+      lock_box_location: "",
+      pickup_instructions: "",
+      gate_code: "",
+      gete_access_location: "",
+      visitor_parking: "",
+      note: "",
     },
   });
 
@@ -95,9 +96,9 @@ export const useStoreAccessInstruction = () => {
     },
     onSuccess: (data) => {
       if (data?.success) {
-        queryClient.invalidateQueries(['access-instructions']);
+        queryClient.invalidateQueries(["access-instructions"]);
         toast.success(data?.message);
-        navigate('/my-systems/team/access-instructions');
+        navigate("/my-systems/team/access-instructions");
       }
     },
     onError: (error) => {
@@ -115,6 +116,77 @@ export const useStoreAccessInstruction = () => {
   });
 
   return { form, ...result };
+};
+
+export const useEditAccessInstruction = (id) => {
+  const { accessInstruction } = useGetSingleAccessInstruction(id);
+  const axiosPrivate = useAxiosSecure();
+  const queryClient = useQueryClient();
+
+  const form = useForm({
+    defaultValues: {
+      property_id: "",
+      property_type_id: "",
+      price: "",
+      size: "",
+      access_key: "",
+      lock_box_location: "",
+      pickup_instructions: "",
+      gate_code: "",
+      gete_access_location: "",
+      visitor_parking: "",
+      note: "",
+    },
+  });
+
+  useEffect(() => {
+    if (accessInstruction) {
+      console.log(accessInstruction);
+      form.reset({
+        ...accessInstruction,
+        property_type_id: accessInstruction?.property_id,
+        property_id: accessInstruction?.property_id,
+      });
+    }
+  }, [accessInstruction]);
+
+  console.log("accessInstruction", accessInstruction);
+
+  const result = useMutation({
+    mutationFn: async (data) => {
+      const response = await axiosPrivate.put(
+        `/api/v1/property/update/${id}`,
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return response.data;
+    },
+    onSuccess: (data) => {
+      if (data?.success) {
+        toast.success("Listing Information Updated Successfully");
+        queryClient.invalidateQueries(["properties"]);
+        form.reset();
+      }
+    },
+    onError: (error) => {
+      const response = errorResponse(error, (fields) => {
+        Object.entries(fields).forEach(([field, messages]) => {
+          form.setError(field, {
+            message: messages?.[0],
+          });
+        });
+      });
+      if (response) {
+        toast.error(response);
+      }
+    },
+  });
+
+  return { ...result, form };
 };
 
 export const useDeleteAccessInstruction = () => {
@@ -136,9 +208,9 @@ export const useDeleteAccessInstruction = () => {
     },
     onSuccess: (data) => {
       if (data?.success) {
-        queryClient.invalidateQueries(['access-instructions']);
+        queryClient.invalidateQueries(["access-instructions"]);
         toast.success(
-          data?.message || 'Access Instruction deleted successfully'
+          data?.message || "Access Instruction deleted successfully"
         );
         setRowSelection({});
       }
