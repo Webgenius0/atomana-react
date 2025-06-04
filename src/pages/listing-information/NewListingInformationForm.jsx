@@ -484,7 +484,7 @@ function NewListingInformationForm() {
             )}
           </div>
 
-          {/* Buyer&apos;s Agent Commission */}
+          {/* Commission Split */}
           <div className="flex flex-col gap-2 w-full">
             <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
               Commission Split
