@@ -37,7 +37,7 @@ export default function EditLicenseNumber() {
 
   // Handle form submission
   const onSubmit = (data) => {
-    editProfile({ data, field: 'license' });
+    editProfile({ data, field: 'license', method: 'patch' });
   };
 
   return (

@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 
 const BusinessInformation = () => {
   const { profile, isLoading } = useGetProfile();
+console.log("profile", profile);
 
   return (
     <div className="my-container">
@@ -30,7 +31,7 @@ const BusinessInformation = () => {
                 <div className="h-5 bg-gray-800 rounded animate-pulse w-32" />
               ) : (
                 <p className="text-sm font-medium leading-5 text-light capitalize">
-                  {profile?.business_name || 'N/A'}
+                  {profile?.businesses[0]?.business_name || 'N/A'}
                 </p>
               )}
             </div>
@@ -47,7 +48,7 @@ const BusinessInformation = () => {
                 <div className="h-5 bg-gray-800 rounded animate-pulse w-32" />
               ) : (
                 <p className="text-sm font-medium leading-5 text-light capitalize">
-                  {profile?.business_name || 'N/A'}
+                  {profile?.businesses[0]?.business_address || 'N/A'}
                 </p>
               )}
             </div>
@@ -64,7 +65,7 @@ const BusinessInformation = () => {
                 <div className="h-5 bg-gray-800 rounded animate-pulse w-32" />
               ) : (
                 <p className="text-sm font-medium leading-5 text-light">
-                  {profile?.business_phone || 'N/A'}
+                  {profile?.businesses[0]?.business_phone || 'N/A'}
                 </p>
               )}
             </div>

@@ -37,7 +37,7 @@ export default function EditBusinessName() {
 
   // Handle form submission
   const onSubmit = (data) => {
-    editProfile({ data, field: 'business-name' });
+    editProfile({ data, field: 'business-name', method: 'patch' });
   };
 
   return (

@@ -37,7 +37,7 @@ export default function EditBusinessAddress() {
 
   // Handle form submission
   const onSubmit = (data) => {
-    editProfile({ data, field: 'business-address' });
+    editProfile({ data, field: 'business-address', method: 'patch' });
   };
 
   return (
