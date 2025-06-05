@@ -150,7 +150,6 @@ export const useEditAccessInstruction = (id) => {
     }
   }, [accessInstruction]);
 
-  console.log("accessInstruction", accessInstruction);
 
   const result = useMutation({
     mutationFn: async (data) => {

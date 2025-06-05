@@ -50,6 +50,7 @@ export default function EditAccessInstruction() {
   const handleBack = () => {
     navigate(-1);
   };
+  console.log("propertyOptions", propertyOptions);
 
   return (
     <>

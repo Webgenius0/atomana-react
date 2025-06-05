@@ -190,8 +190,7 @@ export const useEditProperty = (id) => {
     // resolver: zodResolver(formSchema),
   });
 
-  console.log({ errors: form.formState.errors }, {listingInformation: listingInformation?.listing_agreement});
-
+  // console.log({ errors: form.formState.errors }, {listingInformation: listingInformation?.listing_agreement});
   useEffect(() => {
     if (listingInformation) {
       console.log(listingInformation);
@@ -204,6 +203,9 @@ export const useEditProperty = (id) => {
       });
     }
   }, [listingInformation]);
+
+  console.log("listingInformation?.agent?.id", listingInformation?.agent?.id);
+  
 
   const result = useMutation({
     mutationFn: async (data) => {

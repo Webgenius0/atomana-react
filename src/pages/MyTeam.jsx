@@ -87,6 +87,9 @@ const MyTeam = () => {
   const { leaderboardData, isLoading, handleSorting, handleFiltering } =
     useGetLeaderboardData();
 
+    
+  console.l("Console Test");
+
   return (
     <>
       <div className="my-container">
