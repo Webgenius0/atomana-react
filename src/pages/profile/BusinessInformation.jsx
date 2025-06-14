@@ -37,7 +37,7 @@ console.log("profile", profile);
             </div>
             <EditBusinessName />
           </div>
-
+ 
           {/* Business Address */}
           <div className="border-b border-secondPrimary py-4 flex items-center justify-between pr-5">
             <div className="space-y-[2px]">
