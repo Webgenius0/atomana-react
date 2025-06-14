@@ -185,40 +185,37 @@ export const useEditProperty = (id) => {
       size: '',
       link: '',
       note: '',
+      agent: null,
     },
     // resolver: zodResolver(formSchema),
   });
 
-  console.log({ errors: form.formState.errors });
-
+  // console.log({ errors: form.formState.errors }, {listingInformation: listingInformation?.listing_agreement});
   useEffect(() => {
     if (listingInformation) {
       console.log(listingInformation);
       form.reset({
         ...listingInformation,
-        is_development:
-          listingInformation?.is_development === true
-            ? '1'
-            : listingInformation?.is_development === false
-            ? '0'
-            : '',
-        add_to_website:
-          listingInformation?.add_to_website === true
-            ? '1'
-            : listingInformation?.add_to_website === false
-            ? '0'
-            : '',
         is_co_listing: listingInformation?.co_agent ? '1' : '',
         co_agent: listingInformation?.co_agent?.id,
+        agent: listingInformation?.agent?.id,
+        listing_agreement: listingInformation?.listing_agreement,
       });
     }
   }, [listingInformation]);
+
+  console.log("listingInformation?.agent?.id", listingInformation?.agent?.id);
+  
 
   const result = useMutation({
     mutationFn: async (data) => {
       const response = await axiosPrivate.put(
         `/api/v1/property/update/${id}`,
-        data
+        data, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          }
+        }
       );
       return response.data;
     },

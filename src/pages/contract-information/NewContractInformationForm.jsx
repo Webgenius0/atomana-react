@@ -74,7 +74,7 @@ function NewContractInformationForm() {
     <>
       <div className="flex items-center gap-4 justify-between">
         <Link
-          to={`${location.state?.from || "/my-systems/new-contract"}`}
+          to={`${location.state?.from || "/my-systems/new-contract/contract-information"}`}
           className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5"
         >
           <ArrowLeftSvg />

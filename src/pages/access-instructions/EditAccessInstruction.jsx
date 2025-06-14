@@ -3,7 +3,7 @@ import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
 import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
 import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
 import Select from "@/components/ui/react-select";
-import { useStoreAccessInstruction } from "@/hooks/access-instructions.hook";
+import { useEditAccessInstruction } from "@/hooks/access-instructions.hook";
 import { usePropertyTypeDropdown } from "@/hooks/open-house.hook";
 import { useGetProperties } from "@/hooks/property.hook";
 import { useDebouncedState } from "@/hooks/useDebouncedState";
@@ -17,7 +17,7 @@ export default function EditAccessInstruction() {
     mutate: storeAccessInstruction,
     isPending,
     form,
-  } = useStoreAccessInstruction(id);
+  } = useEditAccessInstruction(id);
 
   const {
     register,
@@ -50,6 +50,7 @@ export default function EditAccessInstruction() {
   const handleBack = () => {
     navigate(-1);
   };
+  console.log("propertyOptions", propertyOptions);
 
   return (
     <>

@@ -72,6 +72,7 @@ import VerifyOTP from '@/pages/VerifyOTP';
 import VideoCourseDetails from '@/pages/VideoCourseDetails';
 import { createBrowserRouter } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
+import EditContractInformationForm from '@/pages/contract-information/EditContractInformationForm';
 
 const router = createBrowserRouter([
   {
@@ -260,10 +261,10 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: 'new-contract/contract-information/edit/:id',
+            path: 'new-contract/contract-information/edit/:uid',
             element: (
-              <PageTitle title="New Contract Information">
-                <ContractInformationList />
+              <PageTitle title="Edit Contract Information">
+                <EditContractInformationForm />
               </PageTitle>
             ),
           },

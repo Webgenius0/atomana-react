@@ -71,11 +71,11 @@ function EditContractInformationForm() {
     <>
       <div className="flex items-center gap-4 justify-between">
         <Link
-          to={`${location.state?.from || "/my-systems/new-contract"}`}
+          to={`${location.state?.from || "/my-systems/new-contract/contract-information"}`}
           className="flex items-center gap-5 duration-300 hover:opacity-60 w-fit my-5"
         >
           <ArrowLeftSvg />
-          <h2 className="section-title">New Contract Information Form</h2>
+          <h2 className="section-title">Edit Contract Information</h2>
         </Link>
 
         <div className="flex items-center gap-2.5">

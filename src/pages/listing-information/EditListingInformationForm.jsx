@@ -1,14 +1,17 @@
 import CustomDatePicker from "@/components/CustomDatePicker";
 import ArrowLeftSvg from "@/components/svgs/ArrowLeftSvg";
 import CalenderSvg from "@/components/svgs/CalenderSvg";
+import FileSvg from "@/components/svgs/FileSvg";
 import PersonPlusSvg from "@/components/svgs/PersonPlusSvg";
 import ThreeDotsSvg from "@/components/svgs/ThreeDotsSvg";
 import Select from "@/components/ui/react-select";
+import { ROLE } from "@/constants";
 import {
   useCoListAgentDropdown,
   useEditProperty,
   useSourceDropdown,
 } from "@/hooks/property.hook";
+import { useAuth } from "@/hooks/useAuth";
 import { format } from "date-fns";
 import { useEffect } from "react";
 import { Controller } from "react-hook-form";
@@ -18,6 +21,10 @@ function EditListingInformationForm() {
   const { id } = useParams();
   const location = useLocation();
   const { mutate: storeProperty, isPending, form } = useEditProperty(id);
+  const { user } = useAuth();
+  const userRole = user?.role;
+  
+  
 
   const {
     register,
@@ -136,46 +143,6 @@ function EditListingInformationForm() {
             {errors?.expiration_date && (
               <p className="text-red-500 text-xs">
                 {errors?.expiration_date?.message}
-              </p>
-            )}
-          </div>
-          <div>
-            <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-              Is this a development?
-            </p>
-            <Controller
-              name="is_development"
-              control={control}
-              render={({ field }) => (
-                <div className="flex space-x-4">
-                  <label className="flex items-center gap-2">
-                    <input
-                      {...field}
-                      type="radio"
-                      value="1"
-                      checked={field.value === "1"}
-                    />
-                    <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-                      Yes
-                    </p>
-                  </label>
-                  <label className="flex items-center gap-2">
-                    <input
-                      {...field}
-                      type="radio"
-                      value="0"
-                      checked={field.value === "0"}
-                    />
-                    <p className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
-                      No
-                    </p>
-                  </label>
-                </div>
-              )}
-            />
-            {errors?.is_development && (
-              <p className="text-red-500 text-xs">
-                {errors?.is_development?.message}
               </p>
             )}
           </div>
@@ -442,6 +409,129 @@ function EditListingInformationForm() {
             />
             {errors?.link && (
               <p className="text-red-500 text-xs">{errors?.link?.message}</p>
+            )}
+          </div>
+          {/* Buyer&apos;s Agent Commission */}
+          <div className="flex flex-col gap-2 w-full">
+            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+              Buyer&apos;s Agent Commission
+            </label>
+            <input
+              type="number"
+              step="any"
+              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+              placeholder="Type buyer's commission rate here"
+              {...register("buyers_agent_commission")}
+            />
+            {errors?.buyers_agent_commission && (
+              <p className="text-red-500 text-xs">
+                {errors?.buyers_agent_commission?.message}
+              </p>
+            )}
+          </div>
+          {/* Listing Agent */}
+          {userRole === ROLE.ADMIN && (
+            <div className="flex items-center sm:gap-6 gap-4">
+              <div className="w-full">
+                <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+                  <p className="mb-3">Listing Agent</p>
+                  <Controller
+                    name="agent"
+                    control={control}
+                    render={({ field }) => (
+                      <Select
+                        options={coListingAgentOptions}
+                        value={coListingAgentOptions?.find(
+                          (option) => option?.value == field?.value
+                        )}
+                        onChange={(option) => field.onChange(option?.value)}
+                        isDisabled={isAgentLoading}
+                        isLoading={isAgentLoading}
+                        placeholder="Select Agent"
+                      />
+                    )}
+                  />
+                </label>
+                {errors?.agent && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors?.agent?.message}
+                  </p>
+                )}
+              </div>
+            </div>
+          )}
+          {/* List Date */}
+          <div className="flex flex-col gap-2 w-full">
+            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+              List Date?
+            </label>
+
+            <label className="flex items-center px-4 rounded-[10px] border border-[#d8dfeb] bg-dark w-full gap-2.5">
+              <Controller
+                name="list_date"
+                control={control}
+                render={({ field }) => (
+                  <CustomDatePicker
+                    value={field.value}
+                    onChange={(date) => {
+                      field.onChange(format(date, "yyyy-MM-dd"));
+                    }}
+                  />
+                )}
+              />
+              <CalenderSvg />
+            </label>
+
+            {errors?.list_date && (
+              <p className="text-red-500 text-xs">
+                {errors?.list_date?.message}
+              </p>
+            )}
+          </div>
+          {/* Employment Agreement */}
+          <div className="flex flex-col gap-2 w-full">
+            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+              Listing Agreement
+            </label>
+
+            <label
+              htmlFor="listing_agreement"
+              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full flex items-center justify-between cursor-pointer"
+            >
+              <span className="text-secondary text-sm leading-[21px] tracking-[-0.14px]">
+                {watch("listing_agreement")?.[0]?.name ||
+                  watch("listing_agreement") ||
+                  "Choose File"}
+              </span>
+              <FileSvg />
+              <input
+                id="listing_agreement"
+                type="file"
+                accept="image/*,application/pdf"
+                className="hidden"
+                {...register("listing_agreement")}
+              />
+            </label>
+            {errors?.listing_agreement?.message && (
+              <p className="text-red-500 mt-2">
+                {errors?.listing_agreement?.message}
+              </p>
+            )}
+          </div>
+          {/* Commission Split */}
+          <div className="flex flex-col gap-2 w-full">
+            <label className="text-sm font-medium leading-[21px] tracking-[-0.14px] text-light">
+              Commission Split
+            </label>
+            <input
+              className="px-4 py-3 rounded-[10px] border border-[#d8dfeb] bg-dark placeholder:text-secondary text-light text-sm leading-[21px] tracking-[-0.14px] w-full"
+              placeholder="e.g. 70/30"
+              {...register("commission_split")}
+            />
+            {errors?.commission_split && (
+              <p className="text-red-500 text-xs">
+                {errors?.commission_split?.message}
+              </p>
             )}
           </div>
           {/* additional information */}
